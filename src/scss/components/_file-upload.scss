@@ -1,0 +1,40 @@
+@use "../variables" as *;
+// Retro File Upload
+.retro-file-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+  background: var(--retro-input-bg);
+  border: 2px dashed var(--retro-border-dark);
+  border-radius: 4px;
+  padding: 16px;
+  box-shadow: 1px 1px 0 var(--retro-border-light);
+  min-width: 260px;
+}
+.retro-file-label {
+  cursor: pointer;
+  margin-bottom: 0;
+}
+.retro-file-filename {
+  font-size: 14px;
+  color: var(--retro-input-text);
+  margin-left: 8px;
+}
+.retro-file-drop {
+  width: 100%;
+  padding: 16px;
+  text-align: center;
+  background: var(--retro-input-bg);
+  border: 1px solid var(--retro-border-medium);
+  border-radius: 4px;
+  color: var(--retro-border-dark);
+  font-size: 15px;
+  margin-top: 8px;
+  transition: background 0.2s, border 0.2s;
+}
+.retro-file-drop.dragover {
+  background: $retro-primary;
+  color: $retro-white;
+  border-color: $retro-primary;
+} 

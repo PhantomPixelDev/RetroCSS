@@ -1,0 +1,155 @@
+@use "../variables" as *;
+
+/**
+ * RetroCSS Tooltip Component
+ * Tooltips for displaying helpful information on hover
+ */
+
+/* Base styling for tooltip triggers */
+[data-retro-tooltip] {
+  position: relative;
+  cursor: help;
+}
+
+/* Tooltip container */
+.retro-tooltip {
+  position: absolute;
+  padding: 6px 10px;
+  background: var(--retro-black);
+  color: var(--retro-white);
+  font-size: 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1050;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  max-width: 200px;
+  line-height: 1.4;
+
+  /* Arrow */
+  &::after {
+    content: '';
+    position: absolute;
+    border: 5px solid transparent;
+  }
+
+  /* Active state */
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Positions */
+  &.retro-tooltip-top {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+
+    &::after {
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-top-color: var(--retro-black);
+    }
+  }
+
+  &.retro-tooltip-bottom {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 8px;
+
+    &::after {
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-bottom-color: var(--retro-black);
+    }
+  }
+
+  &.retro-tooltip-left {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 8px;
+
+    &::after {
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      border-left-color: var(--retro-black);
+    }
+  }
+
+  &.retro-tooltip-right {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 8px;
+
+    &::after {
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      border-right-color: var(--retro-black);
+    }
+  }
+
+  /* Variants */
+  &.retro-tooltip-light {
+    background: var(--retro-bg);
+    color: var(--retro-black);
+    border: 1px solid var(--retro-border-dark);
+    box-shadow: 2px 2px 0 var(--retro-border-dark);
+
+    &.retro-tooltip-top::after { border-top-color: var(--retro-bg); }
+    &.retro-tooltip-bottom::after { border-bottom-color: var(--retro-bg); }
+    &.retro-tooltip-left::after { border-left-color: var(--retro-bg); }
+    &.retro-tooltip-right::after { border-right-color: var(--retro-bg); }
+  }
+
+  &.retro-tooltip-primary {
+    background: var(--retro-primary);
+    color: var(--retro-white);
+
+    &.retro-tooltip-top::after { border-top-color: var(--retro-primary); }
+    &.retro-tooltip-bottom::after { border-bottom-color: var(--retro-primary); }
+    &.retro-tooltip-left::after { border-left-color: var(--retro-primary); }
+    &.retro-tooltip-right::after { border-right-color: var(--retro-primary); }
+  }
+
+  &.retro-tooltip-success {
+    background: var(--retro-success);
+    color: var(--retro-white);
+
+    &.retro-tooltip-top::after { border-top-color: var(--retro-success); }
+    &.retro-tooltip-bottom::after { border-bottom-color: var(--retro-success); }
+    &.retro-tooltip-left::after { border-left-color: var(--retro-success); }
+    &.retro-tooltip-right::after { border-right-color: var(--retro-success); }
+  }
+
+  &.retro-tooltip-warning {
+    background: var(--retro-warning);
+    color: var(--retro-black);
+
+    &.retro-tooltip-top::after { border-top-color: var(--retro-warning); }
+    &.retro-tooltip-bottom::after { border-bottom-color: var(--retro-warning); }
+    &.retro-tooltip-left::after { border-left-color: var(--retro-warning); }
+    &.retro-tooltip-right::after { border-right-color: var(--retro-warning); }
+  }
+
+  &.retro-tooltip-danger {
+    background: var(--retro-danger);
+    color: var(--retro-white);
+
+    &.retro-tooltip-top::after { border-top-color: var(--retro-danger); }
+    &.retro-tooltip-bottom::after { border-bottom-color: var(--retro-danger); }
+    &.retro-tooltip-left::after { border-left-color: var(--retro-danger); }
+    &.retro-tooltip-right::after { border-right-color: var(--retro-danger); }
+  }
+} 

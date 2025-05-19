@@ -1,0 +1,39 @@
+@use "sass:color";
+@use "../variables" as *;
+// Retro Rating Stars
+.retro-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.retro-rating-star {
+  font-size: 28px;
+  color: $retro-border-dark;
+  cursor: pointer;
+  transition: color 0.2s, text-shadow 0.2s, border 0.2s;
+  text-shadow: 1px 1px 0 $retro-border-light;
+  user-select: none;
+  border: 2px solid $retro-border-dark;
+  border-radius: 6px;
+  background: $retro-white;
+  padding: 2px 2px 0 2px;
+  margin-right: 2px;
+  box-sizing: border-box;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.retro-rating-star.selected,
+.retro-rating-star.active {
+  color: $retro-warning;
+  background: color.scale($retro-warning, $lightness: 80%);
+  border-color: $retro-warning;
+  text-shadow: 0 2px 8px $retro-border-light;
+}
+.retro-rating-star:hover,
+.retro-rating-star:hover ~ .retro-rating-star {
+  color: $retro-warning;
+  background: color.scale($retro-warning, $lightness: 80%);
+  border-color: $retro-warning;
+} 

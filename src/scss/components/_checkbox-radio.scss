@@ -1,0 +1,230 @@
+/* Retro Checkbox and Radio Styles */
+@use "../variables" as *;
+@use "../mixins" as *;
+
+/**
+ * @name Retro Checkbox & Radio
+ * @group components
+ * @description
+ * Win95/98 style checkboxes and radio buttons.
+ */
+
+/* Common styles for checkbox and radio */
+.retro-checkbox,
+.retro-radio {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  margin: 0 8px 0 0;
+  vertical-align: middle;
+  position: relative;
+  cursor: pointer;
+  background: var(--retro-input-bg);
+  border: 2px solid var(--retro-border-dark);
+  box-shadow: 
+    inset -1px -1px 0 var(--retro-border-light),
+    inset 1px 1px 0 var(--retro-border-medium);
+  outline: none;
+  display: inline-block;
+  transition: all 0.1s;
+  color: var(--retro-input-text);
+
+  &:hover {
+    border-color: var(--retro-primary);
+  }
+
+  &:focus {
+    outline: 1px dotted var(--retro-black);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    background: #c0c0c0;
+    border-color: var(--retro-border-medium);
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+}
+
+/* Checkbox specific styles */
+.retro-checkbox {
+  border-radius: 0;
+  
+  &:checked {
+    background: var(--retro-white);
+    
+    &:after {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 1px;
+      width: 5px;
+      height: 9px;
+      border: solid var(--retro-primary);
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      display: block;
+    }
+  }
+
+  /* Color variants */
+  &.retro-checkbox-primary:checked:after {
+    border-color: var(--retro-primary);
+  }
+  
+  &.retro-checkbox-success:checked:after {
+    border-color: var(--retro-success);
+  }
+  
+  &.retro-checkbox-danger:checked:after {
+    border-color: var(--retro-danger);
+  }
+  
+  &.retro-checkbox-warning:checked:after {
+    border-color: var(--retro-warning);
+  }
+  
+  &.retro-checkbox-info:checked:after {
+    border-color: var(--retro-info);
+  }
+}
+
+/* Radio button specific styles */
+.retro-radio {
+  border-radius: 50%;
+  
+  &:checked {
+    background: var(--retro-white);
+    
+    &:after {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 4px;
+      width: 6px;
+      height: 6px;
+      background: var(--retro-primary);
+      border-radius: 50%;
+      display: block;
+    }
+  }
+
+  /* Color variants */
+  &.retro-radio-primary:checked:after {
+    background: var(--retro-primary);
+  }
+  
+  &.retro-radio-success:checked:after {
+    background: var(--retro-success);
+  }
+  
+  &.retro-radio-danger:checked:after {
+    background: var(--retro-danger);
+  }
+  
+  &.retro-radio-warning:checked:after {
+    background: var(--retro-warning);
+  }
+  
+  &.retro-radio-info:checked:after {
+    background: var(--retro-info);
+  }
+}
+
+/* Switch style */
+.retro-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  margin: 0 8px 0 0;
+  vertical-align: middle;
+  
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+  
+  .retro-switch-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #c0c0c0;
+    border: 2px solid var(--retro-border-dark);
+    box-shadow: 
+      inset -1px -1px 0 var(--retro-border-light),
+      inset 1px 1px 0 var(--retro-border-medium);
+    transition: .1s;
+    
+    &:before {
+      position: absolute;
+      content: "";
+      height: 12px;
+      width: 12px;
+      left: 2px;
+      bottom: 2px;
+      background: var(--retro-white);
+      border: 1px solid var(--retro-border-dark);
+      box-shadow: 1px 1px 0 var(--retro-border-medium);
+      transition: .1s;
+    }
+  }
+  
+  input:checked + .retro-switch-slider {
+    background: var(--retro-primary);
+    &:before {
+      transform: translateX(16px);
+    }
+  }
+  
+  input:focus + .retro-switch-slider {
+    outline: 1px dotted var(--retro-black);
+  }
+  
+  input:disabled + .retro-switch-slider {
+    background: #c0c0c0;
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+/* Checkbox/Radio group */
+.retro-checkbox-group,
+.retro-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  
+  &.retro-group-inline {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  label {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 0;
+  }
+}
+
+/* States */
+.retro-checkbox.is-invalid,
+.retro-radio.is-invalid,
+.retro-switch input.is-invalid + .retro-switch-slider {
+  border-color: var(--retro-danger);
+}
+
+.retro-checkbox.is-valid,
+.retro-radio.is-valid,
+.retro-switch input.is-valid + .retro-switch-slider {
+  border-color: var(--retro-success);
+} 

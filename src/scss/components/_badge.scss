@@ -1,0 +1,297 @@
+// Badge component styles
+.retro-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  min-height: 18px;
+  padding: 2px 10px;
+  font-size: 13px;
+  font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: var(--retro-badge-text);
+  background: var(--retro-badge-bg);
+  border: 1px solid #000;
+  border-radius: 0;
+  box-shadow: 
+    0 0 0 2px rgba(255, 255, 255, 0.1),
+    inset 0 0 6px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 1px 1px #000, 0 0 3px rgba(255, 255, 255, 0.2);
+  margin: 0.2em 0.4em 0.2em 0;
+  transition: all 0.15s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(
+      to bottom, 
+      rgba(255, 255, 255, 0.15), 
+      rgba(255, 255, 255, 0)
+    );
+    pointer-events: none;
+  }
+
+  &:hover, &:focus {
+    transform: translateY(-1px) scale(1.05);
+    box-shadow: 
+      0 0 0 2px rgba(255, 255, 255, 0.2),
+      inset 0 0 10px rgba(0, 0, 0, 0.8),
+      0 0 5px rgba(255, 255, 255, 0.1);
+    filter: brightness(1.1);
+  }
+
+  &:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 
+      0 0 0 2px rgba(255, 255, 255, 0.1),
+      inset 0 0 8px rgba(0, 0, 0, 0.9);
+    filter: brightness(0.9);
+  }
+}
+
+// Color Variants
+.retro-badge-primary {
+  background: #0040aa;
+  color: #fff;
+  border: 2px solid #001144;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #001144, 1px 1px 0 #003399;
+  text-shadow: 0 1px 1px #000, 0 0 3px rgba(255,255,255,0.2);
+  &:hover, &:focus {
+    background: #145ea8;
+    box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #001144, 2px 2px 0 #003399;
+    filter: brightness(1.08);
+  }
+  &:active {
+    background: #002266;
+    box-shadow: inset 1px 1px 0 #001144, inset -1px -1px 0 #fff;
+    filter: brightness(0.95);
+  }
+}
+
+.retro-badge-success {
+  background: #008800;
+  color: #fff;
+  border: 2px solid #004400;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #004400, 1px 1px 0 #006600;
+  text-shadow: 0 1px 1px #000, 0 0 3px rgba(255,255,255,0.2);
+  &:hover, &:focus {
+    background: #009900;
+    box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #004400, 2px 2px 0 #006600;
+    filter: brightness(1.08);
+  }
+  &:active {
+    background: #004d00;
+    box-shadow: inset 1px 1px 0 #004400, inset -1px -1px 0 #fff;
+    filter: brightness(0.95);
+  }
+}
+
+.retro-badge-danger {
+  background: #cc0000;
+  color: #fff;
+  border: 2px solid #660000;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #660000, 1px 1px 0 #aa0000;
+  text-shadow: 0 1px 1px #000, 0 0 3px rgba(255,255,255,0.2);
+  &:hover, &:focus {
+    background: #e53935;
+    box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #660000, 2px 2px 0 #aa0000;
+    filter: brightness(1.08);
+  }
+  &:active {
+    background: #7a0000;
+    box-shadow: inset 1px 1px 0 #660000, inset -1px -1px 0 #fff;
+    filter: brightness(0.95);
+  }
+}
+
+.retro-badge-warning {
+  background: #eead00;
+  color: #222;
+  border: 2px solid #b38600;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #b38600, 1px 1px 0 #dd6600;
+  text-shadow: 0 1px 1px #fff, 0 0 3px rgba(0,0,0,0.08);
+  &:hover, &:focus {
+    background: #ffc107;
+    box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #b38600, 2px 2px 0 #dd6600;
+    filter: brightness(1.08);
+  }
+  &:active {
+    background: #b38600;
+    box-shadow: inset 1px 1px 0 #b38600, inset -1px -1px 0 #fff;
+    filter: brightness(0.95);
+  }
+}
+
+.retro-badge-info {
+  background: #0099b3;
+  color: #fff;
+  border: 2px solid #006688;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #006688, 1px 1px 0 #00aacc;
+  text-shadow: 0 1px 1px #000, 0 0 3px rgba(255,255,255,0.2);
+  &:hover, &:focus {
+    background: #00bcd4;
+    box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #006688, 2px 2px 0 #00aacc;
+    filter: brightness(1.08);
+  }
+  &:active {
+    background: #006688;
+    box-shadow: inset 1px 1px 0 #006688, inset -1px -1px 0 #fff;
+    filter: brightness(0.95);
+  }
+}
+
+.retro-badge-secondary {
+  background: #777;
+  color: #fff;
+  border: 2px solid #444;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #444, 1px 1px 0 #666;
+  text-shadow: 0 1px 1px #000, 0 0 3px rgba(255,255,255,0.2);
+  &:hover, &:focus {
+    background: #888;
+    box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #444, 2px 2px 0 #666;
+    filter: brightness(1.08);
+  }
+  &:active {
+    background: #444;
+    box-shadow: inset 1px 1px 0 #444, inset -1px -1px 0 #fff;
+    filter: brightness(0.95);
+  }
+}
+
+// Badge sizes
+.retro-badge.retro-badge-xs {
+  font-size: 8px !important;
+  min-width: 16px !important;
+  min-height: 12px !important;
+  padding: 1px 4px !important;
+  border-width: 1px !important;
+}
+
+.retro-badge.retro-badge-sm {
+  font-size: 10px !important;
+  min-width: 20px !important;
+  min-height: 14px !important;
+  padding: 1px 6px !important;
+  border-width: 1px !important;
+}
+
+.retro-badge.retro-badge-md {
+  font-size: 12px !important;
+  min-width: 26px !important;
+  min-height: 18px !important;
+  padding: 2px 10px !important;
+  border-width: 1px !important;
+}
+
+.retro-badge.retro-badge-lg {
+  font-size: 14px !important;
+  min-width: 36px !important;
+  min-height: 22px !important;
+  padding: 3px 14px !important;
+  border-width: 1px !important;
+}
+
+.retro-badge.retro-badge-xl {
+  font-size: 16px !important;
+  min-width: 46px !important;
+  min-height: 28px !important;
+  padding: 4px 18px !important;
+  border-width: 2px !important;
+}
+
+.retro-badge.retro-badge-xxl {
+  font-size: 20px !important;
+  min-width: 60px !important;
+  min-height: 36px !important;
+  padding: 6px 24px !important;
+  border-width: 2px !important;
+}
+
+// Special theme variants
+.retro-badge-neon {
+  background: #000;
+  box-shadow: 
+    0 0 0 1px #fff,
+    0 0 0 2px #000,
+    0 0 5px 2px rgba(255, 255, 255, 0.6),
+    0 0 15px rgba(255, 255, 255, 0.5),
+    0 0 25px rgba(255, 255, 255, 0.3),
+    inset 0 0 10px rgba(255, 255, 255, 0.2);
+  text-shadow: 
+    0 0 3px #fff,
+    0 0 7px #fff;
+  border: none;
+  
+  &.retro-badge-primary {
+    color: #00ffff;
+    text-shadow: 
+      0 0 1px #fff,
+      0 0 3px #00ffff, 
+      0 0 7px #00ffff;
+    box-shadow: 
+      0 0 0 1px #00ffff,
+      0 0 0 2px #000,
+      0 0 5px 2px rgba(0, 255, 255, 0.6),
+      0 0 15px rgba(0, 255, 255, 0.5),
+      0 0 25px rgba(0, 255, 255, 0.3),
+      inset 0 0 10px rgba(0, 255, 255, 0.2);
+  }
+  
+  &.retro-badge-success {
+    color: #00ff00;
+    text-shadow: 
+      0 0 1px #fff,
+      0 0 3px #00ff00, 
+      0 0 7px #00ff00;
+    box-shadow: 
+      0 0 0 1px #00ff00,
+      0 0 0 2px #000,
+      0 0 5px 2px rgba(0, 255, 0, 0.6),
+      0 0 15px rgba(0, 255, 0, 0.5),
+      0 0 25px rgba(0, 255, 0, 0.3),
+      inset 0 0 10px rgba(0, 255, 0, 0.2);
+  }
+  
+  &.retro-badge-danger {
+    color: #ff0000;
+    text-shadow: 
+      0 0 1px #fff,
+      0 0 3px #ff0000, 
+      0 0 7px #ff0000;
+    box-shadow: 
+      0 0 0 1px #ff0000,
+      0 0 0 2px #000,
+      0 0 5px 2px rgba(255, 0, 0, 0.6),
+      0 0 15px rgba(255, 0, 0, 0.5),
+      0 0 25px rgba(255, 0, 0, 0.3),
+      inset 0 0 10px rgba(255, 0, 0, 0.2);
+  }
+}
+
+.retro-badge-pixel {
+  font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
+  font-weight: 600;
+  image-rendering: pixelated;
+  border: 2px solid #000;
+  border-radius: 0;
+  box-shadow: 4px 4px 0 #000;
+  transform-origin: center;
+  
+  &:hover, &:focus {
+    transform: translateY(-2px) translateX(-2px);
+    box-shadow: 6px 6px 0 #000;
+  }
+  
+  &:active {
+    transform: translateY(0) translateX(0);
+    box-shadow: 0 0 0 #000;
+  }
+} 

@@ -1,0 +1,123 @@
+@use "../variables" as *;
+
+/* RetroCSS Grid System
+ * A modern, flexible grid system using CSS Grid
+ */
+
+// Grid Container
+.retro-grid {
+  display: grid;
+  gap: var(--retro-grid-gap, 1rem);
+  width: 100%;
+}
+
+// Grid Columns
+@for $i from 1 through 12 {
+  .retro-grid-cols-#{$i} {
+    grid-template-columns: repeat($i, minmax(0, 1fr));
+  }
+}
+
+// Grid Rows
+@for $i from 1 through 12 {
+  .retro-grid-rows-#{$i} {
+    grid-template-rows: repeat($i, minmax(0, 1fr));
+  }
+}
+
+// Auto Grid
+.retro-grid-auto-cols {
+  grid-auto-columns: auto;
+}
+
+.retro-grid-auto-rows {
+  grid-auto-rows: auto;
+}
+
+// Grid Flow
+.retro-grid-flow-row {
+  grid-auto-flow: row;
+}
+
+.retro-grid-flow-col {
+  grid-auto-flow: column;
+}
+
+.retro-grid-flow-dense {
+  grid-auto-flow: dense;
+}
+
+// Grid Areas
+.retro-grid-areas {
+  grid-template-areas: var(--retro-grid-areas);
+}
+
+// Grid Item Placement
+.retro-col-span {
+  grid-column: var(--retro-col-span);
+}
+
+.retro-row-span {
+  grid-row: var(--retro-row-span);
+}
+
+// Responsive Grid
+@each $breakpoint, $value in $retro-breakpoints {
+  @media (min-width: $value) {
+    @for $i from 1 through 12 {
+      .#{$breakpoint}\:retro-grid-cols-#{$i} {
+        grid-template-columns: repeat($i, minmax(0, 1fr));
+      }
+    }
+  }
+}
+
+// Grid Gap Utilities
+.retro-gap-0 { gap: 0; }
+.retro-gap-1 { gap: 0.25rem; }
+.retro-gap-2 { gap: 0.5rem; }
+.retro-gap-3 { gap: 1rem; }
+.retro-gap-4 { gap: 1.5rem; }
+.retro-gap-5 { gap: 2rem; }
+
+// Grid Column Gap
+.retro-col-gap-0 { column-gap: 0; }
+.retro-col-gap-1 { column-gap: 0.25rem; }
+.retro-col-gap-2 { column-gap: 0.5rem; }
+.retro-col-gap-3 { column-gap: 1rem; }
+.retro-col-gap-4 { column-gap: 1.5rem; }
+.retro-col-gap-5 { column-gap: 2rem; }
+
+// Grid Row Gap
+.retro-row-gap-0 { row-gap: 0; }
+.retro-row-gap-1 { row-gap: 0.25rem; }
+.retro-row-gap-2 { row-gap: 0.5rem; }
+.retro-row-gap-3 { row-gap: 1rem; }
+.retro-row-gap-4 { row-gap: 1.5rem; }
+.retro-row-gap-5 { row-gap: 2rem; }
+
+// Grid Alignment
+.retro-justify-start { justify-items: start; }
+.retro-justify-end { justify-items: end; }
+.retro-justify-center { justify-items: center; }
+.retro-justify-stretch { justify-items: stretch; }
+
+.retro-align-start { align-items: start; }
+.retro-align-end { align-items: end; }
+.retro-align-center { align-items: center; }
+.retro-align-stretch { align-items: stretch; }
+
+// Grid Content Distribution
+.retro-justify-content-start { justify-content: start; }
+.retro-justify-content-end { justify-content: end; }
+.retro-justify-content-center { justify-content: center; }
+.retro-justify-content-between { justify-content: space-between; }
+.retro-justify-content-around { justify-content: space-around; }
+.retro-justify-content-evenly { justify-content: space-evenly; }
+
+.retro-align-content-start { align-content: start; }
+.retro-align-content-end { align-content: end; }
+.retro-align-content-center { align-content: center; }
+.retro-align-content-between { align-content: space-between; }
+.retro-align-content-around { align-content: space-around; }
+.retro-align-content-evenly { align-content: space-evenly; } 

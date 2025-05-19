@@ -1,0 +1,43 @@
+@use "../variables" as *;
+// Retro Breadcrumbs
+.retro-breadcrumbs {
+  display: flex;
+  align-items: center;
+  font-family: $retro-font;
+  font-size: 15px;
+  background: var(--retro-card-bg);
+  padding: 6px 12px;
+  border-radius: 2px;
+  border: 1px solid var(--retro-border-dark);
+  box-shadow: 1px 1px 0 var(--retro-border-light);
+  gap: 4px;
+}
+.retro-breadcrumb {
+  color: var(--retro-primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 10px;
+  border-radius: 2px;
+  transition: background 0.2s;
+  &.active {
+    color: var(--retro-card-content-text);
+    font-weight: bold;
+    background: var(--retro-card-content-bg);
+  }
+  &:hover:not(.active) {
+    background: var(--retro-border-light);
+    color: var(--retro-card-content-text);
+  }
+}
+.retro-breadcrumb-icon {
+  font-size: 16px;
+  margin-right: 2px;
+}
+.retro-breadcrumb-sep {
+  color: $retro-border-dark;
+  margin: 0 2px;
+  font-weight: bold;
+}
+// Remove duplicated badge styles as they're defined in _badge.scss 

@@ -1,0 +1,61 @@
+@use "../variables" as *;
+
+// Win9x Style Progress Bar
+
+.retro-progress {
+  width: 100%;
+  background: var(--retro-progress-bg);
+  border: 2px solid var(--retro-border-dark);
+  border-right: 2px solid var(--retro-border-light);
+  border-bottom: 2px solid var(--retro-border-light);
+  border-left: 2px solid var(--retro-border-medium);
+  border-top: 2px solid var(--retro-border-medium);
+  border-radius: 0;
+  height: 22px;
+  position: relative;
+  margin: 1em 0;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+// Determinate bar: solid blue
+.retro-progress-bar {
+  background: var(--retro-progress-bar-bg);
+  height: 100%;
+  width: 0%;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-right: 2px solid var(--retro-border-light);
+  border-radius: 0;
+  box-shadow: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.retro-progress-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 13px;
+  color: var(--retro-white);
+  font-family: $retro-font;
+  pointer-events: none;
+  user-select: none;
+  text-shadow: 1px 1px 2px var(--retro-border-medium), 0 0 2px var(--retro-border-dark);
+}
+
+// Striped/animated variant: blocky blue segments
+.retro-progress-bar-striped {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--retro-primary) 0 12px,
+    var(--retro-bg) 12px 18px
+  );
+  animation: retro-progress-blocks 0.8s linear infinite;
+}
+
+@keyframes retro-progress-blocks {
+  0% { background-position: 0 0; }
+  100% { background-position: 18px 0; }
+} 

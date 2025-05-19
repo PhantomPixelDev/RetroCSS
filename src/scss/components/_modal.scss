@@ -1,0 +1,201 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+/**
+ * @name Retro Modal
+ * @group components
+ * @description
+ * Modal component for displaying content in a dialog box.
+ * @example scss
+ *   <div class="retro-modal">
+ *     <div class="retro-modal-content">
+ *       <div class="retro-modal-header">
+ *         <h3>Modal Title</h3>
+ *         <button class="retro-modal-close">×</button>
+ *       </div>
+ *       <div class="retro-modal-body">
+ *         Modal content goes here
+ *       </div>
+ *     </div>
+ *   </div>
+ */
+
+.retro-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1050;
+  display: none;
+  overflow: auto;
+  outline: 0;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 1rem;
+  box-sizing: border-box;
+  text-align: center;
+
+  // Position content vertically
+  &::before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25rem; /* Adjusts for inline-block spacing */
+  }
+
+  &.show {
+    display: block;
+  }
+
+  &-content {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    margin: 1.75rem auto;
+    background: var(--retro-bg);
+    border: 2px solid var(--retro-border-dark);
+    box-shadow: 4px 4px 8px rgba(0,0,0,0.5), inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
+    border-radius: 4px !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: none;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $retro-spacing-sm $retro-spacing-lg;
+    background: var(--retro-primary);
+    color: #fff;
+    border-top: 2px solid var(--retro-border-light);
+    border-bottom: 2px solid var(--retro-border-dark);
+    border-left: 8px solid var(--retro-primary);
+    border-radius: 4px 4px 0 0 !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    line-height: 1.5;
+    user-select: none;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 0 #000, 0 1px 0 #000;
+  }
+
+  &-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: var(--retro-spacing-sm);
+    background: #e0e0e0;
+    border: 2px outset #fff;
+    box-shadow: none;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    font-size: 1.2rem;
+    line-height: 1;
+    color: #000;
+    text-shadow: none;
+    cursor: pointer;
+    border-radius: 2px;
+    font-family: inherit;
+    transition: background 0.1s, border 0.1s;
+    &:hover {
+      background: #c0c0c0;
+      border: 2px inset #fff;
+    }
+    &:active {
+      background: #a0a0a0;
+      border: 2px inset #000;
+    }
+  }
+
+  &-body {
+    position: relative;
+    flex: 1 1 auto;
+    padding: var(--retro-spacing-md);
+    background: var(--retro-bg);
+    border-top: var(--retro-border-width) var(--retro-border-style) var(--retro-border-dark);
+    overflow: auto;
+    max-height: calc(80vh - 120px); /* Prevent overly tall modals */
+  }
+
+  &-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    padding: var(--retro-spacing-sm);
+    background: var(--retro-bg);
+    border-top: var(--retro-border-width) var(--retro-border-style) var(--retro-border-dark);
+    border-radius: 0 0 var(--retro-border-radius-sm) var(--retro-border-radius-sm);
+
+    > * {
+      margin: var(--retro-spacing-xs);
+    }
+  }
+
+  // Modal sizes
+  &-sm {
+    max-width: 300px;
+  }
+
+  &-lg {
+    max-width: 800px;
+  }
+
+  &-xl {
+    max-width: 1140px;
+  }
+
+  // Modal with backdrop
+  &-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+  }
+
+  // Modal with scroll
+  &-scroll {
+    overflow-y: auto;
+  }
+
+  // Modal with animation
+  &-fade {
+    transition: opacity 0.15s linear;
+
+    &:not(.show) {
+      opacity: 0;
+    }
+  }
+
+  &-slide {
+    transition: transform 0.3s ease-out;
+
+    &:not(.show) {
+      transform: translateY(-50px);
+    }
+  }
+}
+
+.retro-modal-header h1,
+.retro-modal-header h2,
+.retro-modal-header h3,
+.retro-modal-header h4,
+.retro-modal-header h5,
+.retro-modal-header h6 {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+  font-family: inherit;
+  text-shadow: 1px 1px 0 #000, 0 1px 0 #000;
+} 

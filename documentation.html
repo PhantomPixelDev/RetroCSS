@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RetroCSS Documentation</title>
+  <link rel="stylesheet" href="dist/retro.min.css">
+  <style>
+    .doc-section {
+      padding: var(--retro-spacing-md);
+      box-sizing: border-box;
+      box-shadow: var(--retro-box-shadow-subtle);
+      border-radius: var(--retro-border-radius);
+      margin-bottom: var(--retro-spacing-lg);
+    }
+    .doc-section h2 {
+      margin-top: 0;
+      margin-bottom: var(--retro-spacing-md);
+      box-shadow: var(--retro-box-shadow-medium);
+    }
+    .retro-main-layout {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      min-height: 100vh;
+      max-width: var(--retro-container-xxl);
+      margin: 0 auto;
+    }
+    @media (min-width: 768px) {
+      .retro-main-layout {
+        flex-direction: row;
+        gap: 0;
+      }
+    }
+    .retro-main-layout .main-content {
+      flex: 1;
+      width: 100%;
+      overflow-x: hidden;
+      padding: var(--retro-spacing-md);
+      box-sizing: border-box;
+    }
+    .main-content {
+      margin-left: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    @media (min-width: 768px) {
+      .main-content {
+        margin-left: 0;
+        padding-left: var(--retro-spacing-md);
+      }
+    }
+    @media (max-width: 768px) {
+      .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
+      }
+      .retro-container, .doc-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
+        margin-left: 0 !important;
+        padding: 0 var(--retro-spacing-md) !important;
+      }
+    }
+    .retro-sidebar {
+      min-width: 220px;
+      max-width: 260px;
+      background: var(--retro-sidebar-bg);
+      border-right: 2px solid var(--retro-border-dark);
+      padding: var(--retro-spacing-md) 0;
+      height: 100%;
+    }
+    .retro-sidebar-header {
+      font-weight: bold;
+      font-size: 1.1em;
+      margin-bottom: var(--retro-spacing-md);
+      padding-left: var(--retro-spacing-md);
+    }
+    .retro-sidebar-section {
+      padding-left: var(--retro-spacing-md);
+      padding-right: var(--retro-spacing-md);
+    }
+    .retro-sidebar .retro-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .retro-sidebar .retro-list li {
+      margin-bottom: 0.5em;
+    }
+    .retro-sidebar .retro-list a {
+      color: var(--retro-primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .retro-sidebar .retro-list a:hover {
+      color: var(--retro-danger);
+      text-decoration: underline;
+    }
+    .retro-card pre, .retro-card code, .doc-section pre, .doc-section code {
+      background: var(--retro-list-bg);
+      color: var(--retro-list-text);
+      border-radius: 4px;
+      padding: 0.5em 1em;
+      font-size: 1em;
+      font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+      overflow-x: auto;
+      display: block;
+    }
+    .retro-card code, .doc-section code {
+      padding: 0.1em 0.3em;
+      background: var(--retro-bg);
+      border-radius: 3px;
+      font-size: 0.95em;
+    }
+    .retro-theme-toggle {
+      float: right;
+    }
+  </style>
+</head>
+<body class="retro-body-bg">
+  <div class="retro-container">
+    <nav class="retro-nav">
+      <a href="index.html" class="retro-nav-item" data-retro-tooltip="Home page">Home</a>
+      <a href="documentation.html" class="retro-nav-item active" data-retro-tooltip="Documentation">Documentation</a>
+      <a href="https://github.com/phantompixeldev/retrocss" class="retro-nav-item" data-retro-tooltip="GitHub">GitHub</a>
+      <button class="retro-nav-item retro-theme-toggle" data-retro-tooltip="Toggle dark/light mode">🌓 Toggle Theme</button>
+    </nav>
+  </div>
+  <hr class="retro-mt-5" style="border-color: var(--retro-border-medium);">
+  <div class="retro-main-layout retro-gap-4">
+    <div class="retro-sidebar">
+      <div class="retro-sidebar-header">Docs Sections</div>
+      <nav aria-label="Documentation navigation">
+        <div class="retro-sidebar-section">
+          <ul class="retro-list">
+            <li><a href="#getting-started">Getting Started</a></li>
+            <li><a href="#installation">Installation</a></li>
+            <li><a href="#usage">Usage</a></li>
+            <li><a href="#components">Components</a></li>
+            <li><a href="#javascript-api">JavaScript API</a></li>
+            <li><a href="#theming">Theming & Dark Mode</a></li>
+            <li><a href="#customization">Customization</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="main-content">
+      <div class="retro-card retro-mb-4">
+        <div class="retro-card-header">
+          <h1 class="retro-heading-primary">RetroCSS Documentation</h1>
+        </div>
+        <div class="retro-card-content">
+          <p>Welcome to the <b>RetroCSS</b> documentation! Here you'll find everything you need to build beautiful, retro-inspired UIs with modern CSS and JavaScript.</p>
+        </div>
+      </div>
+      <div class="doc-section" id="getting-started">
+        <h2>🚀 Getting Started</h2>
+        <p>RetroCSS is a retro-inspired CSS framework for building classic Win9x style UIs with modern CSS and JS. It provides SASS variables, utility classes, components, and a JS API for interactive features.</p>
+        <pre><code>&lt;link rel="stylesheet" href="dist/retro.min.css"&gt;
+&lt;script src="dist/retro.min.js"&gt;&lt;/script&gt;</code></pre>
+      </div>
+      <div class="doc-section" id="installation">
+        <h2>📦 Installation</h2>
+        <h3>NPM</h3>
+        <pre><code>npm install retrocss</code></pre>
+        <h3>CDN</h3>
+        <pre><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/retrocss/dist/retro.min.css"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/retrocss/dist/retro.min.js"&gt;&lt;/script&gt;</code></pre>
+        <h3>Manual</h3>
+        <pre><code>Download from GitHub and include the CSS and JS files in your project.</code></pre>
+      </div>
+      <div class="doc-section" id="usage">
+        <h2>🛠️ Usage</h2>
+        <p>RetroCSS provides a wide range of components and utilities to build retro-styled interfaces. Here's a simple card example:</p>
+        <pre><code>&lt;div class="retro-card"&gt;
+  &lt;div class="retro-card-header"&gt;Windows 95&lt;/div&gt;
+  &lt;div class="retro-card-content"&gt;
+    &lt;p&gt;Welcome to RetroCSS!&lt;/p&gt;
+    &lt;button class="retro-btn retro-btn-primary"&gt;OK&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        <p>See the <a href="#components">Components</a> section for more examples.</p>
+      </div>
+      <div class="doc-section" id="components">
+        <h2>🧩 Components</h2>
+        <ul>
+          <li><b>Buttons:</b> <code>.retro-btn</code>, <code>.retro-btn-primary</code>, ...</li>
+          <li><b>Cards:</b> <code>.retro-card</code>, <code>.retro-card-header</code>, ...</li>
+          <li><b>Alerts:</b> <code>.retro-alert</code>, <code>.retro-alert-success</code>, ...</li>
+          <li><b>Tables:</b> <code>.retro-table</code>, <code>.retro-table-bordered</code>, ...</li>
+          <li><b>Badges:</b> <code>.retro-badge</code>, <code>.retro-badge-primary</code>, ...</li>
+          <li><b>Navs:</b> <code>.retro-nav</code>, <code>.retro-nav-item</code>, ...</li>
+          <li><b>Modals:</b> <code>.retro-modal</code>, <code>.retro-modal-content</code>, ...</li>
+          <li><b>Accordion:</b> <code>.retro-accordion</code>, <code>.retro-accordion-toggle</code>, ...</li>
+          <li><b>Sidebar:</b> <code>.retro-sidebar</code>, <code>.retro-sidebar-header</code></li>
+          <li><b>Lists:</b> <code>.retro-list</code>, <code>.retro-list-bordered</code>, ...</li>
+          <li>...and many more! See the <a href="index.html">demo</a> for all available classes.</li>
+        </ul>
+      </div>
+      <div class="doc-section" id="javascript-api">
+        <h2>📜 JavaScript API</h2>
+        <p>RetroCSS includes a modular JavaScript API for interactive components. Each component is available through the global <code>RetroCSS</code> object.</p>
+        <h3>Initialization</h3>
+        <pre><code>// Auto-initialization happens on DOMContentLoaded
+// If you need to manually initialize:
+RetroCSS.init();</code></pre>
+        <h3>Toast</h3>
+        <pre><code>RetroCSS.toast.show('Message', { type: 'success', duration: 3000, html: false });</code></pre>
+        <h3>Modal</h3>
+        <pre><code>RetroCSS.modal.show('modalId');
+RetroCSS.modal.hide('modalId');</code></pre>
+        <h3>Form Validation</h3>
+        <pre><code>RetroCSS.form.validate(formElement);
+RetroCSS.form.validateField(inputElement);</code></pre>
+        <h3>Table</h3>
+        <pre><code>RetroCSS.table.init();</code></pre>
+        <h3>Dropdown</h3>
+        <pre><code>RetroCSS.dropdown.init();</code></pre>
+        <h3>File Upload</h3>
+        <pre><code>RetroCSS.fileUpload.init();</code></pre>
+        <h3>Events System</h3>
+        <pre><code>// Subscribe to an event
+RetroCSS.events.on('init', data => {
+  console.log('Framework initialized at:', data.timestamp);
+});
+// Emit a custom event
+RetroCSS.events.emit('custom:event', { foo: 'bar' });
+// Remove an event listener
+RetroCSS.events.off('init', myHandler);</code></pre>
+        <h3>Using ES Modules</h3>
+        <pre><code>// Import the entire RetroCSS library
+import RetroCSS from 'retrocss';
+// Or import specific components
+import { RetroModal, RetroToast } from 'retrocss/components';</code></pre>
+      </div>
+      <div class="doc-section" id="theming">
+        <h2>🎨 Theming & Dark Mode</h2>
+        <p>Override SASS variables before importing <code>retro.scss</code> or override CSS custom properties at runtime for theming and dark mode.</p>
+        <pre><code>:root {
+  --retro-primary: #0000aa;
+  --retro-bg: #c0c0c0;
+  --retro-border-dark: #404040;
+  --retro-border-medium: #808080;
+  --retro-border-light: #ffffff;
+  --retro-font: 'MS Sans Serif', Arial, sans-serif;
+}
+[data-theme="dark"] {
+  --retro-body-bg: #181818;
+  --retro-bg: #232323;
+  --retro-primary: #4a90e2;
+  --retro-black: #fff;
+  --retro-white: #232323;
+  /* ... */
+}</code></pre>
+        <p>Use the theme toggle button in the navbar to switch between light and dark mode.</p>
+      </div>
+      <div class="doc-section" id="customization">
+        <h2>⚙️ Customization</h2>
+        <p>Override SASS variables or CSS custom properties to customize RetroCSS for your brand or project. See <code>src/scss/_variables.scss</code> for all available variables.</p>
+        <pre><code>:root {
+  --retro-primary: #ff00cc;
+  --retro-bg: #222233;
+  --retro-font: 'Comic Sans MS', cursive, sans-serif;
+}</code></pre>
+      </div>
+      <div class="doc-section" id="faq">
+        <h2>❓ FAQ</h2>
+        <h3>Is RetroCSS responsive?</h3>
+        <p>Yes, RetroCSS is built with modern responsive design in mind while maintaining the nostalgic Win9x aesthetic.</p>
+        <h3>Does RetroCSS support dark mode?</h3>
+        <p>Yes, RetroCSS includes a dark mode theme that can be toggled using the built-in theme switcher.</p>
+        <h3>Can I use RetroCSS with modern frameworks?</h3>
+        <p>Absolutely! RetroCSS works with React, Vue, Angular, and other modern frameworks.</p>
+      </div>
+    </div>
+  </div>
+  <script src="dist/retro.js"></script>
+</body>
+</html>

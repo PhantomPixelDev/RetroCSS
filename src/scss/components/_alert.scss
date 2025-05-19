@@ -1,0 +1,234 @@
+/**
+ * @name Retro Alert
+ * @group components
+ * @description
+ * Alert component for displaying messages and notifications.
+ * @example scss
+ *   <div class="retro-alert retro-alert-primary">
+ *     This is a primary alert message.
+ *   </div>
+ *   <div class="retro-alert retro-alert-success">
+ *     This is a success alert message.
+ *   </div>
+ *   <div class="retro-alert retro-alert-danger">
+ *     This is a danger alert message.
+ *   </div>
+ *   <div class="retro-alert retro-alert-warning">
+ *     This is a warning alert message.
+ *   </div>
+ *   <div class="retro-alert retro-alert-info">
+ *     This is an info alert message.
+ *   </div>
+ *   <div class="retro-alert retro-alert-primary" style="position:relative;">
+ *     <div class="retro-alert-header">Primary Alert</div>
+ *     <div class="retro-alert-body">This alert has a header, body, and a close button.</div>
+ *     <button class="retro-alert-close">×</button>
+ *   </div>
+ *   <div class="retro-alert retro-alert-success">
+ *     <div class="retro-alert-header">Success!</div>
+ *     <div class="retro-alert-body">Your operation was successful.</div>
+ *     <div class="retro-alert-footer">Footer text here</div>
+ *   </div>
+ */
+
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.retro-alert, .retro-toast {
+  background: var(--retro-alert-bg);
+  border: 2px solid var(--retro-border-dark);
+  border-right: 2px solid var(--retro-border-light);
+  border-bottom: 2px solid var(--retro-border-light);
+  border-left: 2px solid var(--retro-border-medium);
+  border-top: 2px solid var(--retro-border-medium);
+  border-radius: 0 !important;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: none;
+  margin-bottom: 1.2em;
+  padding: 0.7em 1.2em;
+  color: var(--retro-alert-text);
+  text-align: left;
+  display: block;
+}
+
+.retro-alert-body, .retro-toast-body {
+  padding: 0;
+  margin: 0;
+  font-size: 1em;
+  color: inherit;
+  text-align: left;
+}
+
+.retro-alert-footer {
+  width: 100%;
+  margin: 0;
+  padding: 0.3em 1em 0.2em 1em;
+  font-size: 0.93em;
+  font-family: inherit;
+  border-radius: 0;
+  box-shadow: none;
+  border-top: 2px solid rgba(0,0,0,0.12);
+  background: #e0e0e0;
+  color: #222;
+  text-align: left;
+}
+.retro-alert-primary .retro-alert-footer { background: #1976d2; color: #fff; border-top: 2px solid #145ea8; }
+.retro-alert-success .retro-alert-footer { background: #006400; color: #fff; border-top: 2px solid #004d00; }
+.retro-alert-danger .retro-alert-footer { background: #b20000; color: #fff; border-top: 2px solid #7a0000; }
+.retro-alert-warning .retro-alert-footer { background: #e6a800; color: #222; border-top: 2px solid #b38600; }
+.retro-alert-info .retro-alert-footer { background: #0099b3; color: #fff; border-top: 2px solid #006a80; }
+
+// Remove icon and close button styles
+.retro-alert-icon, .retro-toast-icon, .retro-alert-close, .retro-toast-close { display: none !important; }
+
+.retro-toast-primary, .retro-toast.retro-alert-primary {
+  background: #2a95f5;
+  color: #fff;
+  border-left: 6px solid #1976d2;
+}
+.retro-toast-success, .retro-toast.retro-alert-success {
+  background: #008000;
+  color: #fff;
+  border-left: 6px solid #006400;
+}
+.retro-toast-danger, .retro-toast.retro-alert-danger {
+  background: #ff0000;
+  color: #fff;
+  border-left: 6px solid #b20000;
+}
+.retro-toast-warning, .retro-toast.retro-alert-warning {
+  background: #ffa500;
+  color: #222;
+  border-left: 6px solid #e6a800;
+}
+.retro-toast-info, .retro-toast.retro-alert-info {
+  background: #00ffff;
+  color: #222;
+  border-left: 6px solid #0099b3;
+}
+
+.retro-toast-close {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-left: auto;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.retro-toast-close:hover {
+  opacity: 1;
+}
+
+.retro-alert-primary {
+  background: #2a95f5;
+  color: #fff;
+  border-left: 6px solid #1976d2;
+}
+.retro-alert-success {
+  background: #008000;
+  color: #fff;
+  border-left: 6px solid #006400;
+}
+.retro-alert-danger {
+  background: #ff0000;
+  color: #fff;
+  border-left: 6px solid #b20000;
+}
+.retro-alert-warning {
+  background: #ffa500;
+  color: #222;
+  border-left: 6px solid #e6a800;
+}
+.retro-alert-info {
+  background: #00ffff;
+  color: #222;
+  border-left: 6px solid #0099b3;
+}
+
+.retro-toast {
+  box-shadow: 2px 4px 16px rgba(0,0,0,0.18), 1px 1px 0 #fff, 2px 2px 0 #808080;
+  border-width: 1.5px;
+  margin-bottom: 0.75em;
+  animation: retro-toast-fadein 0.3s;
+  min-width: 240px;
+  max-width: 400px;
+}
+
+@keyframes retro-toast-fadein {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.retro-toast::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 1em;
+  margin-left: -2em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 18px 18px;
+}
+.retro-toast-info::before {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%230099b3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/><text x="10" y="15" font-size="12" text-anchor="middle" fill="white">i</text></svg>');
+}
+.retro-toast-warning::before {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23e6a800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><polygon points="10,2 18,18 2,18"/><text x="10" y="15" font-size="12" text-anchor="middle" fill="black">!</text></svg>');
+}
+.retro-toast-danger::before {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23b20000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/><text x="10" y="15" font-size="14" text-anchor="middle" fill="white">×</text></svg>');
+}
+.retro-toast-success::before {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23006400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/><polyline points="5,11 9,15 15,6" fill="none" stroke="white" stroke-width="2"/></svg>');
+}
+
+.retro-alert-main, .retro-toast-main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding: 0.7em 2.5em 0.7em 0.9em;
+  position: relative;
+  min-height: 36px;
+  background: inherit;
+}
+
+.retro-alert-icon, .retro-toast-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.8em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  flex-shrink: 0;
+}
+.retro-alert-primary .retro-alert-icon, .retro-toast-primary .retro-toast-icon { content: ''; background: none; color: #fff; }
+.retro-alert-success .retro-alert-icon, .retro-toast-success .retro-toast-icon { content: ''; background: none; color: #fff; }
+.retro-alert-danger .retro-alert-icon, .retro-toast-danger .retro-toast-icon { content: ''; background: none; color: #fff; }
+.retro-alert-warning .retro-alert-icon, .retro-toast-warning .retro-toast-icon { content: ''; background: none; color: #222; }
+.retro-alert-info .retro-alert-icon, .retro-toast-info .retro-toast-icon { content: ''; background: none; color: #222; }
+
+.retro-alert-primary .retro-alert-icon::before, .retro-toast-primary .retro-toast-icon::before { content: '\2139'; /* ℹ */ }
+.retro-alert-success .retro-alert-icon::before, .retro-toast-success .retro-toast-icon::before { content: '\2714'; /* ✔ */ }
+.retro-alert-danger .retro-alert-icon::before, .retro-toast-danger .retro-toast-icon::before { content: '\2716'; /* ✖ */ }
+.retro-alert-warning .retro-alert-icon::before, .retro-toast-warning .retro-toast-icon::before { content: '\26A0'; /* ⚠ */ }
+.retro-alert-info .retro-alert-icon::before, .retro-toast-info .retro-toast-icon::before { content: '\2139'; /* ℹ */ }
+
+.retro-alert-close, .retro-toast-close {
+  position: static;
+  margin-left: 1em;
+  align-self: center;
+}
+
+.retro-alert::before, .retro-toast::before { display: none !important; }
+
+.retro-alert {
+  margin-bottom: 1.25rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+} 

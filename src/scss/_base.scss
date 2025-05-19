@@ -1,0 +1,228 @@
+/* Base Styles */
+
+@use "sass:color";
+@use "sass:map";
+@use "variables" as *;
+
+/* Reset & Base Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 !important;
+  box-shadow: none;
+  transition: none;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+  font-family: $retro-font;
+  font-size: $retro-font-size-base;
+  line-height: $retro-line-height;
+  color: var(--retro-black);
+  background-color: var(--retro-body-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Links */
+a {
+  color: var(--retro-primary);
+  text-decoration: none;
+  transition: var(--retro-transition-base);
+
+  &:hover {
+    color: var(--retro-primary);
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 2px solid var(--retro-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  border-style: none;
+}
+
+/* Lists */
+ul, ol {
+  list-style-position: inside;
+  padding-left: var(--retro-spacing-md);
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+/* Forms */
+input,
+button,
+select,
+optgroup,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+/* Code */
+code,
+pre {
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--retro-primary);
+  color: var(--retro-white);
+}
+
+/* Focus Styles */
+:focus {
+  outline: 2px solid var(--retro-primary);
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  *,
+  *::before,
+  *::after {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]::after {
+    content: " (" attr(title) ")";
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid var(--retro-border-light);
+    page-break-inside: avoid;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+
+/* Common animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.retro-tab-content {
+  background: var(--retro-bg);
+  border: $retro-border-width $retro-border-style var(--retro-border-dark);
+  border-top: none;
+  padding: var(--retro-spacing-md);
+  margin-bottom: var(--retro-spacing-md);
+  min-height: 60px;
+  box-shadow: $retro-box-shadow-subtle;
+  display: none;
+}
+
+.retro-tab-content.active {
+  display: block;
+}
+
+.retro-toast {
+  background: $retro-toast-bg;
+  color: $retro-toast-text;
+  min-width: $retro-toast-min-width;
+  max-width: $retro-toast-max-width;
+  padding: $retro-spacing-md $retro-spacing-lg;
+  border-radius: $retro-toast-border-radius;
+  box-shadow: $retro-box-shadow-medium;
+  font-size: $retro-toast-font-size;
+  font-weight: $retro-toast-font-weight;
+  margin-bottom: $retro-spacing-md;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: $retro-spacing-md;
+  z-index: $retro-z-index-tooltip;
+  animation: fadeIn $retro-transition-duration-slow;
+  pointer-events: auto;
+}
+
+#retro-toast-container {
+  position: fixed;
+  bottom: $retro-spacing-xl;
+  right: $retro-spacing-xl;
+  z-index: $retro-z-index-tooltip;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: none;
+} 

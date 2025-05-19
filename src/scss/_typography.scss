@@ -1,0 +1,490 @@
+/* Typography Styles */
+
+@use "sass:color";
+@use "sass:map";
+@use "variables" as *;
+@use "mixins" as *;
+
+/**
+ * @name Headings
+ * @group typography
+ * @description
+ * Retro heading styles for h1-h6 with 3D and border effects.
+ * @example scss
+ *   <h1>Heading 1</h1>
+ */
+// Base Typography
+body {
+  font-family: $retro-font;
+  font-size: $retro-font-size-base;
+  line-height: $retro-line-height;
+  color: var(--retro-black);
+  background: var(--retro-body-bg);
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.1em;
+  margin-bottom: 0.5em;
+  border-radius: 0;
+  box-shadow: none;
+  letter-spacing: 0;
+  background: none;
+  color: var(--retro-black);
+  text-shadow: none;
+  padding: 0;
+}
+
+h1 {
+  background: var(--retro-bg);
+  border-left: 6px solid var(--retro-primary);
+  padding: 0.18em 0.7em 0.18em 0.6em;
+  font-size: 1.7em;
+  margin-bottom: 0.7em;
+}
+h2 {
+  background: var(--retro-bg);
+  border-left: 4px solid var(--retro-primary);
+  padding: 0.15em 0.7em 0.15em 0.5em;
+  font-size: 1.25em;
+  margin-bottom: 0.6em;
+}
+h3 {
+  font-size: 1.08em;
+  margin-bottom: 0.4em;
+}
+h4, h5, h6 {
+  font-size: 1em;
+  color: var(--retro-black);
+  margin-bottom: 0.3em;
+}
+
+// Heading Variants
+.retro-heading {
+  &-primary,
+  &-success,
+  &-warning,
+  &-danger,
+  &-info,
+  &-teal,
+  &-pink,
+  &-lime {
+    padding: $retro-spacing-sm $retro-spacing-md;
+    margin-bottom: $retro-spacing-md;
+    border: 2px solid;
+    position: relative;
+    font-family: $retro-font;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    box-shadow: 
+      inset -1px -1px 0 $retro-shadow-light,
+      inset 1px 1px 0 $retro-border-dark,
+      2px 2px 0 rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+    transform: translateZ(0);
+    transition: transform 0.1s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(1px);
+      box-shadow: 
+        inset 1px 1px 0 $retro-shadow-light,
+        inset -1px -1px 0 $retro-border-dark;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.1) 2px,
+        rgba(255, 255, 255, 0.1) 4px
+      );
+      pointer-events: none;
+    }
+  }
+
+  &-primary {
+    background: linear-gradient(to bottom, $retro-primary 0%, color.adjust($retro-primary, $lightness: -10%) 100%);
+    color: $retro-white;
+    border-color: color.adjust($retro-primary, $lightness: -15%);
+  }
+
+  &-success {
+    background: linear-gradient(to bottom, $retro-success 0%, color.adjust($retro-success, $lightness: -10%) 100%);
+    color: $retro-white;
+    border-color: color.adjust($retro-success, $lightness: -15%);
+  }
+
+  &-warning {
+    background: linear-gradient(to bottom, $retro-warning 0%, color.adjust($retro-warning, $lightness: -10%) 100%);
+    color: $retro-black;
+    border-color: color.adjust($retro-warning, $lightness: -15%);
+  }
+
+  &-danger {
+    background: linear-gradient(to bottom, $retro-danger 0%, color.adjust($retro-danger, $lightness: -10%) 100%);
+    color: $retro-white;
+    border-color: color.adjust($retro-danger, $lightness: -15%);
+  }
+
+  &-info {
+    background: linear-gradient(to bottom, $retro-info 0%, color.adjust($retro-info, $lightness: -10%) 100%);
+    color: $retro-white;
+    border-color: color.adjust($retro-info, $lightness: -15%);
+  }
+
+  &-teal {
+    background: linear-gradient(to bottom, $retro-teal 0%, color.adjust($retro-teal, $lightness: -10%) 100%);
+    color: $retro-white;
+    border-color: color.adjust($retro-teal, $lightness: -15%);
+  }
+
+  &-pink {
+    background: linear-gradient(to bottom, $retro-pink 0%, color.adjust($retro-pink, $lightness: -10%) 100%);
+    color: $retro-white;
+    border-color: color.adjust($retro-pink, $lightness: -15%);
+  }
+
+  &-lime {
+    background: linear-gradient(to bottom, $retro-lime 0%, color.adjust($retro-lime, $lightness: -10%) 100%);
+    color: $retro-black;
+    border-color: color.adjust($retro-lime, $lightness: -15%);
+  }
+}
+
+/**
+ * @name Text Utilities
+ * @group typography
+ * @description
+ * Utility classes for text color, weight, style, shadow, and more.
+ * @example scss
+ *   <span class="retro-text-primary retro-text-bold">Primary Bold</span>
+ */
+// Text Styles
+.retro-text {
+  &-primary { color: var(--retro-color-primary); }
+  &-success { color: var(--retro-color-success); }
+  &-danger { color: var(--retro-color-danger); }
+  &-warning { color: var(--retro-color-warning); }
+  &-info { color: var(--retro-color-info); }
+  &-teal { color: var(--retro-color-teal); }
+  &-pink { color: var(--retro-color-pink); }
+  &-lime { color: var(--retro-color-lime); }
+
+  &-bold { font-weight: var(--retro-font-weight-bold); }
+  &-italic { font-style: italic; }
+  &-underline { text-decoration: underline; }
+
+  &-shadow {
+    text-shadow: 1px 1px 1px var(--retro-border-dark);
+  }
+
+  &-outline {
+    text-shadow: 
+      -1px -1px 0 var(--retro-border-dark),
+      1px -1px 0 var(--retro-border-dark),
+      -1px 1px 0 var(--retro-border-dark),
+      1px 1px 0 var(--retro-border-dark);
+  }
+}
+
+.retro-text-uppercase { text-transform: uppercase; }
+.retro-text-lowercase { text-transform: lowercase; }
+.retro-text-capitalize { text-transform: capitalize; }
+.retro-text-monospace { font-family: 'Courier New', monospace; }
+.retro-text-xs { font-size: 0.8em; }
+.retro-text-lg { font-size: 1.5em; }
+.retro-text-strike { text-decoration: line-through; }
+.retro-text-shadow-strong { text-shadow: 2px 2px 2px #404040; }
+.retro-text-shadow-soft { text-shadow: 1px 1px 4px #b0b0b0; }
+.retro-text-glow { text-shadow: 0 0 6px #00e5ee, 0 0 12px #00e5ee; }
+
+/**
+ * @name Fancy Text Styles
+ * @group typography
+ * @description
+ * Special effect text styles: rainbow, gradient, glitch, metallic, fire, etc.
+ * @example scss
+ *   <span class="retro-text-rainbow">Rainbow</span>
+ */
+// Fancy Text Styles
+.retro-text-rainbow {
+  background: linear-gradient(90deg, #ff0000, #ff9900, #ffee00, #33ff00, #00ffee, #0066ff, #cc00ff, #ff0000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  text-fill-color: transparent;
+  animation: rainbow-hue 3s linear infinite;
+  font-weight: bold;
+  text-shadow: 0 1px 1px #fff, 0 2px 2px #0002;
+}
+@keyframes rainbow-hue {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+.retro-text-hue-rotate {
+  animation: hue-rotate-text 2s linear infinite;
+  display: inline-block;
+}
+@keyframes hue-rotate-text {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+.retro-text-gradient {
+  background: linear-gradient(90deg, #4a90e2, #00e5ee, #ff69b4, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  text-fill-color: transparent;
+  font-weight: bold;
+  text-shadow: 0 1px 1px #fff, 0 2px 2px #0002;
+}
+
+.retro-text-outline-strong {
+  color: #fff;
+  font-weight: bold;
+  -webkit-text-stroke: 2px #111;
+  text-shadow: none;
+}
+
+.retro-text-emboss {
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 #bbb, -1px -1px 0 #333;
+}
+
+.retro-text-deboss {
+  color: #333;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 #fff, -1px -1px 0 #bbb;
+}
+
+.retro-text-shadow-multicolor {
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 #0066ff;
+}
+
+.retro-text-glitch {
+  position: relative;
+  color: #fff;
+  text-shadow: 2px 0 #f0f, -2px 0 #0ff;
+  animation: glitch 1s infinite linear alternate-reverse;
+}
+@keyframes glitch {
+  0% { text-shadow: 2px 0 #f0f, -2px 0 #0ff; }
+  20% { text-shadow: 2px 2px #0ff, -2px -2px #f0f; }
+  40% { text-shadow: -2px 0 #f0f, 2px 0 #0ff; }
+  60% { text-shadow: 2px -2px #0ff, -2px 2px #f0f; }
+  80% { text-shadow: 0 2px #f0f, 0 -2px #0ff; }
+  100% { text-shadow: 2px 0 #f0f, -2px 0 #0ff; }
+}
+
+.retro-text-metallic {
+  background: linear-gradient(90deg, #e6e6e6 0%, #b0b0b0 40%, #fff 60%, #b0b0b0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  text-fill-color: transparent;
+  font-weight: bold;
+  -webkit-text-stroke: 1px #222;
+  text-shadow: 0 1px 2px #fff, 0 2px 4px #8888;
+}
+
+.retro-text-fire {
+  background: linear-gradient(90deg, #ff6600 0%, #ffcc00 40%, #fff 60%, #ff3300 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  text-fill-color: transparent;
+  font-weight: bold;
+  -webkit-text-stroke: 1px #800;
+  text-shadow: 0 1px 2px #fff, 0 2px 8px #ff6600, 0 4px 16px #ff3300;
+}
+
+/**
+ * @name Retro Blockquote
+ * @group typography
+ * @description
+ * Styled blockquote with Win9x look
+ */
+.retro-blockquote {
+  background: var(--retro-bg);
+  border: 2px solid var(--retro-border-dark);
+  border-right: 2px solid var(--retro-border-light);
+  border-bottom: 2px solid var(--retro-border-light);
+  border-left: 2px solid var(--retro-border-medium);
+  border-top: 2px solid var(--retro-border-medium);
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+  position: relative;
+  font-style: italic;
+  box-shadow: 
+    inset -1px -1px 0 var(--retro-shadow-light),
+    inset 1px 1px 0 var(--retro-border-dark);
+  font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Arial, sans-serif;
+  font-size: 0.95em;
+  line-height: 1.5;
+  
+  &::before {
+    content: '"';
+    font-size: 2.5em;
+    color: var(--retro-primary);
+    position: absolute;
+    left: 0.3rem;
+    top: -0.2rem;
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Arial, sans-serif;
+    opacity: 0.7;
+  }
+  
+  &::after {
+    content: '"';
+    font-size: 2.5em;
+    color: var(--retro-primary);
+    position: absolute;
+    right: 0.3rem;
+    bottom: -0.5rem;
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Arial, sans-serif;
+    opacity: 0.7;
+  }
+}
+
+/**
+ * @name Retro Code Block
+ * @group typography
+ * @description
+ * Styled code block with Win9x look
+ */
+.retro-code {
+  background: var(--retro-bg);
+  border: 2px solid var(--retro-border-dark);
+  border-top-color: var(--retro-border-light);
+  border-left-color: var(--retro-border-light);
+  padding: 0;
+  margin: 1.5rem 0;
+  font-family: 'Courier New', monospace;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  position: relative;
+  box-shadow:
+    inset -1px -1px 0 var(--retro-shadow-light),
+    inset 1px 1px 0 var(--retro-border-dark);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 24px;
+    background: linear-gradient(to bottom, #000080 0%, #1084d0 100%);
+    border-bottom: 1px solid var(--retro-border-dark);
+  }
+  
+  &::after {
+    content: 'Code';
+    position: absolute;
+    top: 2px;
+    left: 8px;
+    color: white;
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  .retro-code-copy {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    background: var(--retro-bg);
+    border: 1px solid var(--retro-border-dark);
+    border-right: 1px solid var(--retro-border-light);
+    border-bottom: 1px solid var(--retro-border-light);
+    border-left: 1px solid var(--retro-border-medium);
+    border-top: 1px solid var(--retro-border-medium);
+    padding: 2px 8px;
+    font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Arial, sans-serif;
+    font-size: 11px;
+    cursor: pointer;
+    color: var(--retro-black);
+    box-shadow:
+      inset -1px -1px 0 var(--retro-shadow-light),
+      inset 1px 1px 0 var(--retro-border-dark);
+    
+    &:hover {
+      background: var(--retro-light);
+    }
+    
+    &:active {
+      box-shadow: 
+        inset 1px 1px 0 var(--retro-shadow-light),
+        inset -1px -1px 0 var(--retro-border-dark);
+    }
+  }
+  
+  code {
+    display: block;
+    padding: 1.2rem;
+    padding-top: calc(1.2rem + 24px);
+    color: var(--retro-black);
+    font-size: 0.9em;
+    line-height: 1.4;
+    
+    // Syntax highlighting colors
+    .keyword { color: #000080; font-weight: bold; } // Keywords
+    .string { color: #008000; } // Strings
+    .comment { color: #808080; font-style: italic; } // Comments
+    .function { color: #800080; } // Functions
+    .number { color: #ff0000; } // Numbers
+    .operator { color: #0000ff; } // Operators
+    .variable { color: #800000; } // Variables
+    .class { color: #008080; } // Classes
+    .property { color: #0000ff; } // Properties
+    .tag { color: #800000; } // HTML/XML tags
+    .attribute { color: #ff0000; } // HTML/XML attributes
+  }
+}
+
+.retro-heading-variant {
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.5rem 1.2rem;
+  margin-bottom: 0.5rem;
+  border: 2.5px double var(--retro-border-dark, #222);
+  box-shadow: inset 0 2px 8px #fff8, 0 2px 0 #8884;
+  background: var(--retro-bg, #f8f9fa);
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.retro-heading-primary   { color: #1a237e; border-color: #1a237e; background: #e3e6fa; }
+.retro-heading-success   { color: #1b5e20; border-color: #1b5e20; background: #e6fae3; }
+.retro-heading-warning   { color: #b26a00; border-color: #b26a00; background: #fffbe3; }
+.retro-heading-danger    { color: #b71c1c; border-color: #b71c1c; background: #fae3e3; }
+.retro-heading-info      { color: #01579b; border-color: #01579b; background: #e3f2fa; }
+.retro-heading-teal      { color: #00695c; border-color: #00695c; background: #e3faf7; }
+.retro-heading-pink      { color: #ad1457; border-color: #ad1457; background: #fae3f2; }
+.retro-heading-lime      { color: #827717; border-color: #827717; background: #f7fae3; }

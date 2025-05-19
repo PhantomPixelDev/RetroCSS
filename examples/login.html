@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔐 Login | RetroCSS</title>
+  <link rel="stylesheet" href="../dist/retro.min.css">
+  <style>
+    .retro-input-icon {
+      position: relative;
+    }
+    .retro-input-icon input {
+      padding-left: 2.2em;
+    }
+    .retro-input-icon .icon {
+      position: absolute;
+      left: 0.7em;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--retro-primary);
+      font-size: 1.1em;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="retro-body-bg">
+  <div class="retro-container">
+    <nav class="retro-nav">
+      <a href="../index.html" class="retro-nav-item" data-retro-tooltip="Home page">🏠 Home</a>
+      <a href="../documentation.html" class="retro-nav-item" data-retro-tooltip="Documentation">📖 Docs</a>
+      <a href="https://github.com/phantompixeldev/retrocss" class="retro-nav-item" data-retro-tooltip="GitHub">💾 GitHub</a>
+      <button class="retro-nav-item retro-theme-toggle" data-retro-tooltip="Toggle dark/light mode">🌓 Toggle Theme</button>
+    </nav>
+  </div>
+  <hr class="retro-mt-5" style="border-color: var(--retro-border-medium);">
+  <div class="retro-main-layout retro-gap-4">
+    <div class="main-content" style="max-width:400px; margin:auto;">
+      <div class="retro-card retro-mt-8 retro-shadow-lg retro-border-2 retro-border-primary">
+        <div class="retro-card-header retro-bg-primary retro-text-white retro-flex retro-items-center retro-gap-2">
+          <span>🔐</span> <span>Login</span>
+        </div>
+        <div class="retro-card-content">
+          <form class="retro-form" onsubmit="return false;">
+            <div class="retro-form-group retro-input-icon">
+              <span class="icon">👤</span>
+              <input type="text" id="username" class="retro-input" placeholder="Username" required>
+            </div>
+            <div class="retro-form-group retro-input-icon">
+              <span class="icon">🔑</span>
+              <input type="password" id="password" class="retro-input" placeholder="Password" required>
+            </div>
+            <div class="retro-form-group retro-flex retro-gap-2 retro-items-center">
+              <label><input type="checkbox" class="retro-checkbox"> Remember me</label>
+              <label><input type="checkbox" id="showpw" class="retro-checkbox" onchange="togglePassword()"> Show password</label>
+            </div>
+            <button class="retro-btn retro-btn-primary retro-w-full" type="submit">Login</button>
+          </form>
+          <div class="retro-divider retro-divider-dotted retro-my-4"></div>
+          <div class="retro-text-center retro-mb-3 retro-text-secondary">or login with</div>
+          <div class="retro-flex retro-gap-2 retro-justify-center retro-mb-4">
+            <button class="retro-btn retro-btn-info retro-btn-xs">💻 GitHub</button>
+            <button class="retro-btn retro-btn-primary retro-btn-xs">🔵 Microsoft</button>
+            <button class="retro-btn retro-btn-danger retro-btn-xs">🟥 Google</button>
+          </div>
+          <div class="retro-alert retro-alert-info retro-mt-4">Tip: Your credentials are case sensitive. <span class="retro-badge retro-badge-warning">Be careful!</span></div>
+          <div class="retro-mt-4 retro-flex retro-gap-2">
+            <a href="register.html" class="retro-btn retro-btn-sm">📝 Register</a>
+            <a href="#" class="retro-btn retro-btn-sm retro-btn-secondary">❓ Forgot Password</a>
+          </div>
+        </div>
+        <div class="retro-card-footer retro-text-center retro-text-xs retro-text-secondary">
+          <div class="retro-divider retro-divider-dotted"></div>
+          <p>© 2024 RetroCSS Login. Win9x vibes only.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../dist/retro.js"></script>
+  <script>
+    function togglePassword() {
+      var pw = document.getElementById('password');
+      pw.type = pw.type === 'password' ? 'text' : 'password';
+    }
+  </script>
+</body>
+</html> 

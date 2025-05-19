@@ -1,0 +1,89 @@
+/* RetroCSS Carousel/Slider - Oldschool */
+.retro-carousel {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  background: var(--retro-bg);
+  border: 2px solid var(--retro-border-dark);
+  box-shadow: inset 2px 2px 0 var(--retro-border-light), inset -2px -2px 0 var(--retro-border-dark);
+  font-family: 'Courier New', Courier, monospace;
+  margin-bottom: 1.5rem;
+}
+.retro-carousel-track {
+  display: flex;
+  /* Enable smooth transition between slides */
+  transition: transform 0.2s ease-in-out;
+  width: 100%;
+  
+  /* Fix for older browsers */
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  transform: translateX(0);
+}
+.retro-carousel-slide {
+  min-width: 100%;
+  flex: 1 0 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+  text-align: center;
+  border: 2px solid var(--retro-border-medium);
+  background: var(--retro-bg);
+  box-shadow: 2px 2px 0 var(--retro-border-light), -2px -2px 0 var(--retro-border-dark);
+  margin: 8px;
+}
+.retro-carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--retro-bg);
+  color: var(--retro-black);
+  border: 2px solid var(--retro-border-dark);
+  box-shadow: 2px 2px 0 var(--retro-border-light), -2px -2px 0 var(--retro-border-dark);
+  border-radius: 0;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  z-index: 2;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 0;
+  
+  /* Add pressed state */
+  &:active {
+    background: var(--retro-border-medium);
+    box-shadow: inset 1px 1px 0 var(--retro-border-dark), inset -1px -1px 0 var(--retro-border-light);
+    transform: translateY(calc(-50% + 1px));
+  }
+}
+.retro-carousel-arrow.left { left: 8px; }
+.retro-carousel-arrow.right { right: 8px; }
+.retro-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 12px 0 8px 0;
+  padding-bottom: 8px;
+}
+.retro-carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 0;
+  background: var(--retro-border-medium);
+  border: 2px solid var(--retro-border-dark);
+  box-shadow: 1px 1px 0 var(--retro-border-light);
+  cursor: pointer;
+  transition: background 0.2s;
+  
+  &.active {
+    background: var(--retro-primary);
+    border-color: var(--retro-border-dark);
+    box-shadow: inset 1px 1px 0 var(--retro-border-dark), inset -1px -1px 0 var(--retro-border-light);
+  }
+} 
+

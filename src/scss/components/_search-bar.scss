@@ -1,0 +1,54 @@
+@use "../variables" as *;
+// Retro Search Bar with Suggestions
+.retro-search-bar {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: var(--retro-input-bg);
+  border: 2px solid var(--retro-border-dark);
+  border-radius: 4px;
+  padding: 4px 12px;
+  min-width: 220px;
+}
+.retro-search-icon {
+  font-size: 18px;
+  color: $retro-border-dark;
+  margin-right: 8px;
+}
+.retro-search-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+  flex: 1;
+  padding: 4px 0;
+  color: var(--retro-input-text);
+}
+.retro-search-suggestions {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  background: var(--retro-input-bg);
+  border: 2px solid var(--retro-border-dark);
+  border-radius: 0 0 4px 4px;
+  box-shadow: 2px 2px 0 var(--retro-border-light);
+  z-index: 10;
+}
+.retro-search-bar.active .retro-search-suggestions {
+  display: block;
+}
+.retro-search-suggestion {
+  padding: 8px 12px;
+  font-size: 15px;
+  color: var(--retro-input-text);
+  cursor: pointer;
+  border-bottom: 1px solid var(--retro-border-light);
+  transition: background 0.2s, color 0.2s;
+  &:last-child { border-bottom: none; }
+  &:hover {
+    background: var(--retro-primary);
+    color: var(--retro-white);
+  }
+} 

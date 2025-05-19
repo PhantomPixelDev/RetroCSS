@@ -1,0 +1,88 @@
+@use "../variables" as *;
+
+// Basic Divider
+.retro-divider {
+  height: 1px;
+  background: var(--retro-border-medium);
+  margin: var(--retro-spacing-md) 0;
+  border: none;
+  width: 100%;
+}
+
+// Vertical Divider
+.retro-divider-vertical {
+  width: 6px;
+  min-height: 32px;
+  height: 100%;
+  background: none;
+  border-left: 2px solid var(--retro-border-dark);
+  border-right: 2px solid var(--retro-border-light);
+  margin: 0 var(--retro-spacing-md);
+  display: inline-block;
+  vertical-align: middle;
+  box-sizing: border-box;
+  border-radius: 2px;
+}
+
+// Dashed Divider
+.retro-divider-dashed {
+  border-top: 1px dashed var(--retro-border-medium);
+  background: none;
+}
+
+// Dotted Divider
+.retro-divider-dotted {
+  border-top: 1px dotted var(--retro-border-medium);
+  background: none;
+}
+
+// Text Divider
+.retro-divider-text {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--retro-text-muted);
+  margin: var(--retro-spacing-md) 0;
+  
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    border-top: 1px solid var(--retro-border-medium);
+  }
+  
+  &::before {
+    margin-right: var(--retro-spacing-md);
+  }
+  
+  &::after {
+    margin-left: var(--retro-spacing-md);
+  }
+}
+
+// Colored Dividers
+.retro-divider-primary {
+  background: var(--retro-primary);
+}
+
+.retro-divider-success {
+  background: var(--retro-success);
+}
+
+.retro-divider-warning {
+  background: var(--retro-warning);
+}
+
+.retro-divider-danger {
+  background: var(--retro-danger);
+}
+
+// Thick Divider
+.retro-divider-thick {
+  height: 2px;
+}
+
+// Spaced Divider
+.retro-divider-spaced {
+  margin: var(--retro-spacing-xl) 0;
+} 

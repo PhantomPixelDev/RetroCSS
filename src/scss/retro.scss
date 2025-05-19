@@ -1,0 +1,62 @@
+/* RetroCSS - A Retro-Inspired CSS Framework */
+/* Main SCSS file that imports all components */
+
+@use "sass:color";
+@use "sass:map";
+@use "sass:math";
+
+/* Core */
+@use "variables" as *;
+@use "base";
+@use "typography";
+
+/* Components */
+@use "components/button";
+@use "components/card";
+@use "components/form";
+@use "components/checkbox-radio";
+@use "components/alert";
+@use "components/table";
+@use "components/modal";
+@use "components/nav";
+@use "components/progress";
+@use "components/badge";
+@use "components/accordion";
+@use "components/pagination";
+@use "components/breadcrumbs";
+@use "components/dropdown";
+@use "components/file-upload";
+@use "components/tag-input";
+@use "components/search-bar";
+@use "components/rating";
+@use "components/divider";
+@use "components/tooltip";
+@use "components/list";
+@use "components/carousel";
+@use "components/datetime";
+@use "components/infinite-scroll";
+@use "components/sidebar";
+
+/* Utilities */
+@use "utilities/spacing";
+@use "utilities/grid";
+@use "utilities/container-queries";
+
+.main-content {
+  margin-left: $retro-sidebar-width;
+}
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    box-sizing: border-box;
+  }
+  .retro-container, .demo-section {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    box-sizing: border-box;
+    margin-left: 0 !important;
+    padding: 0 var(--retro-spacing-md) !important;
+  }
+}

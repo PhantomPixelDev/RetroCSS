@@ -1,0 +1,95 @@
+@use "../variables" as *;
+// Retro Dropdown
+.retro-dropdown {
+  position: relative;
+  display: inline-block;
+
+  &.open {
+    .retro-dropdown-toggle {
+      background: var(--retro-primary);
+      color: var(--retro-white);
+      border-color: var(--retro-primary-dark);
+    }
+  }
+}
+.retro-dropdown-toggle {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--retro-dropdown-bg);
+  border: 2px solid var(--retro-border-dark);
+  border-radius: 2px;
+  padding: 6px 16px;
+  font-family: var(--retro-font);
+  font-size: 15px;
+  color: var(--retro-dropdown-text);
+  box-shadow: 1px 1px 0 var(--retro-border-light);
+  transition: all 0.2s ease;
+  min-width: 120px;
+
+  &:hover {
+    background: var(--retro-gray-100);
+  }
+
+  &:active {
+    box-shadow: none;
+    transform: translate(1px, 1px);
+  }
+}
+.retro-dropdown-arrow {
+  margin-left: 8px;
+  font-size: 14px;
+  transition: transform 0.2s ease;
+
+  .open & {
+    transform: rotate(180deg);
+  }
+}
+.retro-dropdown-menu {
+  position: absolute;
+  left: 0;
+  min-width: 100%;
+  background: var(--retro-dropdown-bg);
+  border: 2px solid var(--retro-border-dark);
+  border-radius: 2px;
+  box-shadow: 2px 2px 0 var(--retro-border-light);
+  z-index: 1000;
+  margin-top: 2px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+
+  .retro-dropdown.open > & {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+.retro-dropdown-item {
+  display: block;
+  padding: 8px 16px;
+  color: var(--retro-dropdown-text);
+  text-decoration: none;
+  font-family: var(--retro-font);
+  font-size: 15px;
+  background: var(--retro-dropdown-bg);
+  border-bottom: 1px solid var(--retro-border-light);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: var(--retro-primary);
+    color: var(--retro-white);
+  }
+
+  &:active {
+    background: var(--retro-primary-dark);
+  }
+} 

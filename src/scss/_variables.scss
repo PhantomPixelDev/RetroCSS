@@ -1,0 +1,544 @@
+@use "sass:map";
+@use "sass:color"; // Ensure sass:color is imported for color.adjust
+
+/* Variables & Theme Configuration */
+
+/**
+ * @name Breakpoint Variables
+ * @group variables
+ * @type Breakpoint
+ * @description
+ * Breakpoint values for responsive design.
+ * @example scss
+ *   @include retro-breakpoint(sm) { ... }
+ */
+
+/* Breakpoints */
+$retro-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
+/**
+ * @name Color Variables
+ * @group variables
+ * @type Color
+ * @description
+ * Core color palette for RetroCSS. Use these variables for consistent theming.
+ * 
+ * To customize the color theme, you can override these variables in your own stylesheet:
+ * ```scss
+ * :root {
+ *   --retro-primary: #1e88e5;    // Change primary color
+ *   --retro-primary-rgb: 30, 136, 229;  // Also update RGB values
+ *   --retro-success: #43a047;    // Change success color
+ *   --retro-danger: #e53935;     // Change danger color
+ *   --retro-body-bg: #d4d4d4;    // Change background color
+ * }
+ * ```
+ * 
+ * For dark mode customization, override the [data-theme="dark"] section:
+ * ```scss
+ * [data-theme="dark"] {
+ *   --retro-body-bg: #121212;    // Dark mode background
+ *   --retro-bg: #1e1e1e;         // Dark mode surface
+ *   --retro-primary: #64b5f6;    // Dark mode primary color
+ *   // ... other overrides
+ * }
+ * ```
+ * 
+ * @example scss
+ *   color: $retro-primary;
+ */
+
+/* Colors */
+$retro-body-bg: #c0c0c0; // Win95/98 light gray
+$retro-body-bg-dark: #3a3a3a; // Win95/98 dark gray
+$retro-bg: #ffffff;
+$retro-primary: #000080; // Winblue
+$retro-light: #f0f0f0; // Slightly lighter gray
+$retro-white: #ffffff;
+$retro-black: #000000;
+
+// Win95/98 border colors
+$retro-border-light: #ffffff;
+$retro-border-medium: #808080;
+$retro-border-dark: #000000;
+
+// Legacy variable names (for backward compatibility)
+$retro-shadow-light: $retro-border-light;
+
+$retro-success: #008000; // Classic green
+$retro-warning: #ffa500; // Dark orange - classic
+$retro-danger: #ff0000; // Classic darker red
+$retro-info: #00ffff; // Classic cyan blue
+$retro-teal: #008080; // Classic teal
+$retro-tan: #d2b48c; // Classic tan
+$retro-pink: #ff69b4; // Classic hot pink
+$retro-lime: #32cd32; // Classic lime green
+$retro-cyan: #00e5ee;
+$retro-orange: #ffb347;
+$retro-brown: #8b5c2a;
+$retro-violet: #7c3aed;
+$retro-gray: #b0b0b0;
+$retro-maroon: #800000;
+$retro-gold: #ffd700;
+$retro-navy: #001f4f;
+$retro-olive: #808000;
+$retro-silver: #c0c0c0;
+
+// RGB values for alpha operations
+$retro-primary-rgb: 0, 0, 128;
+$retro-success-rgb: 0, 128, 0;
+$retro-warning-rgb: 255, 165, 0;
+$retro-danger-rgb: 255, 0, 0;
+$retro-info-rgb: 0, 255, 255;
+$retro-teal-rgb: 0, 128, 128;
+$retro-pink-rgb: 255, 105, 180;
+$retro-lime-rgb: 50, 205, 50;
+$retro-cyan-rgb: 0, 229, 238;
+$retro-orange-rgb: 255, 179, 71;
+$retro-brown-rgb: 139, 92, 42;
+$retro-violet-rgb: 124, 58, 237;
+$retro-gray-rgb: 176, 176, 176;
+$retro-maroon-rgb: 128, 0, 0;
+$retro-gold-rgb: 255, 215, 0;
+$retro-navy-rgb: 0, 31, 79;
+$retro-olive-rgb: 128, 128, 0;
+$retro-silver-rgb: 192, 192, 192;
+$retro-black-rgb: 0, 0, 0;
+$retro-white-rgb: 255, 255, 255;
+$retro-light-rgb: 240, 240, 240;
+
+/**
+ * @name Typography Variables
+ * @group variables
+ * @type Font
+ * @description
+ * Font family, size, and line height for RetroCSS.
+ * @example scss
+ *   font-family: $retro-font;
+ */
+
+/* Typography */
+$retro-font: 'MS Sans Serif', 'Microsoft Sans Serif', Arial, sans-serif;
+$retro-font-size-base: 14px;  // Base font size
+$retro-font-size: $retro-font-size-base;
+$retro-font-size-sm: 12px;
+$retro-font-size-lg: 16px;
+$retro-line-height: 1.4;
+$retro-letter-spacing: -0.25px;
+
+/**
+ * @name Spacing Variables
+ * @group variables
+ * @type Spacing
+ * @description
+ * Spacing scale for margins and paddings.
+ * @example scss
+ *   margin-bottom: $retro-spacing-md;
+ */
+
+/* Spacing */
+$retro-spacing-xxs: 2px;
+$retro-spacing-xs: 4px;
+$retro-spacing-sm: 8px;
+$retro-spacing-md: 16px;
+$retro-spacing-lg: 24px;
+$retro-spacing-xl: 32px;
+$retro-spacing-xxl: 48px;
+
+$retro-spacing: (
+  xxs: $retro-spacing-xxs,
+  xs: $retro-spacing-xs,
+  sm: $retro-spacing-sm,
+  md: $retro-spacing-md,
+  lg: $retro-spacing-lg,
+  xl: $retro-spacing-xl,
+  xxl: $retro-spacing-xxl
+);
+
+/**
+ * @name Border Variables
+ * @group variables
+ * @type Border
+ * @description
+ * Border width, style, radius for RetroCSS components.
+ * @example scss
+ *   border-radius: $retro-border-radius;
+ */
+
+/* Borders */
+$retro-border-width: 1px;
+$retro-border-width-thick: 2px;
+$retro-border-style: solid;
+$retro-border-radius: 0;
+$retro-border-radius-sm: 0;
+$retro-border-radius-lg: 0;
+
+/**
+ * @name Shadow Variables
+ * @group variables
+ * @type Shadow
+ * @description
+ * Shadow styles for raised and sunken effects.
+ * @example scss
+ *   box-shadow: $retro-border-raised;
+ */
+
+/* Shadows */
+$retro-border-raised: 
+  inset -1px -1px 0 $retro-border-dark,
+  inset 1px 1px 0 $retro-border-light;
+
+$retro-border-sunken: 
+  inset -1px -1px 0 $retro-border-light,
+  inset 1px 1px 0 $retro-border-dark;
+
+$retro-box-shadow-subtle:
+  0 1px 2px rgba(0, 0, 0, 0.1);
+
+$retro-box-shadow-medium:
+  0 2px 4px rgba(0, 0, 0, 0.15);
+
+/**
+ * @name Z-index Variables
+ * @group variables
+ * @type Z-index
+ * @description
+ * Z-index values for layering elements.
+ * @example scss
+ *   z-index: $retro-z-index-dropdown;
+ */
+
+/* Z-index */
+$retro-z-index-base: 1;
+$retro-z-index-dropdown: 1000;
+$retro-z-index-sticky: 1020;
+$retro-z-index-fixed: 1030;
+$retro-z-index-modal-backdrop: 1040;
+$retro-z-index-modal: 1050;
+$retro-z-index-popover: 1060;
+$retro-z-index-tooltip: 1070;
+
+/**
+ * @name Transition Variables
+ * @group variables
+ * @type Transition
+ * @description
+ * Transition timing values for animations.
+ * @example scss
+ *   transition: all $retro-transition-duration $retro-transition-timing-function;
+ */
+
+/* Transitions */
+$retro-transition-duration: 0.1s;
+$retro-transition-duration-slow: 0.3s;
+$retro-transition-duration-fast: 0.05s;
+$retro-transition-timing-function: ease;
+$retro-transition-timing-function-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+/**
+ * @name Screen Size Variables
+ * @group variables
+ * @type Screen
+ * @description
+ * Screen size values for viewports.
+ * @example scss
+ *   @media (min-width: $retro-screen-sm) { ... }
+ */
+
+/* Screen Sizes (Viewport) */
+$retro-screen-xs: map.get($retro-breakpoints, xs);
+$retro-screen-sm: map.get($retro-breakpoints, sm);
+$retro-screen-md: map.get($retro-breakpoints, md);
+$retro-screen-lg: map.get($retro-breakpoints, lg);
+$retro-screen-xl: map.get($retro-breakpoints, xl);
+$retro-screen-xxl: map.get($retro-breakpoints, xxl);
+
+/**
+ * @name Container Variables
+ * @group variables
+ * @type Container
+ * @description
+ * Container width values for layouts.
+ * @example scss
+ *   max-width: $retro-container-lg;
+ */
+
+/* Container Sizes */
+$retro-container-sm: 540px;
+$retro-container-md: 720px;
+$retro-container-lg: 960px;
+$retro-container-xl: 1140px;
+$retro-container-xxl: 1320px;
+$retro-container-fluid: 100%;
+
+/* CSS Custom Properties */
+:root {
+  // Colors
+  --retro-body-bg: #{$retro-body-bg}; /* Fallback for IE11 */
+  --retro-body-bg-dark: #{$retro-body-bg-dark}; /* Fallback for IE11 */
+  --retro-bg: #{$retro-bg}; /* Fallback for IE11 */
+  --retro-primary: #{$retro-primary}; /* Fallback for IE11 */
+  --retro-primary-rgb: #{$retro-primary-rgb}; /* Fallback for IE11 */
+  --retro-light: #{$retro-light}; /* Fallback for IE11 */
+  --retro-white: #{$retro-white}; /* Fallback for IE11 */
+  --retro-black: #{$retro-black}; /* Fallback for IE11 */
+  
+  // Text Utilities Colors
+  --retro-color-primary: #{$retro-primary};
+  --retro-color-success: #{$retro-success};
+  --retro-color-danger: #{$retro-danger};
+  --retro-color-warning: #{$retro-warning};
+  --retro-color-info: #{$retro-info};
+  --retro-color-teal: #{$retro-teal};
+  --retro-color-pink: #{$retro-pink};
+  --retro-color-lime: #{$retro-lime};
+  
+  // Semantic border names
+  --retro-border-light: #{$retro-border-light}; /* Fallback for IE11 */
+  --retro-border-medium: #{$retro-border-medium}; /* Fallback for IE11 */
+  --retro-border-dark: #{$retro-border-dark}; /* Fallback for IE11 */
+  
+  --retro-success: #{$retro-success}; /* Fallback for IE11 */
+  --retro-success-rgb: #{$retro-success-rgb}; /* Fallback for IE11 */
+  --retro-warning: #{$retro-warning}; /* Fallback for IE11 */
+  --retro-warning-rgb: #{$retro-warning-rgb}; /* Fallback for IE11 */
+  --retro-danger: #{$retro-danger}; /* Fallback for IE11 */
+  --retro-danger-rgb: #{$retro-danger-rgb}; /* Fallback for IE11 */
+  --retro-info: #{$retro-info}; /* Fallback for IE11 */
+  --retro-info-rgb: #{$retro-info-rgb}; /* Fallback for IE11 */
+  --retro-teal: #{$retro-teal}; /* Fallback for IE11 */
+  --retro-teal-rgb: #{$retro-teal-rgb}; /* Fallback for IE11 */
+  --retro-tan: #{$retro-tan}; /* Fallback for IE11 */
+  --retro-pink: #{$retro-pink}; /* Fallback for IE11 */
+  --retro-pink-rgb: #{$retro-pink-rgb}; /* Fallback for IE11 */
+  --retro-lime: #{$retro-lime}; /* Fallback for IE11 */
+  --retro-lime-rgb: #{$retro-lime-rgb}; /* Fallback for IE11 */
+  --retro-cyan: #{$retro-cyan}; /* Fallback for IE11 */
+  --retro-cyan-rgb: #{$retro-cyan-rgb}; /* Fallback for IE11 */
+  --retro-orange: #{$retro-orange}; /* Fallback for IE11 */
+  --retro-orange-rgb: #{$retro-orange-rgb}; /* Fallback for IE11 */
+  --retro-brown: #{$retro-brown}; /* Fallback for IE11 */
+  --retro-brown-rgb: #{$retro-brown-rgb}; /* Fallback for IE11 */
+  --retro-violet: #{$retro-violet}; /* Fallback for IE11 */
+  --retro-violet-rgb: #{$retro-violet-rgb}; /* Fallback for IE11 */
+  --retro-gray: #{$retro-gray}; /* Fallback for IE11 */
+  --retro-gray-rgb: #{$retro-gray-rgb}; /* Fallback for IE11 */
+  --retro-maroon: #{$retro-maroon}; /* Fallback for IE11 */
+  --retro-maroon-rgb: #{$retro-maroon-rgb}; /* Fallback for IE11 */
+  --retro-gold: #{$retro-gold}; /* Fallback for IE11 */
+  --retro-gold-rgb: #{$retro-gold-rgb}; /* Fallback for IE11 */
+  --retro-navy: #{$retro-navy}; /* Fallback for IE11 */
+  --retro-navy-rgb: #{$retro-navy-rgb}; /* Fallback for IE11 */
+  --retro-olive: #{$retro-olive}; /* Fallback for IE11 */
+  --retro-olive-rgb: #{$retro-olive-rgb}; /* Fallback for IE11 */
+  --retro-silver: #{$retro-silver}; /* Fallback for IE11 */
+  --retro-silver-rgb: #{$retro-silver-rgb}; /* Fallback for IE11 */
+  --retro-black-rgb: #{$retro-black-rgb}; /* Fallback for IE11 */
+  --retro-white-rgb: #{$retro-white-rgb}; /* Fallback for IE11 */
+  --retro-light-rgb: #{$retro-light-rgb}; /* Fallback for IE11 */
+
+  // Typography
+  --retro-font: #{$retro-font}; /* Fallback for IE11 */
+  --retro-font-size: #{$retro-font-size}; /* Fallback for IE11 */
+  --retro-font-size-sm: #{$retro-font-size-sm}; /* Fallback for IE11 */
+  --retro-font-size-lg: #{$retro-font-size-lg}; /* Fallback for IE11 */
+  --retro-line-height: #{$retro-line-height}; /* Fallback for IE11 */
+  --retro-letter-spacing: #{$retro-letter-spacing}; /* Fallback for IE11 */
+
+  // Spacing
+  --retro-spacing-xxs: #{$retro-spacing-xxs}; /* Fallback for IE11 */
+  --retro-spacing-xs: #{$retro-spacing-xs}; /* Fallback for IE11 */
+  --retro-spacing-sm: #{$retro-spacing-sm}; /* Fallback for IE11 */
+  --retro-spacing-md: #{$retro-spacing-md}; /* Fallback for IE11 */
+  --retro-spacing-lg: #{$retro-spacing-lg}; /* Fallback for IE11 */
+  --retro-spacing-xl: #{$retro-spacing-xl}; /* Fallback for IE11 */
+  --retro-spacing-xxl: #{$retro-spacing-xxl}; /* Fallback for IE11 */
+
+  // Borders
+  --retro-border-width: #{$retro-border-width}; /* Fallback for IE11 */
+  --retro-border-width-thick: #{$retro-border-width-thick}; /* Fallback for IE11 */
+  --retro-border-style: #{$retro-border-style}; /* Fallback for IE11 */
+  --retro-border-radius: #{$retro-border-radius}; /* Fallback for IE11 */
+  --retro-border-radius-sm: #{$retro-border-radius-sm}; /* Fallback for IE11 */
+  --retro-border-radius-lg: #{$retro-border-radius-lg}; /* Fallback for IE11 */
+  --retro-border-raised: #{$retro-border-raised}; /* Fallback for IE11 */
+  --retro-border-sunken: #{$retro-border-sunken}; /* Fallback for IE11 */
+  --retro-box-shadow-subtle: #{$retro-box-shadow-subtle}; /* Fallback for IE11 */
+  --retro-box-shadow-medium: #{$retro-box-shadow-medium}; /* Fallback for IE11 */
+  
+  // Z-index
+  --retro-z-index-base: #{$retro-z-index-base};
+  --retro-z-index-dropdown: #{$retro-z-index-dropdown};
+  --retro-z-index-sticky: #{$retro-z-index-sticky};
+  --retro-z-index-fixed: #{$retro-z-index-fixed};
+  --retro-z-index-modal-backdrop: #{$retro-z-index-modal-backdrop};
+  --retro-z-index-modal: #{$retro-z-index-modal};
+  --retro-z-index-popover: #{$retro-z-index-popover};
+  --retro-z-index-tooltip: #{$retro-z-index-tooltip};
+  
+  // Transitions
+  --retro-transition-duration: #{$retro-transition-duration};
+  --retro-transition-duration-slow: #{$retro-transition-duration-slow};
+  --retro-transition-duration-fast: #{$retro-transition-duration-fast};
+  --retro-transition-timing-function: #{$retro-transition-timing-function};
+  --retro-transition-timing-function-bounce: #{$retro-transition-timing-function-bounce};
+  
+  // Container Sizes
+  --retro-container-sm: #{$retro-container-sm};
+  --retro-container-md: #{$retro-container-md};
+  --retro-container-lg: #{$retro-container-lg};
+  --retro-container-xl: #{$retro-container-xl};
+  --retro-container-xxl: #{$retro-container-xxl};
+  --retro-container-fluid: #{$retro-container-fluid};
+
+  // Card Variables
+  --retro-card-bg: #f0f0f0;
+  --retro-card-header-bg: #000080;
+  --retro-card-header-text: #fff;
+  --retro-card-content-bg: #fff;
+  --retro-card-content-text: #000;
+  --retro-card-footer-bg: #f0f0f0;
+  --retro-card-footer-text: #000;
+  --retro-modal-bg: #f0f0f0;
+  --retro-modal-header-bg: #000080;
+  --retro-modal-header-text: #fff;
+  --retro-table-bg: #fff;
+  --retro-table-header-bg: #f0f0f0;
+  --retro-table-header-text: #000;
+  --retro-table-striped-bg: #e9e9e9;
+  --retro-input-bg: #fff;
+  --retro-input-text: #000;
+  --retro-sidebar-bg: #e0e0e0;
+  --retro-sidebar-text: #000;
+  --retro-dropdown-bg: #fff;
+  --retro-dropdown-text: #000;
+  --retro-list-bg: #fff;
+  --retro-list-text: #000;
+  --retro-progress-bg: #e0e0e0;
+  --retro-progress-bar-bg: #000080;
+  --retro-alert-bg: #f3f3f3;
+  --retro-alert-text: #000;
+  --retro-badge-bg: #444;
+  --retro-badge-text: #fff;
+}
+
+[data-theme="dark"] {
+  --retro-body-bg: #181818;
+  --retro-bg: #232323;
+  --retro-primary: #4a90e2;
+  --retro-primary-rgb: 74, 144, 226;
+  --retro-light: #222;
+  --retro-white: #232323;
+  --retro-black: #fff;
+  --retro-white-rgb: 35, 35, 35;
+  --retro-black-rgb: 255, 255, 255;
+  --retro-light-rgb: 34, 34, 34;
+
+  --retro-border-light: #444;
+  --retro-border-medium: #666;
+  --retro-border-dark: #888;
+
+  --retro-success: #2ecc71;
+  --retro-success-rgb: 46, 204, 113;
+  --retro-warning: #f39c12;
+  --retro-warning-rgb: 243, 156, 18;
+  --retro-danger: #e74c3c;
+  --retro-danger-rgb: 231, 76, 60;
+  --retro-info: #3498db;
+  --retro-info-rgb: 52, 152, 219;
+  --retro-teal: #1abc9c;
+  --retro-teal-rgb: 26, 188, 156;
+  --retro-tan: #d4b483;
+  --retro-pink: #e84393;
+  --retro-pink-rgb: 232, 67, 147;
+  --retro-lime: #00b894;
+  --retro-lime-rgb: 0, 184, 148;
+  --retro-cyan: #00cec9;
+  --retro-cyan-rgb: 0, 206, 201;
+  --retro-orange: #e67e22;
+  --retro-orange-rgb: 230, 126, 34;
+  --retro-brown: #a67c52;
+  --retro-brown-rgb: 166, 124, 82;
+  --retro-violet: #9b59b6;
+  --retro-violet-rgb: 155, 89, 182;
+  --retro-gray: #95a5a6;
+  --retro-gray-rgb: 149, 165, 166;
+  --retro-maroon: #c0392b;
+  --retro-maroon-rgb: 192, 57, 43;
+  --retro-gold: #f1c40f;
+  --retro-gold-rgb: 241, 196, 15;
+  --retro-navy: #2c3e50;
+  --retro-navy-rgb: 44, 62, 80;
+  --retro-olive: #7f8c8d;
+  --retro-olive-rgb: 127, 140, 141;
+  --retro-silver: #bdc3c7;
+  --retro-silver-rgb: 189, 195, 199;
+
+  --retro-box-shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --retro-box-shadow-medium: 0 2px 4px rgba(0, 0, 0, 0.4);
+
+  // Card Variables
+  --retro-card-bg: #23242a;
+  --retro-card-header-bg: #1a237e;
+  --retro-card-header-text: #fff;
+  --retro-card-content-bg: #23242a;
+  --retro-card-content-text: #f3f3f3;
+  --retro-card-footer-bg: #23242a;
+  --retro-card-footer-text: #f3f3f3;
+  --retro-modal-bg: #23242a;
+  --retro-modal-header-bg: #1a237e;
+  --retro-modal-header-text: #fff;
+  --retro-table-bg: #23242a;
+  --retro-table-header-bg: #23242a;
+  --retro-table-header-text: #f3f3f3;
+  --retro-table-striped-bg: #26282e;
+  --retro-input-bg: #23242a;
+  --retro-input-text: #f3f3f3;
+  --retro-sidebar-bg: #202124;
+  --retro-sidebar-text: #f3f3f3;
+  --retro-dropdown-bg: #23242a;
+  --retro-dropdown-text: #f3f3f3;
+  --retro-list-bg: #23242a;
+  --retro-list-text: #f3f3f3;
+  --retro-progress-bg: #23242a;
+  --retro-progress-bar-bg: #4a90e2;
+  --retro-alert-bg: #23242a;
+  --retro-alert-text: #f3f3f3;
+  --retro-badge-bg: #444;
+  --retro-badge-text: #fff;
+}
+
+/* Layout Specific Variables */
+$retro-sidebar-width: 220px !default;
+
+/* Component Specific Variables */
+
+// Card Variables
+$retro-card-bg: $retro-light !default;
+$retro-card-header-bg: $retro-primary !default;
+$retro-card-header-text: $retro-white !default;
+$retro-card-header-border: color.adjust($retro-card-header-bg, $blackness: 20%) !default;
+$retro-card-content-bg: $retro-white !default;
+$retro-card-content-text: $retro-black !default;
+$retro-card-content-border: $retro-gray !default;
+$retro-card-footer-bg: $retro-light !default;
+$retro-card-footer-text: $retro-black !default;
+$retro-card-footer-border: $retro-border-medium !default;
+$retro-card-image-border: $retro-border-medium !default;
+$retro-card-image-max-height: 140px !default;
+
+// Toast Variables
+$retro-toast-bg: #ffffcc !default;
+$retro-toast-text: $retro-black !default;
+$retro-toast-min-width: 220px !default;
+$retro-toast-max-width: 350px !default;
+$retro-toast-border-radius: 0 !default; // Overrides the 8px from earlier version to keep it retro
+$retro-toast-font-size: $retro-font-size-base !default;
+$retro-toast-font-weight: 500 !default; // Consider $retro-font-weight-normal or bold

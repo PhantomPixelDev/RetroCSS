@@ -1,0 +1,74 @@
+@use "sass:color";
+@use "sass:map";
+@use "variables" as *;
+
+// Common mixins
+@mixin retro-border {
+  border: var(--retro-border-width) var(--retro-border-style) var(--retro-border-dark);
+}
+
+@mixin retro-box-shadow($type: raised) {
+  @if $type == raised {
+    box-shadow: var(--retro-border-raised);
+  } @else if $type == sunken {
+    box-shadow: var(--retro-border-sunken);
+  }
+}
+
+@mixin retro-hover {
+  &:hover {
+    background: var(--retro-light);
+  }
+}
+
+@mixin retro-active {
+  &:active {
+    @include retro-box-shadow(sunken);
+    transform: translateY(1px);
+  }
+}
+
+@mixin retro-focus {
+  &:focus {
+    outline: 1px dotted var(--retro-black);
+    outline-offset: -4px;
+  }
+}
+
+@mixin retro-transition($property: all, $duration: $retro-transition-duration, $timing-function: $retro-transition-timing-function) {
+  transition: $property $duration $timing-function;
+}
+
+// Breakpoint mixin
+@mixin retro-breakpoint($breakpoint) {
+  @if map.has-key($retro-breakpoints, $breakpoint) {
+    @media (min-width: map.get($retro-breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Invalid breakpoint: #{$breakpoint}. Available breakpoints are: #{map.keys($retro-breakpoints)}";
+  }
+}
+
+// Z-index mixin
+@mixin retro-z-index($layer) {
+  @if $layer == base {
+    z-index: $retro-z-index-base;
+  } @else if $layer == dropdown {
+    z-index: $retro-z-index-dropdown;
+  } @else if $layer == sticky {
+    z-index: $retro-z-index-sticky;
+  } @else if $layer == fixed {
+    z-index: $retro-z-index-fixed;
+  } @else if $layer == modal-backdrop {
+    z-index: $retro-z-index-modal-backdrop;
+  } @else if $layer == modal {
+    z-index: $retro-z-index-modal;
+  } @else if $layer == popover {
+    z-index: $retro-z-index-popover;
+  } @else if $layer == tooltip {
+    z-index: $retro-z-index-tooltip;
+  } @else {
+    @warn "Invalid z-index layer: #{$layer}";
+  }
+} 

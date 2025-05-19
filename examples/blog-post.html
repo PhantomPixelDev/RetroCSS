@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ Introducing RetroCSS v1.0 | RetroCSS Blog</title>
+  <link rel="stylesheet" href="../dist/retro.min.css">
+</head>
+<body class="retro-body-bg">
+  <div class="retro-container">
+    <nav class="retro-nav">
+      <a href="../index.html" class="retro-nav-item" data-retro-tooltip="Home page">🏠 Home</a>
+      <a href="../documentation.html" class="retro-nav-item" data-retro-tooltip="Documentation">📖 Docs</a>
+      <a href="https://github.com/phantompixeldev/retrocss" class="retro-nav-item" data-retro-tooltip="GitHub">💾 GitHub</a>
+      <button class="retro-nav-item retro-theme-toggle" data-retro-tooltip="Toggle dark/light mode">🌓 Toggle Theme</button>
+    </nav>
+  </div>
+  <hr class="retro-mt-5" style="border-color: var(--retro-border-medium);">
+  <div class="retro-main-layout retro-gap-4">
+    <div class="retro-sidebar retro-bg-light retro-border-right retro-shadow-lg">
+      <div class="retro-sidebar-header">📰 Blog</div>
+      <nav aria-label="Blog navigation">
+        <div class="retro-sidebar-section">
+          <ul class="retro-list">
+            <li><a href="blog.html" class="retro-btn retro-btn-secondary retro-btn-xs">⬅️ Back to Blog</a></li>
+            <li><a href="#comments">💬 Comments</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="main-content retro-pb-8">
+      <!-- Hero Section -->
+      <div class="retro-card retro-mb-4 retro-bg-primary-lightest retro-shadow-lg">
+        <div class="retro-card-header retro-flex retro-items-center retro-gap-3">
+          <div class="retro-avatar retro-bg-primary retro-text-white retro-shadow-md" style="width:56px; height:56px; font-size:2em; display:flex; align-items:center; justify-content:center; border-radius:10px;">🧑‍💻</div>
+          <div>
+            <h1 class="retro-heading-primary retro-mb-1">✨ Introducing RetroCSS v1.0</h1>
+            <div class="retro-flex retro-gap-2 retro-items-center">
+              <span class="retro-badge retro-badge-primary">@retrodev</span>
+              <span class="retro-badge retro-badge-info">June 15, 2024</span>
+              <span class="retro-badge retro-badge-success">Release</span>
+            </div>
+          </div>
+        </div>
+        <div class="retro-card-content">
+          <p class="retro-text-lg">We are thrilled to announce the first official release of <b>RetroCSS</b>! 🎉 This framework brings the nostalgia of Win9x to your modern web projects, with a full suite of components, utilities, and theming options.</p>
+        </div>
+      </div>
+      <!-- Post Content -->
+      <div class="retro-card retro-mb-4 retro-shadow-sm">
+        <div class="retro-card-content">
+          <h3>🚀 Features</h3>
+          <ul class="retro-list retro-list-striped">
+            <li>Classic Win9x look and feel</li>
+            <li>Modern responsive layout</li>
+            <li>Dark mode & theming</li>
+            <li>Interactive JS components</li>
+            <li>Easy customization</li>
+          </ul>
+          <blockquote class="retro-blockquote retro-mt-4">“RetroCSS makes building nostalgic UIs fun and easy!”</blockquote>
+          <h3 class="retro-mt-5">🛠️ Get Started</h3>
+          <pre class="retro-code retro-bg-light retro-p-2 retro-mb-2"><code>&lt;link rel="stylesheet" href="../dist/retro.min.css"&gt;
+&lt;script src="../dist/retro.js"&gt;&lt;/script&gt;</code></pre>
+          <div class="retro-mt-3">
+            <span class="retro-badge retro-badge-primary">#retrocss</span>
+            <span class="retro-badge retro-badge-success">#release</span>
+            <span class="retro-badge retro-badge-info">#css</span>
+            <span class="retro-badge retro-badge-warning">#win9x</span>
+          </div>
+        </div>
+      </div>
+      <!-- Author Card -->
+      <div class="retro-card retro-mb-4 retro-shadow-sm">
+        <div class="retro-card-header">👤 Author</div>
+        <div class="retro-card-content retro-flex retro-items-center retro-gap-3">
+          <div class="retro-avatar retro-bg-primary retro-text-white retro-shadow-md" style="width:48px; height:48px; font-size:2em; display:flex; align-items:center; justify-content:center; border-radius:8px;">🧑‍💻</div>
+          <div>
+            <b>@retrodev</b><br>
+            <span class="retro-text-secondary">Retro Enthusiast</span>
+          </div>
+        </div>
+      </div>
+      <!-- Comments -->
+      <div class="retro-card retro-shadow-sm" id="comments">
+        <div class="retro-card-header">💬 Comments</div>
+        <div class="retro-card-content">
+          <ul class="retro-list retro-list-striped">
+            <li><b>alice</b>: Love the retro vibes! 😍</li>
+            <li><b>bob</b>: Can't wait to use this in my next project! 🚀</li>
+            <li><b>charlie</b>: Theming is so easy, great job! 🎨</li>
+          </ul>
+          <form class="retro-form retro-mt-4 retro-flex retro-gap-2">
+            <input type="text" id="comment" class="retro-input retro-flex-1" placeholder="Type your comment...">
+            <button class="retro-btn retro-btn-primary" type="submit">Post</button>
+          </form>
+        </div>
+      </div>
+      <!-- Footer -->
+      <footer class="retro-mt-8 retro-text-center retro-text-xs retro-text-secondary">
+        <div class="retro-divider retro-divider-dotted"></div>
+        <p>© 2024 RetroCSS Blog. Made with <span class="retro-text-danger">♥</span> in Win9x style.</p>
+      </footer>
+    </div>
+  </div>
+  <script src="../dist/retro.js"></script>
+</body>
+</html> 

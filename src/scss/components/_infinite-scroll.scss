@@ -1,0 +1,109 @@
+/**
+ * @name Infinite Scroll
+ * @group components
+ * @description
+ * Component for loading content as the user scrolls down.
+ * @example scss
+ *   <div class="retro-infinite-scroll">
+ *     <!-- Content will be loaded here -->
+ *     <div class="retro-infinite-loader">
+ *       <div class="retro-spinner"></div>
+ *     </div>
+ *   </div>
+ */
+
+.retro-infinite-scroll {
+  position: relative;
+  overflow-y: auto;
+  max-height: 400px;
+  padding: var(--retro-spacing-md);
+  border: 2px solid var(--retro-border-dark);
+  border-right: 2px solid var(--retro-border-light);
+  border-bottom: 2px solid var(--retro-border-light);
+  border-left: 2px solid var(--retro-border-medium);
+  border-top: 2px solid var(--retro-border-medium);
+  background-color: var(--retro-light);
+  
+  // Fix for the height issue in the demo
+  &.retro-h-75 {
+    height: 400px;
+  }
+}
+
+.retro-infinite-item {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--retro-border-medium);
+  background: var(--retro-bg);
+  color: var(--retro-black);
+  box-shadow: 1px 1px 0 var(--retro-border-light);
+  font-family: inherit;
+  transition: background 0.2s, color 0.2s;
+}
+
+.retro-infinite-item:hover {
+  background: var(--retro-border-light);
+  color: var(--retro-primary);
+}
+
+.retro-infinite-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--retro-spacing-md);
+  margin: var(--retro-spacing-md) 0;
+}
+
+.retro-spinner {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border: 3px solid var(--retro-border-medium);
+  border-radius: 50%;
+  border-top-color: var(--retro-primary);
+  animation: retro-spin 1s linear infinite;
+}
+
+@keyframes retro-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.retro-infinite-end {
+  text-align: center;
+  padding: var(--retro-spacing-md);
+  font-style: italic;
+  color: var(--retro-border-medium);
+  border-top: 1px dashed var(--retro-border-medium);
+  margin-top: var(--retro-spacing-md);
+}
+
+.retro-ascii-loader {
+  letter-spacing: 2px;
+  background: var(--retro-bg);
+  border: 2px solid var(--retro-border-dark);
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.12), 1px 1px 0 var(--retro-border-light);
+  padding: 4px 16px;
+  border-radius: 4px;
+  filter: blur(0.2px);
+  font-weight: bold;
+}
+
+@keyframes retro-ascii-dots {
+  0% { content: '.'; }
+  25% { content: '..'; }
+  50% { content: '...'; }
+  75% { content: '....'; }
+  100% { content: '.'; }
+}
+
+// Dark mode adjustments
+[data-theme="dark"] {
+  .retro-infinite-scroll {
+    background-color: var(--retro-bg);
+  }
+  
+  .retro-spinner {
+    border-color: var(--retro-border-medium);
+    border-top-color: var(--retro-primary);
+  }
+}

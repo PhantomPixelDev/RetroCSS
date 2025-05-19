@@ -1,0 +1,163 @@
+@use "../mixins" as *;
+@use "../variables" as *;
+@use "sass:color";
+
+/**
+ * @name Retro Table
+ * @group components
+ * @description
+ * Table component with various styles and variants.
+ * @example scss
+ *   <table class="retro-table">
+ *     <thead>
+ *       <tr>
+ *         <th>Header 1</th>
+ *         <th>Header 2</th>
+ *       </tr>
+ *     </thead>
+ *     <tbody>
+ *       <tr>
+ *         <td>Cell 1</td>
+ *         <td>Cell 2</td>
+ *       </tr>
+ *     </tbody>
+ *   </table>
+ */
+
+// --- Old School WinTable Style --- //
+
+.retro-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--retro-border-dark);
+  background-color: var(--retro-table-bg);
+  color: var(--retro-table-header-text);
+  font-family: $retro-font;
+  font-size: $retro-font-size-base;
+  box-shadow: var(--retro-box-shadow-outset-button); // Classic outset shadow
+  overflow-x: auto; // Added for default responsiveness
+  margin-bottom: var(--retro-spacing-md); // Added from responsive wrapper
+  table-layout: fixed; // Added for predictable column widths and text truncation
+
+  th,
+  td {
+    padding: 6px 8px;
+    text-align: left;
+    border: 1px solid var(--retro-border-medium); // Grid lines
+    overflow: hidden; // Added for text truncation
+    white-space: nowrap; // Added for text truncation
+    text-overflow: ellipsis; // Added for text truncation
+  }
+
+  thead th {
+    background-color: var(--retro-table-header-bg);
+    color: var(--retro-table-header-text);
+    font-weight: bold;
+    // Classic 3D button look for headers
+    border-top: 1px solid var(--retro-border-light);
+    border-left: 1px solid var(--retro-border-light);
+    border-right: 1px solid var(--retro-border-dark);
+    border-bottom: 1px solid var(--retro-border-dark);
+    // Ensure bottom border is distinct for header row
+    &:not(:last-child) {
+      border-right: 1px solid var(--retro-border-dark);
+    }
+  }
+
+  tbody tr {
+    &:hover {
+      background-color: var(--retro-table-striped-bg);
+    }
+  }
+
+  // Striped variant (optional, but common)
+  &.retro-table-striped tbody tr:nth-child(odd) {
+    background-color: var(--retro-table-striped-bg);
+    &:hover {
+      background-color: var(--retro-primary);
+      color: var(--retro-white);
+    }
+  }
+
+  // Bordered variant
+  &.retro-table-bordered {
+    border: 2px solid var(--retro-border-dark); // Stronger outer border
+    th, td {
+      border: 1px solid var(--retro-border-medium); // Ensure all cells have borders
+    }
+    thead th {
+      border-bottom: 2px solid var(--retro-border-dark); // Header distinct bottom border
+    }
+  }
+
+  // Basic scrollbar styling (moved from .retro-table-responsive)
+  &::-webkit-scrollbar {
+    height: 16px; // Chunky scrollbar
+    width: 16px;
+    background-color: var(--retro-table-bg);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--retro-table-bg); // Same as button face
+    border-top: 1px solid var(--retro-border-light);
+    border-left: 1px solid var(--retro-border-light);
+    border-right: 1px solid var(--retro-border-dark);
+    border-bottom: 1px solid var(--retro-border-dark);
+    min-height: 20px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: var(--retro-table-striped-bg);
+  }
+  &::-webkit-scrollbar-button { // Arrows
+    background-color: var(--retro-table-bg);
+    border-top: 1px solid var(--retro-border-light);
+    border-left: 1px solid var(--retro-border-light);
+    border-right: 1px solid var(--retro-border-dark);
+    border-bottom: 1px solid var(--retro-border-dark);
+    display: block; // Required for some browsers
+    height: 16px;
+    width: 16px;
+    // TODO: Add arrow icons using background images or pseudo-elements if desired
+  }
+}
+
+// Responsive wrapper for horizontal scrolling (old-school scrollbar feel)
+// .retro-table-responsive { // This class is now removed
+// overflow-x: auto;
+// margin-bottom: var(--retro-spacing-md);
+// border: 1px solid var(--retro-border-medium); // Standard border for scroll area
+// box-shadow: var(--retro-box-shadow-inset);   // Inset scroll area
+// background-color: var(--retro-bg);          // Match table bg
+// padding: 1px;                               // Minimal padding to show inset border
+//
+// // Basic scrollbar styling
+// &::-webkit-scrollbar {
+// height: 16px; // Chunky scrollbar
+// width: 16px;
+// background-color: var(--retro-bg);
+// }
+// &::-webkit-scrollbar-thumb {
+// background-color: var(--retro-bg); // Same as button face
+// border-top: 1px solid var(--retro-border-light);
+// border-left: 1px solid var(--retro-border-light);
+// border-right: 1px solid var(--retro-border-dark);
+// border-bottom: 1px solid var(--retro-border-dark);
+// min-height: 20px;
+// }
+// &::-webkit-scrollbar-track {
+// background-color: color.adjust($retro-bg, $lightness: -10%); // Trough darker than bg
+// border: 1px solid var(--retro-border-medium);
+// }
+// &::-webkit-scrollbar-button { // Arrows
+// background-color: var(--retro-bg);
+// border-top: 1px solid var(--retro-border-light);
+// border-left: 1px solid var(--retro-border-light);
+// border-right: 1px solid var(--retro-border-dark);
+// border-bottom: 1px solid var(--retro-border-dark);
+// display: block; // Required for some browsers
+// height: 16px;
+// width: 16px;
+// // TODO: Add arrow icons using background images or pseudo-elements if desired
+// }
+// }  // End of removed .retro-table-responsive
+
+

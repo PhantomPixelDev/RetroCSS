@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RetroCSS Win9x Demo</title>
+  <link rel="stylesheet" href="dist/retro.min.css">
+  <style>
+  .demo-section {
+    padding: var(--retro-spacing-md);
+    box-sizing: border-box;
+    box-shadow: var(--retro-box-shadow-subtle);
+    border-radius: var(--retro-border-radius);
+  }
+  .demo-section h2 {
+    margin-top: 0;
+    margin-bottom: var(--retro-spacing-md);
+    box-shadow: var(--retro-box-shadow-medium);
+  }
+
+  /* Main layout with sidebar */
+  .retro-main-layout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    max-width: var(--retro-container-xxl);
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .retro-main-layout {
+      flex-direction: row;
+      gap: 0; /* Remove any gap between sidebar and content */
+    }
+  }
+
+  .retro-main-layout .main-content {
+    flex: 1;
+    width: 100%;
+    overflow-x: hidden;
+    padding: var(--retro-spacing-md);
+    box-sizing: border-box;
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  @media (min-width: 768px) {
+    .main-content {
+      margin-left: 0; /* Remove the 220px fixed margin that was causing the gap */
+      padding-left: var(--retro-spacing-md);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .main-content {
+      margin-left: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box;
+    }
+    .retro-container, .demo-section {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box;
+      margin-left: 0 !important;
+      padding: 0 var(--retro-spacing-md) !important;
+    }
+  }
+
+  /* Improved grid layout */
+  .retro-main-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--retro-spacing-md);
+    width: 100%;
+    max-width: var(--retro-container-xl);
+    margin: var(--retro-spacing-md) auto 0;
+  }
+
+  @media (min-width: 768px) {
+    .retro-main-grid {
+      grid-template-columns: minmax(var(--retro-sidebar-width, 200px), 20%) 1fr;
+    }
+  }
+
+  /* Custom layout grid */
+  .retro-layout-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--retro-spacing-md);
+    width: 100%;
+    max-width: var(--retro-container-xl);
+    margin: var(--retro-spacing-md) auto 0;
+  }
+
+  @media (min-width: 768px) {
+    .retro-layout-grid {
+      grid-template-columns: minmax(var(--retro-sidebar-width, 200px), 20%) 1fr;
+    }
+  }
+  </style>
+</head>
+
+<body class="retro-body-bg">
+  <div class="retro-container">
+    <nav class="retro-nav">
+      <a href="index.html" class="retro-nav-item active" data-retro-tooltip="Home page">Home</a>
+      <a href="documentation.html" class="retro-nav-item" data-retro-tooltip="Documentation">Documentation</a>
+      <a href="https://github.com/phantompixeldev/retrocss" class="retro-nav-item" data-retro-tooltip="GitHub">GitHub</a>
+      <div class="retro-dropdown">
+        <button class="retro-nav-item retro-dropdown-toggle" data-retro-dropdown data-retro-tooltip="Examples">Examples ▼</button>
+        <div class="retro-dropdown-menu">
+          <a href="examples/dashboard.html" class="retro-dropdown-item" target="_blank">Dashboard</a>
+          <a href="examples/blog-post.html" class="retro-dropdown-item" target="_blank">Blog Post</a>
+          <a href="examples/blog.html" class="retro-dropdown-item" target="_blank">Blog</a>
+          <a href="examples/login.html" class="retro-dropdown-item" target="_blank">Login</a>
+          <a href="examples/register.html" class="retro-dropdown-item" target="_blank">Register</a>
+        </div>
+      </div>
+      <button class="retro-nav-item retro-theme-toggle" data-retro-tooltip="Toggle dark/light mode">🌓 Toggle Theme</button>
+    </nav>
+  </div>
+  <hr class="retro-mt-5" style="border-color: var(--retro-border-medium);">
+
+  <!-- Main layout with proper grid classes -->
+  <div class="retro-main-layout retro-gap-4">
+    <!-- Sidebar using proper RetroCSS classes -->
+    <div class="retro-sidebar">
+      <div class="retro-sidebar-header">Demo Sections</div>
+      <nav aria-label="Demo sections navigation">
+        <div class="retro-sidebar-section">
+          <ul class="retro-list">
+            <li><a href="#section-navigation">Navigation</a></li>
+            <li><a href="#section-vertical-navigation">Vertical Navigation</a></li>
+            <li><a href="#section-pills-navigation">Pills Navigation</a></li>
+            <li><a href="#section-toolbar-navigation">Toolbar Navigation</a></li>
+            <li><a href="#section-tabbed-navigation">Tabbed Navigation</a></li>
+            <li><a href="#section-underlined-navigation">Underlined Navigation</a></li>
+            <li><a href="#section-button-navigation">Button Group Navigation</a></li>
+            <li><a href="#section-badges">Badges</a></li>
+            <li><a href="#section-buttons">Buttons</a></li>
+            <li><a href="#section-cards">Cards</a></li>
+            <li><a href="#section-forms">Forms</a></li>
+            <li><a href="#section-tables">Tables</a></li>
+            <li><a href="#section-grid">Grid System</a></li>
+            <li><a href="#section-container-queries">Container Queries</a></li>
+            <li><a href="#section-alerts">Alerts</a></li>
+            <li><a href="#section-toasts">Toasts</a></li>
+            <li><a href="#section-progress">Progress</a></li>
+            <li><a href="#section-accordion">Accordion</a></li>
+            <li><a href="#section-pagination">Pagination</a></li>
+            <li><a href="#section-breadcrumbs">Breadcrumbs</a></li>
+            <li><a href="#section-dropdown">Dropdown Menu</a></li>
+            <li><a href="#section-file-upload">File Upload</a></li>
+            <li><a href="#section-tag-input">Tag/Chip Input</a></li>
+            <li><a href="#section-search">Search Bar</a></li>
+            <li><a href="#section-rating">Rating Stars</a></li>
+            <li><a href="#section-dividers">Dividers</a></li>
+            <li><a href="#section-tooltips">Tooltips</a></li>
+            <li><a href="#section-lists">Lists</a></li>
+            <li><a href="#section-carousel">Carousel</a></li>
+            <li><a href="#section-datetime">Date/Time Picker</a></li>
+            <li><a href="#section-infinite-scroll">Infinite Scroll</a></li>
+            <li><a href="#section-typography">Typography</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Main content area using proper RetroCSS classes -->
+    <div class="main-content">
+      <!-- Mobile sidebar toggle button (automatically added by JS) -->
+      
+        <!-- Win9x Style Layout -->
+  <div class="retro-container retro-mb-5">
+    <!-- Main Content Area Header -->
+    <div class="retro-card retro-mb-3">
+      <div class="retro-card-header">
+        <h1 class="retro-heading-primary">RetroCSS Win9x Demo</h1>
+      </div>
+      <div class="retro-card-content">
+        <p>Welcome to the RetroCSS demo page! This page showcases various components and styles inspired by the classic Win9x interface.</p>
+      </div>
+    </div>
+  </div>
+
+      <!-- Content window -->
+      <div class="retro-card retro-mb-4">
+        <div class="retro-card-header">
+          Navigation Examples
+        </div>
+        <div class="retro-card-content">
+          <div class="retro-flex retro-justify-between retro-align-center retro-mb-4">
+            <h1 class="retro-heading-primary retro-m-0">Components Demo</h1>
+          </div>
+    <div class="demo-section retro-card" id="section-navigation">
+      <h2>🧭 Navigation</h2>
+      <nav class="retro-nav">
+        <a href="#" class="retro-nav-item active">Home</a>
+        <a href="#" class="retro-nav-item">About</a>
+        <a href="#" class="retro-nav-item">Contact</a>
+      </nav>
+    </div>
+    <div class="demo-section retro-card" id="section-vertical-navigation">
+      <h2>📋 Vertical Navigation</h2>
+      <nav class="retro-nav-vertical">
+        <a href="#" class="retro-nav-item active">Dashboard</a>
+        <a href="#" class="retro-nav-item">Profile</a>
+        <a href="#" class="retro-nav-item">Settings</a>
+        <a href="#" class="retro-nav-item">Logout</a>
+      </nav>
+    </div>
+    <div class="demo-section retro-card" id="section-pills-navigation">
+      <h2>💊 Pills Navigation</h2>
+      <nav class="retro-nav-pills">
+        <a href="#" class="retro-nav-item active">Overview</a>
+        <a href="#" class="retro-nav-item">Features</a>
+        <a href="#" class="retro-nav-item">Pricing</a>
+        <a href="#" class="retro-nav-item">FAQ</a>
+      </nav>
+    </div>
+    <div class="demo-section retro-card" id="section-toolbar-navigation">
+      <h2>🧰 Toolbar Navigation</h2>
+      <nav class="retro-nav-toolbar">
+        <a href="#" class="retro-nav-item active"><span class="retro-nav-icon">🏠</span> Home</a>
+        <a href="#" class="retro-nav-item"><span class="retro-nav-icon">📄</span> Documents</a>
+        <div class="retro-nav-separator"></div>
+        <a href="#" class="retro-nav-item"><span class="retro-nav-icon">💾</span> Save</a>
+        <a href="#" class="retro-nav-item"><span class="retro-nav-icon">🖨️</span> Print</a>
+        <div class="retro-nav-separator"></div>
+        <a href="#" class="retro-nav-item"><span class="retro-nav-icon">❓</span> Help</a>
+      </nav>
+      
+      <h3>Icons Only Toolbar</h3>
+      <nav class="retro-nav-toolbar retro-nav-icons">
+        <a href="#" class="retro-nav-item active"><span class="retro-nav-icon">🏠</span></a>
+        <a href="#" class="retro-nav-item"><span class="retro-nav-icon">📄</span></a>
+        <div class="retro-nav-separator"></div>
+        <a href="#" class="retro-nav-item"><span class="retro-nav-icon">💾</span></a>
+        <a href="#" class="retro-nav-item"><span class="retro-nav-icon">🖨️</span></a>
+        <div class="retro-nav-separator"></div>
+        <a href="#" class="retro-nav-item"><span class="retro-nav-icon">❓</span></a>
+      </nav>
+    </div>
+    
+    <div class="demo-section retro-card" id="section-tabbed-navigation">
+      <h2>📑 Tabbed Navigation</h2>
+      <nav class="retro-nav-tabbed" role="tablist" aria-label="Main Navigation Tabs">
+        <a href="#tab-home" role="tab" aria-selected="true" aria-controls="tab-home" class="retro-nav-item active" id="tab-home-btn">Home</a>
+        <a href="#tab-profile" role="tab" aria-selected="false" aria-controls="tab-profile" class="retro-nav-item" id="tab-profile-btn">Profile</a>
+        <a href="#tab-messages" role="tab" aria-selected="false" aria-controls="tab-messages" class="retro-nav-item" id="tab-messages-btn">Messages</a>
+        <a href="#tab-settings" role="tab" aria-selected="false" aria-controls="tab-settings" class="retro-nav-item" id="tab-settings-btn">Settings</a>
+      </nav>
+      <div class="retro-tab-pane" role="tabpanel">
+        <div id="tab-home" class="retro-tab-content" role="tabpanel" aria-labelledby="tab-home-btn" class="retro-p-5 retro-border-2 retro-border-black retro-border-t-0 retro-bg-white">
+          <h3>Home Tab</h3>
+          <p>Welcome to RetroCSS! This is the home tab content.</p>
+          <button class="retro-btn">Get Started</button>
+        </div>
+        <div id="tab-profile" class="retro-tab-content" role="tabpanel" aria-labelledby="tab-profile-btn" style="padding: 20px; border: 2px solid #000; border-top: 0; background: #fff;">
+          <h3>Profile Tab</h3>
+          <p>This is your profile information.</p>
+          <div class="retro-form-group">
+            <label>Username</label>
+            <input type="text" class="retro-input" value="RetroUser98">
+          </div>
+        </div>
+        <div id="tab-messages" class="retro-tab-content" role="tabpanel" aria-labelledby="tab-messages-btn" style="padding: 20px; border: 2px solid #000; border-top: 0; background: #fff;">
+          <h3>Messages Tab</h3>
+          <p>You have 3 unread messages.</p>
+          <ul class="retro-list">
+            <li>Message from Admin</li>
+            <li>Welcome to RetroCSS</li>
+            <li>Your account was created</li>
+          </ul>
+        </div>
+        <div id="tab-settings" class="retro-tab-content" role="tabpanel" aria-labelledby="tab-settings-btn" style="padding: 20px; border: 2px solid #000; border-top: 0; background: #fff;">
+          <h3>Settings Tab</h3>
+          <p>Configure your application settings.</p>
+          <div class="retro-form-group">
+            <label>
+              <span class="retro-switch">
+                <input type="checkbox" checked>
+                <span class="retro-switch-slider"></span>
+              </span>
+              Dark Mode
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-section retro-card" id="section-underlined-navigation">
+      <h2>🔍 Underlined Navigation</h2>
+      <nav class="retro-nav-underlined" role="tablist" aria-label="Dashboard Navigation">
+        <a href="#dash-overview" role="tab" aria-selected="true" aria-controls="dash-overview" class="retro-nav-item active" id="dash-overview-btn">Dashboard</a>
+        <a href="#dash-analytics" role="tab" aria-selected="false" aria-controls="dash-analytics" class="retro-nav-item" id="dash-analytics-btn">Analytics</a>
+        <a href="#dash-reports" role="tab" aria-selected="false" aria-controls="dash-reports" class="retro-nav-item" id="dash-reports-btn">Reports</a>
+        <a href="#dash-users" role="tab" aria-selected="false" aria-controls="dash-users" class="retro-nav-item" id="dash-users-btn">Users</a>
+      </nav>
+      <div class="retro-tab-pane retro-tab-pane-underlined" role="tabpanel">
+        <div id="dash-overview" class="retro-tab-content" role="tabpanel" aria-labelledby="dash-overview-btn" style="padding: 20px; margin-top: 10px; background: #f5f5f5;">
+          <h3>Dashboard Overview</h3>
+          <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px;">
+            <div class="retro-card" style="flex: 1; min-width: 200px;">
+              <div class="retro-card-header">Users</div>
+              <div class="retro-card-content" style="text-align: center; font-size: 24px; font-weight: bold;">1,254</div>
+            </div>
+            <div class="retro-card" style="flex: 1; min-width: 200px;">
+              <div class="retro-card-header">Sessions</div>
+              <div class="retro-card-content" style="text-align: center; font-size: 24px; font-weight: bold;">5,678</div>
+            </div>
+            <div class="retro-card" style="flex: 1; min-width: 200px;">
+              <div class="retro-card-header">Uptime</div>
+              <div class="retro-card-content" style="text-align: center; font-size: 24px; font-weight: bold;">99.9%</div>
+            </div>
+          </div>
+        </div>
+        <div id="dash-analytics" class="retro-tab-content" role="tabpanel" aria-labelledby="dash-analytics-btn" style="padding: 20px; margin-top: 10px; background: #f5f5f5;">
+          <h3>Analytics Data</h3>
+          <p>Performance metrics and analytics information would display here.</p>
+          <div class="retro-progress" style="margin-top: 16px; margin-bottom: 16px;">
+            <div class="retro-progress-bar" style="width: 75%;"></div>
+            <span class="retro-progress-label">Traffic: 75%</span>
+          </div>
+          <div class="retro-progress" style="margin-bottom: 16px;">
+            <div class="retro-progress-bar" style="width: 42%;"></div>
+            <span class="retro-progress-label">Conversion: 42%</span>
+          </div>
+        </div>
+        <div id="dash-reports" class="retro-tab-content" role="tabpanel" aria-labelledby="dash-reports-btn" style="padding: 20px; margin-top: 10px; background: #f5f5f5;">
+          <h3>Reports</h3>
+          <p>Generated reports would be listed here.</p>
+          <ul class="retro-list retro-list-bordered">
+            <li>Monthly Performance Report</li>
+            <li>User Activity Summary</li>
+            <li>Resource Usage Statistics</li>
+            <li>Error Logs</li>
+          </ul>
+        </div>
+        <div id="dash-users" class="retro-tab-content" role="tabpanel" aria-labelledby="dash-users-btn" style="padding: 20px; margin-top: 10px; background: #f5f5f5;">
+          <h3>User Management</h3>
+          <table class="retro-table retro-table-bordered">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>admin</td>
+                <td>Administrator</td>
+                <td><span class="retro-badge retro-badge-success">Active</span></td>
+                <td><button class="retro-btn retro-btn-sm">Edit</button></td>
+              </tr>
+              <tr>
+                <td>user1</td>
+                <td>User</td>
+                <td><span class="retro-badge retro-badge-danger">Inactive</span></td>
+                <td><button class="retro-btn retro-btn-sm">Edit</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-section retro-card" id="section-button-navigation">
+      <h2>🔘 Button Group Navigation</h2>
+      <nav class="retro-nav-buttons" role="tablist" aria-label="Time Period Navigation">
+        <a href="#time-day" role="tab" aria-selected="true" aria-controls="time-day" class="retro-nav-item active" id="time-day-btn">Day</a>
+        <a href="#time-week" role="tab" aria-selected="false" aria-controls="time-week" class="retro-nav-item" id="time-week-btn">Week</a>
+        <a href="#time-month" role="tab" aria-selected="false" aria-controls="time-month" class="retro-nav-item" id="time-month-btn">Month</a>
+        <a href="#time-year" role="tab" aria-selected="false" aria-controls="time-year" class="retro-nav-item" id="time-year-btn">Year</a>
+      </nav>
+      <div class="retro-tab-pane retro-tab-pane-buttons" role="tabpanel">
+        <div id="time-day" class="retro-tab-content" role="tabpanel" aria-labelledby="time-day-btn" style="padding: 20px; margin-top: 10px; background: #f5f5f5;">
+          <h3>Daily View</h3>
+          <p>Showing activities for today, June 15, 2023.</p>
+          <ul class="retro-list">
+            <li>9:00 AM - Team Meeting</li>
+            <li>11:30 AM - Client Call</li>
+            <li>1:00 PM - Lunch Break</li>
+            <li>2:30 PM - Project Review</li>
+            <li>4:00 PM - Development Time</li>
+          </ul>
+        </div>
+        <div id="time-week" class="retro-tab-content" role="tabpanel" aria-labelledby="time-week-btn" style="padding: 20px; margin-top: 10px; background: #f5f5f5;">
+          <h3>Weekly View</h3>
+          <p>Showing schedule for the week of June 12-18, 2023.</p>
+          <table class="retro-table">
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Events</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Monday</td>
+                <td>Sprint Planning</td>
+              </tr>
+              <tr>
+                <td>Tuesday</td>
+                <td>Development</td>
+              </tr>
+              <tr>
+                <td>Wednesday</td>
+                <td>Mid-week Review</td>
+              </tr>
+              <tr>
+                <td>Thursday</td>
+                <td>Development</td>
+              </tr>
+              <tr>
+                <td>Friday</td>
+                <td>Sprint Review</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="time-month" class="retro-tab-content" role="tabpanel" aria-labelledby="time-month-btn" style="padding: 20px; margin-top: 10px; background: #f5f5f5;">
+          <h3>Monthly View</h3>
+          <p>Calendar for June 2023</p>
+          <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center;">
+            <div style="font-weight: bold;">Sun</div>
+            <div style="font-weight: bold;">Mon</div>
+            <div style="font-weight: bold;">Tue</div>
+            <div style="font-weight: bold;">Wed</div>
+            <div style="font-weight: bold;">Thu</div>
+            <div style="font-weight: bold;">Fri</div>
+            <div style="font-weight: bold;">Sat</div>
+            
+            <div style="color: #ccc;">28</div>
+            <div style="color: #ccc;">29</div>
+            <div style="color: #ccc;">30</div>
+            <div style="color: #ccc;">31</div>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+            <div>10</div>
+            
+            <div>11</div>
+            <div>12</div>
+            <div>13</div>
+            <div>14</div>
+            <div style="background-color: #ddf; border: 1px solid #99c;">15</div>
+            <div>16</div>
+            <div>17</div>
+            
+            <div>18</div>
+            <div>19</div>
+            <div>20</div>
+            <div>21</div>
+            <div>22</div>
+            <div>23</div>
+            <div>24</div>
+            
+            <div>25</div>
+            <div>26</div>
+            <div>27</div>
+            <div>28</div>
+            <div>29</div>
+            <div>30</div>
+            <div style="color: #ccc;">1</div>
+          </div>
+        </div>
+        <div id="time-year" class="retro-tab-content" role="tabpanel" aria-labelledby="time-year-btn" style="padding: 20px; margin-top: 10px; background: #f5f5f5;">
+          <h3>Yearly View</h3>
+          <p>Overview of 2023</p>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center;">
+            <div class="retro-card">
+              <div class="retro-card-header">Q1</div>
+              <div class="retro-card-content">Jan - Mar</div>
+            </div>
+            <div class="retro-card">
+              <div class="retro-card-header">Q2</div>
+              <div class="retro-card-content">Apr - Jun</div>
+            </div>
+            <div class="retro-card">
+              <div class="retro-card-header">Q3</div>
+              <div class="retro-card-content">Jul - Sep</div>
+            </div>
+            <div class="retro-card">
+              <div class="retro-card-header">Q4</div>
+              <div class="retro-card-content">Oct - Dec</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <h3>Combined with Other Styles</h3>
+      <div class="retro-flex retro-flex-wrap retro-gap-4 retro-items-center retro-my-5">
+        <nav class="retro-nav-buttons">
+          <a href="#" class="retro-nav-item active">Preview</a>
+          <a href="#" class="retro-nav-item">Code</a>
+          <a href="#" class="retro-nav-item">Stats</a>
+        </nav>
+        
+        <nav class="retro-nav-buttons">
+          <a href="#" class="retro-nav-item">Small</a>
+          <a href="#" class="retro-nav-item active">Medium</a>
+          <a href="#" class="retro-nav-item">Large</a>
+        </nav>
+        
+        <nav class="retro-nav-buttons">
+          <a href="#" class="retro-nav-item">◀</a>
+          <a href="#" class="retro-nav-item active">▶</a>
+        </nav>
+      </div>
+    </div>
+    <div class="demo-section retro-card" id="section-badges">
+      <h2>🏷️ Badges</h2>
+      <h3>Badge Variants</h3>
+      <span class="retro-badge">Default</span>
+      <span class="retro-badge retro-badge-primary">Primary</span>
+      <span class="retro-badge retro-badge-success">Success</span>
+      <span class="retro-badge retro-badge-danger">Danger</span>
+      <span class="retro-badge retro-badge-warning">Warning</span>
+      <span class="retro-badge retro-badge-info">Info</span>
+      <span class="retro-badge retro-badge-secondary">Secondary</span>
+
+      <h3>Badge Sizes</h3>
+      <div class="retro-flex retro-flex-wrap retro-gap-4 retro-items-center retro-my-5">
+        <div class="retro-flex retro-flex-col retro-gap-2">
+          <span class="retro-badge retro-badge-secondary retro-badge-xs">XS</span>
+          <span class="retro-badge retro-badge-secondary retro-badge-sm">SM</span>
+          <span class="retro-badge retro-badge-secondary retro-badge-md">MD</span>
+          <span class="retro-badge retro-badge-secondary retro-badge-lg">LG</span>
+          <span class="retro-badge retro-badge-secondary retro-badge-xl">XL</span>
+          <span class="retro-badge retro-badge-secondary retro-badge-xxl">XXL</span>
+        </div>
+        <div class="retro-flex retro-flex-col retro-gap-2">
+          <span class="retro-badge retro-badge-primary retro-badge-xs">New</span>
+          <span class="retro-badge retro-badge-success retro-badge-sm">Hot</span>
+          <span class="retro-badge retro-badge-danger retro-badge-md">Sale</span>
+          <span class="retro-badge retro-badge-warning retro-badge-lg">Featured</span>
+          <span class="retro-badge retro-badge-info retro-badge-xl">Premium</span>
+          <span class="retro-badge retro-badge-primary retro-badge-xxl">Special</span>
+        </div>
+      </div>
+      
+      <h3>Special Badge Themes</h3>
+      <div class="retro-flex retro-flex-wrap retro-gap-4 retro-items-center retro-my-5 retro-p-5 retro-bg-dark retro-rounded">
+        <div>
+          <h4 class="retro-text-white retro-mt-0">Neon Style</h4>
+          <span class="retro-badge retro-badge-neon">Neon</span>
+          <span class="retro-badge retro-badge-neon retro-badge-primary">Cyan</span>
+          <span class="retro-badge retro-badge-neon retro-badge-success">Green</span>
+          <span class="retro-badge retro-badge-neon retro-badge-danger">Red</span>
+        </div>
+        <div>
+          <h4 class="retro-text-white retro-mt-0">Pixel Style</h4>
+          <span class="retro-badge retro-badge-pixel">Pixel</span>
+          <span class="retro-badge retro-badge-pixel retro-badge-primary">8-Bit</span>
+          <span class="retro-badge retro-badge-pixel retro-badge-danger">Game</span>
+        </div>
+      </div>
+      
+      <h3>Badge Usage Examples</h3>
+      <div class="retro-flex retro-flex-wrap retro-gap-4 retro-items-start retro-my-5">
+        <div class="retro-flex-1 retro-min-w-72">
+          <div class="retro-card">
+            <div class="retro-card-header">Notifications</div>
+            <div class="retro-card-content">
+              <div class="retro-flex retro-items-center retro-mb-2">
+                <span class="retro-mr-2">Messages</span>
+                <span class="retro-badge retro-badge-danger">42</span>
+              </div>
+              <div class="retro-flex retro-items-center retro-mb-2">
+                <span class="retro-mr-2">Updates</span>
+                <span class="retro-badge retro-badge-primary">7</span>
+              </div>
+              <div class="retro-flex retro-items-center">
+                <span class="retro-mr-2">Tasks</span>
+                <span class="retro-badge retro-badge-warning">13</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="retro-flex-1 retro-min-w-72">
+          <div class="retro-card">
+            <div class="retro-card-header">Product Tags</div>
+            <div class="retro-card-content">
+              <span class="retro-badge retro-badge-xs">v1.0</span>
+              <span class="retro-badge retro-badge-primary retro-badge-sm">New</span>
+              <span class="retro-badge retro-badge-success">In Stock</span>
+              <span class="retro-badge retro-badge-warning">Limited</span>
+              <span class="retro-badge retro-badge-danger">Sale</span>
+              <span class="retro-badge retro-badge-neon retro-badge-primary">Featured</span>
+              <span class="retro-badge retro-badge-pixel">Exclusive</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="demo-section retro-card" id="section-buttons">
+      <h2>🖱️ Buttons</h2>
+      <h3>Button Variants</h3>
+      <button class="retro-btn">OK ✅</button>
+      <button class="retro-btn">Cancel ❌</button>
+      <button class="retro-btn retro-btn-primary">Primary ⭐</button>
+      <button class="retro-btn retro-btn-success">Success 🎉</button>
+      <button class="retro-btn retro-btn-danger">Danger ⚠️</button>
+      <button class="retro-btn retro-btn-warning">Warning 🚧</button>
+      <button class="retro-btn" data-retro-toast="This is a default toast!">Show Default Toast</button>
+      <button class="retro-btn retro-btn-primary" data-retro-toast="This is a primary toast!" data-retro-toast-type="primary" data-retro-tooltip="Primary Toast">Show Primary Toast</button>
+      <button class="retro-btn retro-btn-success" data-retro-toast="This is a success toast!" data-retro-toast-type="success">Show Success Toast</button>
+      <button class="retro-btn retro-btn-danger" data-retro-toast="This is a danger toast!" data-retro-toast-type="danger">Show Danger Toast</button>
+      <button class="retro-btn retro-btn-warning" data-retro-toast="This is a warning toast!" data-retro-toast-type="warning">Show Warning Toast</button>
+      <button class="retro-btn retro-btn-info" data-retro-toast="This is an info toast!" data-retro-toast-type="info">Show Info Toast</button>
+      <button class="retro-btn" data-retro-toast="<b>Custom Toast</b><br>With <i>HTML</i> content!" data-retro-tooltip="Custom HTML Toast" data-retro-toast-html>Show Custom Toast</button>
+      <button class="retro-btn" data-retro-toast="Stacked Toast 1" data-retro-tooltip="Stacked Toasts">Show Stacked Toasts</button>
+
+      <h3>Button Sizes</h3>
+      <div class="retro-flex retro-flex-wrap retro-gap-2 retro-items-center">
+        <button class="retro-btn retro-btn-xs">Extra Small</button>
+        <button class="retro-btn retro-btn-sm">Small</button>
+        <button class="retro-btn retro-btn-md">Medium</button>
+        <button class="retro-btn retro-btn-lg">Large</button>
+        <button class="retro-btn retro-btn-xl">Extra Large</button>
+        <button class="retro-btn retro-btn-xxl">XXL</button>
+      </div>
+
+      <h3>Colored Button Sizes</h3>
+      <div class="retro-flex retro-flex-wrap retro-gap-2 retro-items-center">
+        <button class="retro-btn retro-btn-primary retro-btn-xs">Primary XS</button>
+        <button class="retro-btn retro-btn-success retro-btn-sm">Success SM</button>
+        <button class="retro-btn retro-btn-danger retro-btn-md">Danger MD</button>
+        <button class="retro-btn retro-btn-warning retro-btn-lg">Warning LG</button>
+        <button class="retro-btn retro-btn-info retro-btn-xl">Info XL</button>
+        <button class="retro-btn retro-btn-primary retro-btn-xxl">Primary XXL</button>
+      </div>
+    </div>
+    <div class="demo-section retro-card" id="section-cards">
+      <h2>🃏 Cards</h2>
+      <div class="retro-grid retro-grid-cols-1 sm:retro-grid-cols-2 retro-gap-3">
+        <div class="retro-card">
+          <div class="retro-card-header">Card Title 🏷️</div>
+          <div class="retro-card-content">
+            <p class="mb-2">This is a simple card. You can put any content here.</p>
+            <button class="retro-btn" data-retro-toast="Card Button Clicked!">Card Button</button>
+          </div>
+        </div>
+        <div class="retro-card">
+          <div class="retro-card-header">Card with Footer ➕</div>
+          <div class="retro-card-content">
+            <p class="mb-2">This card has a footer for extra actions or status.</p>
+            <button class="retro-btn retro-btn-primary">Action</button>
+          </div>
+          <div class="retro-card-footer">Footer text or actions</div>
+        </div>
+      </div>
+    </div>
+    <div class="retro-container">
+      <div class="demo-section retro-card" id="section-forms">
+        <h2>📝 Forms</h2>
+        <form class="retro-form" id="demoForm">
+          <div class="retro-grid retro-grid-cols-1 sm:retro-grid-cols-2 retro-gap-3">
+            <div class="retro-form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" class="retro-input" required>
+            </div>
+            <div class="retro-form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" class="retro-input" required>
+            </div>
+            <div class="retro-form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" class="retro-input" required>
+            </div>
+            <div class="retro-form-group">
+              <label for="message">Message</label>
+              <textarea id="message" class="retro-textarea" required></textarea>
+            </div>
+            <div class="retro-form-group">
+              <label for="select">Select Option</label>
+              <select id="select" class="retro-input">
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+              </select>
+            </div>
+          </div>
+          
+          <h3>Checkboxes & Radio Buttons</h3>
+          <div class="retro-grid retro-grid-cols-1 sm:retro-grid-cols-2 retro-gap-3">
+            <div class="retro-form-group">
+              <label class="mb-2 font-bold">Retro Checkboxes</label>
+              <div class="retro-checkbox-group">
+                <label>
+                  <input type="checkbox" class="retro-checkbox" checked> Default Checkbox
+                </label>
+                <label>
+                  <input type="checkbox" class="retro-checkbox retro-checkbox-primary" checked> Primary Checkbox
+                </label>
+                <label>
+                  <input type="checkbox" class="retro-checkbox retro-checkbox-success" checked> Success Checkbox
+                </label>
+                <label>
+                  <input type="checkbox" class="retro-checkbox retro-checkbox-danger" checked> Danger Checkbox
+                </label>
+                <label>
+                  <input type="checkbox" class="retro-checkbox retro-checkbox-warning" checked> Warning Checkbox
+                </label>
+                <label>
+                  <input type="checkbox" class="retro-checkbox retro-checkbox-info" checked> Info Checkbox
+                </label>
+                <label>
+                  <input type="checkbox" class="retro-checkbox" disabled> Disabled Checkbox
+                </label>
+              </div>
+            </div>
+            
+            <div class="retro-form-group">
+              <label class="mb-2 font-bold">Retro Radio Buttons</label>
+              <div class="retro-radio-group">
+                <label>
+                  <input type="radio" name="radio-demo" class="retro-radio" checked> Default Radio
+                </label>
+                <label>
+                  <input type="radio" name="radio-demo" class="retro-radio retro-radio-primary"> Primary Radio
+                </label>
+                <label>
+                  <input type="radio" name="radio-demo" class="retro-radio retro-radio-success"> Success Radio
+                </label>
+                <label>
+                  <input type="radio" name="radio-demo" class="retro-radio retro-radio-danger"> Danger Radio
+                </label>
+                <label>
+                  <input type="radio" name="radio-demo" class="retro-radio retro-radio-warning"> Warning Radio
+                </label>
+                <label>
+                  <input type="radio" name="radio-demo" class="retro-radio retro-radio-info"> Info Radio
+                </label>
+                <label>
+                  <input type="radio" name="radio-disabled" class="retro-radio" disabled> Disabled Radio
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <h3>Inline Checkbox & Radio Groups</h3>
+          <div class="retro-grid retro-grid-cols-1 retro-gap-3 mb-4">
+            <div class="retro-form-group">
+              <label class="mb-2 font-bold">Inline Checkboxes</label>
+              <div class="retro-checkbox-group retro-group-inline">
+                <label>
+                  <input type="checkbox" class="retro-checkbox" checked> Option 1
+                </label>
+                <label>
+                  <input type="checkbox" class="retro-checkbox"> Option 2
+                </label>
+                <label>
+                  <input type="checkbox" class="retro-checkbox"> Option 3
+                </label>
+              </div>
+            </div>
+            
+            <div class="retro-form-group">
+              <label class="mb-2 font-bold">Inline Radio Buttons</label>
+              <div class="retro-radio-group retro-group-inline">
+                <label>
+                  <input type="radio" name="radio-inline" class="retro-radio" checked> Option 1
+                </label>
+                <label>
+                  <input type="radio" name="radio-inline" class="retro-radio"> Option 2
+                </label>
+                <label>
+                  <input type="radio" name="radio-inline" class="retro-radio"> Option 3
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <h3>Toggle Switches</h3>
+          <div class="retro-grid retro-grid-cols-1 retro-gap-3 mb-4">
+            <div class="retro-form-group">
+              <div style="display: flex; flex-direction: column; gap: 12px;">
+                <label>
+                  <span class="retro-switch">
+                    <input type="checkbox" checked>
+                    <span class="retro-switch-slider"></span>
+                  </span>
+                  Default Switch
+                </label>
+                <label>
+                  <span class="retro-switch">
+                    <input type="checkbox">
+                    <span class="retro-switch-slider"></span>
+                  </span>
+                  Unchecked Switch
+                </label>
+                <label>
+                  <span class="retro-switch">
+                    <input type="checkbox" disabled>
+                    <span class="retro-switch-slider"></span>
+                  </span>
+                  Disabled Switch
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <h3>Other Form Controls</h3>
+          <div class="retro-grid retro-grid-cols-1 sm:retro-grid-cols-2 retro-gap-3">
+            <div class="retro-form-group">
+              <label for="file">File Upload</label>
+              <input type="file" id="file" class="retro-input">
+            </div>
+            <div class="retro-form-group">
+              <label for="range">Range</label>
+              <input type="range" id="range" class="retro-input" min="0" max="100">
+            </div>
+            <div class="retro-form-group">
+              <label for="date">Date</label>
+              <input type="date" id="date" class="retro-input">
+            </div>
+            <div class="retro-form-group">
+              <label for="color">Color</label>
+              <input type="color" id="color" class="retro-input">
+            </div>
+          </div>
+          
+          <button class="retro-btn" type="submit">Submit</button>
+        </form>
+      </div>
+
+      <div class="demo-section retro-card" id="section-tables">
+        <h2>📊 Tables</h2>
+        <div class="retro-grid retro-grid-cols-1 lg:retro-grid-cols-2 retro-gap-4 retro-w-full retro-box-border">
+          <table class="retro-table retro-w-full">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email Address with a very long header to test truncation</th>
+                <th>Status</th>
+                <th>Role</th>
+                <th>Joined Date</th>
+                <th>Last Login Timestamp</th>
+                <th>Notes and Comments about the user that could be very long</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Alice Wonderland</td>
+                <td>alice.wonderland.in.a.very.long.email.address@example.com</td>
+                <td><span class="retro-badge retro-badge-success">Active</span></td>
+                <td>Administrator Extraordinaire</td>
+                <td>2022-01-15</td>
+                <td>2023-10-26 10:00 AM</td>
+                <td>This user is a very important administrator with many responsibilities and access to all system features.</td>
+                <td><button class="retro-btn retro-btn-sm">Edit</button> <button class="retro-btn retro-btn-danger retro-btn-sm">Delete</button></td>
+              </tr>
+              <tr>
+                <td>Bob The Builder</td>
+                <td>bob.the.builder.constructs.long.emails@example.com</td>
+                <td><span class="retro-badge retro-badge-danger">Inactive</span></td>
+                <td>User Account</td>
+                <td>2022-03-22</td>
+                <td>2023-01-15 08:30 PM</td>
+                <td>Bob was a user but his account is now inactive. He liked to build things.</td>
+                <td><button class="retro-btn retro-btn-sm">Edit</button> <button class="retro-btn retro-btn-danger retro-btn-sm">Delete</button></td>
+              </tr>
+              <tr>
+                <td>Charlie Chaplin</td>
+                <td>charlie.chaplin.the.comedian.with.a.long.name@example.com</td>
+                <td><span class="retro-badge retro-badge-warning">Pending Approval Process</span></td>
+                <td>Editor in Chief</td>
+                <td>2022-05-10</td>
+                <td>2023-10-25 12:00 PM</td>
+                <td>Charlie is pending account approval. He has a great sense of humor and is expected to write amazing articles.</td>
+                <td><button class="retro-btn retro-btn-sm">Edit</button> <button class="retro-btn retro-btn-danger retro-btn-sm">Delete</button></td>
+              </tr>
+              <tr>
+                <td>Dana Scully</td>
+                <td>dana.scully.federal.agent.xfiles.division@example.com</td>
+                <td><span class="retro-badge retro-badge-success">Active</span></td>
+                <td>Special Investigator User</td>
+                <td>2022-07-08</td>
+                <td>2023-10-26 09:00 AM</td>
+                <td>Dana investigates paranormal activities and writes detailed reports. Trust no one. The truth is out there. This is a very long note to test how the cell handles overflow and truncation.</td>
+                <td><button class="retro-btn retro-btn-sm">Edit</button> <button class="retro-btn retro-btn-danger retro-btn-sm">Delete</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="retro-table retro-table-bordered retro-w-full">
+            <thead>
+              <tr>
+                <th>Product Name with an exceedingly long title to ensure truncation works</th>
+                <th>Price (USD)</th>
+                <th>Stock Availability (Units)</th>
+                <th>Category Type</th>
+                <th>Average Customer Rating (out of 5)</th>
+                <th>Supplier Information Details and Contacts</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Retro Encabulator Mark II - Now with more sinusoidal depleneration!</td>
+                <td>$10.99</td>
+                <td><span class="retro-badge retro-badge-success">1500+</span></td>
+                <td>Advanced Fictional Accessories</td>
+                <td>4.5 Stars</td>
+                <td>Sourced from Galactic HyperMart, contact: sales@ghypermart.nebula</td>
+                <td><button class="retro-btn retro-btn-sm">Edit</button> <button class="retro-btn retro-btn-danger retro-btn-sm">Delete</button></td>
+              </tr>
+              <tr>
+                <td>Turbo-Charged Keyboard Wiffer Duster - Keeps crumbs out of your retro keyboard</td>
+                <td>$20.50</td>
+                <td><span class="retro-badge retro-badge-danger">0 (Out of Stock)</span></td>
+                <td>Essential Cleaning Accessories</td>
+                <td>4.2 Stars</td>
+                <td>DustBusters Inc., contact: orders@dustbusters.local</td>
+                <td><button class="retro-btn retro-btn-sm">Edit</button> <button class="retro-btn retro-btn-danger retro-btn-sm">Delete</button></td>
+              </tr>
+              <tr>
+                <td>PixelPerfect CRT Monitor Enhancer - For the truest retro display experience ever</td>
+                <td>$120.00</td>
+                <td><span class="retro-badge retro-badge-success">75</span></td>
+                <td>High-End Display Peripherals</td>
+                <td>4.8 Stars</td>
+                <td>Retro Displays Ltd., contact: support@retrodisplays.co.uk</td>
+                <td><button class="retro-btn retro-btn-sm">Edit</button> <button class="retro-btn retro-btn-danger retro-btn-sm">Delete</button></td>
+              </tr>
+              <tr>
+                <td>Analog Dial-Up Modem Simulator - Experience the sweet sounds of 56k again and again</td>
+                <td>$35.75</td>
+                <td><span class="retro-badge retro-badge-warning">15 (Low Stock)</span></td>
+                <td>Nostalgic Computer Accessories</td>
+                <td>3.9 Stars</td>
+                <td>DialTones Corp., contact: info@dialtonescorp.vintage</td>
+                <td><button class="retro-btn retro-btn-sm">Edit</button> <button class="retro-btn retro-btn-danger retro-btn-sm">Delete</button></td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <!-- New Striped Table -->
+          <table class="retro-table retro-table-striped retro-w-full">
+            <thead>
+              <tr>
+                <th>Item ID</th>
+                <th>Description of Item which can be quite lengthy for testing purposes</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total Price</th>
+                <th>Warehouse Location and Bin Number</th>
+                <th>Last Restock Date</th>
+                <th>Status Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>SKU-001-XYZ-LONG</td>
+                <td>A very fine item with an exceptionally long description that will most certainly need to be truncated. This description goes on and on to fill up space.</td>
+                <td>120</td>
+                <td>$5.25</td>
+                <td>$630.00</td>
+                <td>Warehouse A, Section 3, Bin 105-C, Shelf 2, Position Left</td>
+                <td>2023-09-01</td>
+                <td><span class="retro-badge retro-badge-info">On Order</span></td>
+              </tr>
+              <tr>
+                <td>SKU-002-ABC-SHORT</td>
+                <td>Another item, this one has a slightly shorter but still quite verbose description for testing.</td>
+                <td>75</td>
+                <td>$12.99</td>
+                <td>$974.25</td>
+                <td>Warehouse B, Section 1, Bin 201-A, Shelf 1, Position Right</td>
+                <td>2023-10-15</td>
+                <td><span class="retro-badge retro-badge-success">In Stock</span></td>
+              </tr>
+              <tr>
+                <td>SKU-003-DEF-NORMAL</td>
+                <td>A standard item.</td>
+                <td>200</td>
+                <td>$2.50</td>
+                <td>$500.00</td>
+                <td>Warehouse A, Section 2, Bin 050-B, Shelf 3, Position Center</td>
+                <td>2023-08-20</td>
+                <td><span class="retro-badge retro-badge-success">In Stock</span></td>
+              </tr>
+              <tr>
+                <td>SKU-004-GHI-VERYLONGNAMEINITSELF</td>
+                <td>This item's name is already very long, and its description continues to elaborate on its many features, characteristics, and benefits to the end-user, making it an ideal candidate for truncation.</td>
+                <td>30</td>
+                <td>$25.00</td>
+                <td>$750.00</td>
+                <td>Warehouse C, Section 4, Bin 312-D, Shelf 4, Position Front</td>
+                <td>2023-10-01</td>
+                <td><span class="retro-badge retro-badge-warning">Low Stock</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- New Striped and Bordered Table -->
+          <table class="retro-table retro-table-bordered retro-table-striped retro-w-full">
+            <thead>
+              <tr>
+                <th>Project Name - This header is designed to be very very long</th>
+                <th>Lead Developer Name and Contact Email</th>
+                <th>Status</th>
+                <th>Due Date</th>
+                <th>Completion (%)</th>
+                <th>Budget Allocated (USD)</th>
+                <th>Resources Assigned and their roles in this project</th>
+                <th>Client Notes and Feedback Snippets</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Project Phoenix: Next Generation OS Development and Deployment</td>
+                <td>Dr. Elara Vance (elara.vance.long.email.address@devteam.example.com)</td>
+                <td><span class="retro-badge retro-badge-primary">In Progress</span></td>
+                <td>2024-06-30</td>
+                <td>65%</td>
+                <td>$2,500,000</td>
+                <td>Team Alpha (Core Dev), Team Beta (QA), Team Gamma (UI/UX), John Doe (PM) - This cell is intentionally very long to test wrapping and truncation behavior.</td>
+                <td>Client is very happy with progress but requests more frequent updates. Also, please ensure the login screen has a retro animation. This is an extremely long piece of text for testing.</td>
+              </tr>
+              <tr>
+                <td>Operation Hydra: Secure Data Storage Initiative for Retro Systems</td>
+                <td>Mr. Ben Carter (ben.carter.security.specialist@secure.example.org)</td>
+                <td><span class="retro-badge retro-badge-warning">Delayed</span></td>
+                <td>2023-12-15</td>
+                <td>30%</td>
+                <td>$1,200,000</td>
+                <td>Security Team (Implementation), Audit Team (Compliance), Jane Smith (Consultant)</td>
+                <td>Concerns about encryption strength. Budget overruns are becoming a significant issue for this project.</td>
+              </tr>
+              <tr>
+                <td>RetroWave UI Kit: Crafting the Ultimate Nostalgic User Interface</td>
+                <td>Ms. Anya Sharma (anya.sharma.design.lead@uistudio.example.net)</td>
+                <td><span class="retro-badge retro-badge-success">Completed</span></td>
+                <td>2023-09-01</td>
+                <td>100%</td>
+                <td>$750,000</td>
+                <td>Designers (UI/UX), Frontend Devs (Implementation)</td>
+                <td>Exceeded expectations! The client loves the pixel-perfect icons and the authentic 9x feel. Ready for market.</td>
+              </tr>
+              <tr>
+                <td>Code Cleanup Initiative: Refactoring Legacy Codebase for Project Chimera</td>
+                <td>The Entire Team of Very Dedicated and Hardworking Developers</td>
+                <td><span class="retro-badge retro-badge-info">Ongoing</span></td>
+                <td>2024-03-01</td>
+                <td>15%</td>
+                <td>$500,000</td>
+                <td>Senior Developers (Refactoring), Junior Developers (Testing and Documentation) - This field contains a lot of text.</td>
+                <td>This is a critical internal project to improve maintainability and performance of a core system component. Morale is high.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="demo-section retro-card" id="section-grid">
+        <h2>📐 Grid System</h2>
+        <h3>Basic Grid</h3>
+        <div class="retro-grid retro-grid-cols-3 retro-gap-3 retro-w-full retro-box-border">
+          <div class="retro-card">Grid Item 1</div>
+          <div class="retro-card">Grid Item 2</div>
+          <div class="retro-card">Grid Item 3</div>
+        </div>
+        <h3>Responsive Grid</h3>
+        <div class="retro-grid retro-grid-cols-1 sm:retro-grid-cols-2 md:retro-grid-cols-2 lg:retro-grid-cols-2 retro-gap-3 retro-w-full retro-box-border">
+          <div class="retro-card">Responsive Item 1</div>
+          <div class="retro-card">Responsive Item 2</div>
+          <div class="retro-card">Responsive Item 3</div>
+          <div class="retro-card">Responsive Item 4</div>
+        </div>
+      </div>
+
+      <div class="demo-section retro-card" id="section-container-queries">
+        <h2>📱 Container Queries</h2>
+        <h3>Container Query Grid</h3>
+        <div class="retro-container retro-w-full retro-max-w-full retro-mx-auto retro-border retro-border-gray retro-p-4 retro-box-border">
+          <div class="retro-cq-grid-2 retro-cq-grid-3 retro-gap-3 retro-w-full retro-box-border">
+            <div class="retro-card">Grid Item 1</div>
+            <div class="retro-card">Grid Item 2</div>
+            <div class="retro-card">Grid Item 3</div>
+            <div class="retro-card">Grid Item 4</div>
+            <div class="retro-card">Grid Item 5</div>
+            <div class="retro-card">Grid Item 6</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="retro-modal" id="demoModal">
+        <div class="retro-modal-content">
+          <div class="retro-modal-header">
+            <h3>Retro Modal</h3>
+            <button class="retro-modal-close">×</button>
+          </div>
+          <div class="retro-modal-body">
+            This is a modal dialog. <br>
+            <button class="retro-btn" onclick="RetroModal.hide('demoModal')">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-section retro-card" id="section-alerts">
+        <h2>🚨 Alerts</h2>
+        <div class="retro-alert">This is a retro alert! Something happened.</div>
+        <div class="retro-alert retro-alert-primary">This is a primary alert!</div>
+        <div class="retro-alert retro-alert-success">This is a success alert!</div>
+        <div class="retro-alert retro-alert-danger">This is a danger alert!</div>
+        <div class="retro-alert retro-alert-warning">This is a warning alert!</div>
+        <div class="retro-alert retro-alert-info">This is an info alert!</div>
+        <div class="retro-alert retro-alert-primary retro-relative">
+          <div class="retro-alert-header">Primary Alert</div>
+          <div class="retro-alert-body">This alert has a header, body, and a close button.</div>
+          <button class="retro-alert-close" onclick="this.parentElement.style.display='none'">×</button>
+        </div>
+        <div class="retro-alert retro-alert-success">
+          <div class="retro-alert-header">Success!</div>
+          <div class="retro-alert-body">Your operation was successful.</div>
+          <div class="retro-alert-footer">Footer text here</div>
+        </div>
+      </div>
+
+      <div class="demo-section retro-card" id="section-toasts">
+        <h2>🍞 Toasts</h2>
+        <button class="retro-btn" data-retro-toast="This is a default toast!">Show Default Toast</button>
+        <button class="retro-btn retro-btn-primary" data-retro-toast="This is a primary toast!" data-retro-toast-type="primary" data-retro-tooltip="Primary Toast">Show Primary Toast</button>
+        <button class="retro-btn retro-btn-success" data-retro-toast="This is a success toast!" data-retro-toast-type="success">Show Success Toast</button>
+        <button class="retro-btn retro-btn-danger" data-retro-toast="This is a danger toast!" data-retro-toast-type="danger">Show Danger Toast</button>
+        <button class="retro-btn retro-btn-warning" data-retro-toast="This is a warning toast!" data-retro-toast-type="warning">Show Warning Toast</button>
+        <button class="retro-btn retro-btn-info" data-retro-toast="This is an info toast!" data-retro-toast-type="info">Show Info Toast</button>
+        <button class="retro-btn" data-retro-toast="<b>Custom Toast</b><br>With <i>HTML</i> content!" data-retro-tooltip="Custom HTML Toast" data-retro-toast-html>Show Custom Toast</button>
+        <button class="retro-btn" data-retro-toast="Stacked Toast 1" data-retro-tooltip="Stacked Toasts">Show Stacked Toasts</button>
+      </div>
+
+      <div class="demo-section retro-card" id="section-modals">
+        <h2>🪟 Modals</h2>
+        <p>Modals are used to display content in a layer above the app. They are useful for confirmations, forms, or important messages.</p>
+        
+        <div class="retro-flex retro-flex-wrap retro-gap-3 retro-mb-4">
+          <button class="retro-btn" data-retro-modal="basicModal">Open Basic Modal</button>
+          <button class="retro-btn" data-retro-modal="longContentModal">Modal with Long Content</button>
+          <button class="retro-btn" data-retro-modal="formModal">Modal with Form</button>
+          <button class="retro-btn" data-retro-modal="noHeaderModal">Modal without Header</button>
+          <button class="retro-btn" data-retro-modal="noFooterModal">Modal without Footer</button>
+        </div>
+
+        <p>The original <code>demoModal</code> is still available as well:</p>
+        <button class="retro-btn" data-retro-modal="demoModal">Open Original Demo Modal 🪟</button>
+      </div>
+
+      <div class="demo-section retro-card" id="section-progress">
+        <h2>⏳ Progress / Loading Bars</h2>
+        <div style="max-width: 400px; margin-bottom: 16px;">
+          <div class="retro-progress" style="margin-bottom: 12px;">
+            <div class="retro-progress-bar" style="width: 60%;"></div>
+          </div>
+          <div class="retro-progress" style="margin-bottom: 12px;">
+            <div class="retro-progress-bar" style="width: 35%;"></div>
+            <span class="retro-progress-label">35%</span>
+          </div>
+          <div class="retro-progress" style="margin-bottom: 12px;">
+            <div class="retro-progress-bar retro-progress-bar-striped" style="width: 80%;"></div>
+            <span class="retro-progress-label">Loading…</span>
+          </div>
+          <div class="retro-progress" style="margin-bottom: 12px;">
+            <div class="retro-progress-bar retro-progress-bar-striped" style="width: 100%;"></div>
+            <span class="retro-progress-label">Complete!</span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="demo-section retro-card" id="section-accordion">
+        <h2>📂 Accordion</h2>
+        <div class="retro-accordion">
+          <div class="retro-accordion-item">
+            <button class="retro-accordion-toggle">Getting Started <span class="retro-accordion-icon">+</span></button>
+            <div class="retro-accordion-content" style="max-height: 0; overflow: hidden; transition: max-height var(--retro-transition-duration-slow) ease-out;">
+              <div class="retro-p-4">
+                <h3>Welcome to RetroCSS</h3>
+                <p>RetroCSS is a CSS framework that brings back the nostalgic look and feel of Win9x era interfaces.</p>
+                <p>To get started, include the following in your HTML:</p>
+                <pre class="retro-bg-light retro-p-2 retro-border">
+&lt;link rel="stylesheet" href="dist/retro.min.css"&gt;
+&lt;script src="dist/retro.min.js"&gt;&lt;/script&gt;</pre>
+              </div>
+            </div>
+          </div>
+          <div class="retro-accordion-item">
+            <button class="retro-accordion-toggle">Installation <span class="retro-accordion-icon">+</span></button>
+            <div class="retro-accordion-content" style="max-height: 0; overflow: hidden; transition: max-height var(--retro-transition-duration-slow) ease-out;">
+              <div class="retro-p-4">
+                <h3>Installation Options</h3>
+                <h4>Via NPM</h4>
+                <pre class="retro-bg-light retro-p-2 retro-border">npm install retrocss</pre>
+                
+                <h4>Via CDN</h4>
+                <pre class="retro-bg-light retro-p-2 retro-border">
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/retrocss/dist/retro.min.css"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/retrocss/dist/retro.min.js"&gt;&lt;/script&gt;</pre>
+              </div>
+            </div>
+          </div>
+          <div class="retro-accordion-item">
+            <button class="retro-accordion-toggle">Customization <span class="retro-accordion-icon">+</span></button>
+            <div class="retro-accordion-content" style="max-height: 0; overflow: hidden; transition: max-height var(--retro-transition-duration-slow) ease-out;">
+              <div class="retro-p-4">
+                <h3>Customizing RetroCSS</h3>
+                <p>You can customize RetroCSS by overriding CSS variables:</p>
+                <pre class="retro-bg-light retro-p-2 retro-border">
+:root {
+  --retro-primary: #0000aa;
+  --retro-bg: #c0c0c0;
+  --retro-border-dark: #404040;
+  --retro-border-medium: #808080;
+  --retro-border-light: #ffffff;
+  --retro-font: 'MS Sans Serif', Arial, sans-serif;
+}</pre>
+              </div>
+            </div>
+          </div>
+          <div class="retro-accordion-item">
+            <button class="retro-accordion-toggle">FAQ <span class="retro-accordion-icon">+</span></button>
+            <div class="retro-accordion-content" style="max-height: 0; overflow: hidden; transition: max-height var(--retro-transition-duration-slow) ease-out;">
+              <div class="retro-p-4">
+                <h3>Frequently Asked Questions</h3>
+                <h4>Is RetroCSS responsive?</h4>
+                <p>Yes, RetroCSS is built with modern responsive design in mind while maintaining the nostalgic Win9x aesthetic.</p>
+                
+                <h4>Does RetroCSS support dark mode?</h4>
+                <p>Yes, RetroCSS includes a dark mode theme that can be toggled using the built-in theme switcher.</p>
+                
+                <h4>Can I use RetroCSS with modern frameworks?</h4>
+                <p>Absolutely! RetroCSS works with React, Vue, Angular, and other modern frameworks.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-section retro-card" id="section-pagination">
+        <h2>🔢 Pagination</h2>
+        <nav class="retro-pagination">
+          <button class="retro-btn">First</button>
+          <button class="retro-btn">Prev</button>
+          <button class="retro-btn active">1</button>
+          <button class="retro-btn">2</button>
+          <button class="retro-btn">3</button>
+          <button class="retro-btn">Next</button>
+          <button class="retro-btn">Last</button>
+        </nav>
+      </div>
+
+      <div class="demo-section retro-card" id="section-breadcrumbs">
+        <h2>🧭 Breadcrumbs</h2>
+        <nav class="retro-breadcrumbs">
+          <a href="#" class="retro-breadcrumb"><span class="retro-breadcrumb-icon">📁</span> Home</a>
+          <span class="retro-breadcrumb-sep">&gt;</span>
+          <a href="#" class="retro-breadcrumb"><span class="retro-breadcrumb-icon">📁</span> Section</a>
+          <span class="retro-breadcrumb-sep">&gt;</span>
+          <span class="retro-breadcrumb active"><span class="retro-breadcrumb-icon">📄</span> Page</span>
+        </nav>
+      </div>
+
+      <div class="demo-section retro-card" id="section-dropdown">
+        <h2>⬇️ Dropdown Menu</h2>
+        <div class="retro-dropdown">
+          <button class="retro-dropdown-toggle" data-retro-tooltip="Dropdown menu">Dropdown ▼</button>
+          <div class="retro-dropdown-menu">
+            <a href="#" class="retro-dropdown-item">Option 1</a>
+            <a href="#" class="retro-dropdown-item">Option 2</a>
+            <a href="#" class="retro-dropdown-item">Option 3</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-section retro-card" id="section-file-upload">
+        <h2>📤 File Upload</h2>
+        <div class="retro-file-upload">
+          <input type="file" id="fileInput" class="retro-file-input" style="display:none;">
+          <label for="fileInput" class="retro-btn retro-file-label">Browse…</label>
+          <span class="retro-file-filename">No file chosen</span>
+          <div class="retro-file-drop">Drag & Drop file here</div>
+        </div>
+      </div>
+
+      <div class="demo-section retro-card" id="section-tag-input">
+        <h2>🏷️ Tag/Chip Input</h2>
+        <div class="retro-tag-input">
+          <div class="retro-tags">
+            <span class="retro-tag">Example <span class="retro-tag-remove">×</span></span>
+          </div>
+          <input type="text" class="retro-input retro-tag-text" placeholder="Add a tag...">
+        </div>
+      </div>
+
+      <div class="demo-section retro-card" id="section-search">
+        <h2>🔍 Search Bar with Suggestions</h2>
+        <div class="retro-search-bar">
+          <span class="retro-search-icon">🔍</span>
+          <input type="text" class="retro-input retro-search-input" placeholder="Search...">
+          <div class="retro-search-suggestions">
+            <div class="retro-search-suggestion">Suggestion 1</div>
+            <div class="retro-search-suggestion">Suggestion 2</div>
+            <div class="retro-search-suggestion">Suggestion 3</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-section retro-card" id="section-rating">
+        <h2>⭐ Rating Stars</h2>
+        <div class="retro-rating">
+          <span class="retro-rating-star">★</span>
+          <span class="retro-rating-star">★</span>
+          <span class="retro-rating-star">★</span>
+          <span class="retro-rating-star">★</span>
+          <span class="retro-rating-star">★</span>
+        </div>
+      </div>
+
+      <div class="demo-section retro-card" id="section-dividers">
+        <h2>📏 Dividers</h2>
+        <h3>Basic Dividers</h3>
+        <div class="retro-divider"></div>
+        <div class="retro-divider retro-divider-thick"></div>
+        <div class="retro-divider retro-divider-spaced"></div>
+        <h3>Style Variants</h3>
+        <div class="retro-divider retro-divider-dashed"></div>
+        <div class="retro-divider retro-divider-dotted"></div>
+        <h3>Colored Dividers</h3>
+        <div class="retro-divider retro-divider-primary"></div>
+        <div class="retro-divider retro-divider-success"></div>
+        <div class="retro-divider retro-divider-warning"></div>
+        <div class="retro-divider retro-divider-danger"></div>
+        <h3>Text Divider</h3>
+        <div class="retro-divider-text">OR</div>
+        <div class="retro-divider-text">Continue with</div>
+        <h3>Vertical Divider</h3>
+        <div class="retro-flex retro-items-center">
+          <span>Left Content</span>
+          <div class="retro-divider-vertical"></div>
+          <span>Right Content</span>
+        </div>
+      </div>
+
+      <div class="demo-section retro-card" id="section-tooltips">
+        <h2>💡 Tooltips</h2>
+        <h3>Position Variants</h3>
+        <div class="retro-flex retro-gap-5 retro-flex-wrap">
+          <button class="retro-btn" data-retro-tooltip="Top tooltip" data-tooltip-position="top">Top Tooltip</button>
+          <button class="retro-btn" data-retro-tooltip="Bottom tooltip" data-tooltip-position="bottom">Bottom Tooltip</button>
+          <button class="retro-btn" data-retro-tooltip="Left tooltip" data-tooltip-position="left">Left Tooltip</button>
+          <button class="retro-btn" data-retro-tooltip="Right tooltip" data-tooltip-position="right">Right Tooltip</button>
+        </div>
+        <h3>Style Variants</h3>
+        <div class="retro-flex retro-gap-5 retro-flex-wrap">
+          <button class="retro-btn" data-retro-tooltip="Light tooltip" data-tooltip-variant="light">Light Tooltip</button>
+          <button class="retro-btn" data-retro-tooltip="Primary tooltip" data-tooltip-variant="primary">Primary Tooltip</button>
+          <button class="retro-btn" data-retro-tooltip="Success tooltip" data-tooltip-variant="success">Success Tooltip</button>
+          <button class="retro-btn" data-retro-tooltip="Warning tooltip" data-tooltip-variant="warning">Warning Tooltip</button>
+          <button class="retro-btn" data-retro-tooltip="Danger tooltip" data-tooltip-variant="danger">Danger Tooltip</button>
+        </div>
+      </div>
+
+      <div class="demo-section retro-card" id="section-lists">
+        <h2>📝 Lists</h2>
+        <h3>Unordered List</h3>
+        <ul class="retro-list">
+          <li>First item</li>
+          <li>Second item</li>
+          <li>Third item
+            <ul class="retro-list">
+              <li>Nested item 1</li>
+              <li>Nested item 2</li>
+            </ul>
+          </li>
+        </ul>
+        <h3>Ordered List</h3>
+        <ol class="retro-list">
+          <li>First item</li>
+          <li>Second item</li>
+          <li>Third item
+            <ol class="retro-list">
+              <li>Nested item 1</li>
+              <li>Nested item 2</li>
+            </ol>
+          </li>
+        </ol>
+        <h3>Description List</h3>
+        <dl class="retro-list">
+          <dt>Term 1</dt>
+          <dd>Description for term 1</dd>
+          <dt>Term 2</dt>
+          <dd>Description for term 2</dd>
+        </dl>
+        <h3>List Variants</h3>
+        <ul class="retro-list retro-list-bordered">
+          <li>Bordered list item</li>
+          <li>Another bordered item</li>
+        </ul>
+        <ul class="retro-list retro-list-striped">
+          <li>Striped list item</li>
+          <li>Another striped item</li>
+          <li>One more striped item</li>
+        </ul>
+        <ul class="retro-list retro-list-hover">
+          <li>Hoverable list item</li>
+          <li>Another hoverable item</li>
+        </ul>
+      </div>
+
+      <div class="demo-section retro-card" id="section-carousel">
+        <h2>🎠 Carousel / Slider</h2>
+        <div class="retro-carousel">
+          <button class="retro-carousel-arrow left" aria-label="Previous">&#8592;</button>
+          <div class="retro-carousel-track">
+            <div class="retro-carousel-slide">
+              <div class="retro-card">
+                <h2>Slide 1: Welcome to RetroCSS!</h2>
+                <p>This is the first slide of the carousel. It can contain any content you want.</p>
+                <img src="https://placehold.co/600x400" alt="Placeholder Image">
+              </div>
+            </div>
+            <div class="retro-carousel-slide">
+              <div class="retro-card">
+                <h2>Slide 2: You can add any content here.</h2>
+                <p>This is the second slide of the carousel. It can contain any content you want.</p>
+                <img src="https://placehold.co/600x400" alt="Placeholder Image">
+              </div>
+            </div>
+            <div class="retro-carousel-slide">
+              <div class="retro-card">
+                <h2>Slide 3: Try the arrows or dots below.</h2>
+                <p>This is the third slide of the carousel. It can contain any content you want.</p>
+                <img src="https://placehold.co/600x400" alt="Placeholder Image">
+              </div>
+            </div>
+          </div>
+          <button class="retro-carousel-arrow right" aria-label="Next">&#8594;</button>
+          <div class="retro-carousel-dots">
+            <div class="retro-carousel-dot"></div>
+            <div class="retro-carousel-dot"></div>
+            <div class="retro-carousel-dot"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-section retro-card" id="section-datetime">
+        <h2>📅 Date / Time Picker</h2>
+        <form class="retro-form retro-max-w-80">
+          <div class="retro-form-group">
+            <label for="demo-date">Date</label>
+            <input type="date" id="demo-date" class="retro-input">
+          </div>
+          <div class="retro-form-group">
+            <label for="demo-time">Time</label>
+            <input type="time" id="demo-time" class="retro-input">
+          </div>
+        </form>
+      </div>
+
+      <div class="demo-section retro-card" id="section-infinite-scroll">
+        <h2>♾️ Infinite Scroll</h2>
+        <div class="retro-infinite-scroll" style="height: 400px; overflow-y: auto; position: relative;">
+          <!-- Items will be loaded here dynamically -->
+          <div class="retro-infinite-loader" style="display: flex; justify-content: center; padding: 20px;">
+            <div class="retro-spinner" style="width: 30px; height: 30px; border: 3px solid #808080; border-radius: 50%; border-top-color: #000080; animation: spin 1s linear infinite;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-section retro-card" id="section-typography">
+        <h2>🔤 Typography</h2>
+        <h1>Heading 1 (h1)</h1>
+        <h2>Heading 2 (h2)</h2>
+        <h3>Heading 3 (h3)</h3>
+        <h4>Heading 4 (h4)</h4>
+        <h5>Heading 5 (h5)</h5>
+        <h6>Heading 6 (h6)</h6>
+        <hr>
+        <h3>Heading Variants</h3>
+        <div class="retro-flex retro-flex-wrap retro-gap-3">
+          <div class="retro-heading-variant retro-heading-primary">⭐ PRIMARY HEADING</div>
+          <div class="retro-heading-variant retro-heading-success">✔️ SUCCESS HEADING</div>
+          <div class="retro-heading-variant retro-heading-warning">⚠️ WARNING HEADING</div>
+          <div class="retro-heading-variant retro-heading-danger">❌ DANGER HEADING</div>
+          <div class="retro-heading-variant retro-heading-info">ℹ️ INFO HEADING</div>
+          <div class="retro-heading-variant retro-heading-teal">💧 TEAL HEADING</div>
+          <div class="retro-heading-variant retro-heading-pink">🌸 PINK HEADING</div>
+          <div class="retro-heading-variant retro-heading-lime">🍋 LIME HEADING</div>
+        </div>
+        <hr>
+        <h3>Text Utilities</h3>
+        <p>
+          <span class="retro-text-primary">Primary</span> |
+          <span class="retro-text-success">Success</span> |
+          <span class="retro-text-danger">Danger</span> |
+          <span class="retro-text-warning">Warning</span> |
+          <span class="retro-text-info">Info</span> |
+          <span class="retro-text-teal">Teal</span> |
+          <span class="retro-text-pink">Pink</span> |
+          <span class="retro-text-lime">Lime</span>
+        </p>
+        <p>
+          <span class="retro-text-bold">Bold</span> |
+          <span class="retro-text-italic">Italic</span> |
+          <span class="retro-text-underline">Underline</span> |
+          <span class="retro-text-shadow">Shadow</span> |
+          <span class="retro-text-outline">Outline</span> |
+          <span class="retro-text-uppercase">UPPERCASE</span> |
+          <span class="retro-text-lowercase">lowercase</span> |
+          <span class="retro-text-capitalize">capitalize each word</span> |
+          <span class="retro-text-monospace">Monospace</span> |
+          <span class="retro-text-xs">Extra Small</span> |
+          <span class="retro-text-lg">Large</span> |
+          <span class="retro-text-strike">Strike</span>
+        </p>
+        <hr>
+        <h3>Fancy Text Styles</h3>
+        <p>
+          <span class="retro-text-rainbow">Rainbow Text</span> |
+          <span class="retro-text-gradient">Gradient Text</span> |
+          <span class="retro-text-outline-strong">Outline Strong</span> |
+          <span class="retro-text-emboss">Emboss</span> |
+          <span class="retro-text-deboss">Deboss</span> |
+          <span class="retro-text-shadow-multicolor">Multicolor Shadow</span> |
+          <span class="retro-text-glitch">Glitch</span> |
+          <span class="retro-text-metallic">Metallic</span> |
+          <span class="retro-text-fire">Fire</span>
+        </p>
+        <hr>
+        <h3>Retro Blockquote</h3>
+        <blockquote class="retro-blockquote">"This is a retro blockquote. The only limit to our realization of tomorrow
+          will be our doubts of today."</blockquote>
+        <hr>
+        <h3>Retro Code Block</h3>
+        <pre class="retro-code">
+          <code>
+<span class="keyword">function</span> <span class="function">helloWorld</span>() {
+  <span class="comment">// This is a comment</span>
+  <span class="keyword">const</span> <span class="variable">message</span> = <span class="string">"Hello, Win9x!"</span>;
+  <span class="keyword">let</span> <span class="variable">count</span> = <span class="number">42</span>;
+  
+  <span class="keyword">if</span> (count <span class="operator">></span> <span class="number">0</span>) {
+    console.<span class="function">log</span>(message);
+  }
+  
+  <span class="keyword">return</span> <span class="variable">count</span> <span class="operator">+</span> <span class="number">1</span>;
+}
+
+<span class="class">class</span> <span class="class">Example</span> {
+  <span class="function">constructor</span>() {
+    <span class="keyword">this</span>.<span class="property">name</span> = <span class="string">"Example"</span>;
+  }
+  
+  <span class="function">sayHello</span>() {
+    <span class="keyword">return</span> <span class="string">`Hello from ${</span><span class="keyword">this</span>.<span class="property">name</span><span class="string">}!`</span>;
+  }
+}
+          </code>
+        </pre>
+
+        <h3>HTML Example</h3>
+        <pre class="retro-code">
+          <code>
+<span class="tag">&lt;div</span> <span class="attribute">class</span>=<span class="string">"retro-container"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;h1</span> <span class="attribute">class</span>=<span class="string">"retro-heading-primary"</span><span class="tag">&gt;</span>Hello World<span class="tag">&lt;/h1&gt;</span>
+  <span class="tag">&lt;p</span> <span class="attribute">class</span>=<span class="string">"retro-text-primary"</span><span class="tag">&gt;</span>
+    This is a paragraph with primary text color.
+  <span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/div&gt;</span>
+          </code>
+        </pre>
+
+        <h3>Retro Listbox</h3>
+        <ul class="retro-listbox">
+          <li>Listbox Item 1</li>
+          <li>Listbox Item 2</li>
+          <li>Listbox Item 3</li>
+          <li>Listbox Item 4</li>
+        </ul>
+        <hr>
+        <p>Inline code: <code>npm install retrocss</code></p>
+        <p><del>Deleted text</del> <ins>Inserted text</ins> <sub>sub</sub> <sup>sup</sup></p>
+      </div>
+    </div>
+  </div><!-- End of retro-main-grid -->
+
+  <!-- Original Demo Modal (can be moved or kept here) -->
+  <div class="retro-modal" id="demoModal">
+    <div class="retro-modal-content">
+      <div class="retro-modal-header">
+        <h3>Retro Modal</h3>
+        <button class="retro-modal-close">×</button>
+      </div>
+      <div class="retro-modal-body">
+        This is a modal dialog. <br>
+        <button class="retro-btn" onclick="RetroModal.hide('demoModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- New Modal Definitions -->
+  <div class="retro-modal" id="basicModal">
+    <div class="retro-modal-content retro-modal-sm"> <!-- Added retro-modal-sm for potentially smaller default size -->
+      <div class="retro-modal-header">
+        <h3>Basic Modal Title</h3>
+        <button class="retro-modal-close">×</button>
+      </div>
+      <div class="retro-modal-body">
+        <p>This is a basic modal dialog. It's great for short messages or simple confirmations.</p>
+      </div>
+      <div class="retro-modal-footer">
+        <button class="retro-btn retro-btn-primary" onclick="RetroModal.hide('basicModal')">OK</button>
+        <button class="retro-btn" onclick="RetroModal.hide('basicModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="retro-modal" id="longContentModal">
+    <div class="retro-modal-content">
+      <div class="retro-modal-header">
+        <h3>Modal with Long Content</h3>
+        <button class="retro-modal-close">×</button>
+      </div>
+      <div class="retro-modal-body">
+        <p>This modal contains a lot of text to demonstrate how scrolling might work if the content exceeds the modal's height. In classic interfaces, modals often grew to fit content, or content within them would scroll if the modal itself had fixed dimensions.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+        <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.</p>
+      </div>
+      <div class="retro-modal-footer">
+        <button class="retro-btn" onclick="RetroModal.hide('longContentModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="retro-modal" id="formModal">
+    <div class="retro-modal-content">
+      <div class="retro-modal-header">
+        <h3>Login Form Modal</h3>
+        <button class="retro-modal-close">×</button>
+      </div>
+      <div class="retro-modal-body">
+        <form class="retro-form" id="modalLoginForm" onsubmit="event.preventDefault(); RetroModal.hide('formModal'); if(window.RetroCSS && RetroCSS.toast) { RetroCSS.toast.show('Login button in modal clicked!', {type: 'info'}); } else { alert('Login attempt!'); }">
+          <div class="retro-form-group">
+            <label for="modal-username">Username</label>
+            <input type="text" id="modal-username" class="retro-input" placeholder="Enter username">
+          </div>
+          <div class="retro-form-group">
+            <label for="modal-password">Password</label>
+            <input type="password" id="modal-password" class="retro-input" placeholder="Enter password">
+          </div>
+          <div class="retro-form-group">
+            <label>
+              <input type="checkbox" class="retro-checkbox"> Remember me
+            </label>
+          </div>
+        </form>
+      </div>
+      <div class="retro-modal-footer">
+        <button class="retro-btn retro-btn-primary" type="submit" form="modalLoginForm">Login</button>
+        <button class="retro-btn" type="button" onclick="RetroModal.hide('formModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="retro-modal" id="noHeaderModal">
+    <div class="retro-modal-content">
+      <div class="retro-modal-body">
+        <p>This modal has no explicit header. The close button is part of the body content here, or could be omitted for modals that require explicit action in the footer.</p>
+        <button class="retro-modal-close" style="position: absolute; top: 8px; right: 8px; font-size: 1.2em;">×</button>
+        <p>Content directly in the body.</p>
+      </div>
+      <div class="retro-modal-footer">
+        <button class="retro-btn" onclick="RetroModal.hide('noHeaderModal')">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="retro-modal" id="noFooterModal">
+    <div class="retro-modal-content">
+      <div class="retro-modal-header">
+        <h3>Informational Modal</h3>
+        <button class="retro-modal-close">×</button>
+      </div>
+      <div class="retro-modal-body">
+        <p>This modal has a header and body, but no footer. Useful for displaying information that doesn't require explicit actions beyond closing the modal itself (via the '×' button).</p>
+        <p>Ensure the close button in the header is sufficient for user interaction.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load Individual RetroCSS JS Source Files -->
+  <script src="dist/retro.js"></script>
+
+  <script>
+    // Add keyframes for spinner animation if not already present
+    if (!document.querySelector('#spin-keyframes')) {
+      const style = document.createElement('style');
+      style.id = 'spin-keyframes';
+      style.textContent = `
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  </script>
+</body>
+
+</html>

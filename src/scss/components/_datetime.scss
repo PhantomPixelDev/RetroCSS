@@ -1,0 +1,93 @@
+/**
+ * @name Date/Time Input
+ * @group components
+ * @description
+ * Stylized date and time picker inputs with retro design.
+ * @example scss
+ *   <input type="date" class="retro-input retro-date">
+ *   <input type="time" class="retro-input retro-time">
+ */
+
+input[type="date"].retro-input,
+input[type="time"].retro-input,
+input[type="datetime-local"].retro-input {
+  // Base styling
+  appearance: none;
+  background-color: var(--retro-input-bg);
+  border: 2px solid var(--retro-border-dark);
+  border-right: 2px solid var(--retro-border-light);
+  border-bottom: 2px solid var(--retro-border-light);
+  border-left: 2px solid var(--retro-border-medium);
+  border-top: 2px solid var(--retro-border-medium);
+  padding: 4px 8px;
+  max-width: 100%;
+  box-sizing: border-box;
+  font-family: var(--retro-font);
+  font-size: var(--retro-font-size);
+  color: var(--retro-input-text);
+  
+  // Fix for some browsers that add custom styling
+  &::-webkit-calendar-picker-indicator {
+    filter: invert(0.5);
+    opacity: 0.7;
+    cursor: pointer;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+  
+  &:focus {
+    outline: none;
+    border: 2px solid var(--retro-primary);
+    box-shadow: 0 0 0 2px rgba(var(--retro-primary-rgb), 0.2);
+  }
+  
+  &:disabled {
+    background-color: var(--retro-light);
+    color: var(--retro-border-medium);
+    cursor: not-allowed;
+  }
+  
+  &.retro-input-lg {
+    padding: 8px 12px;
+    font-size: calc(var(--retro-font-size) * 1.2);
+  }
+  
+  &.retro-input-sm {
+    padding: 2px 6px;
+    font-size: calc(var(--retro-font-size) * 0.9);
+  }
+}
+
+// Datetime container for grouping date and time inputs
+.retro-datetime-group {
+  display: flex;
+  gap: var(--retro-spacing-sm);
+  align-items: center;
+  
+  input[type="date"].retro-input,
+  input[type="time"].retro-input {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .retro-datetime-separator {
+    font-weight: bold;
+    color: var(--retro-border-dark);
+  }
+}
+
+// Dark mode adjustments
+[data-theme="dark"] {
+  input[type="date"].retro-input,
+  input[type="time"].retro-input,
+  input[type="datetime-local"].retro-input {
+    background-color: var(--retro-input-bg);
+    color: var(--retro-input-text);
+    
+    &::-webkit-calendar-picker-indicator {
+      filter: invert(0.8);
+    }
+  }
+}

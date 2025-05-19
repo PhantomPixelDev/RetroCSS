@@ -1,0 +1,49 @@
+@use "../variables" as *;
+// Retro Tag/Chip Input
+.retro-tag-input {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  background: var(--retro-input-bg);
+  border: 2px solid var(--retro-border-dark);
+  border-radius: 4px;
+  padding: 8px 12px;
+  min-width: 220px;
+}
+.retro-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.retro-tag {
+  display: inline-flex;
+  align-items: center;
+  background: var(--retro-input-bg);
+  color: var(--retro-input-text);
+  border: 1px solid var(--retro-border-medium);
+  border-radius: 12px;
+  padding: 3px 12px 3px 10px;
+  font-size: 14px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  box-shadow: 1px 1px 0 var(--retro-border-light);
+}
+.retro-tag-remove {
+  margin-left: 8px;
+  color: $retro-danger;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: color 0.2s;
+  &:hover { color: $retro-primary; }
+}
+.retro-tag-text {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  min-width: 80px;
+  margin-left: 4px;
+  padding: 2px 0;
+} 

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📊 Dashboard | RetroCSS</title>
+  <link rel="stylesheet" href="../dist/retro.min.css">
+</head>
+<body class="retro-body-bg">
+  <div class="retro-container">
+    <nav class="retro-nav">
+      <a href="../index.html" class="retro-nav-item" data-retro-tooltip="Home page">🏠 Home</a>
+      <a href="../documentation.html" class="retro-nav-item" data-retro-tooltip="Documentation">📖 Docs</a>
+      <a href="https://github.com/phantompixeldev/retrocss" class="retro-nav-item" data-retro-tooltip="GitHub">💾 GitHub</a>
+      <button class="retro-nav-item retro-theme-toggle" data-retro-tooltip="Toggle dark/light mode">🌓 Toggle Theme</button>
+    </nav>
+  </div>
+  <hr class="retro-mt-5" style="border-color: var(--retro-border-medium);">
+  <div class="retro-main-layout retro-gap-4">
+    <div class="retro-sidebar retro-bg-light retro-border-right retro-shadow-lg">
+      <div class="retro-sidebar-header">📊 Dashboard</div>
+      <nav aria-label="Dashboard navigation">
+        <div class="retro-sidebar-section">
+          <ul class="retro-list">
+            <li><a href="#overview">🏠 Overview</a></li>
+            <li><a href="#stats">📈 Stats</a></li>
+            <li><a href="#activity">🕒 Activity</a></li>
+            <li><a href="#tasks">✅ Tasks</a></li>
+            <li><a href="#settings">⚙️ Settings</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="main-content retro-pb-8">
+      <!-- Welcome User Card -->
+      <div class="retro-card retro-mb-4 retro-flex retro-items-center retro-gap-4 retro-bg-primary-lightest retro-shadow-lg">
+        <div class="retro-avatar retro-bg-primary retro-text-white retro-shadow-md" style="width:64px; height:64px; font-size:2.5em; display:flex; align-items:center; justify-content:center; border-radius:12px;">👩‍💻</div>
+        <div class="retro-flex-1">
+          <h2 class="retro-heading-primary retro-mb-1">Welcome, <span class="retro-text-primary">Alice</span>!</h2>
+          <div class="retro-flex retro-gap-2 retro-mb-2">
+            <span class="retro-badge retro-badge-success">Pro User</span>
+            <span class="retro-badge retro-badge-info">Online</span>
+          </div>
+          <div class="retro-flex retro-gap-2">
+            <button class="retro-btn retro-btn-primary retro-btn-xs">🔔 Notifications</button>
+            <button class="retro-btn retro-btn-secondary retro-btn-xs">⚙️ Settings</button>
+            <button class="retro-btn retro-btn-danger retro-btn-xs">🚪 Logout</button>
+          </div>
+        </div>
+      </div>
+      <!-- Stats Cards -->
+      <div class="retro-grid retro-grid-cols-1 md:retro-grid-cols-3 retro-gap-4 retro-mb-4" id="stats">
+        <div class="retro-card retro-bg-success-lightest retro-shadow-md">
+          <div class="retro-card-header retro-flex retro-items-center retro-gap-2">👤 Users <span class="retro-badge retro-badge-success">+5%</span></div>
+          <div class="retro-card-content retro-text-center retro-text-2xl retro-font-bold">1,254</div>
+        </div>
+        <div class="retro-card retro-bg-info-lightest retro-shadow-md">
+          <div class="retro-card-header retro-flex retro-items-center retro-gap-2">💬 Messages <span class="retro-badge retro-badge-info">+12</span></div>
+          <div class="retro-card-content retro-text-center retro-text-2xl retro-font-bold">87</div>
+        </div>
+        <div class="retro-card retro-bg-warning-lightest retro-shadow-md">
+          <div class="retro-card-header retro-flex retro-items-center retro-gap-2">🚀 Uptime <span class="retro-badge retro-badge-warning">99.9%</span></div>
+          <div class="retro-card-content retro-text-center">
+            <div class="retro-progress retro-mb-2">
+              <div class="retro-progress-bar retro-progress-bar-success" style="width: 99.9%;"></div>
+            </div>
+            <span class="retro-text-lg retro-font-bold">99.9%</span>
+          </div>
+        </div>
+      </div>
+      <!-- Quick Actions -->
+      <div class="retro-card retro-mb-4 retro-shadow-sm retro-bg-lightest">
+        <div class="retro-card-header">⚡ Quick Actions</div>
+        <div class="retro-card-content retro-flex retro-gap-3 retro-flex-wrap">
+          <button class="retro-btn retro-btn-primary">➕ Add User</button>
+          <button class="retro-btn retro-btn-success">📤 Export Data</button>
+          <button class="retro-btn retro-btn-warning">🔄 Refresh</button>
+        </div>
+      </div>
+      <!-- Recent Activity -->
+      <div class="retro-card retro-mb-4 retro-shadow-sm" id="activity">
+        <div class="retro-card-header">🕒 Recent Activity</div>
+        <div class="retro-card-content">
+          <ul class="retro-list retro-list-striped">
+            <li>🟢 User <b>alice</b> logged in</li>
+            <li>🔵 New message from <b>bob</b></li>
+            <li>🟡 System update completed</li>
+            <li>🔴 User <b>charlie</b> logged out</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Tasks -->
+      <div class="retro-card retro-shadow-sm" id="tasks">
+        <div class="retro-card-header">✅ Tasks</div>
+        <div class="retro-card-content">
+          <ul class="retro-list retro-list-hover">
+            <li><input type="checkbox" checked> Finish dashboard design</li>
+            <li><input type="checkbox"> Review pull requests</li>
+            <li><input type="checkbox"> Update documentation</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Footer -->
+      <footer class="retro-mt-8 retro-text-center retro-text-xs retro-text-secondary">
+        <div class="retro-divider retro-divider-dotted"></div>
+        <p>© 2024 RetroCSS Dashboard. Made with <span class="retro-text-danger">♥</span> in Win9x style.</p>
+      </footer>
+    </div>
+  </div>
+  <script src="../dist/retro.js"></script>
+</body>
+</html> 

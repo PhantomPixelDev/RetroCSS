@@ -1,0 +1,70 @@
+@use "../variables" as *;
+/**
+ * RetroCSS Accordion Component
+ * Classic accordion with retro styling
+ */
+.retro-accordion {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.retro-accordion-item {
+  border: 2px solid var(--retro-border-dark);
+  margin-bottom: 0.5rem;
+  background-color: var(--retro-bg);
+  box-shadow: inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
+  
+  &.active {
+    border-color: var(--retro-primary);
+    
+    .retro-accordion-toggle {
+      background-color: var(--retro-light);
+    }
+  }
+}
+
+.retro-accordion-toggle {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  background-color: var(--retro-bg);
+  border: none;
+  border-bottom: 1px solid var(--retro-border-medium);
+  font-weight: bold;
+  position: relative;
+  font-family: var(--retro-font);
+  box-shadow: inset 1px 1px 0 var(--retro-border-light);
+  
+  &:hover {
+    background-color: var(--retro-light);
+  }
+  
+  &:active {
+    box-shadow: inset 1px 1px 0 var(--retro-border-dark), inset -1px -1px 0 var(--retro-border-light);
+  }
+}
+
+.retro-accordion-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.retro-accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  
+  /* Fix for some browsers that struggle with transitions to/from max-height: auto */
+  will-change: max-height;
+}
+
+/* Active state is controlled by JavaScript */
+.retro-accordion-item.active .retro-accordion-content {
+  max-height: 1000px; /* Set a reasonable default max-height */
+} 

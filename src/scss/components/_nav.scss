@@ -1,0 +1,383 @@
+/* Retro Nav - Win9x Style Only */
+
+@use "../variables" as *;
+@use "../mixins" as *;
+
+/**
+ * @name Retro Navigation
+ * @group components
+ * @description
+ * Navigation component with various styles and variants.
+ * @example scss
+ *   <nav class="retro-nav">
+ *     <a href="#" class="retro-nav-item">Home</a>
+ *     <a href="#" class="retro-nav-item">About</a>
+ *     <a href="#" class="retro-nav-item">Contact</a>
+ *   </nav>
+ */
+
+.retro-nav {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  background: var(--retro-light);
+  border: 2px solid var(--retro-border-dark);
+  border-radius: 0;
+  box-shadow: inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
+  font-family: $retro-font;
+  transition: none;
+}
+
+.retro-nav-item {
+  display: inline-block;
+  padding: $retro-spacing-sm $retro-spacing-md;
+  color: var(--retro-black);
+  text-decoration: none;
+  border-radius: 0;
+  background: var(--retro-light);
+  border-right: 1px solid var(--retro-border-medium);
+  font-family: $retro-font;
+  transition: none;
+
+  &:hover {
+    background: var(--retro-white);
+    color: var(--retro-primary);
+  }
+
+  &.active {
+    background: var(--retro-primary);
+    color: var(--retro-white);
+    text-shadow: 0 1px 2px var(--retro-border-dark), 0 0 2px var(--retro-border-light);
+    outline: 2px solid var(--retro-border-light);
+    outline-offset: -2px;
+  }
+
+  &:focus {
+    outline: 2px dashed var(--retro-primary);
+    outline-offset: 2px;
+    z-index: 2;
+  }
+}
+
+// .retro-tab is an alias for .retro-nav-item, used for tabbed navigation
+.retro-tab {
+  @extend .retro-nav-item;
+  border-radius: 4px 4px 0 0;
+  margin-right: -1px;
+  margin-bottom: 0;
+  background: $retro-light;
+  border: 1px solid $retro-border-dark;
+  border-bottom: none;
+  position: relative;
+  z-index: 1;
+  min-width: 80px;
+  height: 32px;
+  box-shadow: none;
+  font-family: $retro-font;
+  font-size: 15px;
+  font-weight: normal;
+  color: $retro-black;
+  transition: background 0.2s, color 0.2s;
+  text-shadow: none;
+
+  border-left: 1px solid $retro-border-light;
+  border-top: 1px solid $retro-border-light;
+  border-right: 1px solid $retro-border-dark;
+  border-bottom: 1px solid $retro-border-dark;
+
+  &.active {
+    background: $retro-white;
+    color: $retro-black;
+    font-weight: normal;
+    border-left: 1px solid $retro-border-dark;
+    border-top: 2px solid $retro-border-dark;
+    border-right: 1px solid $retro-border-dark;
+    border-bottom: none;
+    z-index: 2;
+    box-shadow: none;
+    text-shadow: none;
+  }
+
+  &:hover:not(.active) {
+    background: $retro-border-light;
+    color: $retro-primary;
+  }
+}
+
+.retro-nav-tabs {
+  display: flex;
+  border-bottom: var(--retro-border-width) var(--retro-border-style) var(--retro-border-dark);
+  background: var(--retro-bg);
+  border-radius: var(--retro-border-radius-sm) var(--retro-border-radius-sm) 0 0;
+  padding: 0 0 0 2px;
+  margin-bottom: 0;
+  gap: 4px;
+  overflow-x: auto;
+}
+
+// --- Vertical Nav Variant ---
+.retro-nav-vertical {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  border: 2px solid $retro-border-dark;
+  background: $retro-light;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  box-shadow: inset 1px 1px 0 $retro-border-light, inset -1px -1px 0 $retro-border-medium;
+}
+
+.retro-nav-vertical .retro-nav-item {
+  display: block;
+  border-right: none;
+  border-bottom: 1px solid $retro-border-medium;
+  border-radius: 0;
+  width: 100%;
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+// --- Pills Nav Variant ---
+.retro-nav-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.retro-nav-pills .retro-nav-item {
+  border-radius: 999px;
+  background: $retro-light;
+  border: 1px solid $retro-border-medium;
+  margin: 0 2px;
+  padding: $retro-spacing-sm $retro-spacing-lg;
+  transition: background 0.2s, color 0.2s;
+  &:hover {
+    background: $retro-primary;
+    color: $retro-white;
+  }
+  &.active {
+    background: $retro-primary;
+    color: $retro-white;
+    font-weight: bold;
+    box-shadow: 0 1px 4px #b0c4de inset;
+  }
+}
+
+// --- Win9x Style Tabs ---
+.retro-tab-list {
+  display: flex;
+  align-items: flex-end;
+  background: $retro-light;
+  border-left: 1px solid $retro-border-dark;
+  border-top: 1px solid $retro-border-dark;
+  border-right: 1px solid $retro-border-light;
+  padding: 0 2px;
+  height: 32px;
+  box-shadow: none;
+}
+
+// --- Toolbar-style Navigation ---
+.retro-nav-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2px;
+  margin: 0;
+  background: $retro-light;
+  border: 2px solid $retro-border-dark;
+  border-radius: 0;
+  box-shadow: inset 1px 1px 0 $retro-border-light, inset -1px -1px 0 $retro-border-medium;
+  font-family: $retro-font;
+  
+  .retro-nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 2px 10px;
+    margin: 2px;
+    color: $retro-black;
+    text-decoration: none;
+    background: $retro-light;
+    border: 2px solid transparent;
+    border-radius: 0;
+    text-align: center;
+    
+    &:hover {
+      background: $retro-white;
+      border: 2px solid $retro-border-medium;
+      border-right: 2px solid $retro-border-dark;
+      border-bottom: 2px solid $retro-border-dark;
+      border-left: 2px solid $retro-border-light;
+      border-top: 2px solid $retro-border-light;
+    }
+    
+    &.active {
+      background: $retro-light;
+      border: 2px solid $retro-border-medium;
+      border-right: 2px solid $retro-border-light;
+      border-bottom: 2px solid $retro-border-light;
+      border-left: 2px solid $retro-border-dark;
+      border-top: 2px solid $retro-border-dark;
+      color: $retro-black;
+      font-weight: normal;
+    }
+    
+    .retro-nav-icon {
+      font-size: 18px;
+      margin-right: 4px;
+    }
+  }
+  
+  &.retro-nav-icons .retro-nav-item {
+    width: 36px;
+    padding: 0;
+    
+    .retro-nav-icon {
+      margin-right: 0;
+    }
+  }
+  
+  .retro-nav-separator {
+    width: 1px;
+    height: 30px;
+    margin: 3px 4px;
+    background: $retro-border-medium;
+    box-shadow: 1px 0 0 $retro-border-light;
+  }
+}
+
+// --- Tabbed Navigation ---
+.retro-nav-tabbed {
+  display: flex;
+  padding: 0;
+  margin: 0 0 -1px 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid $retro-border-dark;
+  box-shadow: none;
+  position: relative;
+  z-index: 1;
+  
+  .retro-nav-item {
+    padding: 8px 16px;
+    background: $retro-light;
+    border: 2px solid $retro-border-dark;
+    border-bottom: 0;
+    margin-right: 2px;
+    position: relative;
+    box-shadow: inset 1px 1px 0 $retro-border-light;
+    
+    &:hover {
+      background: $retro-white;
+    }
+    
+    &.active {
+      background: $retro-white;
+      color: $retro-black;
+      border-bottom: 2px solid $retro-white;
+      z-index: 2;
+      margin-bottom: -2px;
+    }
+  }
+}
+
+// --- Underlined Navigation ---
+.retro-nav-underlined {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  border-bottom: 1px solid $retro-border-medium;
+  
+  .retro-nav-item {
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    position: relative;
+    margin-right: 4px;
+    
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: transparent;
+    }
+    
+    &:hover {
+      background: transparent;
+      color: $retro-primary;
+      
+      &:after {
+        background: rgba($retro-primary, 0.3);
+      }
+    }
+    
+    &.active {
+      background: transparent;
+      color: $retro-primary;
+      font-weight: normal;
+      
+      &:after {
+        background: $retro-primary;
+      }
+    }
+  }
+}
+
+// --- Button Group Navigation ---
+.retro-nav-buttons {
+  display: inline-flex;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  
+  .retro-nav-item {
+    padding: 6px 14px;
+    background: $retro-light;
+    border: 2px solid $retro-border-dark;
+    border-right: 1px solid $retro-border-dark;
+    border-left: 1px solid $retro-border-dark;
+    margin: 0;
+    position: relative;
+    box-shadow: inset 1px 1px 0 $retro-border-light, inset -1px -1px 0 $retro-border-medium;
+    
+    &:first-child {
+      border-left: 2px solid $retro-border-dark;
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+    }
+    
+    &:last-child {
+      border-right: 2px solid $retro-border-dark;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+    }
+    
+    &:hover {
+      background: $retro-white;
+      z-index: 1;
+    }
+    
+    &.active {
+      background: $retro-primary;
+      color: $retro-white;
+      z-index: 2;
+    }
+  }
+} 

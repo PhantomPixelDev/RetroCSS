@@ -1,0 +1,26 @@
+@use "../variables" as *;
+// Retro Pagination
+.retro-pagination {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 8px 0;
+}
+.retro-pagination .retro-btn {
+  min-width: 36px;
+  padding: 4px 12px;
+  font-size: 15px;
+  border-radius: 2px;
+  border: 2px solid $retro-border-dark;
+  background: $retro-light;
+  color: $retro-black;
+  box-shadow: 1px 1px 0 $retro-border-light;
+  transition: background 0.2s, color 0.2s;
+}
+.retro-pagination .retro-btn.active,
+.retro-pagination .retro-btn:active {
+  background: $retro-primary;
+  color: $retro-white;
+  font-weight: bold;
+  border-color: $retro-primary;
+} 

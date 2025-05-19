@@ -1,0 +1,41 @@
+{
+  "name": "retrocss",
+  "version": "1.0.0",
+  "description": "A Retro-Inspired CSS Framework",
+  "main": "dist/retro.css",
+  "scripts": {
+    "build": "npm run build:css && npm run build:js",
+    "watch": "concurrently \"npm run watch:css\" \"npm run watch:js\"",
+    "build:css": "sass src/scss/retro.scss:dist/retro.css",
+    "build:css:min": "sass src/scss/retro.scss:dist/retro.min.css --style compressed",
+    "watch:css": "sass --watch src/scss/retro.scss:dist/retro.css",
+    "build:js": "esbuild src/js/retro.js --bundle --outfile=dist/retro.js --format=iife --global-name=RetroCSS",
+    "build:js:min": "esbuild src/js/retro.js --bundle --minify --outfile=dist/retro.min.js --format=iife --global-name=RetroCSS",
+    "watch:js": "esbuild src/js/retro.js --bundle --outfile=dist/retro.js --format=iife --global-name=RetroCSS --watch",
+    "build:min": "npm run build:css:min && npm run build:js:min",
+    "clean": "rimraf \"dist\"",
+    "postbuild": "npm run build:min",
+    "migrate-scss": "npx sass-migrator module --migrate-deps src/scss/retro.scss"
+  },
+  "keywords": [
+    "css",
+    "scss",
+    "framework",
+    "retro",
+    "ui"
+  ],
+  "author": "PhantomPixelDev",
+  "license": "MIT",
+  "devDependencies": {
+    "concat-cli": "^4.0.0",
+    "concurrently": "^8.2.2",
+    "copyfiles": "^2.4.1",
+    "esbuild": "^0.20.3",
+    "mkdirp": "^1.0.4",
+    "onchange": "^7.1.0",
+    "rimraf": "^5.0.10",
+    "sass": "^1.69.5",
+    "sassdoc": "^2.7.4",
+    "uglify-js": "^3.19.3"
+  }
+}

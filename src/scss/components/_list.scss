@@ -1,0 +1,168 @@
+@use "../variables" as *;
+
+.retro-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--retro-spacing-lg) 0;
+  font-size: 1rem;
+  background: var(--retro-list-bg);
+  color: var(--retro-list-text);
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  
+  // List items
+  li {
+    padding: var(--retro-spacing-sm) var(--retro-spacing-md);
+    transition: background 0.2s, box-shadow 0.2s;
+    border-radius: 4px;
+    position: relative;
+    margin-bottom: 2px;
+
+    // Custom bullet for unordered lists
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--retro-primary);
+      border-radius: 50%;
+      margin-right: var(--retro-spacing-md);
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+  }
+  
+  // Remove bullet for ordered and description lists
+  ol.retro-list li::before,
+  dl.retro-list li::before {
+    content: none;
+  }
+  
+  // Nested lists
+  .retro-list {
+    margin-top: var(--retro-spacing-xs);
+    margin-bottom: var(--retro-spacing-xs);
+    margin-left: var(--retro-spacing-lg);
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  // Variants
+  &-bordered {
+    border: 1px solid var(--retro-border-medium);
+    background: var(--retro-white);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    
+    li {
+      border-bottom: 1px solid var(--retro-border-light);
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+  
+  &-striped {
+    li:nth-child(odd) {
+      background-color: var(--retro-light);
+    }
+    li:nth-child(even) {
+      background-color: var(--retro-white);
+    }
+  }
+  
+  &-hover {
+    li {
+      cursor: pointer;
+      &:hover, &:focus {
+        background-color: var(--retro-primary);
+        color: var(--retro-white);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        outline: none;
+      }
+    }
+  }
+}
+
+// Unordered list
+ul.retro-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+// Ordered list
+ol.retro-list {
+  list-style: none;
+  padding-left: 0;
+  counter-reset: retro-ol;
+
+  li {
+    position: relative;
+    padding-left: 2.5em;
+    margin-bottom: var(--retro-spacing-sm);
+    min-height: 2em;
+    counter-increment: retro-ol;
+
+    &::before {
+      content: counter(retro-ol);
+      position: absolute;
+      left: 0;
+      top: 0.2em;
+      width: 2em;
+      height: 2em;
+      background: var(--retro-primary);
+      color: var(--retro-white);
+      font-weight: bold;
+      font-family: inherit;
+      font-size: 1.1em;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+      border: 2px solid var(--retro-border-dark);
+    }
+
+    // Nested ordered list
+    ol.retro-list {
+      margin-top: var(--retro-spacing-xs);
+      margin-bottom: var(--retro-spacing-xs);
+      margin-left: 2.5em;
+      counter-reset: retro-ol-nested;
+
+      li {
+        padding-left: 2em;
+        min-height: 1.6em;
+        counter-increment: retro-ol-nested;
+
+        &::before {
+          content: counter(retro-ol-nested);
+          width: 1.5em;
+          height: 1.5em;
+          font-size: 0.95em;
+          background: var(--retro-success); // Use a different color for nested
+          color: var(--retro-white);
+          border-radius: 4px;
+          border: 2px solid var(--retro-border-medium);
+          top: 0.1em;
+        }
+      }
+    }
+  }
+}
+
+// Description list
+dl.retro-list {
+  dt {
+    font-weight: bold;
+    margin-top: var(--retro-spacing-sm);
+    color: var(--retro-primary);
+  }
+  
+  dd {
+    margin-left: var(--retro-spacing-md);
+    margin-bottom: var(--retro-spacing-sm);
+    color: var(--retro-text-muted);
+  }
+} 

@@ -1,0 +1,318 @@
+/* Retro Form - Win9x Style Only */
+
+@use "../variables" as *;
+@use "../mixins" as *;
+
+/**
+ * @name Retro Form
+ * @group components
+ * @description
+ * Form components including inputs, textareas, selects, and checkboxes.
+ * @example scss
+ *   <form class="retro-form">
+ *     <div class="retro-form-group">
+ *       <label for="username">Username</label>
+ *       <input type="text" id="username" class="retro-input">
+ *     </div>
+ *   </form>
+ */
+
+.retro-form {
+  &-group {
+    margin-bottom: $retro-spacing-md;
+  }
+
+  &-group > label {
+    display: block;
+    margin-bottom: $retro-spacing-xs;
+    font-weight: bold;
+    color: var(--retro-input-text);
+  }
+}
+
+.retro-input,
+.retro-textarea,
+.retro-select {
+  width: 100%;
+  padding: $retro-spacing-sm;
+  background: var(--retro-input-bg);
+  border: 2px solid var(--retro-border-dark);
+  box-shadow: inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
+  color: var(--retro-input-text);
+  font-family: $retro-font;
+  font-size: $retro-font-size-base;
+  border-radius: 0;
+  transition: none;
+
+  &:focus {
+    outline: 1px dotted var(--retro-input-text);
+    outline-offset: -4px;
+    border-color: var(--retro-primary);
+    box-shadow: inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
+  }
+}
+
+.retro-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.retro-select {
+  appearance: none;
+  background-image: none;
+  padding-right: $retro-spacing-md;
+}
+
+.retro-form {
+  &-inline {
+    display: flex;
+    align-items: center;
+    gap: var(--retro-spacing-md);
+
+    .retro-form-group {
+      margin-bottom: 0;
+    }
+  }
+
+  &-horizontal {
+    .retro-form-group {
+      display: flex;
+      align-items: center;
+      gap: var(--retro-spacing-md);
+
+      label {
+        width: 200px;
+        margin-bottom: 0;
+        text-align: right;
+      }
+    }
+  }
+}
+
+// Form validation states
+.retro-input,
+.retro-textarea,
+.retro-select {
+  &.is-valid {
+    border-color: var(--retro-color-success);
+    
+    &:focus {
+      box-shadow: 
+        inset -1px -1px 0 var(--retro-border-dark),
+        inset 1px 1px 0 var(--retro-shadow-light),
+        0 0 0 2px rgba(var(--retro-color-success-rgb), 0.2);
+    }
+  }
+
+  &.is-invalid {
+    border-color: var(--retro-color-danger);
+    
+    &:focus {
+      box-shadow: 
+        inset -1px -1px 0 var(--retro-border-dark),
+        inset 1px 1px 0 var(--retro-shadow-light),
+        0 0 0 2px rgba(var(--retro-color-danger-rgb), 0.2);
+    }
+  }
+}
+
+.retro-form-text {
+  font-size: var(--retro-font-size-sm);
+  color: var(--retro-text-muted);
+  margin-top: var(--retro-spacing-xs);
+}
+
+.retro-form-feedback {
+  font-size: var(--retro-font-size-sm);
+  margin-top: var(--retro-spacing-xs);
+
+  &.is-valid {
+    color: var(--retro-color-success);
+  }
+
+  &.is-invalid {
+    color: var(--retro-color-danger);
+  }
+}
+
+.retro-input,
+.retro-textarea,
+.retro-select {
+  border-radius: 0 !important;
+  border: 2px solid var(--retro-border-dark);
+  box-shadow: inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
+  background: var(--retro-white);
+  color: var(--retro-black);
+  font-family: $retro-font;
+  font-size: $retro-font-size-base;
+  transition: none;
+
+  &:focus {
+    outline: 1px dotted var(--retro-black);
+    outline-offset: -4px;
+    border-color: var(--retro-primary);
+    box-shadow: inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
+  }
+}
+
+.retro-input,
+.retro-select,
+textarea {
+  padding: 0.5em 0.75em;
+  border-radius: 4px;
+  border: 1px solid #b0b0b0;
+}
+
+// Custom styles for additional input types
+input[type="color"].retro-input {
+  width: 48px;
+  height: 36px;
+  padding: 2px;
+  border-radius: 4px;
+  border: 2px solid var(--retro-border-dark);
+  background: var(--retro-white);
+  box-shadow: 1px 1px 0 var(--retro-border-light);
+}
+
+input[type="range"].retro-input {
+  width: 100%;
+  margin: 8px 0;
+  background: transparent;
+  appearance: none;
+  height: 6px;
+  border-radius: 4px;
+  outline: none;
+  border: 2px solid var(--retro-border-dark);
+  box-shadow: 1px 1px 0 var(--retro-border-light);
+}
+input[type="range"].retro-input::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--retro-primary);
+  border: 2px solid var(--retro-border-dark);
+  box-shadow: 1px 1px 0 var(--retro-border-light);
+  cursor: pointer;
+}
+input[type="range"].retro-input::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--retro-primary);
+  border: 2px solid var(--retro-border-dark);
+  box-shadow: 1px 1px 0 var(--retro-border-light);
+  cursor: pointer;
+}
+input[type="range"].retro-input::-ms-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--retro-primary);
+  border: 2px solid var(--retro-border-dark);
+  box-shadow: 1px 1px 0 var(--retro-border-light);
+  cursor: pointer;
+}
+input[type="range"].retro-input::-webkit-slider-runnable-track {
+  height: 6px;
+  background: var(--retro-white);
+  border-radius: 4px;
+}
+input[type="range"].retro-input::-ms-fill-lower,
+input[type="range"].retro-input::-ms-fill-upper {
+  background: var(--retro-white);
+}
+input[type="file"].retro-input {
+  padding: 4px;
+  background: var(--retro-white);
+  border: 2px solid var(--retro-border-dark);
+  box-shadow: 1px 1px 0 var(--retro-border-light);
+  color: var(--retro-black);
+  font-family: $retro-font;
+  font-size: $retro-font-size-base;
+}
+
+// Disabled input styles
+.retro-input:disabled,
+.retro-select:disabled,
+.retro-textarea:disabled {
+  background: #c0c0c0;
+  color: #888;
+  border-color: var(--retro-border-medium);
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.retro-label-text {
+  display: inline-block;
+  font-weight: normal;
+  margin-bottom: 0;
+  vertical-align: middle;
+  line-height: 1.2;
+}
+
+// Modern custom checkbox and radio (Win9x style)
+input[type="checkbox"].retro-input,
+input[type="radio"].retro-input {
+  appearance: none;
+  -webkit-appearance: none;
+  background: #fff;
+  border: 2px solid #808080;
+  width: 16px;
+  height: 16px;
+  margin: 0 8px 0 0;
+  vertical-align: middle;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input[type="checkbox"].retro-input {
+  border-radius: 0;
+}
+input[type="checkbox"].retro-input:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0px;
+  width: 5px;
+  height: 10px;
+  border: solid #000080;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  background: none;
+  display: block;
+}
+
+input[type="radio"].retro-input {
+  border-radius: 50%;
+}
+input[type="radio"].retro-input:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 6px;
+  height: 6px;
+  background: #000080;
+  border-radius: 50%;
+  display: block;
+}
+
+input[type="checkbox"].retro-input:focus,
+input[type="radio"].retro-input:focus {
+  outline: 2px solid #000080;
+  outline-offset: 2px;
+}
+
+.retro-label {
+  font-family: $retro-font;
+  font-size: 14px;
+  color: var(--retro-black);
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 16px;
+} 

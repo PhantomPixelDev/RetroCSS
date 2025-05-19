@@ -1,0 +1,82 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+@use "sass:color";
+
+/**
+ * @name Retro Card
+ * @group components
+ * @description
+ * Card component for grouping content. Includes header, content, and variants.
+ * @example scss
+ *   <div class="retro-card" role="region" aria-label="Card title">
+ *     <div class="retro-card-header">Title</div>
+ *     <div class="retro-card-content">Content</div>
+ *   </div>
+ */
+
+/* Retro Card - Win9x Style Only */
+
+// Local variable definitions for $retro-card-* have been moved to _variables.scss
+
+.retro-card {
+  background: var(--retro-card-bg);
+  border-top: $retro-border-width-thick solid var(--retro-border-medium);
+  border-left: $retro-border-width-thick solid var(--retro-border-medium);
+  border-right: $retro-border-width-thick solid var(--retro-border-light);
+  border-bottom: $retro-border-width-thick solid var(--retro-border-light);
+  // border-radius: 0 !important; // Redundant, handled by global reset
+  font-family: $retro-font; // Use the global retro font
+  // box-shadow: none; // Redundant, handled by global reset
+  margin-bottom: $retro-spacing-lg; // Used SASS Variable (approx 1.5em)
+  position: relative;
+  // overflow: visible; // Default, can be removed
+
+  &-header {
+    background: var(--retro-card-header-bg);
+    color: var(--retro-card-header-text);
+    border-bottom: $retro-border-width-thick solid var(--retro-card-header-bg);
+    // border-radius: 0; // Redundant
+    font-family: inherit;
+    text-shadow: none;
+    padding: $retro-spacing-sm $retro-spacing-md; // Approx 0.4em and 1em
+    font-weight: bold; // Consider $retro-font-weight-bold if defined
+    font-size: $retro-font-size-base; // Approx 1em
+    user-select: none;
+    display: block;
+    text-align: left;
+    min-height: unset;
+  }
+
+  &-content {
+    padding: $retro-spacing-md $retro-spacing-md; // Approx 1em
+    background: var(--retro-card-content-bg);
+    border-top: $retro-border-width-thick solid var(--retro-card-content-bg);
+    font-size: $retro-font-size-base; // Approx 1em
+    color: var(--retro-card-content-text);
+    min-height: 2em; // Consider if this needs to be variable
+    text-align: left;
+  }
+}
+
+.retro-card-footer {
+  background: var(--retro-card-footer-bg);
+  border-top: $retro-border-width-thick solid var(--retro-card-footer-bg);
+  color: var(--retro-card-footer-text);
+  padding: $retro-spacing-sm $retro-spacing-md; // Approx 0.4em and 1em
+  font-size: $retro-font-size-sm; // Approx 0.95em
+  // border-radius: 0; // Redundant
+  text-align: left;
+}
+
+.retro-card-image {
+  width: 100%;
+  display: block;
+  border-bottom: $retro-border-width-thick solid $retro-card-image-border;
+  max-height: $retro-card-image-max-height;
+  object-fit: cover;
+}
+
+.retro-card-compact .retro-card-content {
+  padding: $retro-spacing-xs $retro-spacing-sm; // Approx 0.5em and 1em
+  font-size: $retro-font-size-sm; // Approx 0.97em, map to closest like sm
+} 

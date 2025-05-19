@@ -1,0 +1,155 @@
+@use "../variables" as *;
+
+/* RetroCSS Container Queries
+ * A modern approach to component-based responsive design
+ */
+
+// Container Query Container
+.retro-container {
+  container-type: inline-size;
+  container-name: retro-container;
+}
+
+// Container Query Breakpoints
+@container retro-container (min-width: 20rem) {
+  .retro-cq-sm {
+    // Small container styles
+  }
+}
+
+@container retro-container (min-width: 30rem) {
+  .retro-cq-md {
+    // Medium container styles
+  }
+}
+
+@container retro-container (min-width: 40rem) {
+  .retro-cq-lg {
+    // Large container styles
+  }
+}
+
+@container retro-container (min-width: 50rem) {
+  .retro-cq-xl {
+    // Extra large container styles
+  }
+}
+
+// Container Query Aspect Ratio
+@container retro-container (min-aspect-ratio: 16/9) {
+  .retro-cq-wide {
+    // Wide aspect ratio styles
+  }
+}
+
+@container retro-container (max-aspect-ratio: 4/3) {
+  .retro-cq-tall {
+    // Tall aspect ratio styles
+  }
+}
+
+// Container Query Orientation
+@container retro-container (orientation: landscape) {
+  .retro-cq-landscape {
+    // Landscape orientation styles
+  }
+}
+
+@container retro-container (orientation: portrait) {
+  .retro-cq-portrait {
+    // Portrait orientation styles
+  }
+}
+
+// Container Query Size
+@container retro-container (min-width: 20rem) and (max-width: 30rem) {
+  .retro-cq-size-sm {
+    // Small size range styles
+  }
+}
+
+@container retro-container (min-width: 30rem) and (max-width: 40rem) {
+  .retro-cq-size-md {
+    // Medium size range styles
+  }
+}
+
+@container retro-container (min-width: 40rem) and (max-width: 50rem) {
+  .retro-cq-size-lg {
+    // Large size range styles
+  }
+}
+
+// Container Query Mixins
+@mixin container-query($breakpoint) {
+  @container retro-container (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+// Container Query Utilities
+.retro-cq-hide {
+  @container retro-container (max-width: 20rem) {
+    display: none;
+  }
+}
+
+.retro-cq-show {
+  @container retro-container (min-width: 20rem) {
+    display: block;
+  }
+}
+
+// Container Query Typography
+@container retro-container (min-width: 30rem) {
+  .retro-cq-text-lg {
+    font-size: 1.25rem;
+  }
+}
+
+@container retro-container (min-width: 40rem) {
+  .retro-cq-text-xl {
+    font-size: 1.5rem;
+  }
+}
+
+// Container Query Layout
+@container retro-container (min-width: 30rem) {
+  .retro-cq-flex-row {
+    flex-direction: row;
+  }
+}
+
+@container retro-container (max-width: 30rem) {
+  .retro-cq-flex-col {
+    flex-direction: column;
+  }
+}
+
+// Container Query Spacing
+@container retro-container (min-width: 30rem) {
+  .retro-cq-p-4 {
+    padding: 1rem;
+  }
+}
+
+@container retro-container (min-width: 40rem) {
+  .retro-cq-p-6 {
+    padding: 1.5rem;
+  }
+}
+
+// Container Query Grid
+@container retro-container (min-width: 30rem) {
+  .retro-cq-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@container retro-container (min-width: 40rem) {
+  .retro-cq-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+} 
