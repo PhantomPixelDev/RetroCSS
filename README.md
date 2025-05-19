@@ -25,10 +25,10 @@ npm install @phantompixeldev/retrocss
 
 ```html
 <!-- CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/retrocss/dist/retro.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss/dist/retro.min.css">
 
 <!-- JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/retrocss/dist/retro.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss/dist/retro.min.js"></script>
 ```
 
 ### Download
