@@ -7,6 +7,7 @@
   <title>RetroCSS Win9x Demo</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss/dist/retro.min.css">
   <style>
+    
   .demo-section {
     padding: var(--retro-spacing-md);
     box-sizing: border-box;
@@ -128,68 +129,66 @@
   </div>
   <hr class="retro-mt-5" style="border-color: var(--retro-border-medium);">
 
-  <!-- Main layout with proper grid classes -->
-  <div class="retro-main-layout retro-gap-4">
-    <!-- Sidebar using proper RetroCSS classes -->
-    <div class="retro-sidebar">
+  <!-- Main layout using RetroCSS grid utilities -->
+  <div class="retro-grid retro-grid-cols-1 md:retro-grid-cols-12 retro-gap-4">
+    <!-- Sidebar -->
+    <div class="retro-sidebar retro-col-span-12 md:retro-col-span-3">
       <div class="retro-sidebar-header">Demo Sections</div>
-      <nav aria-label="Demo sections navigation">
+      <nav aria-label="Demo sections navigation" class="retro-nav-vertical" style="width: 100%;">
         <div class="retro-sidebar-section">
-          <ul class="retro-list">
-            <li><a href="#section-navigation">Navigation</a></li>
-            <li><a href="#section-vertical-navigation">Vertical Navigation</a></li>
-            <li><a href="#section-pills-navigation">Pills Navigation</a></li>
-            <li><a href="#section-toolbar-navigation">Toolbar Navigation</a></li>
-            <li><a href="#section-tabbed-navigation">Tabbed Navigation</a></li>
-            <li><a href="#section-underlined-navigation">Underlined Navigation</a></li>
-            <li><a href="#section-button-navigation">Button Group Navigation</a></li>
-            <li><a href="#section-badges">Badges</a></li>
-            <li><a href="#section-buttons">Buttons</a></li>
-            <li><a href="#section-cards">Cards</a></li>
-            <li><a href="#section-forms">Forms</a></li>
-            <li><a href="#section-tables">Tables</a></li>
-            <li><a href="#section-grid">Grid System</a></li>
-            <li><a href="#section-container-queries">Container Queries</a></li>
-            <li><a href="#section-alerts">Alerts</a></li>
-            <li><a href="#section-toasts">Toasts</a></li>
-            <li><a href="#section-progress">Progress</a></li>
-            <li><a href="#section-accordion">Accordion</a></li>
-            <li><a href="#section-pagination">Pagination</a></li>
-            <li><a href="#section-breadcrumbs">Breadcrumbs</a></li>
-            <li><a href="#section-dropdown">Dropdown Menu</a></li>
-            <li><a href="#section-file-upload">File Upload</a></li>
-            <li><a href="#section-tag-input">Tag/Chip Input</a></li>
-            <li><a href="#section-search">Search Bar</a></li>
-            <li><a href="#section-rating">Rating Stars</a></li>
-            <li><a href="#section-dividers">Dividers</a></li>
-            <li><a href="#section-tooltips">Tooltips</a></li>
-            <li><a href="#section-lists">Lists</a></li>
-            <li><a href="#section-carousel">Carousel</a></li>
-            <li><a href="#section-datetime">Date/Time Picker</a></li>
-            <li><a href="#section-infinite-scroll">Infinite Scroll</a></li>
-            <li><a href="#section-typography">Typography</a></li>
+          <ul>
+            <li><a href="#section-navigation" class="retro-nav-item">Navigation</a></li>
+            <li><a href="#section-vertical-navigation" class="retro-nav-item">Vertical Navigation</a></li>
+            <li><a href="#section-pills-navigation" class="retro-nav-item">Pills Navigation</a></li>
+            <li><a href="#section-toolbar-navigation" class="retro-nav-item">Toolbar Navigation</a></li>
+            <li><a href="#section-tabbed-navigation" class="retro-nav-item">Tabbed Navigation</a></li>
+            <li><a href="#section-underlined-navigation" class="retro-nav-item">Underlined Navigation</a></li>
+            <li><a href="#section-button-navigation" class="retro-nav-item">Button Group Navigation</a></li>
+            <li><a href="#section-badges" class="retro-nav-item">Badges</a></li>
+            <li><a href="#section-buttons" class="retro-nav-item">Buttons</a></li>
+            <li><a href="#section-cards" class="retro-nav-item">Cards</a></li>
+            <li><a href="#section-forms" class="retro-nav-item">Forms</a></li>
+            <li><a href="#section-tables" class="retro-nav-item">Tables</a></li>
+            <li><a href="#section-grid" class="retro-nav-item">Grid System</a></li>
+            <li><a href="#section-container-queries" class="retro-nav-item">Container Queries</a></li>
+            <li><a href="#section-alerts" class="retro-nav-item">Alerts</a></li>
+            <li><a href="#section-toasts" class="retro-nav-item">Toasts</a></li>
+            <li><a href="#section-progress" class="retro-nav-item">Progress</a></li>
+            <li><a href="#section-accordion" class="retro-nav-item">Accordion</a></li>
+            <li><a href="#section-pagination" class="retro-nav-item">Pagination</a></li>
+            <li><a href="#section-breadcrumbs" class="retro-nav-item">Breadcrumbs</a></li>
+            <li><a href="#section-dropdown" class="retro-nav-item">Dropdown Menu</a></li>
+            <li><a href="#section-file-upload" class="retro-nav-item">File Upload</a></li>
+            <li><a href="#section-tag-input" class="retro-nav-item">Tag/Chip Input</a></li>
+            <li><a href="#section-search" class="retro-nav-item">Search Bar</a></li>
+            <li><a href="#section-rating" class="retro-nav-item">Rating Stars</a></li>
+            <li><a href="#section-dividers" class="retro-nav-item">Dividers</a></li>
+            <li><a href="#section-tooltips" class="retro-nav-item">Tooltips</a></li>
+            <li><a href="#section-lists" class="retro-nav-item">Lists</a></li>
+            <li><a href="#section-carousel" class="retro-nav-item">Carousel</a></li>
+            <li><a href="#section-datetime" class="retro-nav-item">Date/Time Picker</a></li>
+            <li><a href="#section-infinite-scroll" class="retro-nav-item">Infinite Scroll</a></li>
+            <li><a href="#section-typography" class="retro-nav-item">Typography</a></li>
           </ul>
         </div>
       </nav>
     </div>
 
-    <!-- Main content area using proper RetroCSS classes -->
-    <div class="main-content">
+    <!-- Main content area -->
+    <div class="retro-col-span-12 md:retro-col-span-9">
       <!-- Mobile sidebar toggle button (automatically added by JS) -->
-      
-        <!-- Win9x Style Layout -->
-  <div class="retro-container retro-mb-5">
-    <!-- Main Content Area Header -->
-    <div class="retro-card retro-mb-3">
-      <div class="retro-card-header">
-        <h1 class="retro-heading-primary">RetroCSS Win9x Demo</h1>
+      <!-- Win9x Style Layout -->
+      <div class="retro-container retro-mb-5">
+        <!-- Main Content Area Header -->
+        <div class="retro-card retro-mb-3">
+          <div class="retro-card-header">
+            <h1 class="retro-heading-primary">RetroCSS Win9x Demo</h1>
+          </div>
+          <div class="retro-card-content">
+            <p>Welcome to the RetroCSS demo page! This page showcases various components and styles inspired by the classic Win9x interface.</p>
+          </div>
+        </div>
       </div>
-      <div class="retro-card-content">
-        <p>Welcome to the RetroCSS demo page! This page showcases various components and styles inspired by the classic Win9x interface.</p>
-      </div>
-    </div>
-  </div>
-
       <!-- Content window -->
       <div class="retro-card retro-mb-4">
         <div class="retro-card-header">
