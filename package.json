@@ -1,8 +1,13 @@
 {
-  "name": "retrocss",
-  "version": "1.0.1",
+  "name": "@phantompixeldev/retrocss",
+  "version": "1.0.0",
   "description": "A Retro-Inspired CSS Framework",
   "main": "dist/retro.css",
+  "style": "dist/retro.css",
+  "files": [
+    "dist/",
+    "README.md"
+  ],
   "scripts": {
     "build": "npm run build:css && npm run build:js",
     "watch": "concurrently \"npm run watch:css\" \"npm run watch:js\"",
@@ -15,7 +20,8 @@
     "build:min": "npm run build:css:min && npm run build:js:min",
     "clean": "rimraf \"dist\"",
     "postbuild": "npm run build:min",
-    "migrate-scss": "npx sass-migrator module --migrate-deps src/scss/retro.scss"
+    "migrate-scss": "npx sass-migrator module --migrate-deps src/scss/retro.scss",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "css",
@@ -26,6 +32,10 @@
   ],
   "author": "PhantomPixelDev",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PhantomPixelDev/RetroCSS.git"
+  },
   "devDependencies": {
     "concat-cli": "^4.0.0",
     "concurrently": "^8.2.2",

@@ -18,7 +18,7 @@ A retro-inspired CSS framework that brings the nostalgic Windows 95/98 aesthetic
 ### NPM
 
 ```bash
-npm install retrocss
+npm install @phantompixeldev/retrocss
 ```
 
 ### CDN
@@ -74,7 +74,7 @@ RetroCSS uses a modular JavaScript architecture with ES modules. All interactive
 
 ```javascript
 // Import all components (bundled version)
-import RetroCSS from 'retrocss';
+import RetroCSS from '@phantompixeldev/retrocss';
 
 // Initialize all components
 RetroCSS.init();
