@@ -120,4 +120,21 @@
 .retro-align-content-center { align-content: center; }
 .retro-align-content-between { align-content: space-between; }
 .retro-align-content-around { align-content: space-around; }
-.retro-align-content-evenly { align-content: space-evenly; } 
+.retro-align-content-evenly { align-content: space-evenly; }
+
+// Responsive Col-Span Utilities
+@for $i from 1 through 12 {
+  .retro-col-span-#{$i} {
+    grid-column: span #{$i};
+  }
+}
+
+@each $breakpoint, $value in $retro-breakpoints {
+  @media (min-width: $value) {
+    @for $i from 1 through 12 {
+      .#{$breakpoint}\:retro-col-span-#{$i} {
+        grid-column: span #{$i};
+      }
+    }
+  }
+} 
