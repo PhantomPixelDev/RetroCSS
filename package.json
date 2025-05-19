@@ -1,6 +1,6 @@
 {
   "name": "retrocss",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Retro-Inspired CSS Framework",
   "main": "dist/retro.css",
   "scripts": {
