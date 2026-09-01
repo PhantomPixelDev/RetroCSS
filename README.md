@@ -4,10 +4,11 @@
 
 **A retro-inspired CSS framework that brings the nostalgic Windows 95/98 aesthetic to modern web applications.**
 
-[![npm version](https://img.shields.io/npm/v/@phantompixeldev/retrocss?style=flat-square&color=0047AB&label=npm)](https://www.npmjs.com/package/@phantompixeldev/retrocss)
-[![npm downloads](https://img.shields.io/npm/dm/@phantompixeldev/retrocss?style=flat-square&color=00A86B)](https://www.npmjs.com/package/@phantompixeldev/retrocss)
-[![bundle size](https://img.shields.io/bundlephobia/min/@phantompixeldev/retrocss?style=flat-square&label=bundle%20size)](https://bundlephobia.com/package/@phantompixeldev/retrocss)
-[![jsDelivr hits](https://data.jsdelivr.com/v1/package/npm/@phantompixeldev/retrocss/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@phantompixeldev/retrocss)
+[![npm version](https://img.shields.io/npm/v/%40phantompixeldev%2Fretrocss?style=flat-square&color=0047AB&label=npm)](https://www.npmjs.com/package/@phantompixeldev/retrocss)
+[![npm downloads](https://img.shields.io/npm/dm/%40phantompixeldev%2Fretrocss?style=flat-square&color=00A86B)](https://www.npmjs.com/package/@phantompixeldev/retrocss)
+[![bundle size](https://img.shields.io/bundlejs/size/%40phantompixeldev%2Fretrocss?style=flat-square&label=bundle%20size)](https://bundlejs.com/?q=%40phantompixeldev%2Fretrocss)
+[![npm unpacked](https://img.shields.io/npm/unpacked-size/%40phantompixeldev%2Fretrocss?style=flat-square&label=size&color=9cf)](https://www.npmjs.com/package/@phantompixeldev/retrocss)
+[![jsDelivr hits](https://img.shields.io/jsdelivr/npm/hm/%40phantompixeldev%2Fretrocss?style=flat-square&label=jsDelivr%20hits&color=FF6B00)](https://www.jsdelivr.com/package/npm/@phantompixeldev/retrocss)
 [![GitHub stars](https://img.shields.io/github/stars/PhantomPixelDev/RetroCSS?style=flat-square&color=FFD700)](https://github.com/PhantomPixelDev/RetroCSS/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/PhantomPixelDev/RetroCSS?style=flat-square&color=FF6B6B)](https://github.com/PhantomPixelDev/RetroCSS/issues)
 [![license](https://img.shields.io/github/license/PhantomPixelDev/RetroCSS?style=flat-square&color=lightgrey)](https://github.com/PhantomPixelDev/RetroCSS/blob/main/LICENSE)
