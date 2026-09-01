@@ -11,16 +11,16 @@
   padding: 4px 12px;
   font-size: 15px;
   border-radius: 2px;
-  border: 2px solid $retro-border-dark;
-  background: $retro-light;
-  color: $retro-black;
-  box-shadow: 1px 1px 0 $retro-border-light;
+  border: 2px solid var(--retro-border-dark);
+  background: var(--retro-light);
+  color: var(--retro-black);
+  box-shadow: 1px 1px 0 var(--retro-border-light);
   transition: background 0.2s, color 0.2s;
 }
 .retro-pagination .retro-btn.active,
 .retro-pagination .retro-btn:active {
-  background: $retro-primary;
-  color: $retro-white;
+  background: var(--retro-primary);
+  color: var(--retro-white);
   font-weight: bold;
-  border-color: $retro-primary;
+  border-color: var(--retro-primary);
 } 
