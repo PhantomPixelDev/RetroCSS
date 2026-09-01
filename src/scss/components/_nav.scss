@@ -67,8 +67,8 @@
   border-radius: 4px 4px 0 0;
   margin-right: -1px;
   margin-bottom: 0;
-  background: $retro-light;
-  border: 1px solid $retro-border-dark;
+  background: var(--retro-light);
+  border: 1px solid var(--retro-border-dark);
   border-bottom: none;
   position: relative;
   z-index: 1;
@@ -78,22 +78,22 @@
   font-family: $retro-font;
   font-size: 15px;
   font-weight: normal;
-  color: $retro-black;
+  color: var(--retro-black);
   transition: background 0.2s, color 0.2s;
   text-shadow: none;
 
-  border-left: 1px solid $retro-border-light;
-  border-top: 1px solid $retro-border-light;
-  border-right: 1px solid $retro-border-dark;
-  border-bottom: 1px solid $retro-border-dark;
+  border-left: 1px solid var(--retro-border-light);
+  border-top: 1px solid var(--retro-border-light);
+  border-right: 1px solid var(--retro-border-dark);
+  border-bottom: 1px solid var(--retro-border-dark);
 
   &.active {
-    background: $retro-white;
-    color: $retro-black;
+    background: var(--retro-white);
+    color: var(--retro-black);
     font-weight: normal;
-    border-left: 1px solid $retro-border-dark;
-    border-top: 2px solid $retro-border-dark;
-    border-right: 1px solid $retro-border-dark;
+    border-left: 1px solid var(--retro-border-dark);
+    border-top: 2px solid var(--retro-border-dark);
+    border-right: 1px solid var(--retro-border-dark);
     border-bottom: none;
     z-index: 2;
     box-shadow: none;
@@ -101,8 +101,8 @@
   }
 
   &:hover:not(.active) {
-    background: $retro-border-light;
-    color: $retro-primary;
+    background: var(--retro-border-light);
+    color: var(--retro-primary);
   }
 }
 
@@ -122,18 +122,18 @@
   display: flex;
   flex-direction: column;
   width: max-content;
-  border: 2px solid $retro-border-dark;
-  background: $retro-light;
+  border: 2px solid var(--retro-border-dark);
+  background: var(--retro-light);
   padding: 0;
   margin: 0;
   list-style: none;
-  box-shadow: inset 1px 1px 0 $retro-border-light, inset -1px -1px 0 $retro-border-medium;
+  box-shadow: inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
 }
 
 .retro-nav-vertical .retro-nav-item {
   display: block;
   border-right: none;
-  border-bottom: 1px solid $retro-border-medium;
+  border-bottom: 1px solid var(--retro-border-medium);
   border-radius: 0;
   width: 100%;
   &:last-child {
@@ -154,20 +154,21 @@
 
 .retro-nav-pills .retro-nav-item {
   border-radius: 999px;
-  background: $retro-light;
-  border: 1px solid $retro-border-medium;
+  background: var(--retro-light);
+  border: 1px solid var(--retro-border-medium);
   margin: 0 2px;
   padding: $retro-spacing-sm $retro-spacing-lg;
   transition: background 0.2s, color 0.2s;
+  color: var(--retro-black);
   &:hover {
-    background: $retro-primary;
-    color: $retro-white;
+    background: var(--retro-primary);
+    color: var(--retro-white);
   }
   &.active {
-    background: $retro-primary;
-    color: $retro-white;
+    background: var(--retro-primary);
+    color: var(--retro-white);
     font-weight: bold;
-    box-shadow: 0 1px 4px #b0c4de inset;
+    box-shadow: 0 1px 4px rgba(var(--retro-primary-rgb), 0.35) inset;
   }
 }
 
@@ -175,10 +176,10 @@
 .retro-tab-list {
   display: flex;
   align-items: flex-end;
-  background: $retro-light;
-  border-left: 1px solid $retro-border-dark;
-  border-top: 1px solid $retro-border-dark;
-  border-right: 1px solid $retro-border-light;
+  background: var(--retro-light);
+  border-left: 1px solid var(--retro-border-dark);
+  border-top: 1px solid var(--retro-border-dark);
+  border-right: 1px solid var(--retro-border-light);
   padding: 0 2px;
   height: 32px;
   box-shadow: none;
@@ -190,10 +191,10 @@
   flex-wrap: wrap;
   padding: 2px;
   margin: 0;
-  background: $retro-light;
-  border: 2px solid $retro-border-dark;
+  background: var(--retro-light);
+  border: 2px solid var(--retro-border-dark);
   border-radius: 0;
-  box-shadow: inset 1px 1px 0 $retro-border-light, inset -1px -1px 0 $retro-border-medium;
+  box-shadow: inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
   font-family: $retro-font;
   
   .retro-nav-item {
@@ -204,30 +205,30 @@
     height: 36px;
     padding: 2px 10px;
     margin: 2px;
-    color: $retro-black;
+    color: var(--retro-black);
     text-decoration: none;
-    background: $retro-light;
+    background: var(--retro-light);
     border: 2px solid transparent;
     border-radius: 0;
     text-align: center;
     
     &:hover {
-      background: $retro-white;
-      border: 2px solid $retro-border-medium;
-      border-right: 2px solid $retro-border-dark;
-      border-bottom: 2px solid $retro-border-dark;
-      border-left: 2px solid $retro-border-light;
-      border-top: 2px solid $retro-border-light;
+      background: var(--retro-white);
+      border: 2px solid var(--retro-border-medium);
+      border-right: 2px solid var(--retro-border-dark);
+      border-bottom: 2px solid var(--retro-border-dark);
+      border-left: 2px solid var(--retro-border-light);
+      border-top: 2px solid var(--retro-border-light);
     }
     
     &.active {
-      background: $retro-light;
-      border: 2px solid $retro-border-medium;
-      border-right: 2px solid $retro-border-light;
-      border-bottom: 2px solid $retro-border-light;
-      border-left: 2px solid $retro-border-dark;
-      border-top: 2px solid $retro-border-dark;
-      color: $retro-black;
+      background: var(--retro-light);
+      border: 2px solid var(--retro-border-medium);
+      border-right: 2px solid var(--retro-border-light);
+      border-bottom: 2px solid var(--retro-border-light);
+      border-left: 2px solid var(--retro-border-dark);
+      border-top: 2px solid var(--retro-border-dark);
+      color: var(--retro-black);
       font-weight: normal;
     }
     
@@ -250,8 +251,8 @@
     width: 1px;
     height: 30px;
     margin: 3px 4px;
-    background: $retro-border-medium;
-    box-shadow: 1px 0 0 $retro-border-light;
+    background: var(--retro-border-medium);
+    box-shadow: 1px 0 0 var(--retro-border-light);
   }
 }
 
@@ -262,28 +263,30 @@
   margin: 0 0 -1px 0;
   background: transparent;
   border: 0;
-  border-bottom: 2px solid $retro-border-dark;
+  border-bottom: 2px solid var(--retro-border-dark);
   box-shadow: none;
   position: relative;
   z-index: 1;
   
   .retro-nav-item {
     padding: 8px 16px;
-    background: $retro-light;
-    border: 2px solid $retro-border-dark;
+    background: var(--retro-light);
+    border: 2px solid var(--retro-border-dark);
     border-bottom: 0;
     margin-right: 2px;
     position: relative;
-    box-shadow: inset 1px 1px 0 $retro-border-light;
+    box-shadow: inset 1px 1px 0 var(--retro-border-light);
+    color: var(--retro-black);
     
     &:hover {
-      background: $retro-white;
+      background: var(--retro-white);
+      color: var(--retro-black);
     }
     
     &.active {
-      background: $retro-white;
-      color: $retro-black;
-      border-bottom: 2px solid $retro-white;
+      background: var(--retro-white);
+      color: var(--retro-black);
+      border-bottom: 2px solid var(--retro-white);
       z-index: 2;
       margin-bottom: -2px;
     }
@@ -298,7 +301,7 @@
   background: transparent;
   border: 0;
   box-shadow: none;
-  border-bottom: 1px solid $retro-border-medium;
+  border-bottom: 1px solid var(--retro-border-medium);
   
   .retro-nav-item {
     padding: 10px 16px;
@@ -306,6 +309,7 @@
     border: none;
     position: relative;
     margin-right: 4px;
+    color: var(--retro-black);
     
     &:after {
       content: '';
@@ -319,20 +323,20 @@
     
     &:hover {
       background: transparent;
-      color: $retro-primary;
+      color: var(--retro-primary);
       
       &:after {
-        background: rgba($retro-primary, 0.3);
+        background: rgba(var(--retro-primary-rgb), 0.3);
       }
     }
     
     &.active {
       background: transparent;
-      color: $retro-primary;
+      color: var(--retro-primary);
       font-weight: normal;
       
       &:after {
-        background: $retro-primary;
+        background: var(--retro-primary);
       }
     }
   }
@@ -349,34 +353,36 @@
   
   .retro-nav-item {
     padding: 6px 14px;
-    background: $retro-light;
-    border: 2px solid $retro-border-dark;
-    border-right: 1px solid $retro-border-dark;
-    border-left: 1px solid $retro-border-dark;
+    background: var(--retro-light);
+    border: 2px solid var(--retro-border-dark);
+    border-right: 1px solid var(--retro-border-dark);
+    border-left: 1px solid var(--retro-border-dark);
     margin: 0;
     position: relative;
-    box-shadow: inset 1px 1px 0 $retro-border-light, inset -1px -1px 0 $retro-border-medium;
+    box-shadow: inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
+    color: var(--retro-black);
     
     &:first-child {
-      border-left: 2px solid $retro-border-dark;
+      border-left: 2px solid var(--retro-border-dark);
       border-top-left-radius: 3px;
       border-bottom-left-radius: 3px;
     }
     
     &:last-child {
-      border-right: 2px solid $retro-border-dark;
+      border-right: 2px solid var(--retro-border-dark);
       border-top-right-radius: 3px;
       border-bottom-right-radius: 3px;
     }
     
     &:hover {
-      background: $retro-white;
+      background: var(--retro-white);
+      color: var(--retro-black);
       z-index: 1;
     }
     
     &.active {
-      background: $retro-primary;
-      color: $retro-white;
+      background: var(--retro-primary);
+      color: var(--retro-white);
       z-index: 2;
     }
   }
