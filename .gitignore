@@ -65,3 +65,7 @@ yarn-debug.log
 .cursorignore
 
 index_dev.html
+
+# OpenCode / local
+.omo/
+data/
