@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🔐 Login | RetroCSS</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss/dist/retro.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss@1.0.7/dist/retro.min.css">
+  <link rel="stylesheet" href="../dist/retro.min.css" onerror="this.remove()">
   <style>
     .retro-input-icon {
       position: relative;
@@ -26,9 +27,19 @@
 <body class="retro-body-bg">
   <div class="retro-container">
     <nav class="retro-nav">
-      <a href="../index.html" class="retro-nav-item" data-retro-tooltip="Home page">🏠 Home</a>
-      <a href="../documentation.html" class="retro-nav-item" data-retro-tooltip="Documentation">📖 Docs</a>
-      <a href="https://github.com/phantompixeldev/retrocss" class="retro-nav-item" data-retro-tooltip="GitHub">💾 GitHub</a>
+      <a href="../index.html" class="retro-nav-item" data-retro-tooltip="Home page">Home</a>
+      <a href="../documentation.html" class="retro-nav-item" data-retro-tooltip="Documentation">Documentation</a>
+      <a href="https://github.com/phantompixeldev/retrocss" class="retro-nav-item" data-retro-tooltip="GitHub">GitHub</a>
+      <div class="retro-dropdown">
+        <button class="retro-nav-item retro-dropdown-toggle" data-retro-dropdown data-retro-tooltip="Examples">Examples ▼</button>
+        <div class="retro-dropdown-menu">
+          <a href="dashboard.html" class="retro-dropdown-item">Dashboard</a>
+          <a href="blog.html" class="retro-dropdown-item">Blog</a>
+          <a href="blog-post.html" class="retro-dropdown-item">Blog Post</a>
+          <a href="login.html" class="retro-dropdown-item">Login</a>
+          <a href="register.html" class="retro-dropdown-item">Register</a>
+        </div>
+      </div>
       <button class="retro-nav-item retro-theme-toggle" data-retro-tooltip="Toggle dark/light mode">🌓 Toggle Theme</button>
     </nav>
   </div>
@@ -75,7 +86,8 @@
       </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss/dist/retro.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss@1.0.7/dist/retro.min.js"></script>
+  <script src="../dist/retro.js" onerror="this.remove()"></script>
   <script>
     function togglePassword() {
       var pw = document.getElementById('password');

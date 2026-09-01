@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RetroCSS Win9x Demo</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss@1.0.7/dist/retro.min.css">
+  <link rel="stylesheet" href="dist/retro.min.css" onerror="this.remove()">
   <style>
     
   .demo-section {
@@ -117,11 +118,11 @@
       <div class="retro-dropdown">
         <button class="retro-nav-item retro-dropdown-toggle" data-retro-dropdown data-retro-tooltip="Examples">Examples ▼</button>
         <div class="retro-dropdown-menu">
-          <a href="examples/dashboard.html" class="retro-dropdown-item" target="_blank">Dashboard</a>
-          <a href="examples/blog-post.html" class="retro-dropdown-item" target="_blank">Blog Post</a>
-          <a href="examples/blog.html" class="retro-dropdown-item" target="_blank">Blog</a>
-          <a href="examples/login.html" class="retro-dropdown-item" target="_blank">Login</a>
-          <a href="examples/register.html" class="retro-dropdown-item" target="_blank">Register</a>
+          <a href="examples/dashboard.html" class="retro-dropdown-item" >Dashboard</a>
+          <a href="examples/blog-post.html" class="retro-dropdown-item" >Blog Post</a>
+          <a href="examples/blog.html" class="retro-dropdown-item" >Blog</a>
+          <a href="examples/login.html" class="retro-dropdown-item" >Login</a>
+          <a href="examples/register.html" class="retro-dropdown-item" >Register</a>
         </div>
       </div>
       <button class="retro-nav-item retro-theme-toggle" data-retro-tooltip="Toggle dark/light mode">🌓 Toggle Theme</button>
@@ -1710,7 +1711,7 @@
 
   <!-- Load Individual RetroCSS JS Source Files -->
   <script src="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss@1.0.7/dist/retro.min.js"></script>
-
+  <script src="dist/retro.js" onerror="this.remove()"></script>
   <script>
     // Add keyframes for spinner animation if not already present
     if (!document.querySelector('#spin-keyframes')) {
