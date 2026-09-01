@@ -1,6 +1,23 @@
-# RetroCSS
+<div align="center">
 
-A retro-inspired CSS framework that brings the nostalgic Windows 95/98 aesthetic to modern web applications.
+# 🖥️ RetroCSS
+
+**A retro-inspired CSS framework that brings the nostalgic Windows 95/98 aesthetic to modern web applications.**
+
+[![npm version](https://img.shields.io/npm/v/@phantompixeldev/retrocss?style=flat-square&color=0047AB&label=npm)](https://www.npmjs.com/package/@phantompixeldev/retrocss)
+[![npm downloads](https://img.shields.io/npm/dm/@phantompixeldev/retrocss?style=flat-square&color=00A86B)](https://www.npmjs.com/package/@phantompixeldev/retrocss)
+[![bundle size](https://img.shields.io/bundlephobia/min/@phantompixeldev/retrocss?style=flat-square&label=bundle%20size)](https://bundlephobia.com/package/@phantompixeldev/retrocss)
+[![jsDelivr hits](https://data.jsdelivr.com/v1/package/npm/@phantompixeldev/retrocss/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@phantompixeldev/retrocss)
+[![GitHub stars](https://img.shields.io/github/stars/PhantomPixelDev/RetroCSS?style=flat-square&color=FFD700)](https://github.com/PhantomPixelDev/RetroCSS/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/PhantomPixelDev/RetroCSS?style=flat-square&color=FF6B6B)](https://github.com/PhantomPixelDev/RetroCSS/issues)
+[![license](https://img.shields.io/github/license/PhantomPixelDev/RetroCSS?style=flat-square&color=lightgrey)](https://github.com/PhantomPixelDev/RetroCSS/blob/main/LICENSE)
+[![last commit](https://img.shields.io/github/last-commit/PhantomPixelDev/RetroCSS?style=flat-square&color=8A2BE2)](https://github.com/PhantomPixelDev/RetroCSS/commits/main)
+
+**[📺 Live Demo](https://phantompixeldev.github.io/RetroCSS/) • [📖 Documentation](https://phantompixeldev.github.io/RetroCSS/documentation.html) • [📦 npm](https://www.npmjs.com/package/@phantompixeldev/retrocss) • [💻 GitHub](https://github.com/PhantomPixelDev/RetroCSS)**
+
+</div>
+
+---
 
 ## Features
 
