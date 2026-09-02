@@ -52,6 +52,35 @@ h3 { font-size: var(--retro-font-size-xl); }
 h4 { font-size: var(--retro-font-size-lg); }
 h5, h6 { font-size: var(--retro-font-size); }
 
+/**
+ * @name Retro Heading Variant
+ * @group typography
+ * @description
+ * Monospace, uppercase heading shell. Declared before the colour variants so
+ * that combining the two works: this used to sit after them at equal
+ * specificity, and its own background/colour/border silently overrode all
+ * eight, making every `.retro-heading-variant.retro-heading-*` render
+ * identically plain.
+ * @example html
+ *   <div class="retro-heading-variant retro-heading-success">Success</div>
+ */
+.retro-heading-variant {
+  font-family: var(--retro-font-mono);
+  font-size: var(--retro-font-size-2xl);
+  font-weight: var(--retro-font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.5rem 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--retro-text);
+  border: 2.5px double var(--retro-border-dark);
+  box-shadow: inset 0 2px 8px rgba(var(--retro-white-rgb), 0.53), 0 2px 0 rgba(var(--retro-black-rgb), 0.27);
+  background: var(--retro-bg);
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
 // Heading Variants
 .retro-heading {
   &-primary,
@@ -464,22 +493,6 @@ h5, h6 { font-size: var(--retro-font-size); }
   }
 }
 
-.retro-heading-variant {
-  font-family: var(--retro-font-mono);
-  font-size: var(--retro-font-size-2xl);
-  font-weight: var(--retro-font-weight-bold);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 0.5rem 1.2rem;
-  margin-bottom: 0.5rem;
-  color: var(--retro-text);
-  border: 2.5px double var(--retro-border-dark);
-  box-shadow: inset 0 2px 8px rgba(var(--retro-white-rgb), 0.53), 0 2px 0 rgba(var(--retro-black-rgb), 0.27);
-  background: var(--retro-bg);
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-}
 // NOTE: a second .retro-heading-* block used to live here with a flat pastel
 // palette. Same specificity, declared later, so it silently shadowed the
 // beveled variants above and froze them at light-mode values. Removed.

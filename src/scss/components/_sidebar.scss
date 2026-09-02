@@ -137,3 +137,24 @@
 .retro-sidebar-overlay {
   display: none;
 } 
+/// The sidebar's link lists are navigation, not prose: the base `ul` rule adds
+/// list markers and inline padding that do not belong here.
+.retro-sidebar nav ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+/// Small caps label that separates groups of links in a long sidebar.
+.retro-sidebar-group {
+  margin: var(--retro-spacing-sm) 0 var(--retro-spacing-xs);
+  font-size: var(--retro-font-size-xs);
+  font-weight: var(--retro-font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--retro-text-muted);
+  border-bottom: 1px solid var(--retro-border-medium);
+  padding-bottom: 2px;
+}
+
+.retro-sidebar-section:first-of-type .retro-sidebar-group { margin-top: 0; }
