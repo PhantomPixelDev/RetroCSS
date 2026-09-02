@@ -335,14 +335,17 @@ input[type="radio"].retro-input {
     padding-left: 2.2em;
   }
 
-  // The glyph: any non-field first child.
+  // The glyph: any non-field first child. Absolutely positioned and centred,
+  // so it tracks the field's height at any font size. Keep the wrapper to just
+  // the glyph and the field — hints and checklists go after it, not inside.
   > :first-child:not(input):not(select):not(.retro-input):not(.retro-select) {
     position: absolute;
-    top: 0.55em;
-    left: 0.6em;
+    top: 50%;
+    left: 0.7em;
+    transform: translateY(-50%);
+    line-height: 1;
     pointer-events: none;
     color: var(--retro-text-muted);
-    line-height: 1;
     z-index: 1;
   }
 }
