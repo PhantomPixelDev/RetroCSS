@@ -10,7 +10,7 @@
 .retro-box-border { box-sizing: border-box !important; }
 
 /// Fixed maxima in 4px steps, for constraining a form or a card.
-@each $n in 40, 56, 72, 80, 96, 120 {
+@each $n in 40, 50, 56, 72, 80, 96, 100, 120 {
   .retro-max-w-#{$n} { max-width: $n * 4px !important; }
   .retro-min-w-#{$n} { min-width: $n * 4px !important; }
 }
