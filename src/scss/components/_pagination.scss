@@ -9,7 +9,7 @@
 .retro-pagination .retro-btn {
   min-width: 36px;
   padding: 4px 12px;
-  font-size: 15px;
+  font-size: var(--retro-font-size-lg);
   border-radius: 2px;
   border: 2px solid var(--retro-border-dark);
   background: var(--retro-light);

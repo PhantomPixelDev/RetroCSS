@@ -32,7 +32,7 @@
   border: 1px solid var(--retro-border-dark);
   background-color: var(--retro-table-bg);
   color: var(--retro-table-header-text);
-  font-family: $retro-font;
+  font-family: var(--retro-font);
   font-size: $retro-font-size-base;
   box-shadow: var(--retro-box-shadow-outset-button); // Classic outset shadow
   overflow-x: auto; // Added for default responsiveness

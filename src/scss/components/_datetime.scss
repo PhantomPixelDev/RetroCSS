@@ -1,3 +1,4 @@
+@use "../mixins" as *;
 /**
  * @name Date/Time Input
  * @group components
@@ -42,10 +43,15 @@ input[type="datetime-local"].retro-input {
     border: 2px solid var(--retro-primary);
     box-shadow: 0 0 0 2px rgba(var(--retro-primary-rgb), 0.2);
   }
+
+  &:focus-visible {
+    outline: 2px solid var(--retro-primary);
+    outline-offset: 2px;
+  }
   
   &:disabled {
     background-color: var(--retro-light);
-    color: var(--retro-border-medium);
+    color: var(--retro-text-muted);
     cursor: not-allowed;
   }
   

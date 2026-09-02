@@ -5,8 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RetroCSS Win9x Demo</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss@1.0.7/dist/retro.min.css">
-  <link rel="stylesheet" href="dist/retro.min.css" onerror="this.remove()">
+  <link rel="stylesheet" href="dist/retro.min.css">
   <style>
     
   .demo-section {
@@ -128,7 +127,7 @@
       <button class="retro-nav-item retro-theme-toggle" data-retro-tooltip="Toggle dark/light mode">🌓 Toggle Theme</button>
     </nav>
   </div>
-  <hr class="retro-mt-5" style="border-color: var(--retro-border-medium);">
+  <hr class="retro-mt-5" style="border-color: var(--retro-text-muted);">
 
   <!-- Main layout using RetroCSS grid utilities -->
   <div class="retro-grid retro-grid-cols-1 md:retro-grid-cols-12 retro-gap-4">
@@ -238,14 +237,16 @@
       </nav>
       
       <h3>Icons Only Toolbar</h3>
-      <nav class="retro-nav-toolbar retro-nav-icons">
-        <a href="#" class="retro-nav-item active"><span class="retro-nav-icon">🏠</span></a>
-        <a href="#" class="retro-nav-item"><span class="retro-nav-icon">📄</span></a>
+      <!-- Icon-only controls need a text alternative: .retro-sr-only keeps the
+           label out of the layout but in the accessibility tree. -->
+      <nav class="retro-nav-toolbar retro-nav-icons" aria-label="Toolbar">
+        <a href="#" class="retro-nav-item active"><span class="retro-nav-icon" aria-hidden="true">🏠</span><span class="retro-sr-only">Home</span></a>
+        <a href="#" class="retro-nav-item"><span class="retro-nav-icon" aria-hidden="true">📄</span><span class="retro-sr-only">New document</span></a>
         <div class="retro-nav-separator"></div>
-        <a href="#" class="retro-nav-item"><span class="retro-nav-icon">💾</span></a>
-        <a href="#" class="retro-nav-item"><span class="retro-nav-icon">🖨️</span></a>
+        <a href="#" class="retro-nav-item"><span class="retro-nav-icon" aria-hidden="true">💾</span><span class="retro-sr-only">Save</span></a>
+        <a href="#" class="retro-nav-item"><span class="retro-nav-icon" aria-hidden="true">🖨️</span><span class="retro-sr-only">Print</span></a>
         <div class="retro-nav-separator"></div>
-        <a href="#" class="retro-nav-item"><span class="retro-nav-icon">❓</span></a>
+        <a href="#" class="retro-nav-item"><span class="retro-nav-icon" aria-hidden="true">❓</span><span class="retro-sr-only">Help</span></a>
       </nav>
     </div>
     
@@ -263,7 +264,7 @@
           <p>Welcome to RetroCSS! This is the home tab content.</p>
           <button class="retro-btn">Get Started</button>
         </div>
-        <div id="tab-profile" class="retro-tab-content" role="tabpanel" aria-labelledby="tab-profile-btn" style="padding: 20px; border: 2px solid #000; border-top: 0; background: #fff;">
+        <div id="tab-profile" class="retro-tab-content" role="tabpanel" aria-labelledby="tab-profile-btn" style="padding: 20px; border: 2px solid var(--retro-border-dark); border-top: 0; background: var(--retro-bg);">
           <h3>Profile Tab</h3>
           <p>This is your profile information.</p>
           <div class="retro-form-group">
@@ -271,7 +272,7 @@
             <input type="text" class="retro-input" value="RetroUser98">
           </div>
         </div>
-        <div id="tab-messages" class="retro-tab-content" role="tabpanel" aria-labelledby="tab-messages-btn" style="padding: 20px; border: 2px solid #000; border-top: 0; background: #fff;">
+        <div id="tab-messages" class="retro-tab-content" role="tabpanel" aria-labelledby="tab-messages-btn" style="padding: 20px; border: 2px solid var(--retro-border-dark); border-top: 0; background: var(--retro-bg);">
           <h3>Messages Tab</h3>
           <p>You have 3 unread messages.</p>
           <ul class="retro-list">
@@ -280,7 +281,7 @@
             <li>Your account was created</li>
           </ul>
         </div>
-        <div id="tab-settings" class="retro-tab-content" role="tabpanel" aria-labelledby="tab-settings-btn" style="padding: 20px; border: 2px solid #000; border-top: 0; background: #fff;">
+        <div id="tab-settings" class="retro-tab-content" role="tabpanel" aria-labelledby="tab-settings-btn" style="padding: 20px; border: 2px solid var(--retro-border-dark); border-top: 0; background: var(--retro-bg);">
           <h3>Settings Tab</h3>
           <p>Configure your application settings.</p>
           <div class="retro-form-group">
@@ -305,7 +306,7 @@
         <a href="#dash-users" role="tab" aria-selected="false" aria-controls="dash-users" class="retro-nav-item" id="dash-users-btn">Users</a>
       </nav>
       <div class="retro-tab-pane retro-tab-pane-underlined" role="tabpanel">
-        <div id="dash-overview" class="retro-tab-content" role="tabpanel" aria-labelledby="dash-overview-btn" style="padding: 20px; margin-top: 10px; background: #f5f5f5;">
+        <div id="dash-overview" class="retro-tab-content" role="tabpanel" aria-labelledby="dash-overview-btn" style="padding: 20px; margin-top: 10px; background: var(--retro-light);">
           <h3>Dashboard Overview</h3>
           <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px;">
             <div class="retro-card" style="flex: 1; min-width: 200px;">
@@ -322,7 +323,7 @@
             </div>
           </div>
         </div>
-        <div id="dash-analytics" class="retro-tab-content" role="tabpanel" aria-labelledby="dash-analytics-btn" style="padding: 20px; margin-top: 10px; background: #f5f5f5;">
+        <div id="dash-analytics" class="retro-tab-content" role="tabpanel" aria-labelledby="dash-analytics-btn" style="padding: 20px; margin-top: 10px; background: var(--retro-light);">
           <h3>Analytics Data</h3>
           <p>Performance metrics and analytics information would display here.</p>
           <div class="retro-progress" style="margin-top: 16px; margin-bottom: 16px;">
@@ -334,7 +335,7 @@
             <span class="retro-progress-label">Conversion: 42%</span>
           </div>
         </div>
-        <div id="dash-reports" class="retro-tab-content" role="tabpanel" aria-labelledby="dash-reports-btn" style="padding: 20px; margin-top: 10px; background: #f5f5f5;">
+        <div id="dash-reports" class="retro-tab-content" role="tabpanel" aria-labelledby="dash-reports-btn" style="padding: 20px; margin-top: 10px; background: var(--retro-light);">
           <h3>Reports</h3>
           <p>Generated reports would be listed here.</p>
           <ul class="retro-list retro-list-bordered">
@@ -344,7 +345,7 @@
             <li>Error Logs</li>
           </ul>
         </div>
-        <div id="dash-users" class="retro-tab-content" role="tabpanel" aria-labelledby="dash-users-btn" style="padding: 20px; margin-top: 10px; background: #f5f5f5;">
+        <div id="dash-users" class="retro-tab-content" role="tabpanel" aria-labelledby="dash-users-btn" style="padding: 20px; margin-top: 10px; background: var(--retro-light);">
           <h3>User Management</h3>
           <table class="retro-table retro-table-bordered">
             <thead>
@@ -383,7 +384,7 @@
         <a href="#time-year" role="tab" aria-selected="false" aria-controls="time-year" class="retro-nav-item" id="time-year-btn">Year</a>
       </nav>
       <div class="retro-tab-pane retro-tab-pane-buttons" role="tabpanel">
-        <div id="time-day" class="retro-tab-content" role="tabpanel" aria-labelledby="time-day-btn" style="padding: 20px; margin-top: 10px; background: #f5f5f5;">
+        <div id="time-day" class="retro-tab-content" role="tabpanel" aria-labelledby="time-day-btn" style="padding: 20px; margin-top: 10px; background: var(--retro-light);">
           <h3>Daily View</h3>
           <p>Showing activities for today, June 15, 2023.</p>
           <ul class="retro-list">
@@ -394,7 +395,7 @@
             <li>4:00 PM - Development Time</li>
           </ul>
         </div>
-        <div id="time-week" class="retro-tab-content" role="tabpanel" aria-labelledby="time-week-btn" style="padding: 20px; margin-top: 10px; background: #f5f5f5;">
+        <div id="time-week" class="retro-tab-content" role="tabpanel" aria-labelledby="time-week-btn" style="padding: 20px; margin-top: 10px; background: var(--retro-light);">
           <h3>Weekly View</h3>
           <p>Showing schedule for the week of June 12-18, 2023.</p>
           <table class="retro-table">
@@ -428,7 +429,7 @@
             </tbody>
           </table>
         </div>
-        <div id="time-month" class="retro-tab-content" role="tabpanel" aria-labelledby="time-month-btn" style="padding: 20px; margin-top: 10px; background: #f5f5f5;">
+        <div id="time-month" class="retro-tab-content" role="tabpanel" aria-labelledby="time-month-btn" style="padding: 20px; margin-top: 10px; background: var(--retro-light);">
           <h3>Monthly View</h3>
           <p>Calendar for June 2023</p>
           <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center;">
@@ -440,10 +441,10 @@
             <div style="font-weight: bold;">Fri</div>
             <div style="font-weight: bold;">Sat</div>
             
-            <div style="color: #ccc;">28</div>
-            <div style="color: #ccc;">29</div>
-            <div style="color: #ccc;">30</div>
-            <div style="color: #ccc;">31</div>
+            <div style="color: var(--retro-gray-text);">28</div>
+            <div style="color: var(--retro-gray-text);">29</div>
+            <div style="color: var(--retro-gray-text);">30</div>
+            <div style="color: var(--retro-gray-text);">31</div>
             <div>1</div>
             <div>2</div>
             <div>3</div>
@@ -460,7 +461,7 @@
             <div>12</div>
             <div>13</div>
             <div>14</div>
-            <div style="background-color: #ddf; border: 1px solid #99c;">15</div>
+            <div style="background-color: rgba(var(--retro-primary-rgb), 0.15); border: 1px solid rgba(var(--retro-primary-rgb), 0.4);">15</div>
             <div>16</div>
             <div>17</div>
             
@@ -478,10 +479,10 @@
             <div>28</div>
             <div>29</div>
             <div>30</div>
-            <div style="color: #ccc;">1</div>
+            <div style="color: var(--retro-gray-text);">1</div>
           </div>
         </div>
-        <div id="time-year" class="retro-tab-content" role="tabpanel" aria-labelledby="time-year-btn" style="padding: 20px; margin-top: 10px; background: #f5f5f5;">
+        <div id="time-year" class="retro-tab-content" role="tabpanel" aria-labelledby="time-year-btn" style="padding: 20px; margin-top: 10px; background: var(--retro-light);">
           <h3>Yearly View</h3>
           <p>Overview of 2023</p>
           <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center;">
@@ -1213,8 +1214,8 @@
                 
                 <h4>Via CDN</h4>
                 <pre class="retro-bg-light retro-p-2 retro-border">
-&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/retrocss/dist/retro.min.css"&gt;
-&lt;script src="https://cdn.jsdelivr.net/npm/retrocss/dist/retro.min.js"&gt;&lt;/script&gt;</pre>
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss/dist/retro.min.css"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss/dist/retro.min.js"&gt;&lt;/script&gt;</pre>
               </div>
             </div>
           </div>
@@ -1481,7 +1482,7 @@
         <div class="retro-infinite-scroll" style="height: 400px; overflow-y: auto; position: relative;">
           <!-- Items will be loaded here dynamically -->
           <div class="retro-infinite-loader" style="display: flex; justify-content: center; padding: 20px;">
-            <div class="retro-spinner" style="width: 30px; height: 30px; border: 3px solid #808080; border-radius: 50%; border-top-color: #000080; animation: spin 1s linear infinite;"></div>
+            <div class="retro-spinner" style="width: 30px; height: 30px; border: 3px solid var(--retro-border-medium); border-radius: 50%; border-top-color: var(--retro-primary-text); animation: spin 1s linear infinite;"></div>
           </div>
         </div>
       </div>
@@ -1710,8 +1711,7 @@
   </div>
 
   <!-- Load Individual RetroCSS JS Source Files -->
-  <script src="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss@1.0.7/dist/retro.min.js"></script>
-  <script src="dist/retro.js" onerror="this.remove()"></script>
+  <script src="dist/retro.js"></script>
   <script>
     // Add keyframes for spinner animation if not already present
     if (!document.querySelector('#spin-keyframes')) {

@@ -27,17 +27,14 @@
     inset 1px 1px 0 var(--retro-border-medium);
   outline: none;
   display: inline-block;
-  transition: all 0.1s;
+  transition: background-color 0.1s, border-color 0.1s, box-shadow 0.1s;
   color: var(--retro-input-text);
 
   &:hover {
     border-color: var(--retro-primary);
   }
 
-  &:focus {
-    outline: 1px dotted var(--retro-black);
-    outline-offset: 2px;
-  }
+  @include retro-focus($offset: 2px);
 
   &:disabled {
     background: var(--retro-body-bg);
@@ -183,8 +180,8 @@
     }
   }
   
-  input:focus + .retro-switch-slider {
-    outline: 1px dotted var(--retro-black);
+  input:focus-visible + .retro-switch-slider {
+    outline: 1px dotted var(--retro-text);
   }
   
   input:disabled + .retro-switch-slider {

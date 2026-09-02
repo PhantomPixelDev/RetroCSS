@@ -49,16 +49,16 @@
 
 // Grid Areas
 .retro-grid-areas {
-  grid-template-areas: var(--retro-grid-areas);
+  grid-template-areas: var(--retro-grid-areas, none);
 }
 
 // Grid Item Placement
 .retro-col-span {
-  grid-column: var(--retro-col-span);
+  grid-column: var(--retro-col-span, auto);
 }
 
 .retro-row-span {
-  grid-row: var(--retro-row-span);
+  grid-row: var(--retro-row-span, auto);
 }
 
 // Responsive Grid

@@ -25,7 +25,7 @@
   border-right: $retro-border-width-thick solid var(--retro-border-light);
   border-bottom: $retro-border-width-thick solid var(--retro-border-light);
   // border-radius: 0 !important; // Redundant, handled by global reset
-  font-family: $retro-font; // Use the global retro font
+  font-family: var(--retro-font);
   // box-shadow: none; // Redundant, handled by global reset
   margin-bottom: $retro-spacing-lg; // Used SASS Variable (approx 1.5em)
   position: relative;
@@ -71,7 +71,7 @@
 .retro-card-image {
   width: 100%;
   display: block;
-  border-bottom: $retro-border-width-thick solid $retro-card-image-border;
+  border-bottom: $retro-border-width-thick solid var(--retro-border-medium);
   max-height: $retro-card-image-max-height;
   object-fit: cover;
 }

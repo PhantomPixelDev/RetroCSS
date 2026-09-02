@@ -75,14 +75,11 @@ const RetroCSS = {
       console.log("Infinite Scroll initialized");
     }
     
-    // Initialize all modal triggers
-    document.querySelectorAll('[data-retro-modal]').forEach(trigger => {
-      trigger.addEventListener('click', (e) => {
-          e.preventDefault();
-        const modalId = trigger.getAttribute('data-retro-modal');
-        RetroModal.show(modalId);
-      });
-    });
+    // NOTE: [data-retro-modal] triggers used to get a per-element click
+    // listener here, on top of the delegated one RetroModal.init() already
+    // installs for the same selector -- so every trigger opened its modal
+    // twice. Delegation alone is correct and also covers triggers added to
+    // the DOM later.
 
     // Initialize tooltips
     this.initTooltips();

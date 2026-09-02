@@ -7,15 +7,15 @@
   gap: 4px;
 }
 .retro-rating-star {
-  font-size: 28px;
-  color: $retro-border-dark;
+  font-size: var(--retro-font-size-3xl);
+  color: var(--retro-border-dark);
   cursor: pointer;
   transition: color 0.2s, text-shadow 0.2s, border 0.2s;
-  text-shadow: 1px 1px 0 $retro-border-light;
+  text-shadow: 1px 1px 0 var(--retro-border-light);
   user-select: none;
-  border: 2px solid $retro-border-dark;
+  border: 2px solid var(--retro-border-dark);
   border-radius: 6px;
-  background: $retro-white;
+  background: var(--retro-bg);
   padding: 2px 2px 0 2px;
   margin-right: 2px;
   box-sizing: border-box;
@@ -26,14 +26,14 @@
 }
 .retro-rating-star.selected,
 .retro-rating-star.active {
-  color: $retro-warning;
-  background: color.scale($retro-warning, $lightness: 80%);
-  border-color: $retro-warning;
-  text-shadow: 0 2px 8px $retro-border-light;
+  color: var(--retro-warning-text);
+  background: rgba(var(--retro-warning-rgb), 0.2);
+  border-color: var(--retro-warning);
+  text-shadow: 0 2px 8px var(--retro-border-light);
 }
 .retro-rating-star:hover,
 .retro-rating-star:hover ~ .retro-rating-star {
-  color: $retro-warning;
-  background: color.scale($retro-warning, $lightness: 80%);
-  border-color: $retro-warning;
+  color: var(--retro-warning-text);
+  background: rgba(var(--retro-warning-rgb), 0.2);
+  border-color: var(--retro-warning);
 } 

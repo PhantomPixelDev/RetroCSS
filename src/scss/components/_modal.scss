@@ -30,7 +30,7 @@
   display: none;
   overflow: auto;
   outline: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(var(--retro-black-rgb), 0.6);
   padding: 1rem;
   box-sizing: border-box;
   text-align: center;
@@ -55,11 +55,11 @@
     width: 100%;
     max-width: 500px;
     margin: 1.75rem auto;
-    background: var(--retro-bg);
+    background: var(--retro-modal-bg);
     border: 2px solid var(--retro-border-dark);
-    box-shadow: 4px 4px 8px rgba(0,0,0,0.5), inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
+    box-shadow: 4px 4px 8px rgba(var(--retro-black-rgb), 0.5), inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
     border-radius: 4px !important;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--retro-font-heading);
     transition: none;
     text-align: left;
     vertical-align: middle;
@@ -70,19 +70,19 @@
     align-items: center;
     justify-content: space-between;
     padding: $retro-spacing-sm $retro-spacing-lg;
-    background: var(--retro-primary);
-    color: #fff;
+    background: var(--retro-modal-header-bg);
+    color: var(--retro-modal-header-text);
     border-top: 2px solid var(--retro-border-light);
     border-bottom: 2px solid var(--retro-border-dark);
-    border-left: 8px solid var(--retro-primary);
+    border-left: 8px solid var(--retro-modal-header-bg);
     border-radius: 4px 4px 0 0 !important;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 1.1rem;
+    font-family: var(--retro-font-heading);
+    font-size: var(--retro-font-size-lg);
     font-weight: bold;
     line-height: 1.5;
     user-select: none;
     letter-spacing: 0.5px;
-    text-shadow: 1px 1px 0 #000, 0 1px 0 #000;
+    text-shadow: 1px 1px 0 rgba(var(--retro-black-rgb), 0.8), 0 1px 0 rgba(var(--retro-black-rgb), 0.8);
   }
 
   &-close {
@@ -90,27 +90,27 @@
     align-items: center;
     justify-content: center;
     margin-left: var(--retro-spacing-sm);
-    background: #e0e0e0;
-    border: 2px outset #fff;
+    background: var(--retro-light);
+    border: 2px outset var(--retro-border-light);
     box-shadow: none;
     width: 22px;
     height: 22px;
     padding: 0;
-    font-size: 1.2rem;
+    font-size: var(--retro-font-size-xl);
     line-height: 1;
-    color: #000;
+    color: var(--retro-text);
     text-shadow: none;
     cursor: pointer;
     border-radius: 2px;
     font-family: inherit;
     transition: background 0.1s, border 0.1s;
     &:hover {
-      background: #c0c0c0;
-      border: 2px inset #fff;
+      background: var(--retro-gray-100);
+      border: 2px inset var(--retro-border-light);
     }
     &:active {
-      background: #a0a0a0;
-      border: 2px inset #000;
+      background: var(--retro-border-medium);
+      border: 2px inset var(--retro-border-dark);
     }
   }
 
@@ -159,7 +159,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(var(--retro-black-rgb), 0.5);
     z-index: 1040;
   }
 
@@ -192,10 +192,10 @@
 .retro-modal-header h4,
 .retro-modal-header h5,
 .retro-modal-header h6 {
-  color: #fff;
-  font-size: 1.2rem;
+  color: var(--retro-modal-header-text);
+  font-size: var(--retro-font-size-xl);
   font-weight: bold;
   margin: 0;
   font-family: inherit;
-  text-shadow: 1px 1px 0 #000, 0 1px 0 #000;
+  text-shadow: 1px 1px 0 rgba(var(--retro-black-rgb), 0.8), 0 1px 0 rgba(var(--retro-black-rgb), 0.8);
 } 

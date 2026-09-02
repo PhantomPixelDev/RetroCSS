@@ -38,6 +38,7 @@
 @use "components/sidebar";
 
 /* Utilities */
+@use "utilities/accessibility";
 @use "utilities/spacing";
 @use "utilities/grid";
 @use "utilities/container-queries";

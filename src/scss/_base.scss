@@ -3,6 +3,7 @@
 @use "sass:color";
 @use "sass:map";
 @use "variables" as *;
+@use "mixins" as *;
 
 /* Reset & Base Styles */
 *, *::before, *::after {
@@ -15,16 +16,18 @@
 }
 
 html {
-  font-size: 16px;
+  // 100% rather than a hard 16px so the rem scale honours the user's browser
+  // font-size setting instead of overriding it.
+  font-size: 100%;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 body {
-  font-family: $retro-font;
-  font-size: $retro-font-size-base;
-  line-height: $retro-line-height;
-  color: var(--retro-black);
+  font-family: var(--retro-font);
+  font-size: var(--retro-font-size);
+  line-height: var(--retro-line-height);
+  color: var(--retro-text);
   background-color: var(--retro-body-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -41,10 +44,7 @@ a {
     text-decoration: underline;
   }
 
-  &:focus {
-    outline: 2px solid var(--retro-primary);
-    outline-offset: 2px;
-  }
+  @include retro-focus-ring;
 }
 
 /* Images */
@@ -89,18 +89,35 @@ button {
 /* Code */
 code,
 pre {
-  font-family: 'Courier New', monospace;
-  font-size: 0.9em;
+  font-family: var(--retro-font-mono);
+  // A single absolute size. This was 0.9em, and .retro-code code added another
+  // 0.9em on top, so nested code compounded down to ~11px.
+  font-size: var(--retro-font-size-sm);
 }
 
 /* Selection */
 ::selection {
   background-color: var(--retro-primary);
-  color: var(--retro-white);
+  color: var(--retro-text-inverse);
 }
 
-/* Focus Styles */
+/* Focus Styles.
+   :focus-visible, so the ring is there for keyboard and assistive-tech users
+   but does not fire on every mouse click. The plain :focus rule is the
+   fallback for engines without :focus-visible; :focus:not(:focus-visible)
+   removes it again wherever the selector is supported. Note browsers still
+   match :focus-visible on text inputs clicked with a mouse, so fields keep
+   their ring. */
 :focus {
+  outline: 2px solid var(--retro-primary);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
   outline: 2px solid var(--retro-primary);
   outline-offset: 2px;
 }
@@ -183,12 +200,12 @@ pre {
 
 .retro-tab-content {
   background: var(--retro-bg);
-  border: $retro-border-width $retro-border-style var(--retro-border-dark);
+  border: var(--retro-border-width) var(--retro-border-style) var(--retro-border-dark);
   border-top: none;
   padding: var(--retro-spacing-md);
   margin-bottom: var(--retro-spacing-md);
   min-height: 60px;
-  box-shadow: $retro-box-shadow-subtle;
+  box-shadow: var(--retro-box-shadow-subtle);
   display: none;
 }
 
@@ -196,33 +213,51 @@ pre {
   display: block;
 }
 
-.retro-toast {
-  background: $retro-toast-bg;
-  color: $retro-toast-text;
-  min-width: $retro-toast-min-width;
-  max-width: $retro-toast-max-width;
-  padding: $retro-spacing-md $retro-spacing-lg;
-  border-radius: $retro-toast-border-radius;
-  box-shadow: $retro-box-shadow-medium;
-  font-size: $retro-toast-font-size;
-  font-weight: $retro-toast-font-weight;
-  margin-bottom: $retro-spacing-md;
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: $retro-spacing-md;
-  z-index: $retro-z-index-tooltip;
-  animation: fadeIn $retro-transition-duration-slow;
-  pointer-events: auto;
-}
+// NOTE: a second .retro-toast block used to live here, styled from
+// $retro-toast-* SCSS variables (a hardcoded #ffffcc, light-mode only) and
+// competing with the tokenized .retro-toast in components/_alert.scss.
+// Removed; _alert.scss owns the toast. Only the container stays here.
 
 #retro-toast-container {
   position: fixed;
-  bottom: $retro-spacing-xl;
-  right: $retro-spacing-xl;
-  z-index: $retro-z-index-tooltip;
+  bottom: var(--retro-spacing-xl);
+  right: var(--retro-spacing-xl);
+  z-index: var(--retro-z-index-tooltip);
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   pointer-events: none;
-} 
+}
+
+/* Reduced motion.
+   Honours the OS "reduce motion" setting. The blanket rule neutralises every
+   transition and animation the framework ships; the three text effects below
+   need an explicit `animation: none` on top, because merely shortening them
+   leaves a filter applied (hue-rotate) or freezes `alternate-reverse` on a
+   doubled-shadow keyframe that is unreadable (glitch). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .retro-text-rainbow,
+  .retro-text-hue-rotate,
+  .retro-text-glitch,
+  .retro-spinner,
+  .retro-progress-bar-striped {
+    animation: none !important;
+  }
+
+  .retro-text-hue-rotate {
+    filter: none !important;
+  }
+
+  .retro-text-glitch {
+    text-shadow: none !important;
+  }
+}

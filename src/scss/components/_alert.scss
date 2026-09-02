@@ -42,7 +42,7 @@
   border-left: 2px solid var(--retro-border-medium);
   border-top: 2px solid var(--retro-border-medium);
   border-radius: 0 !important;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: var(--retro-font-heading);
   box-shadow: none;
   margin-bottom: 1.2em;
   padding: 0.7em 1.2em;
@@ -63,55 +63,46 @@
   width: 100%;
   margin: 0;
   padding: 0.3em 1em 0.2em 1em;
-  font-size: 0.93em;
+  font-size: var(--retro-font-size-sm);
   font-family: inherit;
   border-radius: 0;
   box-shadow: none;
-  border-top: 2px solid rgba(0,0,0,0.12);
-  background: #e0e0e0;
-  color: #222;
+  border-top: 2px solid rgba(var(--retro-black-rgb), 0.12);
+  background: var(--retro-light);
+  color: var(--retro-text);
   text-align: left;
 }
-.retro-alert-primary .retro-alert-footer { background: #1976d2; color: #fff; border-top: 2px solid #145ea8; }
-.retro-alert-success .retro-alert-footer { background: #006400; color: #fff; border-top: 2px solid #004d00; }
-.retro-alert-danger .retro-alert-footer { background: #b20000; color: #fff; border-top: 2px solid #7a0000; }
-.retro-alert-warning .retro-alert-footer { background: #e6a800; color: #222; border-top: 2px solid #b38600; }
-.retro-alert-info .retro-alert-footer { background: #0099b3; color: #fff; border-top: 2px solid #006a80; }
+
+// Footers previously hardcoded their background AND text colour while the
+// alert body above them used var(--retro-*) -- so in dark mode a #4a90e2 alert
+// got a #1976d2 footer. Both now derive from the same token.
+@each $n in "primary", "success", "danger", "warning", "info" {
+  .retro-alert-#{$n} .retro-alert-footer {
+    background: var(--retro-#{$n}-active);
+    color: var(--retro-#{$n}-fg);
+    border-top: 2px solid var(--retro-#{$n}-active);
+  }
+}
 
 // Remove icon and close button styles
 .retro-alert-icon, .retro-toast-icon, .retro-alert-close, .retro-toast-close { display: none !important; }
 
-.retro-toast-primary, .retro-toast.retro-alert-primary {
-  background: var(--retro-primary);
-  color: #fff;
-  border-left: 6px solid #1976d2;
-}
-.retro-toast-success, .retro-toast.retro-alert-success {
-  background: var(--retro-success);
-  color: #fff;
-  border-left: 6px solid #006400;
-}
-.retro-toast-danger, .retro-toast.retro-alert-danger {
-  background: var(--retro-danger);
-  color: #fff;
-  border-left: 6px solid #b20000;
-}
-.retro-toast-warning, .retro-toast.retro-alert-warning {
-  background: var(--retro-warning);
-  color: #222;
-  border-left: 6px solid #e6a800;
-}
-.retro-toast-info, .retro-toast.retro-alert-info {
-  background: var(--retro-info);
-  color: #222;
-  border-left: 6px solid #0099b3;
+// The `color` here was hardcoded #fff/#222 over a themed background. In dark
+// mode that put white on the light dark-palette fills -- #fff on the dark
+// --retro-success (#2ecc71) is 2.10:1. -fg picks the readable one per theme.
+@each $n in "primary", "success", "danger", "warning", "info" {
+  .retro-toast-#{$n}, .retro-toast.retro-alert-#{$n} {
+    background: var(--retro-#{$n});
+    color: var(--retro-#{$n}-fg);
+    border-left: 6px solid var(--retro-#{$n}-active);
+  }
 }
 
 .retro-toast-close {
   background: none;
   border: none;
   color: inherit;
-  font-size: 1.3em;
+  font-size: var(--retro-font-size-xl);
   font-weight: bold;
   margin-left: auto;
   cursor: pointer;
@@ -122,39 +113,27 @@
   opacity: 1;
 }
 
-.retro-alert-primary {
-  background: var(--retro-primary);
-  color: #fff;
-  border-left: 6px solid #1976d2;
-}
-.retro-alert-success {
-  background: var(--retro-success);
-  color: #fff;
-  border-left: 6px solid #006400;
-}
-.retro-alert-danger {
-  background: var(--retro-danger);
-  color: #fff;
-  border-left: 6px solid #b20000;
-}
-.retro-alert-warning {
-  background: var(--retro-warning);
-  color: #222;
-  border-left: 6px solid #e6a800;
-}
-.retro-alert-info {
-  background: var(--retro-info);
-  color: #222;
-  border-left: 6px solid #0099b3;
+@each $n in "primary", "success", "danger", "warning", "info" {
+  .retro-alert-#{$n} {
+    background: var(--retro-#{$n});
+    color: var(--retro-#{$n}-fg);
+    border-left: 6px solid var(--retro-#{$n}-active);
+  }
 }
 
 .retro-toast {
-  box-shadow: 2px 4px 16px rgba(0,0,0,0.18), 1px 1px 0 #fff, 2px 2px 0 #808080;
+  box-shadow: 2px 4px 16px rgba(var(--retro-black-rgb), 0.18), 1px 1px 0 var(--retro-border-light), 2px 2px 0 var(--retro-border-medium);
   border-width: 1.5px;
   margin-bottom: 0.75em;
   animation: retro-toast-fadein 0.3s;
   min-width: 240px;
   max-width: 400px;
+  // Carried over from the duplicate .retro-toast that used to live in
+  // _base.scss. pointer-events matters: #retro-toast-container sets
+  // pointer-events: none, so without this the close button is unclickable.
+  position: relative;
+  z-index: var(--retro-z-index-tooltip);
+  pointer-events: auto;
 }
 
 @keyframes retro-toast-fadein {
@@ -162,29 +141,12 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-.retro-toast::before {
-  content: '';
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin-right: 1em;
-  margin-left: -2em;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 18px 18px;
-}
-.retro-toast-info::before {
-  background-image: url('data:image/svg+xml;utf8,<svg fill="%230099b3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/><text x="10" y="15" font-size="12" text-anchor="middle" fill="white">i</text></svg>');
-}
-.retro-toast-warning::before {
-  background-image: url('data:image/svg+xml;utf8,<svg fill="%23e6a800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><polygon points="10,2 18,18 2,18"/><text x="10" y="15" font-size="12" text-anchor="middle" fill="black">!</text></svg>');
-}
-.retro-toast-danger::before {
-  background-image: url('data:image/svg+xml;utf8,<svg fill="%23b20000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/><text x="10" y="15" font-size="14" text-anchor="middle" fill="white">×</text></svg>');
-}
-.retro-toast-success::before {
-  background-image: url('data:image/svg+xml;utf8,<svg fill="%23006400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/><polyline points="5,11 9,15 15,6" fill="none" stroke="white" stroke-width="2"/></svg>');
-}
+// NOTE: a set of SVG data-URI toast icons used to live here, plus per-variant
+// icon colours below. Both were already unreachable -- `.retro-alert-icon,
+// .retro-toast-icon { display: none !important }` above and
+// `.retro-alert::before, .retro-toast::before { display: none !important }`
+// below kill them. Removed rather than tokenized. Reintroduce via mask-image
+// + background-color: var(--retro-<n>-fg) if icons are wanted back.
 
 .retro-alert-main, .retro-toast-main {
   display: flex;
@@ -204,15 +166,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2em;
+  font-size: var(--retro-font-size-lg);
   flex-shrink: 0;
 }
-.retro-alert-primary .retro-alert-icon, .retro-toast-primary .retro-toast-icon { content: ''; background: none; color: #fff; }
-.retro-alert-success .retro-alert-icon, .retro-toast-success .retro-toast-icon { content: ''; background: none; color: #fff; }
-.retro-alert-danger .retro-alert-icon, .retro-toast-danger .retro-toast-icon { content: ''; background: none; color: #fff; }
-.retro-alert-warning .retro-alert-icon, .retro-toast-warning .retro-toast-icon { content: ''; background: none; color: #222; }
-.retro-alert-info .retro-alert-icon, .retro-toast-info .retro-toast-icon { content: ''; background: none; color: #222; }
-
 .retro-alert-primary .retro-alert-icon::before, .retro-toast-primary .retro-toast-icon::before { content: '\2139'; /* ℹ */ }
 .retro-alert-success .retro-alert-icon::before, .retro-toast-success .retro-toast-icon::before { content: '\2714'; /* ✔ */ }
 .retro-alert-danger .retro-alert-icon::before, .retro-toast-danger .retro-toast-icon::before { content: '\2716'; /* ✖ */ }
@@ -229,6 +185,4 @@
 
 .retro-alert {
   margin-bottom: 1.25rem;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 } 

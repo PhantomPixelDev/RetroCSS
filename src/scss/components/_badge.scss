@@ -6,21 +6,21 @@
   min-width: 26px;
   min-height: 18px;
   padding: 2px 10px;
-  font-size: 13px;
-  font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
-  font-weight: 600;
+  font-size: var(--retro-font-size-sm);
+  font-family: var(--retro-font-heading);
+  font-weight: var(--retro-font-weight-bold);
   letter-spacing: 0.3px;
   text-transform: uppercase;
   color: var(--retro-badge-text);
   background: var(--retro-badge-bg);
-  border: 1px solid #000;
+  border: 1px solid var(--retro-border-dark);
   border-radius: 0;
-  box-shadow: 
-    0 0 0 2px rgba(255, 255, 255, 0.1),
-    inset 0 0 6px rgba(0, 0, 0, 0.8);
-  text-shadow: 0 1px 1px #000, 0 0 3px rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 0 0 2px rgba(var(--retro-white-rgb), 0.1),
+    inset 0 0 6px rgba(var(--retro-black-rgb), 0.8);
+  text-shadow: none;
   margin: 0.2em 0.4em 0.2em 0;
-  transition: all 0.15s ease;
+  transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, filter 0.15s ease;
   position: relative;
   overflow: hidden;
   
@@ -32,143 +32,74 @@
     right: 0;
     height: 40%;
     background: linear-gradient(
-      to bottom, 
-      rgba(255, 255, 255, 0.15), 
-      rgba(255, 255, 255, 0)
+      to bottom,
+      rgba(var(--retro-white-rgb), 0.15),
+      rgba(var(--retro-white-rgb), 0)
     );
     pointer-events: none;
   }
 
-  &:hover, &:focus {
+  &:hover, &:focus-visible {
     transform: translateY(-1px) scale(1.05);
-    box-shadow: 
-      0 0 0 2px rgba(255, 255, 255, 0.2),
-      inset 0 0 10px rgba(0, 0, 0, 0.8),
-      0 0 5px rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 0 0 2px rgba(var(--retro-white-rgb), 0.2),
+      inset 0 0 10px rgba(var(--retro-black-rgb), 0.8),
+      0 0 5px rgba(var(--retro-white-rgb), 0.1);
     filter: brightness(1.1);
   }
 
   &:active {
     transform: translateY(1px) scale(0.98);
-    box-shadow: 
-      0 0 0 2px rgba(255, 255, 255, 0.1),
-      inset 0 0 8px rgba(0, 0, 0, 0.9);
+    box-shadow:
+      0 0 0 2px rgba(var(--retro-white-rgb), 0.1),
+      inset 0 0 8px rgba(var(--retro-black-rgb), 0.9);
     filter: brightness(0.9);
   }
 }
 
-// Color Variants
-.retro-badge-primary {
-  background: #0040aa;
-  color: #fff;
-  border: 2px solid #001144;
-  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #001144, 1px 1px 0 #003399;
-  text-shadow: 0 1px 1px #000, 0 0 3px rgba(255,255,255,0.2);
-  &:hover, &:focus {
-    background: #145ea8;
-    box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #001144, 2px 2px 0 #003399;
-    filter: brightness(1.08);
-  }
-  &:active {
-    background: #002266;
-    box-shadow: inset 1px 1px 0 #001144, inset -1px -1px 0 #fff;
-    filter: brightness(0.95);
-  }
-}
+// Color Variants.
+// Previously six hand-written blocks of literal hexes (~90 declarations) that
+// ignored [data-theme] entirely. Now generated from the palette: the fill, its
+// -fg (on-fill text) and its -hover/-active states all follow the theme.
+$retro-badge-variants: "primary", "success", "danger", "warning", "info", "secondary";
 
-.retro-badge-success {
-  background: #008800;
-  color: #fff;
-  border: 2px solid #004400;
-  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #004400, 1px 1px 0 #006600;
-  text-shadow: 0 1px 1px #000, 0 0 3px rgba(255,255,255,0.2);
-  &:hover, &:focus {
-    background: #009900;
-    box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #004400, 2px 2px 0 #006600;
-    filter: brightness(1.08);
-  }
-  &:active {
-    background: #004d00;
-    box-shadow: inset 1px 1px 0 #004400, inset -1px -1px 0 #fff;
-    filter: brightness(0.95);
-  }
-}
+@each $name in $retro-badge-variants {
+  // `secondary` has no palette entry of its own; it rides the neutral gray.
+  $token: $name;
+  @if $name == "secondary" { $token: "gray"; }
 
-.retro-badge-danger {
-  background: #cc0000;
-  color: #fff;
-  border: 2px solid #660000;
-  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #660000, 1px 1px 0 #aa0000;
-  text-shadow: 0 1px 1px #000, 0 0 3px rgba(255,255,255,0.2);
-  &:hover, &:focus {
-    background: #e53935;
-    box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #660000, 2px 2px 0 #aa0000;
-    filter: brightness(1.08);
-  }
-  &:active {
-    background: #7a0000;
-    box-shadow: inset 1px 1px 0 #660000, inset -1px -1px 0 #fff;
-    filter: brightness(0.95);
-  }
-}
+  .retro-badge-#{$name} {
+    background: var(--retro-#{$token});
+    color: var(--retro-#{$token}-fg);
+    border: 2px solid var(--retro-#{$token}-active);
+    box-shadow:
+      inset 1px 1px 0 var(--retro-border-light),
+      inset -1px -1px 0 var(--retro-#{$token}-active),
+      1px 1px 0 var(--retro-#{$token}-hover);
+    text-shadow: none;
 
-.retro-badge-warning {
-  background: #eead00;
-  color: #222;
-  border: 2px solid #b38600;
-  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #b38600, 1px 1px 0 #dd6600;
-  text-shadow: 0 1px 1px #fff, 0 0 3px rgba(0,0,0,0.08);
-  &:hover, &:focus {
-    background: #ffc107;
-    box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #b38600, 2px 2px 0 #dd6600;
-    filter: brightness(1.08);
-  }
-  &:active {
-    background: #b38600;
-    box-shadow: inset 1px 1px 0 #b38600, inset -1px -1px 0 #fff;
-    filter: brightness(0.95);
-  }
-}
+    &:hover, &:focus-visible {
+      background: var(--retro-#{$token}-hover);
+      box-shadow:
+        inset 2px 2px 0 var(--retro-border-light),
+        inset -2px -2px 0 var(--retro-#{$token}-active),
+        2px 2px 0 var(--retro-#{$token}-hover);
+      filter: brightness(1.08);
+    }
 
-.retro-badge-info {
-  background: #0099b3;
-  color: #fff;
-  border: 2px solid #006688;
-  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #006688, 1px 1px 0 #00aacc;
-  text-shadow: 0 1px 1px #000, 0 0 3px rgba(255,255,255,0.2);
-  &:hover, &:focus {
-    background: #00bcd4;
-    box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #006688, 2px 2px 0 #00aacc;
-    filter: brightness(1.08);
-  }
-  &:active {
-    background: #006688;
-    box-shadow: inset 1px 1px 0 #006688, inset -1px -1px 0 #fff;
-    filter: brightness(0.95);
-  }
-}
-
-.retro-badge-secondary {
-  background: #777;
-  color: #fff;
-  border: 2px solid #444;
-  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #444, 1px 1px 0 #666;
-  text-shadow: 0 1px 1px #000, 0 0 3px rgba(255,255,255,0.2);
-  &:hover, &:focus {
-    background: #888;
-    box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #444, 2px 2px 0 #666;
-    filter: brightness(1.08);
-  }
-  &:active {
-    background: #444;
-    box-shadow: inset 1px 1px 0 #444, inset -1px -1px 0 #fff;
-    filter: brightness(0.95);
+    &:active {
+      background: var(--retro-#{$token}-active);
+      box-shadow:
+        inset 1px 1px 0 var(--retro-#{$token}-active),
+        inset -1px -1px 0 var(--retro-border-light);
+      filter: brightness(0.95);
+    }
   }
 }
 
 // Badge sizes
 .retro-badge.retro-badge-xs {
-  font-size: 8px !important;
+  font-size: var(--retro-font-size-xs) !important;
   min-width: 16px !important;
   min-height: 12px !important;
   padding: 1px 4px !important;
@@ -176,7 +107,7 @@
 }
 
 .retro-badge.retro-badge-sm {
-  font-size: 10px !important;
+  font-size: var(--retro-font-size-xs) !important;
   min-width: 20px !important;
   min-height: 14px !important;
   padding: 1px 6px !important;
@@ -184,7 +115,7 @@
 }
 
 .retro-badge.retro-badge-md {
-  font-size: 12px !important;
+  font-size: var(--retro-font-size-sm) !important;
   min-width: 26px !important;
   min-height: 18px !important;
   padding: 2px 10px !important;
@@ -192,7 +123,7 @@
 }
 
 .retro-badge.retro-badge-lg {
-  font-size: 14px !important;
+  font-size: var(--retro-font-size) !important;
   min-width: 36px !important;
   min-height: 22px !important;
   padding: 3px 14px !important;
@@ -200,7 +131,7 @@
 }
 
 .retro-badge.retro-badge-xl {
-  font-size: 16px !important;
+  font-size: var(--retro-font-size-lg) !important;
   min-width: 46px !important;
   min-height: 28px !important;
   padding: 4px 18px !important;
@@ -208,14 +139,17 @@
 }
 
 .retro-badge.retro-badge-xxl {
-  font-size: 20px !important;
+  font-size: var(--retro-font-size-xl) !important;
   min-width: 60px !important;
   min-height: 36px !important;
   padding: 6px 24px !important;
   border-width: 2px !important;
 }
 
-// Special theme variants
+// Special theme variants.
+// The neon badge is a deliberate fixed-palette effect -- the saturated hexes
+// below ARE the effect and are intentionally not tokenized. It renders on its
+// own black ground in both themes.
 .retro-badge-neon {
   background: #000;
   box-shadow: 
@@ -277,21 +211,21 @@
 }
 
 .retro-badge-pixel {
-  font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
-  font-weight: 600;
+  font-family: var(--retro-font-heading);
+  font-weight: var(--retro-font-weight-bold);
   image-rendering: pixelated;
-  border: 2px solid #000;
+  border: 2px solid var(--retro-border-dark);
   border-radius: 0;
-  box-shadow: 4px 4px 0 #000;
+  box-shadow: 4px 4px 0 var(--retro-border-dark);
   transform-origin: center;
   
-  &:hover, &:focus {
+  &:hover, &:focus-visible {
     transform: translateY(-2px) translateX(-2px);
-    box-shadow: 6px 6px 0 #000;
+    box-shadow: 6px 6px 0 var(--retro-border-dark);
   }
   
   &:active {
     transform: translateY(0) translateX(0);
-    box-shadow: 0 0 0 #000;
+    box-shadow: 0 0 0 var(--retro-border-dark);
   }
 } 

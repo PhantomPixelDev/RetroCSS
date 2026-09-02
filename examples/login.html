@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🔐 Login | RetroCSS</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss@1.0.7/dist/retro.min.css">
-  <link rel="stylesheet" href="../dist/retro.min.css" onerror="this.remove()">
+  <link rel="stylesheet" href="../dist/retro.min.css">
   <style>
     .retro-input-icon {
       position: relative;
@@ -18,7 +17,7 @@
       left: 0.7em;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--retro-primary);
+      color: var(--retro-primary-text);
       font-size: 1.1em;
       pointer-events: none;
     }
@@ -43,7 +42,7 @@
       <button class="retro-nav-item retro-theme-toggle" data-retro-tooltip="Toggle dark/light mode">🌓 Toggle Theme</button>
     </nav>
   </div>
-  <hr class="retro-mt-5" style="border-color: var(--retro-border-medium);">
+  <hr class="retro-mt-5" style="border-color: var(--retro-text-muted);">
   <div class="retro-main-layout retro-gap-4">
     <div class="main-content" style="max-width:400px; margin:auto;">
       <div class="retro-card retro-mt-8 retro-shadow-lg retro-border-2 retro-border-primary">
@@ -86,8 +85,7 @@
       </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss@1.0.7/dist/retro.min.js"></script>
-  <script src="../dist/retro.js" onerror="this.remove()"></script>
+  <script src="../dist/retro.js"></script>
   <script>
     function togglePassword() {
       var pw = document.getElementById('password');

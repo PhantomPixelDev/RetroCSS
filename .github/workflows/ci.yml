@@ -1,0 +1,39 @@
+name: CI
+
+# publish.yml only runs on v* tags, so nothing verified ordinary pushes or PRs.
+# This builds the framework and runs the accessibility gate on every change, so
+# a contrast regression or an undefined token fails before it reaches a release.
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build CSS and JS
+        run: npm run build
+
+      # Asserts every var(--retro-*) resolves and every text/surface pair in
+      # both themes clears WCAG AA. Fails the job on any regression.
+      - name: Accessibility gate
+        run: npm run check:a11y
+
+      # dist/ is gitignored, so there is no committed artifact to diff against.
+      # This just proves the build produced what package.json promises to ship.
+      - name: Verify build output
+        run: |
+          for f in dist/retro.css dist/retro.min.css dist/retro.js dist/retro.min.js; do
+            test -s "$f" || { echo "missing or empty: $f"; exit 1; }
+            echo "ok $(wc -c < "$f") bytes  $f"
+          done

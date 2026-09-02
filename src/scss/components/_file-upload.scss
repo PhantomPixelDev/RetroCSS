@@ -17,7 +17,7 @@
   margin-bottom: 0;
 }
 .retro-file-filename {
-  font-size: 14px;
+  font-size: var(--retro-font-size);
   color: var(--retro-input-text);
   margin-left: 8px;
 }
@@ -28,13 +28,13 @@
   background: var(--retro-input-bg);
   border: 1px solid var(--retro-border-medium);
   border-radius: 4px;
-  color: var(--retro-border-dark);
-  font-size: 15px;
+  color: var(--retro-text-muted);
+  font-size: var(--retro-font-size-lg);
   margin-top: 8px;
   transition: background 0.2s, border 0.2s;
 }
 .retro-file-drop.dragover {
-  background: $retro-primary;
-  color: $retro-white;
-  border-color: $retro-primary;
+  background: var(--retro-primary);
+  color: var(--retro-primary-fg);
+  border-color: var(--retro-primary);
 } 

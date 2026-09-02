@@ -134,23 +134,77 @@ RetroCSS.toast.show('<b>Custom Toast</b><br>With <i>HTML</i> content!', { html: 
 
 ## Customization
 
-RetroCSS can be customized using CSS variables:
+RetroCSS is customized through CSS variables, organised in four tiers per colour.
+Picking the right tier matters: a value tuned as a background is usually unreadable
+as text.
+
+| Token | Role |
+| --- | --- |
+| `--retro-primary` | **Fill** — background of a filled badge, button or alert |
+| `--retro-primary-fg` | **On-fill** — text placed *on* that fill |
+| `--retro-primary-text` | **On-surface** — that hue used as text on a page background |
+| `--retro-primary-hover` / `-active` | **States** — fill under `:hover` / `:active` |
+
+All four exist for every hue (`primary, success, danger, warning, info, teal, tan,
+pink, lime, cyan, orange, brown, violet, gray, maroon, gold, navy, olive, silver`).
+Every pair clears WCAG AA (4.5:1) in both themes — `npm run check:a11y` verifies it.
 
 ```css
 :root {
-  --retro-primary: #0000aa;
-  --retro-success: #008000;
-  --retro-danger: #ff0000;
-  --retro-body-bg: #c0c0c0;
-  /* And many more variables */
+  --retro-primary: #0000aa;       /* fill */
+  --retro-primary-fg: #ffffff;    /* text on that fill */
+  --retro-primary-text: #000080;  /* that hue as text on a page background */
+  --retro-body-bg: #c0c0c0;       /* page */
+  --retro-bg: #ffffff;            /* raised surface */
+  --retro-text: #000000;
+  --retro-text-muted: #4b4b4b;
 }
 
-/* Dark mode customization */
+/* Dark mode */
 [data-theme="dark"] {
-  --retro-body-bg: #3a3a3a;
-  --retro-primary: #00aaff;
-  /* Override other variables for dark mode */
+  --retro-body-bg: #181818;
+  --retro-primary: #4a90e2;
+  --retro-primary-fg: #000000;    /* dark fills are light, so black sits on top */
+  --retro-primary-text: #4b91e2;
 }
+```
+
+Typography is tokenised the same way: `--retro-font`, `--retro-font-heading`,
+`--retro-font-mono`, a `rem`-based `--retro-font-size-xs` … `-3xl` scale,
+`--retro-line-height` and `--retro-font-weight-*`. Headings use the body stack by
+default; for a modern heading font, set
+`--retro-font-heading: 'Segoe UI', Tahoma, sans-serif;`.
+
+> **Upgrading from 1.x?** See [MIGRATION.md](MIGRATION.md). No classes were
+> renamed or removed, but 2.0 visibly restyles a few things to meet WCAG AA —
+> each with a one-line override.
+
+## Accessibility
+
+Every text/surface pair the framework produces clears WCAG AA (4.5:1) in both
+themes. `npm run check:a11y` compiles the SCSS and asserts it, and fails the
+build on a regression — it also catches any `var(--retro-*)` that resolves to
+nothing.
+
+Beyond colour:
+
+- **Focus rings are `:focus-visible`.** Keyboard and assistive-tech users get a
+  ring; mouse clicks do not. Text inputs still show one on click, because
+  browsers treat their focus as visible.
+- **Modals are keyboard-safe.** Opening one sets `role="dialog"`,
+  `aria-modal`, and names it from its header; focus moves inside and is trapped
+  there, the rest of the page is made `inert`, and closing returns focus to
+  whatever opened it.
+- **Dropdowns are navigable.** `aria-haspopup` / `aria-expanded` on the toggle,
+  `role="menu"` / `menuitem` on the menu, and Arrow / Home / End / Escape /
+  Tab all behave. Escape returns focus to the toggle.
+- **`prefers-reduced-motion` is honoured** — every animation and transition is
+  neutralised, with the looping text effects switched off outright.
+- **`.retro-sr-only`** labels icon-only controls; `.retro-sr-only-focusable`
+  gives you a skip link.
+
+```html
+<button class="retro-btn">💾<span class="retro-sr-only">Save</span></button>
 ```
 
 ## Browser Support

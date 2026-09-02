@@ -28,10 +28,42 @@
   }
 }
 
-@mixin retro-focus {
+/// The framework's focus policy, in one place.
+///
+/// :focus-visible rather than :focus, so the ring appears for keyboard and
+/// assistive-tech users but not on every mouse click. Browsers still match
+/// :focus-visible for text inputs on click, so fields keep their ring.
+/// The :focus fallback keeps a visible ring on engines without the selector.
+@mixin retro-focus($style: dotted, $offset: -4px) {
   &:focus {
-    outline: 1px dotted var(--retro-black);
-    outline-offset: -4px;
+    outline: 1px $style var(--retro-text);
+    outline-offset: $offset;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 1px $style var(--retro-text);
+    outline-offset: $offset;
+  }
+}
+
+/// Stronger ring for elements that sit on a filled surface.
+@mixin retro-focus-ring($color: var(--retro-primary), $width: 2px, $offset: 2px) {
+  &:focus {
+    outline: $width solid $color;
+    outline-offset: $offset;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: $width solid $color;
+    outline-offset: $offset;
   }
 }
 

@@ -24,25 +24,25 @@
   border: 1px solid var(--retro-border-medium);
   border-radius: 12px;
   padding: 3px 12px 3px 10px;
-  font-size: 14px;
+  font-size: var(--retro-font-size);
   margin-right: 4px;
   margin-bottom: 4px;
   box-shadow: 1px 1px 0 var(--retro-border-light);
 }
 .retro-tag-remove {
   margin-left: 8px;
-  color: $retro-danger;
+  color: var(--retro-danger-text);
   cursor: pointer;
   font-weight: bold;
-  font-size: 16px;
+  font-size: var(--retro-font-size-lg);
   transition: color 0.2s;
-  &:hover { color: $retro-primary; }
+  &:hover { color: var(--retro-primary-text); }
 }
 .retro-tag-text {
   border: none;
   outline: none;
   background: transparent;
-  font-size: 14px;
+  font-size: var(--retro-font-size);
   min-width: 80px;
   margin-left: 4px;
   padding: 2px 0;

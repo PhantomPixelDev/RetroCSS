@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RetroCSS Theme Matrix</title>
+  <link rel="stylesheet" href="../dist/retro.min.css">
+  <style>
+    .tm-wrap { max-width: 1100px; margin: 0 auto; padding: var(--retro-spacing-md); }
+    .tm-panels { display: grid; gap: var(--retro-spacing-md); grid-template-columns: 1fr; }
+    @media (min-width: 900px) { .tm-panels { grid-template-columns: 1fr 1fr; } }
+    /* Two panels so every swatch is judged against both surfaces: the page
+       ground (--retro-body-bg) and a raised surface (--retro-bg). */
+    .tm-panel { padding: var(--retro-spacing-md); border: 2px solid var(--retro-border-dark); }
+    .tm-on-body { background: var(--retro-body-bg); }
+    .tm-on-bg { background: var(--retro-bg); }
+    .tm-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: var(--retro-spacing-sm); }
+    .tm-section { margin-bottom: var(--retro-spacing-lg); }
+    .tm-label {
+      font-family: var(--retro-font-mono); font-size: var(--retro-font-size-xs);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--retro-text-muted); margin-bottom: 4px;
+    }
+    .tm-bar {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center; gap: var(--retro-spacing-md);
+      padding: var(--retro-spacing-sm) var(--retro-spacing-md);
+      background: var(--retro-light); border-bottom: 2px solid var(--retro-border-dark);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tm-bar">
+    <strong>Theme Matrix</strong>
+    <button class="retro-btn retro-theme-toggle">🌓 Toggle Theme</button>
+    <span class="tm-label" style="margin:0">every component touched by the readability pass, on both surfaces</span>
+  </div>
+
+  <div class="tm-wrap">
+    <div class="tm-section">
+      <h2>Text colour utilities</h2>
+      <p class="tm-label">these consume the accessible <code>-text</code> ramp, not the raw fills</p>
+      <div class="tm-panels">
+        <div class="tm-panel tm-on-body">
+          <div class="tm-label">on --retro-body-bg</div>
+          <p><span class="retro-text-primary">primary</span> ·
+             <span class="retro-text-success">success</span> ·
+             <span class="retro-text-danger">danger</span> ·
+             <span class="retro-text-warning">warning</span> ·
+             <span class="retro-text-info">info</span> ·
+             <span class="retro-text-teal">teal</span> ·
+             <span class="retro-text-pink">pink</span> ·
+             <span class="retro-text-lime">lime</span></p>
+          <p><span class="retro-text-bold">bold</span> ·
+             <span class="retro-text-italic">italic</span> ·
+             <span class="retro-text-underline">underline</span> ·
+             <span class="retro-text-monospace">monospace</span> ·
+             <span class="retro-text-xs">xs</span> ·
+             <span class="retro-text-sm">sm</span> ·
+             <span class="retro-text-lg">lg</span> ·
+             <span class="retro-text-xl">xl</span></p>
+        </div>
+        <div class="tm-panel tm-on-bg">
+          <div class="tm-label">on --retro-bg</div>
+          <p><span class="retro-text-primary">primary</span> ·
+             <span class="retro-text-success">success</span> ·
+             <span class="retro-text-danger">danger</span> ·
+             <span class="retro-text-warning">warning</span> ·
+             <span class="retro-text-info">info</span> ·
+             <span class="retro-text-teal">teal</span> ·
+             <span class="retro-text-pink">pink</span> ·
+             <span class="retro-text-lime">lime</span></p>
+          <p>Body copy at the default size and leading, for reference.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tm-section">
+      <h2>Badges</h2>
+      <p class="tm-label">fill + on-fill text + hover/active, all from tokens</p>
+      <div class="tm-row">
+        <span class="retro-badge retro-badge-primary">primary</span>
+        <span class="retro-badge retro-badge-success">success</span>
+        <span class="retro-badge retro-badge-danger">danger</span>
+        <span class="retro-badge retro-badge-warning">warning</span>
+        <span class="retro-badge retro-badge-info">info</span>
+        <span class="retro-badge retro-badge-secondary">secondary</span>
+        <span class="retro-badge">default</span>
+      </div>
+      <div class="tm-row">
+        <span class="retro-badge retro-badge-primary retro-badge-xs">xs</span>
+        <span class="retro-badge retro-badge-primary retro-badge-sm">sm</span>
+        <span class="retro-badge retro-badge-primary retro-badge-md">md</span>
+        <span class="retro-badge retro-badge-primary retro-badge-lg">lg</span>
+        <span class="retro-badge retro-badge-primary retro-badge-xl">xl</span>
+        <span class="retro-badge retro-badge-primary retro-badge-xxl">xxl</span>
+      </div>
+      <div class="tm-row">
+        <span class="retro-badge retro-badge-neon retro-badge-primary">neon</span>
+        <span class="retro-badge retro-badge-neon retro-badge-success">neon</span>
+        <span class="retro-badge retro-badge-neon retro-badge-danger">neon</span>
+        <span class="retro-badge retro-badge-pixel retro-badge-primary">pixel</span>
+      </div>
+    </div>
+
+    <div class="tm-section">
+      <h2>Buttons</h2>
+      <div class="tm-row">
+        <button class="retro-btn">default</button>
+        <button class="retro-btn retro-btn-primary">primary</button>
+        <button class="retro-btn retro-btn-success">success</button>
+        <button class="retro-btn retro-btn-danger">danger</button>
+        <button class="retro-btn retro-btn-warning">warning</button>
+      </div>
+      <div class="tm-row">
+        <button class="retro-btn retro-btn-primary retro-btn-xs">xs</button>
+        <button class="retro-btn retro-btn-primary retro-btn-sm">sm</button>
+        <button class="retro-btn retro-btn-primary retro-btn-md">md</button>
+        <button class="retro-btn retro-btn-primary retro-btn-lg">lg</button>
+        <button class="retro-btn retro-btn-primary retro-btn-xl">xl</button>
+        <button class="retro-btn retro-btn-primary retro-btn-xxl">xxl</button>
+      </div>
+    </div>
+
+    <div class="tm-section">
+      <h2>Alerts</h2>
+      <div class="retro-alert retro-alert-primary">Primary — on-fill text comes from <code>--retro-primary-fg</code>.</div>
+      <div class="retro-alert retro-alert-success">Success — this was white-on-#2ecc71 (2.10:1) in dark mode.</div>
+      <div class="retro-alert retro-alert-danger">Danger alert message.</div>
+      <div class="retro-alert retro-alert-warning">Warning alert message.</div>
+      <div class="retro-alert retro-alert-info">
+        <div class="retro-alert-body">Info alert with a footer.</div>
+        <div class="retro-alert-footer">Footer text, previously hardcoded #0099b3.</div>
+      </div>
+    </div>
+
+    <div class="tm-section">
+      <h2>Heading variants</h2>
+      <div class="retro-heading-primary">retro-heading-primary</div>
+      <div class="retro-heading-success">retro-heading-success</div>
+      <div class="retro-heading-warning">retro-heading-warning</div>
+      <div class="retro-heading-danger">retro-heading-danger</div>
+    </div>
+
+    <div class="tm-section">
+      <h2>Forms</h2>
+      <div class="tm-panels">
+        <div class="tm-panel tm-on-bg">
+          <div class="retro-form-group">
+            <label class="retro-label" for="tm-a">Normal input</label>
+            <input class="retro-input" id="tm-a" value="bevelled, not a flat 1px border">
+          </div>
+          <div class="retro-form-group">
+            <label class="retro-label" for="tm-b">Disabled</label>
+            <input class="retro-input" id="tm-b" value="was #888 on #c0c0c0 = 1.95:1" disabled>
+            <span class="retro-form-text">Helper text uses --retro-text-muted.</span>
+          </div>
+          <div class="retro-form-group">
+            <label class="retro-label" for="tm-c">Invalid</label>
+            <input class="retro-input is-invalid" id="tm-c" value="focus ring now renders">
+            <span class="retro-form-feedback is-invalid">This field is required.</span>
+          </div>
+        </div>
+        <div class="tm-panel tm-on-bg">
+          <label class="retro-label"><input type="checkbox" class="retro-input" checked> Native checkbox</label><br>
+          <label class="retro-label"><input type="radio" class="retro-input" name="r" checked> Native radio</label>
+          <label class="retro-label"><input type="radio" class="retro-input" name="r"> Unselected</label>
+          <div style="margin-top:8px">
+            <select class="retro-select"><option>Select control</option></select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tm-section">
+      <h2>Code block &amp; syntax</h2>
+      <p class="tm-label">.keyword was #000080 on #232323 — 1.02:1 in dark mode</p>
+      <pre class="retro-code"><code><span class="comment">// eleven token classes</span>
+<span class="keyword">const</span> <span class="variable">total</span> = <span class="function">sum</span>(<span class="number">42</span>) <span class="operator">+</span> <span class="string">"px"</span>;
+<span class="keyword">class</span> <span class="class">Widget</span> { <span class="property">size</span> = <span class="number">1</span>; }
+<span class="tag">&lt;div</span> <span class="attribute">id</span>=<span class="string">"x"</span><span class="tag">&gt;</span></code></pre>
+    </div>
+
+    <div class="tm-section">
+      <h2>Surfaces</h2>
+      <div class="tm-panels">
+        <div class="retro-card">
+          <div class="retro-card-header">Card header</div>
+          <div class="retro-card-content">Card content on --retro-card-content-bg.</div>
+          <div class="retro-card-footer">Card footer</div>
+        </div>
+        <div>
+          <table class="retro-table">
+            <thead><tr><th>Header</th><th>Header</th></tr></thead>
+            <tbody><tr><td>Cell</td><td>Cell</td></tr><tr><td>Striped</td><td>Cell</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="tm-section">
+      <h2>Prose</h2>
+      <div class="retro-prose">
+        <p>The <code>.retro-prose</code> container caps the measure and opens up leading, so
+          long-form pages stop running edge-to-edge lines. It is opt-in, because applying a
+          max-width to every paragraph would break dashboard and form layouts.</p>
+        <blockquote class="retro-blockquote">A blockquote, now themed and measure-capped.</blockquote>
+      </div>
+    </div>
+  </div>
+
+  <script src="../dist/retro.min.js"></script>
+</body>
+
+</html>

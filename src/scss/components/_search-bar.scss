@@ -11,15 +11,15 @@
   min-width: 220px;
 }
 .retro-search-icon {
-  font-size: 18px;
-  color: $retro-border-dark;
+  font-size: var(--retro-font-size-xl);
+  color: var(--retro-text);
   margin-right: 8px;
 }
 .retro-search-input {
   border: none;
   outline: none;
   background: transparent;
-  font-size: 15px;
+  font-size: var(--retro-font-size-lg);
   flex: 1;
   padding: 4px 0;
   color: var(--retro-input-text);
@@ -41,7 +41,7 @@
 }
 .retro-search-suggestion {
   padding: 8px 12px;
-  font-size: 15px;
+  font-size: var(--retro-font-size-lg);
   color: var(--retro-input-text);
   cursor: pointer;
   border-bottom: 1px solid var(--retro-border-light);

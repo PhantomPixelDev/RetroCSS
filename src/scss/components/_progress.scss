@@ -37,12 +37,19 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-size: 13px;
-  color: var(--retro-white);
-  font-family: $retro-font;
+  font-size: var(--retro-font-size-sm);
+  // The label straddles two backgrounds -- the filled bar and the empty track --
+  // and those are always opposite in lightness, so no flat colour works for
+  // both. It reads against the track, and a halo in the track colour keeps it
+  // legible over the bar. Previously var(--retro-white), which is a *surface*
+  // token: white on the #f0f0f0 track in light mode was 1.14:1.
+  color: var(--retro-text);
+  font-family: var(--retro-font);
   pointer-events: none;
   user-select: none;
-  text-shadow: 1px 1px 2px var(--retro-border-medium), 0 0 2px var(--retro-border-dark);
+  text-shadow:
+    0 0 2px var(--retro-progress-bg), 0 0 2px var(--retro-progress-bg),
+    0 0 4px var(--retro-progress-bg), 1px 1px 0 var(--retro-progress-bg);
 }
 
 // Striped/animated variant: blocky blue segments

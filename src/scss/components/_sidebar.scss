@@ -8,7 +8,7 @@
   height: auto;
   position: static;
   overflow-y: auto;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, left 0.3s ease, width 0.3s ease;
   color: var(--retro-sidebar-text);
   
   // Sidebar header
@@ -26,8 +26,8 @@
     &-title {
       font-weight: bold;
       margin-bottom: var(--retro-spacing-xs, 4px);
-      font-size: 0.9em;
-      color: var(--retro-text-muted, #666);
+      font-size: var(--retro-font-size-sm);
+      color: var(--retro-text-muted);
     }
   }
   
@@ -64,7 +64,7 @@
     margin: 16px;
     margin-right: 0;
     border-right: 2px solid var(--retro-border-medium);
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+    box-shadow: 2px 0 5px rgba(var(--retro-black-rgb), 0.05);
   }
 }
 
@@ -95,7 +95,7 @@
       background: var(--retro-text);
       position: absolute;
       left: 0;
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease, opacity 0.3s ease, top 0.3s ease;
     }
     
     &:before {
@@ -124,7 +124,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(var(--retro-black-rgb), 0.5);
   z-index: 999;
   
   &.active {

@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "sass:list";
 @use "sass:color"; // Ensure sass:color is imported for color.adjust
 
 /* Variables & Theme Configuration */
@@ -115,6 +116,165 @@ $retro-white-rgb: 255, 255, 255;
 $retro-light-rgb: 240, 240, 240;
 
 /**
+ * @name Accessible Text Colors
+ * @group variables
+ * @type Color
+ * @description
+ * Companion ramp to the palette above. The palette values are tuned as *fills*
+ * -- a filled badge or button with inverse text sitting on top. Used directly
+ * as *text* on a page background many of them fail WCAG AA badly: $retro-info
+ * (#00ffff) measures 1.25:1 on white, $retro-gold 1.40:1, $retro-warning 1.97:1.
+ *
+ * These `-text` values keep each colour's hue and saturation but clear 4.75:1
+ * against both light surfaces (#ffffff and the #c0c0c0 body). Dark-theme
+ * counterparts live in the [data-theme="dark"] block and clear 4.75:1 against
+ * both #23242a (card) and #181818 (body).
+ *
+ * Use the palette value for a fill, the -text value for text on a surface.
+ * @example scss
+ *   background: var(--retro-info);       // fill
+ *   color: var(--retro-info-text);       // text on a page background
+ */
+$retro-primary-text: #000080;
+$retro-success-text: #005900;
+$retro-danger-text: #9c0000;
+$retro-warning-text: #694400;
+$retro-info-text: #005454;
+$retro-teal-text: #005454;
+$retro-tan-text: #604726;
+$retro-pink-text: #97004c;
+$retro-lime-text: #155715;
+$retro-cyan-text: #005458;
+$retro-orange-text: #6e4100;
+$retro-brown-text: #67441f;
+$retro-violet-text: #5913d0;
+$retro-gray-text: #4b4b4b;
+$retro-maroon-text: #800000;
+$retro-gold-text: #584a00;
+$retro-navy-text: #001f4f;
+$retro-olive-text: #4e4e00;
+$retro-silver-text: #4b4b4b;
+
+/**
+ * @name On-Fill Text Colors
+ * @group variables
+ * @type Color
+ * @description
+ * Text/icon colour to place *on top of* the matching fill. Distinct from the
+ * -text ramp, which is that hue used as text on a page surface.
+ *
+ * This is the framework's biggest dark-mode defect: components hardcode
+ * `color: #fff` over `background: var(--retro-name)`, and the dark palette is
+ * light, so 16 of 19 fills currently carry white text below 4.5:1 --
+ * #fff on the dark --retro-success (#2ecc71) is 2.10:1. Each -fg value below
+ * is whichever of black/white scores higher on its own fill.
+ *
+ * Each value is whichever of black/white scores higher on its own fill, and the
+ * hover/active states below are clamped so that choice stays >=4.5:1 across all
+ * three. Note --retro-danger-fg is black: white on pure #ff0000 is only 4.00:1.
+ * For white-on-red at full AA, override the fill instead:
+ *   :root { --retro-danger: #cc0000; --retro-danger-fg: #fff; }
+ */
+$retro-primary-fg: $retro-white;
+$retro-success-fg: $retro-white;
+$retro-danger-fg: $retro-black;
+$retro-warning-fg: $retro-black;
+$retro-info-fg: $retro-black;
+$retro-teal-fg: $retro-white;
+$retro-tan-fg: $retro-black;
+$retro-pink-fg: $retro-black;
+$retro-lime-fg: $retro-black;
+$retro-cyan-fg: $retro-black;
+$retro-orange-fg: $retro-black;
+$retro-brown-fg: $retro-white;
+$retro-violet-fg: $retro-white;
+$retro-gray-fg: $retro-black;
+$retro-maroon-fg: $retro-white;
+$retro-gold-fg: $retro-black;
+$retro-navy-fg: $retro-white;
+$retro-olive-fg: $retro-black;
+$retro-silver-fg: $retro-black;
+
+/**
+ * @name Semantic Text Colors
+ * @group variables
+ * @type Color
+ * @description
+ * Surface-aware text colours. Prefer these over $retro-black / $retro-white,
+ * which invert between themes for backward compatibility and therefore read
+ * confusingly at the call site.
+ */
+$retro-text: $retro-black;
+$retro-text-muted: #4b4b4b;
+$retro-text-inverse: $retro-white;
+
+
+/**
+ * @name Interaction State Colors
+ * @group variables
+ * @type Color
+ * @description
+ * Hover/active fills for every palette hue, as (hover, active) pairs.
+ *
+ * Nominally +/-10% lightness, but each state is clamped back toward its base
+ * until it holds >=4.6:1 against that hue's -fg. Without the clamp a mid-
+ * luminance fill drifts past whichever of black/white sits on it -- e.g. the
+ * light teal at +10% carried its white text at only 2.59:1.
+ *
+ * Tokens rather than inline color.adjust() calls, because a compiled
+ * color.adjust() is a fixed hex and cannot respond to [data-theme]. Written as
+ * literals so Sass emits hex rather than rgb(46.257%...) notation.
+ */
+$retro-states-light: (
+  "primary": (#0000b3, #00004d),
+  "success": (#008500, #004d00),
+  "danger": (#ff3333, #f00000),
+  "warning": (#ffb733, #cc8400),
+  "info": (#33ffff, #00cccc),
+  "teal": (#008080, #004d4d),
+  "tan": (#e0ccb1, #c49c67),
+  "pink": (#ff9cce, #ff369b),
+  "lime": (#5bd75b, #28a428),
+  "cyan": (#22f7ff, #00b4bb),
+  "orange": (#ffc87a, #ff9e14),
+  "brown": (#9f6930, #64421e),
+  "violet": (#8c51ef, #5f14e0),
+  "gray": (#cacaca, #979797),
+  "maroon": (#b30000, #4d0000),
+  "gold": (#ffdf33, #ccac00),
+  "navy": (#003382, #000b1c),
+  "olive": (#b3b300, #7b7b00),
+  "silver": (#dadada, #a7a7a7),
+);
+
+$retro-states-dark: (
+  "primary": (#76abe9, #2378db),
+  "success": (#54d98c, #25a25a),
+  "danger": (#ed7669, #e32f1c),
+  "warning": (#f5b043, #c87f0a),
+  "info": (#5faee3, #217dbb),
+  "teal": (#28e1bd, #148f77),
+  "tan": (#e1cba9, #c79d5d),
+  "pink": (#ee70ad, #e21c7c),
+  "lime": (#00ebbd, #008a6f),
+  "cyan": (#02fff9, #009b97),
+  "orange": (#eb9950, #bf6516),
+  "brown": (#b99672, #956f4a),
+  "violet": (#9b59b6, #804399),
+  "gray": (#b1bdbd, #798d8f),
+  "maroon": (#d14233, #962d22),
+  "gold": (#f4d03f, #c29d0b),
+  "navy": (#3e5771, #1a242f),
+  "olive": (#9aa4a5, #6d7a7b),
+  "silver": (#d9dcde, #a1aab0),
+);
+
+/* Darker primary, used for open/active dropdown chrome */
+$retro-primary-darker: list.nth(map.get($retro-states-light, primary), 2);
+/* Neutral surface tint, used for subtle hover backgrounds */
+$retro-gray-100: $retro-light;
+
+/**
  * @name Typography Variables
  * @group variables
  * @type Font
@@ -126,12 +286,33 @@ $retro-light-rgb: 240, 240, 240;
 
 /* Typography */
 $retro-font: 'MS Sans Serif', 'Microsoft Sans Serif', Arial, sans-serif;
-$retro-font-size-base: 14px;  // Base font size
+// Headings share the body stack. Segoe UI (the previous heading font) reads
+// well but undercuts the Win9x premise; override --retro-font-heading to
+// restore a two-font system.
+$retro-font-heading: $retro-font;
+$retro-font-mono: 'Courier New', Courier, monospace;
+
+// Scale is expressed in rem against the 16px root so sizes no longer compound
+// (html was 16px while body was 14px in px, so every em measured against the
+// wrong base and nested ems stacked). base/sm/lg keep their current computed
+// px values, so existing --retro-font-size-* overrides still land where they did.
+$retro-font-size-base: 0.875rem;  // 14px
 $retro-font-size: $retro-font-size-base;
-$retro-font-size-sm: 12px;
-$retro-font-size-lg: 16px;
-$retro-line-height: 1.4;
-$retro-letter-spacing: -0.25px;
+$retro-font-size-xs: 0.6875rem;   // 11px
+$retro-font-size-sm: 0.75rem;     // 12px
+$retro-font-size-lg: 1rem;        // 16px
+$retro-font-size-xl: 1.125rem;    // 18px
+$retro-font-size-2xl: 1.375rem;   // 22px
+$retro-font-size-3xl: 1.75rem;    // 28px
+
+$retro-line-height: 1.5;         // body copy
+$retro-line-height-tight: 1.25;  // headings, buttons, badges
+
+$retro-font-weight-normal: 400;
+$retro-font-weight-bold: 700;
+
+// Prose measure -- caps line length on long-form text blocks.
+$retro-measure: 70ch;
 
 /**
  * @name Spacing Variables
@@ -280,6 +461,11 @@ $retro-container-fluid: 100%;
 
 /* CSS Custom Properties */
 :root {
+  // Tells the browser which scheme native widgets (scrollbars, date pickers,
+  // default form controls) should paint in. Without it they render light-on-
+  // light inside a dark theme.
+  color-scheme: light;
+
   // Colors
   --retro-body-bg: #{$retro-body-bg}; /* Fallback for IE11 */
   --retro-body-bg-dark: #{$retro-body-bg-dark}; /* Fallback for IE11 */
@@ -290,15 +476,20 @@ $retro-container-fluid: 100%;
   --retro-white: #{$retro-white}; /* Fallback for IE11 */
   --retro-black: #{$retro-black}; /* Fallback for IE11 */
   
-  // Text Utilities Colors
-  --retro-color-primary: #{$retro-primary};
-  --retro-color-success: #{$retro-success};
-  --retro-color-danger: #{$retro-danger};
-  --retro-color-warning: #{$retro-warning};
-  --retro-color-info: #{$retro-info};
-  --retro-color-teal: #{$retro-teal};
-  --retro-color-pink: #{$retro-pink};
-  --retro-color-lime: #{$retro-lime};
+  // Text Utilities Colors.
+  // Aliased to the accessible -text ramp, not the raw palette: these are
+  // consumed as text (.retro-text-*, form feedback) where the fill values
+  // fail contrast. Defined once here, so they follow the theme automatically.
+  --retro-color-primary: var(--retro-primary-text);
+  --retro-color-success: var(--retro-success-text);
+  --retro-color-danger: var(--retro-danger-text);
+  --retro-color-warning: var(--retro-warning-text);
+  --retro-color-info: var(--retro-info-text);
+  --retro-color-teal: var(--retro-teal-text);
+  --retro-color-pink: var(--retro-pink-text);
+  --retro-color-lime: var(--retro-lime-text);
+  --retro-color-success-rgb: #{$retro-success-rgb};
+  --retro-color-danger-rgb: #{$retro-danger-rgb};
   
   // Semantic border names
   --retro-border-light: #{$retro-border-light}; /* Fallback for IE11 */
@@ -344,13 +535,77 @@ $retro-container-fluid: 100%;
   --retro-white-rgb: #{$retro-white-rgb}; /* Fallback for IE11 */
   --retro-light-rgb: #{$retro-light-rgb}; /* Fallback for IE11 */
 
+  // Accessible text ramp (>=4.75:1 on both #ffffff and the #c0c0c0 body)
+  --retro-primary-text: #{$retro-primary-text};
+  --retro-success-text: #{$retro-success-text};
+  --retro-danger-text: #{$retro-danger-text};
+  --retro-warning-text: #{$retro-warning-text};
+  --retro-info-text: #{$retro-info-text};
+  --retro-teal-text: #{$retro-teal-text};
+  --retro-tan-text: #{$retro-tan-text};
+  --retro-pink-text: #{$retro-pink-text};
+  --retro-lime-text: #{$retro-lime-text};
+  --retro-cyan-text: #{$retro-cyan-text};
+  --retro-orange-text: #{$retro-orange-text};
+  --retro-brown-text: #{$retro-brown-text};
+  --retro-violet-text: #{$retro-violet-text};
+  --retro-gray-text: #{$retro-gray-text};
+  --retro-maroon-text: #{$retro-maroon-text};
+  --retro-gold-text: #{$retro-gold-text};
+  --retro-navy-text: #{$retro-navy-text};
+  --retro-olive-text: #{$retro-olive-text};
+  --retro-silver-text: #{$retro-silver-text};
+
+  // On-fill text (text placed ON the matching fill)
+  --retro-primary-fg: #{$retro-primary-fg};
+  --retro-success-fg: #{$retro-success-fg};
+  --retro-danger-fg: #{$retro-danger-fg};
+  --retro-warning-fg: #{$retro-warning-fg};
+  --retro-info-fg: #{$retro-info-fg};
+  --retro-teal-fg: #{$retro-teal-fg};
+  --retro-tan-fg: #{$retro-tan-fg};
+  --retro-pink-fg: #{$retro-pink-fg};
+  --retro-lime-fg: #{$retro-lime-fg};
+  --retro-cyan-fg: #{$retro-cyan-fg};
+  --retro-orange-fg: #{$retro-orange-fg};
+  --retro-brown-fg: #{$retro-brown-fg};
+  --retro-violet-fg: #{$retro-violet-fg};
+  --retro-gray-fg: #{$retro-gray-fg};
+  --retro-maroon-fg: #{$retro-maroon-fg};
+  --retro-gold-fg: #{$retro-gold-fg};
+  --retro-navy-fg: #{$retro-navy-fg};
+  --retro-olive-fg: #{$retro-olive-fg};
+  --retro-silver-fg: #{$retro-silver-fg};
+
+  // Semantic text colours
+  --retro-text: #{$retro-text};
+  --retro-text-muted: #{$retro-text-muted};
+  --retro-text-inverse: #{$retro-text-inverse};
+
+  // Interaction states, one pair per hue
+  @each $name, $pair in $retro-states-light {
+    --retro-#{$name}-hover: #{list.nth($pair, 1)};
+    --retro-#{$name}-active: #{list.nth($pair, 2)};
+  }
+  --retro-primary-dark: #{$retro-primary-darker};
+  --retro-gray-100: #{$retro-gray-100};
+
   // Typography
-  --retro-font: #{$retro-font}; /* Fallback for IE11 */
-  --retro-font-size: #{$retro-font-size}; /* Fallback for IE11 */
-  --retro-font-size-sm: #{$retro-font-size-sm}; /* Fallback for IE11 */
-  --retro-font-size-lg: #{$retro-font-size-lg}; /* Fallback for IE11 */
-  --retro-line-height: #{$retro-line-height}; /* Fallback for IE11 */
-  --retro-letter-spacing: #{$retro-letter-spacing}; /* Fallback for IE11 */
+  --retro-font: #{$retro-font};
+  --retro-font-heading: #{$retro-font-heading};
+  --retro-font-mono: #{$retro-font-mono};
+  --retro-font-size: #{$retro-font-size};
+  --retro-font-size-xs: #{$retro-font-size-xs};
+  --retro-font-size-sm: #{$retro-font-size-sm};
+  --retro-font-size-lg: #{$retro-font-size-lg};
+  --retro-font-size-xl: #{$retro-font-size-xl};
+  --retro-font-size-2xl: #{$retro-font-size-2xl};
+  --retro-font-size-3xl: #{$retro-font-size-3xl};
+  --retro-line-height: #{$retro-line-height};
+  --retro-line-height-tight: #{$retro-line-height-tight};
+  --retro-font-weight-normal: #{$retro-font-weight-normal};
+  --retro-font-weight-bold: #{$retro-font-weight-bold};
+  --retro-measure: #{$retro-measure};
 
   // Spacing
   --retro-spacing-xxs: #{$retro-spacing-xxs}; /* Fallback for IE11 */
@@ -372,6 +627,10 @@ $retro-container-fluid: 100%;
   --retro-border-sunken: #{$retro-border-sunken}; /* Fallback for IE11 */
   --retro-box-shadow-subtle: #{$retro-box-shadow-subtle}; /* Fallback for IE11 */
   --retro-box-shadow-medium: #{$retro-box-shadow-medium}; /* Fallback for IE11 */
+  // Legacy alias: the highlight edge of a Win9x bevel.
+  --retro-shadow-light: #{$retro-border-light};
+  --retro-box-shadow-outset-button: #{$retro-border-raised};
+  --retro-box-shadow-inset: #{$retro-border-sunken};
   
   // Z-index
   --retro-z-index-base: #{$retro-z-index-base};
@@ -389,6 +648,7 @@ $retro-container-fluid: 100%;
   --retro-transition-duration-fast: #{$retro-transition-duration-fast};
   --retro-transition-timing-function: #{$retro-transition-timing-function};
   --retro-transition-timing-function-bounce: #{$retro-transition-timing-function-bounce};
+  --retro-transition-base: #{$retro-transition-duration} #{$retro-transition-timing-function};
   
   // Container Sizes
   --retro-container-sm: #{$retro-container-sm};
@@ -427,9 +687,27 @@ $retro-container-fluid: 100%;
   --retro-alert-text: #{$retro-black};
   --retro-badge-bg: #{$retro-body-bg-dark};
   --retro-badge-text: #{$retro-white};
+  --retro-toast-bg: #ffffcc;
+  --retro-toast-text: #{$retro-black};
+
+  // Syntax highlighting (.retro-code). Light values all clear 4.5:1 on #ffffff;
+  // the previous .comment/.number/.attribute values sat at 3.95-4.00.
+  --retro-syntax-keyword: #000080;
+  --retro-syntax-string: #006e00;
+  --retro-syntax-comment: #5f6b5f;
+  --retro-syntax-function: #800080;
+  --retro-syntax-number: #b00000;
+  --retro-syntax-operator: #0000cc;
+  --retro-syntax-variable: #800000;
+  --retro-syntax-class: #006464;
+  --retro-syntax-property: #0000cc;
+  --retro-syntax-tag: #800000;
+  --retro-syntax-attribute: #a03000;
 }
 
 [data-theme="dark"] {
+  color-scheme: dark;
+
   --retro-body-bg: #181818;
   --retro-bg: #232323;
   --retro-primary: #4a90e2;
@@ -513,6 +791,84 @@ $retro-container-fluid: 100%;
   --retro-alert-text: #f3f3f3;
   --retro-badge-bg: #444;
   --retro-badge-text: #fff;
+  --retro-toast-bg: #2f2f22;
+  --retro-toast-text: #f3f3f3;
+
+  // Accessible text ramp (>=4.75:1 on both #23242a card and #181818 body).
+  // Twelve of these match the fill above -- the dark palette is already light
+  // enough to read on a dark surface; the seven that differ did not.
+  --retro-primary-text: #4b91e2;
+  --retro-success-text: #2ecc71;
+  --retro-danger-text: #ea6456;
+  --retro-warning-text: #f39c12;
+  --retro-info-text: #3498db;
+  --retro-teal-text: #1abc9c;
+  --retro-tan-text: #d4b483;
+  --retro-pink-text: #eb59a0;
+  --retro-lime-text: #00b894;
+  --retro-cyan-text: #00cec9;
+  --retro-orange-text: #e67e22;
+  --retro-brown-text: #af875e;
+  --retro-violet-text: #af7bc5;
+  --retro-gray-text: #95a5a6;
+  --retro-maroon-text: #dc6e62;
+  --retro-gold-text: #f1c40f;
+  --retro-navy-text: #7292b1;   /* fill is 1.41:1 as text -- worst case in the framework */
+  --retro-olive-text: #859192;
+  --retro-silver-text: #bdc3c7;
+
+  // On-fill text. The dark palette is light, so nearly every fill wants BLACK
+  // on top -- the opposite of light mode, and the reason hardcoded `color:#fff`
+  // fails across the board here.
+  --retro-primary-fg: #000000;
+  --retro-success-fg: #000000;
+  --retro-danger-fg: #000000;
+  --retro-warning-fg: #000000;
+  --retro-info-fg: #000000;
+  --retro-teal-fg: #000000;
+  --retro-tan-fg: #000000;
+  --retro-pink-fg: #000000;
+  --retro-lime-fg: #000000;
+  --retro-cyan-fg: #000000;
+  --retro-orange-fg: #000000;
+  --retro-brown-fg: #000000;
+  --retro-violet-fg: #ffffff;
+  --retro-gray-fg: #000000;
+  --retro-maroon-fg: #ffffff;
+  --retro-gold-fg: #000000;
+  --retro-navy-fg: #ffffff;
+  --retro-olive-fg: #000000;
+  --retro-silver-fg: #000000;
+
+  // Semantic text colours
+  --retro-text: #f3f3f3;
+  --retro-text-muted: #a8a8a8;
+  --retro-text-inverse: #181818;
+
+  // Interaction states, one pair per hue
+  @each $name, $pair in $retro-states-dark {
+    --retro-#{$name}-hover: #{list.nth($pair, 1)};
+    --retro-#{$name}-active: #{list.nth($pair, 2)};
+  }
+  --retro-primary-dark: #{list.nth(map.get($retro-states-dark, primary), 2)};
+  --retro-gray-100: #2a2b31;
+
+  // Bevel highlight edge
+  --retro-shadow-light: #444;
+
+  // Syntax highlighting. The light values are catastrophic here -- .keyword
+  // (#000080) on the #232323 code surface measures 1.02:1, i.e. invisible.
+  --retro-syntax-keyword: #569cd6;
+  --retro-syntax-string: #ce9178;
+  --retro-syntax-comment: #7ba05b;
+  --retro-syntax-function: #dcdcaa;
+  --retro-syntax-number: #b5cea8;
+  --retro-syntax-operator: #9cdcfe;
+  --retro-syntax-variable: #d4d4d4;
+  --retro-syntax-class: #4ec9b0;
+  --retro-syntax-property: #9cdcfe;
+  --retro-syntax-tag: #569cd6;
+  --retro-syntax-attribute: #c8a2e0;
 }
 
 /* Layout Specific Variables */
@@ -534,11 +890,7 @@ $retro-card-footer-border: $retro-border-medium !default;
 $retro-card-image-border: $retro-border-medium !default;
 $retro-card-image-max-height: 140px !default;
 
-// Toast Variables
-$retro-toast-bg: #ffffcc !default;
-$retro-toast-text: $retro-black !default;
-$retro-toast-min-width: 220px !default;
-$retro-toast-max-width: 350px !default;
-$retro-toast-border-radius: 0 !default; // Overrides the 8px from earlier version to keep it retro
-$retro-toast-font-size: $retro-font-size-base !default;
-$retro-toast-font-weight: 500 !default; // Consider $retro-font-weight-normal or bold
+// Toast styling now lives entirely in components/_alert.scss, driven by
+// --retro-toast-bg / --retro-toast-text. The $retro-toast-* SCSS variables
+// that used to sit here were consumed only by the duplicate .retro-toast rule
+// in _base.scss, which has been removed.

@@ -17,16 +17,16 @@
   padding: 6px 10px;
   background: var(--retro-black);
   color: var(--retro-white);
-  font-size: 12px;
+  font-size: var(--retro-font-size-sm);
   border-radius: 4px;
   white-space: nowrap;
-  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 3px 3px 0 rgba(var(--retro-black-rgb), 0.2);
   z-index: 1050;
   pointer-events: none;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.2s, visibility 0.2s;
-  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-family: var(--retro-font);
   max-width: 200px;
   line-height: 1.4;
 

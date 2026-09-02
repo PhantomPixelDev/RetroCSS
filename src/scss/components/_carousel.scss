@@ -8,7 +8,7 @@
   background: var(--retro-bg);
   border: 2px solid var(--retro-border-dark);
   box-shadow: inset 2px 2px 0 var(--retro-border-light), inset -2px -2px 0 var(--retro-border-dark);
-  font-family: 'Courier New', Courier, monospace;
+  font-family: var(--retro-font-mono);
   margin-bottom: 1.5rem;
 }
 .retro-carousel-track {
@@ -46,12 +46,12 @@
   height: 32px;
   cursor: pointer;
   z-index: 2;
-  font-size: 1.5rem;
+  font-size: var(--retro-font-size-2xl);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 1;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: var(--retro-font-mono);
   padding: 0;
   
   /* Add pressed state */

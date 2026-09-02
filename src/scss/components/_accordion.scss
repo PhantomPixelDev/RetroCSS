@@ -52,7 +52,7 @@
   top: 50%;
   transform: translateY(-50%);
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: var(--retro-font-size-lg);
 }
 
 .retro-accordion-content {

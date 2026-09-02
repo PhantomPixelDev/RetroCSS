@@ -22,10 +22,10 @@
   border-radius: 2px;
   padding: 6px 16px;
   font-family: var(--retro-font);
-  font-size: 15px;
+  font-size: var(--retro-font-size-lg);
   color: var(--retro-dropdown-text);
   box-shadow: 1px 1px 0 var(--retro-border-light);
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
   min-width: 120px;
 
   &:hover {
@@ -39,7 +39,7 @@
 }
 .retro-dropdown-arrow {
   margin-left: 8px;
-  font-size: 14px;
+  font-size: var(--retro-font-size);
   transition: transform 0.2s ease;
 
   .open & {
@@ -59,7 +59,11 @@
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
-  transition: all 0.2s ease;
+  // Deliberately NOT `transition: all`. visibility is a discrete property, so
+  // `all` transitions it -- it flips at 50% of the duration, leaving the menu
+  // `hidden` for the first 100ms after .open is set. Anything focused in that
+  // window silently fails, which broke keyboard navigation into the menu.
+  transition: opacity 0.2s ease, transform 0.2s ease;
 
   .retro-dropdown.open > & {
     opacity: 1;
@@ -73,10 +77,14 @@
   color: var(--retro-dropdown-text);
   text-decoration: none;
   font-family: var(--retro-font);
-  font-size: 15px;
+  font-size: var(--retro-font-size-lg);
   background: var(--retro-dropdown-bg);
   border-bottom: 1px solid var(--retro-border-light);
-  transition: all 0.2s ease;
+  // Explicit property list, not `all`. visibility is discrete AND inherited:
+  // with `all`, an item inside a menu that flips visible transitions its own
+  // inherited visibility, staying hidden for half the duration. Anything
+  // focused in that window silently fails, which broke keyboard entry.
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
   white-space: nowrap;
   cursor: pointer;
 

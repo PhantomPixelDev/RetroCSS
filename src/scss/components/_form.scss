@@ -39,17 +39,20 @@
   border: 2px solid var(--retro-border-dark);
   box-shadow: inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
   color: var(--retro-input-text);
-  font-family: $retro-font;
-  font-size: $retro-font-size-base;
-  border-radius: 0;
+  font-family: var(--retro-font);
+  font-size: var(--retro-font-size);
+  border-radius: 0 !important;
   transition: none;
 
+  // Border and inset shadow stay on plain :focus -- clicking into a text field
+  // is a deliberate act and the field should show it. Only the outline is
+  // gated behind :focus-visible, via the mixin below.
   &:focus {
-    outline: 1px dotted var(--retro-input-text);
-    outline-offset: -4px;
     border-color: var(--retro-primary);
     box-shadow: inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
   }
+
+  @include retro-focus($offset: -4px);
 }
 
 .retro-textarea {
@@ -135,32 +138,14 @@
   }
 }
 
-.retro-input,
-.retro-textarea,
-.retro-select {
-  border-radius: 0 !important;
-  border: 2px solid var(--retro-border-dark);
-  box-shadow: inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
-  background: var(--retro-white);
-  color: var(--retro-black);
-  font-family: $retro-font;
-  font-size: $retro-font-size-base;
-  transition: none;
-
-  &:focus {
-    outline: 1px dotted var(--retro-black);
-    outline-offset: -4px;
-    border-color: var(--retro-primary);
-    box-shadow: inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
-  }
-}
-
+// NOTE: this block used to re-declare `border: 1px solid #b0b0b0` and
+// `border-radius: 4px` over the tokenized 2px bevel above, flattening every
+// input and freezing its border at a light-mode hex. Padding kept, border
+// dropped so the bevel and the theme both survive.
 .retro-input,
 .retro-select,
 textarea {
   padding: 0.5em 0.75em;
-  border-radius: 4px;
-  border: 1px solid #b0b0b0;
 }
 
 // Custom styles for additional input types
@@ -170,7 +155,7 @@ input[type="color"].retro-input {
   padding: 2px;
   border-radius: 4px;
   border: 2px solid var(--retro-border-dark);
-  background: var(--retro-white);
+  background: var(--retro-input-bg);
   box-shadow: 1px 1px 0 var(--retro-border-light);
 }
 
@@ -215,29 +200,31 @@ input[type="range"].retro-input::-ms-thumb {
 }
 input[type="range"].retro-input::-webkit-slider-runnable-track {
   height: 6px;
-  background: var(--retro-white);
+  background: var(--retro-input-bg);
   border-radius: 4px;
 }
 input[type="range"].retro-input::-ms-fill-lower,
 input[type="range"].retro-input::-ms-fill-upper {
-  background: var(--retro-white);
+  background: var(--retro-input-bg);
 }
 input[type="file"].retro-input {
   padding: 4px;
-  background: var(--retro-white);
+  background: var(--retro-input-bg);
   border: 2px solid var(--retro-border-dark);
   box-shadow: 1px 1px 0 var(--retro-border-light);
-  color: var(--retro-black);
-  font-family: $retro-font;
-  font-size: $retro-font-size-base;
+  color: var(--retro-input-text);
+  font-family: var(--retro-font);
+  font-size: var(--retro-font-size);
 }
 
 // Disabled input styles
 .retro-input:disabled,
 .retro-select:disabled,
 .retro-textarea:disabled {
-  background: #c0c0c0;
-  color: #888;
+  // Was #888 on #c0c0c0 -- 1.95:1, unreadable. Muted text on the light surface
+  // holds ~4.2:1 while still reading as clearly dimmer than enabled text.
+  background: var(--retro-light);
+  color: var(--retro-text-muted);
   border-color: var(--retro-border-medium);
   cursor: not-allowed;
   opacity: 1;
@@ -256,8 +243,8 @@ input[type="checkbox"].retro-input,
 input[type="radio"].retro-input {
   appearance: none;
   -webkit-appearance: none;
-  background: #fff;
-  border: 2px solid #808080;
+  background: var(--retro-input-bg);
+  border: 2px solid var(--retro-border-medium);
   width: 16px;
   height: 16px;
   margin: 0 8px 0 0;
@@ -279,7 +266,7 @@ input[type="checkbox"].retro-input:checked::after {
   top: 0px;
   width: 5px;
   height: 10px;
-  border: solid #000080;
+  border: solid var(--retro-primary);
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
   background: none;
@@ -296,21 +283,20 @@ input[type="radio"].retro-input:checked::after {
   top: 4px;
   width: 6px;
   height: 6px;
-  background: #000080;
+  background: var(--retro-primary);
   border-radius: 50%;
   display: block;
 }
 
-input[type="checkbox"].retro-input:focus,
-input[type="radio"].retro-input:focus {
-  outline: 2px solid #000080;
-  outline-offset: 2px;
+input[type="checkbox"].retro-input,
+input[type="radio"].retro-input {
+  @include retro-focus-ring;
 }
 
 .retro-label {
-  font-family: $retro-font;
-  font-size: 14px;
-  color: var(--retro-black);
+  font-family: var(--retro-font);
+  font-size: var(--retro-font-size);
+  color: var(--retro-text);
   display: inline-flex;
   align-items: center;
   cursor: pointer;

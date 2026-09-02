@@ -3,8 +3,8 @@
 .retro-breadcrumbs {
   display: flex;
   align-items: center;
-  font-family: $retro-font;
-  font-size: 15px;
+  font-family: var(--retro-font);
+  font-size: var(--retro-font-size-lg);
   background: var(--retro-card-bg);
   padding: 6px 12px;
   border-radius: 2px;
@@ -32,11 +32,11 @@
   }
 }
 .retro-breadcrumb-icon {
-  font-size: 16px;
+  font-size: var(--retro-font-size-lg);
   margin-right: 2px;
 }
 .retro-breadcrumb-sep {
-  color: $retro-border-dark;
+  color: var(--retro-text-muted);
   margin: 0 2px;
   font-weight: bold;
 }

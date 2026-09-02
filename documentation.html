@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RetroCSS Documentation</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss@1.0.7/dist/retro.min.css">
-  <link rel="stylesheet" href="dist/retro.min.css" onerror="this.remove()">
+  <link rel="stylesheet" href="dist/retro.min.css">
   <style>
     .doc-section {
       padding: var(--retro-spacing-md);
@@ -93,13 +92,13 @@
       margin-bottom: 0.5em;
     }
     .retro-sidebar .retro-list a {
-      color: var(--retro-primary);
+      color: var(--retro-primary-text);
       text-decoration: none;
       font-weight: 500;
       transition: color 0.2s;
     }
     .retro-sidebar .retro-list a:hover {
-      color: var(--retro-danger);
+      color: var(--retro-danger-text);
       text-decoration: underline;
     }
     .retro-card pre, .retro-card code, .doc-section pre, .doc-section code {
@@ -112,11 +111,20 @@
       overflow-x: auto;
       display: block;
     }
+    /* The rule above sets display:block for the shared pre/code styling, which
+       also caught inline <code> and pushed every one onto its own full-width
+       line. Inline code goes back to being inline here. */
     .retro-card code, .doc-section code {
+      display: inline;
       padding: 0.1em 0.3em;
       background: var(--retro-bg);
       border-radius: 3px;
       font-size: 0.95em;
+    }
+    .retro-card pre code, .doc-section pre code {
+      display: block;
+      padding: 0;
+      background: none;
     }
     .retro-theme-toggle {
       float: right;
@@ -142,7 +150,7 @@
       <button class="retro-nav-item retro-theme-toggle" data-retro-tooltip="Toggle dark/light mode">🌓 Toggle Theme</button>
     </nav>
   </div>
-  <hr class="retro-mt-5" style="border-color: var(--retro-border-medium);">
+  <hr class="retro-mt-5" style="border-color: var(--retro-text-muted);">
   <div class="retro-main-layout retro-gap-4">
     <div class="retro-sidebar">
       <div class="retro-sidebar-header">Docs Sections</div>
@@ -155,6 +163,7 @@
             <li><a href="#components">Components</a></li>
             <li><a href="#javascript-api">JavaScript API</a></li>
             <li><a href="#theming">Theming & Dark Mode</a></li>
+            <li><a href="#accessibility">Accessibility</a></li>
             <li><a href="#customization">Customization</a></li>
             <li><a href="#faq">FAQ</a></li>
           </ul>
@@ -252,24 +261,60 @@ import { RetroModal, RetroToast } from '@phantompixeldev/retrocss/components';</
       </div>
       <div class="doc-section" id="theming">
         <h2>🎨 Theming & Dark Mode</h2>
-        <p>Override SASS variables before importing <code>retro.scss</code> or override CSS custom properties at runtime for theming and dark mode.</p>
+        <p>Colours are organised in four tiers. Picking the right tier is the whole trick &mdash;
+          a value tuned as a background is usually unreadable as text.</p>
+        <table class="retro-table">
+          <thead><tr><th>Token</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td><code>--retro-primary</code></td><td><strong>Fill.</strong> Background of a filled badge, button or alert.</td></tr>
+            <tr><td><code>--retro-primary-fg</code></td><td><strong>On-fill.</strong> Text placed <em>on</em> that fill.</td></tr>
+            <tr><td><code>--retro-primary-text</code></td><td><strong>On-surface.</strong> That hue used as text on a page background.</td></tr>
+            <tr><td><code>--retro-primary-hover</code> / <code>-active</code></td><td><strong>States.</strong> Fill under <code>:hover</code> / <code>:active</code>.</td></tr>
+          </tbody>
+        </table>
+        <p>All four exist for every hue: <code>primary, success, danger, warning, info, teal, tan,
+          pink, lime, cyan, orange, brown, violet, gray, maroon, gold, navy, olive, silver</code>.
+          Every pair clears WCAG AA (4.5:1) in both themes &mdash; run <code>npm run check:a11y</code> to verify.</p>
+        <p>Surface and text tokens: <code>--retro-body-bg</code> (page), <code>--retro-bg</code> (raised surface),
+          <code>--retro-text</code>, <code>--retro-text-muted</code>, <code>--retro-text-inverse</code>.
+          <code>--retro-black</code> and <code>--retro-white</code> still work and still invert between
+          themes, but <code>--retro-text</code> / <code>--retro-text-inverse</code> say what they mean.</p>
+        <p>Override SASS variables before importing <code>retro.scss</code>, or override the custom
+          properties at runtime:</p>
         <pre><code>:root {
-  --retro-primary: #0000aa;
-  --retro-bg: #c0c0c0;
-  --retro-border-dark: #404040;
-  --retro-border-medium: #808080;
-  --retro-border-light: #ffffff;
+  --retro-primary: #0000aa;        /* fill */
+  --retro-primary-fg: #ffffff;     /* text on that fill */
+  --retro-primary-text: #000080;   /* that hue as text on a page background */
   --retro-font: 'MS Sans Serif', Arial, sans-serif;
 }
 [data-theme="dark"] {
   --retro-body-bg: #181818;
   --retro-bg: #232323;
   --retro-primary: #4a90e2;
-  --retro-black: #fff;
-  --retro-white: #232323;
-  /* ... */
+  --retro-primary-fg: #000000;     /* dark fills are light, so they want black on top */
+  --retro-primary-text: #4b91e2;
 }</code></pre>
+        <p>Typography is tokenised too: <code>--retro-font</code>, <code>--retro-font-heading</code>,
+          <code>--retro-font-mono</code>, a <code>--retro-font-size-xs</code> &hellip; <code>-3xl</code>
+          scale in <code>rem</code>, <code>--retro-line-height</code>, and <code>--retro-font-weight-*</code>.
+          Headings default to the body stack; for a modern heading font set
+          <code>--retro-font-heading: 'Segoe UI', Tahoma, sans-serif;</code>.</p>
         <p>Use the theme toggle button in the navbar to switch between light and dark mode.</p>
+      </div>
+      <div class="doc-section" id="accessibility">
+        <h2>♿ Accessibility</h2>
+        <p>Every text/surface pair clears WCAG AA (4.5:1) in both themes.
+          <code>npm run check:a11y</code> compiles the SCSS and asserts it, and also fails on any
+          <code>var(--retro-*)</code> that resolves to nothing.</p>
+        <ul class="retro-list">
+          <li><strong>Focus rings use <code>:focus-visible</code></strong> — keyboard users get a ring, mouse clicks do not. Text inputs still ring on click, because browsers treat their focus as visible.</li>
+          <li><strong>Modals are keyboard-safe</strong> — <code>role="dialog"</code>, <code>aria-modal</code>, a name taken from the header, focus moved in and trapped, the rest of the page <code>inert</code>, and focus returned to the trigger on close.</li>
+          <li><strong>Dropdowns are navigable</strong> — <code>aria-haspopup</code>/<code>aria-expanded</code>, <code>role="menu"</code>/<code>menuitem</code>, and Arrow / Home / End / Escape / Tab.</li>
+          <li><strong><code>prefers-reduced-motion</code> is honoured</strong> — animations and transitions are neutralised; looping text effects are switched off.</li>
+        </ul>
+        <p>Label icon-only controls with <code>.retro-sr-only</code>, and use
+          <code>.retro-sr-only-focusable</code> for a skip link:</p>
+        <pre><code>&lt;button class="retro-btn"&gt;💾&lt;span class="retro-sr-only"&gt;Save&lt;/span&gt;&lt;/button&gt;</code></pre>
       </div>
       <div class="doc-section" id="customization">
         <h2>⚙️ Customization</h2>
@@ -291,7 +336,6 @@ import { RetroModal, RetroToast } from '@phantompixeldev/retrocss/components';</
       </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss@1.0.7/dist/retro.min.js"></script>
-  <script src="dist/retro.js" onerror="this.remove()"></script>
+  <script src="dist/retro.js"></script>
 </body>
 </html>

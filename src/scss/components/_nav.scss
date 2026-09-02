@@ -26,7 +26,7 @@
   border: 2px solid var(--retro-border-dark);
   border-radius: 0;
   box-shadow: inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
-  font-family: $retro-font;
+  font-family: var(--retro-font);
   transition: none;
 }
 
@@ -38,7 +38,7 @@
   border-radius: 0;
   background: var(--retro-light);
   border-right: 1px solid var(--retro-border-medium);
-  font-family: $retro-font;
+  font-family: var(--retro-font);
   transition: none;
 
   &:hover {
@@ -54,11 +54,11 @@
     outline-offset: -2px;
   }
 
-  &:focus {
-    outline: 2px dashed var(--retro-primary);
-    outline-offset: 2px;
+  &:focus-visible {
     z-index: 2;
   }
+
+  @include retro-focus-ring($width: 2px);
 }
 
 // .retro-tab is an alias for .retro-nav-item, used for tabbed navigation
@@ -75,8 +75,8 @@
   min-width: 80px;
   height: 32px;
   box-shadow: none;
-  font-family: $retro-font;
-  font-size: 15px;
+  font-family: var(--retro-font);
+  font-size: var(--retro-font-size-lg);
   font-weight: normal;
   color: var(--retro-black);
   transition: background 0.2s, color 0.2s;
@@ -195,7 +195,7 @@
   border: 2px solid var(--retro-border-dark);
   border-radius: 0;
   box-shadow: inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
-  font-family: $retro-font;
+  font-family: var(--retro-font);
   
   .retro-nav-item {
     display: flex;
@@ -233,7 +233,7 @@
     }
     
     .retro-nav-icon {
-      font-size: 18px;
+      font-size: var(--retro-font-size-xl);
       margin-right: 4px;
     }
   }
