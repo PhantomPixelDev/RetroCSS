@@ -1,6 +1,6 @@
 {
   "name": "@phantompixeldev/retrocss",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "description": "A Retro-Inspired CSS Framework",
   "main": "dist/retro.css",
   "style": "dist/retro.css",
@@ -12,6 +12,7 @@
   "scripts": {
     "build": "npm run build:css && npm run build:js",
     "check:a11y": "node scripts/check-contrast.mjs",
+    "version": "node scripts/sync-version.mjs && git add index.html",
     "watch": "concurrently \"npm run watch:css\" \"npm run watch:js\"",
     "build:css": "sass src/scss/retro.scss:dist/retro.css",
     "build:css:min": "sass src/scss/retro.scss:dist/retro.min.css --style compressed",

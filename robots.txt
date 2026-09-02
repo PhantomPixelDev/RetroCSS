@@ -1,0 +1,11 @@
+# NOTE: this repository publishes to a GitHub *project* page, so this file is
+# served at /RetroCSS/robots.txt. Crawlers only honour robots.txt at the domain
+# root (phantompixeldev.github.io/robots.txt), which belongs to the account, not
+# to this repo. It is kept here so the intent travels with the project and takes
+# effect immediately if the site ever moves to its own domain. Submit the
+# sitemap through Search Console in the meantime.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://phantompixeldev.github.io/RetroCSS/sitemap.xml
