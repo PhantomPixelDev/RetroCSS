@@ -44,43 +44,57 @@
     </div>
     <div class="main-content retro-pb-8">
       <!-- Welcome User Card -->
-      <div class="retro-card retro-mb-4 retro-flex retro-items-center retro-gap-4 retro-bg-primary-lightest retro-shadow-lg">
-        <div class="retro-avatar retro-avatar-xl retro-bg-primary retro-shadow-md">👩‍💻</div>
-        <div class="retro-flex-1">
-          <h2 class="retro-heading-primary retro-mb-1">Welcome, <span class="retro-font-bold">Alice</span>!</h2>
-          <div class="retro-flex retro-gap-2 retro-mb-2">
-            <span class="retro-badge retro-badge-success">Pro User</span>
-            <span class="retro-badge retro-badge-info">Online</span>
-          </div>
-          <div class="retro-flex retro-gap-2">
-            <button class="retro-btn retro-btn-primary retro-btn-xs">🔔 Notifications</button>
-            <button class="retro-btn retro-btn-secondary retro-btn-xs">⚙️ Settings</button>
-            <button class="retro-btn retro-btn-danger retro-btn-xs">🚪 Logout</button>
+      <div class="retro-card retro-mb-4">
+        <div class="retro-card-header">👋 Welcome back</div>
+        <div class="retro-card-content retro-flex retro-items-center retro-gap-4 retro-flex-wrap">
+          <div class="retro-avatar retro-avatar-xl retro-bg-primary">👩‍💻</div>
+          <div class="retro-flex-1">
+            <h2 class="retro-mt-0 retro-mb-2">Alice Kowalski</h2>
+            <div class="retro-flex retro-gap-2 retro-mb-3 retro-flex-wrap">
+              <span class="retro-badge retro-badge-success">Pro User</span>
+              <span class="retro-badge retro-badge-info">Online</span>
+            </div>
+            <div class="retro-flex retro-gap-2 retro-flex-wrap">
+              <button class="retro-btn retro-btn-primary">🔔 Notifications</button>
+              <button class="retro-btn">⚙️ Settings</button>
+              <button class="retro-btn retro-btn-danger">🚪 Logout</button>
+            </div>
           </div>
         </div>
       </div>
-      <!-- Stats Cards -->
+
+      <!-- Stats Cards.
+           The tint goes on the content, not the card: .retro-card-content
+           paints its own background, so a tint on the card only showed as a
+           leftover strip below the content. -->
       <div class="retro-grid retro-grid-cols-1 md:retro-grid-cols-3 retro-gap-4 retro-mb-4" id="stats">
-        <div class="retro-card retro-bg-success-lightest retro-shadow-md">
+        <div class="retro-card">
           <div class="retro-card-header retro-flex retro-items-center retro-gap-2">👤 Users <span class="retro-badge retro-badge-success">+5%</span></div>
-          <div class="retro-card-content retro-text-center retro-text-2xl retro-font-bold">1,254</div>
+          <div class="retro-card-content retro-bg-success-subtle retro-text-center">
+            <div class="retro-text-3xl retro-font-bold">1,254</div>
+            <div class="retro-text-sm retro-text-muted">registered accounts</div>
+          </div>
         </div>
-        <div class="retro-card retro-bg-info-lightest retro-shadow-md">
+        <div class="retro-card">
           <div class="retro-card-header retro-flex retro-items-center retro-gap-2">💬 Messages <span class="retro-badge retro-badge-info">+12</span></div>
-          <div class="retro-card-content retro-text-center retro-text-2xl retro-font-bold">87</div>
+          <div class="retro-card-content retro-bg-info-subtle retro-text-center">
+            <div class="retro-text-3xl retro-font-bold">87</div>
+            <div class="retro-text-sm retro-text-muted">unread in your inbox</div>
+          </div>
         </div>
-        <div class="retro-card retro-bg-warning-lightest retro-shadow-md">
+        <div class="retro-card">
           <div class="retro-card-header retro-flex retro-items-center retro-gap-2">🚀 Uptime <span class="retro-badge retro-badge-warning">99.9%</span></div>
-          <div class="retro-card-content retro-text-center">
-            <div class="retro-progress retro-mb-2">
+          <div class="retro-card-content retro-bg-warning-subtle retro-text-center">
+            <div class="retro-text-3xl retro-font-bold">99.9%</div>
+            <div class="retro-progress retro-mt-2">
               <div class="retro-progress-bar retro-progress-bar-success retro-w-full"></div>
             </div>
-            <span class="retro-text-lg retro-font-bold">99.9%</span>
           </div>
         </div>
       </div>
+
       <!-- Quick Actions -->
-      <div class="retro-card retro-mb-4 retro-shadow-sm retro-bg-lightest">
+      <div class="retro-card retro-mb-4">
         <div class="retro-card-header">⚡ Quick Actions</div>
         <div class="retro-card-content retro-flex retro-gap-3 retro-flex-wrap">
           <button class="retro-btn retro-btn-primary">➕ Add User</button>
@@ -89,7 +103,7 @@
         </div>
       </div>
       <!-- Recent Activity -->
-      <div class="retro-card retro-mb-4 retro-shadow-sm" id="activity">
+      <div class="retro-card retro-mb-4" id="activity">
         <div class="retro-card-header">🕒 Recent Activity</div>
         <div class="retro-card-content">
           <ul class="retro-list retro-list-striped">

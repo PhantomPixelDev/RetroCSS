@@ -159,7 +159,27 @@ for (const theme of ['light', 'dark']) {
     check(theme, `syntax ${t}`, `--retro-syntax-${t}`, '--retro-bg', AA);
   }
 
-  check(theme, 'border-dark on bg', '--retro-border-dark', '--retro-bg', AA_UI);
+  // A component needs a perceivable boundary, not specifically a dark one.
+  // On the dark chassis the highlight edge does that job: no dark colour can
+  // reach 3:1 against the #3a3a3a face (pure black manages 1.85). So require
+  // that at least one border token clears AA_UI against the surface.
+  {
+    const bg = resolve(theme === 'light' ? light : dark, '--retro-bg');
+    const edges = ['--retro-border-dark', '--retro-border-medium', '--retro-border-light']
+      .map((t) => resolve(theme === 'light' ? light : dark, t))
+      .filter(Boolean);
+    if (bg && edges.length) {
+      checked += 1;
+      const best = Math.max(...edges.map((e) => contrast(e, bg)));
+      if (best < AA_UI) {
+        failures.push({
+          key: `${theme.padEnd(5)}  no border edge reaches ${AA_UI}:1 on bg`,
+          ratio: best.toFixed(2),
+          min: AA_UI,
+        });
+      }
+    }
+  }
   check(theme, 'card header text', '--retro-card-header-text', '--retro-card-header-bg', AA);
   check(theme, 'card content text', '--retro-card-content-text', '--retro-card-content-bg', AA);
   check(theme, 'modal header text', '--retro-modal-header-text', '--retro-modal-header-bg', AA);

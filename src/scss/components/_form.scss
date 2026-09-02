@@ -317,26 +317,33 @@ input[type="radio"].retro-input {
   width: 100%;
 }
 
-/// An input with a leading glyph. Wrap the input and the icon together.
+/// An input with a leading glyph.
+///
+/// A block, not a flex row: the glyph is positioned against the field, so any
+/// extra content in the wrapper (a hint, a validation checklist) flows below
+/// the input instead of being laid out beside it.
 .retro-input-icon {
   position: relative;
-  display: flex;
-  align-items: center;
+  display: block;
   width: 100%;
 
   > .retro-input,
-  > input {
+  > input,
+  > .retro-select,
+  > select {
     width: 100%;
     padding-left: 2.2em;
   }
 
-  // The glyph itself: any non-input first child.
-  > :first-child:not(input):not(.retro-input) {
+  // The glyph: any non-field first child.
+  > :first-child:not(input):not(select):not(.retro-input):not(.retro-select) {
     position: absolute;
+    top: 0.55em;
     left: 0.6em;
     pointer-events: none;
     color: var(--retro-text-muted);
     line-height: 1;
+    z-index: 1;
   }
 }
 

@@ -22,10 +22,12 @@
       pointer-events: none;
     }
     .pw-checklist {
-      font-size: 0.95em;
-      margin-top: 0.5em;
-      color: var(--retro-gray-text);
+      margin: 0 0 var(--retro-spacing-md);
+      padding-left: 1.2em;
+      font-size: var(--retro-font-size-sm);
+      color: var(--retro-text-muted);
     }
+    .pw-checklist li { margin: 0; }
     .pw-checklist .ok { color: var(--retro-success-text); }
     .pw-checklist .bad { color: var(--retro-danger-text); }
   </style>
@@ -70,13 +72,13 @@
             <div class="retro-form-group retro-input-icon">
               <span class="icon">🔑</span>
               <input type="password" id="password" class="retro-input" placeholder="Create a password" required oninput="checkStrength(this.value)">
-              <div class="pw-checklist" id="pwcheck">
-                <div id="pwlen" class="bad">• At least 8 characters</div>
-                <div id="pwup" class="bad">• One uppercase letter</div>
-                <div id="pwnum" class="bad">• One number</div>
-                <div id="pwsp" class="bad">• One special character</div>
-              </div>
             </div>
+            <ul class="pw-checklist" id="pwcheck">
+              <li id="pwlen" class="bad">At least 8 characters</li>
+              <li id="pwup" class="bad">One uppercase letter</li>
+              <li id="pwnum" class="bad">One number</li>
+              <li id="pwsp" class="bad">One special character</li>
+            </ul>
             <div class="retro-form-group retro-flex retro-gap-2 retro-items-center">
               <label><input type="checkbox" id="showpw" class="retro-checkbox" onchange="togglePassword()"> Show password</label>
             </div>

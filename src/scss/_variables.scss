@@ -713,22 +713,32 @@ $retro-container-fluid: 100%;
 }
 
 [data-theme="dark"] {
+  // Win9x grey chassis rather than a flat modern near-black: a dark desktop
+  // grey, a lighter window face, and bevels with real depth. The highlight
+  // edge carries the perceivable boundary here — no dark colour can reach
+  // 3:1 against a #3a3a3a face (pure black manages only 1.85), so the light
+  // edge does that work and the dark edges provide depth.
+  //
+  // The -text ramp below is retuned for the lighter ground: every value clears
+  // 4.75:1 against all four surfaces (#2b2b2b body, #3a3a3a face, #454545
+  // panel, #2e2e2e sunken). Lifting the chassis costs saturation — danger and
+  // maroon in particular land noticeably paler than on the old near-black.
   color-scheme: dark;
 
-  --retro-body-bg: #181818;
-  --retro-bg: #232323;
+  --retro-body-bg: #2b2b2b;
+  --retro-bg: #3a3a3a;
   --retro-primary: #4a90e2;
   --retro-primary-rgb: 74, 144, 226;
-  --retro-light: #222;
-  --retro-white: #232323;
+  --retro-light: #454545;
+  --retro-white: #3a3a3a;
   --retro-black: #fff;
-  --retro-white-rgb: 35, 35, 35;
+  --retro-white-rgb: 58, 58, 58;
   --retro-black-rgb: 255, 255, 255;
-  --retro-light-rgb: 34, 34, 34;
+  --retro-light-rgb: 69, 69, 69;
 
-  --retro-border-light: #444;
-  --retro-border-medium: #666;
-  --retro-border-dark: #888;
+  --retro-border-light: #909090;
+  --retro-border-medium: #262626;
+  --retro-border-dark: #151515;
 
   --retro-success: #2ecc71;
   --retro-success-rgb: 46, 204, 113;
@@ -771,58 +781,58 @@ $retro-container-fluid: 100%;
   --retro-box-shadow-medium: 0 2px 4px rgba(0, 0, 0, 0.4);
 
   // Card Variables
-  --retro-card-bg: #23242a;
+  --retro-card-bg: #3a3a3a;
   --retro-card-header-bg: #1a237e;
   --retro-card-header-text: #fff;
-  --retro-card-content-bg: #23242a;
-  --retro-card-content-text: #f3f3f3;
-  --retro-card-footer-bg: #23242a;
-  --retro-card-footer-text: #f3f3f3;
-  --retro-modal-bg: #23242a;
+  --retro-card-content-bg: #333333;
+  --retro-card-content-text: #f2f2f2;
+  --retro-card-footer-bg: #3a3a3a;
+  --retro-card-footer-text: #f2f2f2;
+  --retro-modal-bg: #3a3a3a;
   --retro-modal-header-bg: #1a237e;
   --retro-modal-header-text: #fff;
-  --retro-table-bg: #23242a;
-  --retro-table-header-bg: #23242a;
-  --retro-table-header-text: #f3f3f3;
-  --retro-table-striped-bg: #26282e;
-  --retro-input-bg: #23242a;
-  --retro-input-text: #f3f3f3;
-  --retro-sidebar-bg: #202124;
-  --retro-sidebar-text: #f3f3f3;
-  --retro-dropdown-bg: #23242a;
-  --retro-dropdown-text: #f3f3f3;
-  --retro-list-bg: #23242a;
-  --retro-list-text: #f3f3f3;
-  --retro-progress-bg: #23242a;
+  --retro-table-bg: #333333;
+  --retro-table-header-bg: #3a3a3a;
+  --retro-table-header-text: #f2f2f2;
+  --retro-table-striped-bg: #3f3f3f;
+  --retro-input-bg: #2e2e2e;
+  --retro-input-text: #f2f2f2;
+  --retro-sidebar-bg: #333333;
+  --retro-sidebar-text: #f2f2f2;
+  --retro-dropdown-bg: #3a3a3a;
+  --retro-dropdown-text: #f2f2f2;
+  --retro-list-bg: #333333;
+  --retro-list-text: #f2f2f2;
+  --retro-progress-bg: #2e2e2e;
   --retro-progress-bar-bg: #4a90e2;
-  --retro-alert-bg: #23242a;
-  --retro-alert-text: #f3f3f3;
-  --retro-badge-bg: #444;
+  --retro-alert-bg: #3a3a3a;
+  --retro-alert-text: #f2f2f2;
+  --retro-badge-bg: #4a4a4a;
   --retro-badge-text: #fff;
-  --retro-toast-bg: #2f2f22;
-  --retro-toast-text: #f3f3f3;
+  --retro-toast-bg: #3a3a3a;
+  --retro-toast-text: #f2f2f2;
 
   // Accessible text ramp (>=4.75:1 on both #23242a card and #181818 body).
   // Twelve of these match the fill above -- the dark palette is already light
   // enough to read on a dark surface; the seven that differ did not.
-  --retro-primary-text: #4b91e2;
-  --retro-success-text: #2ecc71;
-  --retro-danger-text: #ea6456;
-  --retro-warning-text: #f39c12;
-  --retro-info-text: #3498db;
-  --retro-teal-text: #1abc9c;
+  --retro-primary-text: #8fbaed;
+  --retro-success-text: #31d074;
+  --retro-danger-text: #f3a29a;
+  --retro-warning-text: #f4a72b;
+  --retro-info-text: #7ebee8;
+  --retro-teal-text: #1cceab;
   --retro-tan-text: #d4b483;
-  --retro-pink-text: #eb59a0;
-  --retro-lime-text: #00b894;
+  --retro-pink-text: #f39dc6;
+  --retro-lime-text: #00cfa6;
   --retro-cyan-text: #00cec9;
-  --retro-orange-text: #e67e22;
-  --retro-brown-text: #af875e;
-  --retro-violet-text: #af7bc5;
-  --retro-gray-text: #95a5a6;
-  --retro-maroon-text: #dc6e62;
+  --retro-orange-text: #eea869;
+  --retro-brown-text: #ccb399;
+  --retro-violet-text: #ccabda;
+  --retro-gray-text: #adb9ba;
+  --retro-maroon-text: #e9a69f;
   --retro-gold-text: #f1c40f;
-  --retro-navy-text: #7292b1;   /* fill is 1.41:1 as text -- worst case in the framework */
-  --retro-olive-text: #859192;
+  --retro-navy-text: #a5b9cd;   /* fill is 1.41:1 as text -- worst case in the framework */
+  --retro-olive-text: #b1b9b9;
   --retro-silver-text: #bdc3c7;
 
   // On-fill text. The dark palette is light, so nearly every fill wants BLACK
@@ -849,9 +859,9 @@ $retro-container-fluid: 100%;
   --retro-silver-fg: #000000;
 
   // Semantic text colours
-  --retro-text: #f3f3f3;
-  --retro-text-muted: #a8a8a8;
-  --retro-text-inverse: #181818;
+  --retro-text: #f2f2f2;
+  --retro-text-muted: #b8b8b8;
+  --retro-text-inverse: #1a1a1a;
 
   // Interaction states, one pair per hue
   @each $name, $pair in $retro-states-dark {
@@ -859,23 +869,23 @@ $retro-container-fluid: 100%;
     --retro-#{$name}-active: #{list.nth($pair, 2)};
   }
   --retro-primary-dark: #{list.nth(map.get($retro-states-dark, primary), 2)};
-  --retro-gray-100: #2a2b31;
+  --retro-gray-100: #454545;
 
   // Bevel highlight edge
-  --retro-shadow-light: #444;
+  --retro-shadow-light: #909090;
 
   // Syntax highlighting. The light values are catastrophic here -- .keyword
   // (#000080) on the #232323 code surface measures 1.02:1, i.e. invisible.
-  --retro-syntax-keyword: #569cd6;
-  --retro-syntax-string: #ce9178;
-  --retro-syntax-comment: #7ba05b;
+  --retro-syntax-keyword: #6ba9db;
+  --retro-syntax-string: #d0967e;
+  --retro-syntax-comment: #8cad6f;
   --retro-syntax-function: #dcdcaa;
   --retro-syntax-number: #b5cea8;
   --retro-syntax-operator: #9cdcfe;
   --retro-syntax-variable: #d4d4d4;
   --retro-syntax-class: #4ec9b0;
   --retro-syntax-property: #9cdcfe;
-  --retro-syntax-tag: #569cd6;
+  --retro-syntax-tag: #6ba9db;
   --retro-syntax-attribute: #c8a2e0;
 }
 

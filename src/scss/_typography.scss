@@ -376,7 +376,7 @@ h5, h6 { font-size: var(--retro-font-size); }
   &::before {
     content: '"';
     font-size: 2.5em;
-    color: var(--retro-primary);
+    color: var(--retro-primary-text);
     position: absolute;
     left: 0.3rem;
     top: -0.2rem;
@@ -387,7 +387,7 @@ h5, h6 { font-size: var(--retro-font-size); }
   &::after {
     content: '"';
     font-size: 2.5em;
-    color: var(--retro-primary);
+    color: var(--retro-primary-text);
     position: absolute;
     right: 0.3rem;
     bottom: -0.5rem;

@@ -66,12 +66,12 @@ hr {
 
 /* Links */
 a {
-  color: var(--retro-primary);
+  color: var(--retro-primary-text);
   text-decoration: none;
   transition: var(--retro-transition-base);
 
   &:hover {
-    color: var(--retro-primary);
+    color: var(--retro-primary-text);
     text-decoration: underline;
   }
 
