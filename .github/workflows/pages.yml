@@ -1,0 +1,59 @@
+name: Deploy demo site to Pages
+
+# The demo pages load dist/retro.min.css, and dist/ is gitignored — so serving
+# the branch directly (the previous "deploy from branch" setup) published the
+# HTML with no CSS or JS behind it. This builds first and deploys the result,
+# so the live site always matches src/ without committing build output.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let an in-flight deploy finish rather than cancelling it mid-publish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build CSS and JS
+        run: npm run build
+
+      - name: Verify the site has its assets
+        run: |
+          for f in dist/retro.min.css dist/retro.js index.html documentation.html; do
+            test -s "$f" || { echo "missing or empty: $f"; exit 1; }
+          done
+          echo "ok — dist/ built and demo pages present"
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
