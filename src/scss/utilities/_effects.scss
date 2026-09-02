@@ -11,7 +11,7 @@
 .retro-shadow-none { box-shadow: none !important; }
 .retro-shadow-sm { box-shadow: var(--retro-box-shadow-subtle) !important; }
 .retro-shadow-md { box-shadow: var(--retro-box-shadow-medium) !important; }
-.retro-shadow-lg { box-shadow: 3px 3px 0 var(--retro-border-medium), 0 4px 12px rgba(var(--retro-black-rgb), 0.18) !important; }
+.retro-shadow-lg { box-shadow: 3px 3px 0 var(--retro-border-medium), 0 4px 12px rgba(var(--retro-shadow-rgb), 0.18) !important; }
 
 /// The global reset pins border-radius to 0 to keep the era right. These opt
 /// back in where a design genuinely wants it.

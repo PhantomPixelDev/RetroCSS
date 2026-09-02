@@ -8,7 +8,7 @@
   padding: 2px 10px;
   font-size: var(--retro-font-size-sm);
   font-family: var(--retro-font-heading);
-  font-weight: var(--retro-font-weight-bold);
+  font-weight: var(--retro-font-weight-medium);
   letter-spacing: 0.3px;
   text-transform: uppercase;
   color: var(--retro-badge-text);
@@ -212,7 +212,7 @@ $retro-badge-variants: "primary", "success", "danger", "warning", "info", "secon
 
 .retro-badge-pixel {
   font-family: var(--retro-font-heading);
-  font-weight: var(--retro-font-weight-bold);
+  font-weight: var(--retro-font-weight-medium);
   image-rendering: pixelated;
   border: 2px solid var(--retro-border-dark);
   border-radius: 0;

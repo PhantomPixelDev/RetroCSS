@@ -20,10 +20,17 @@
 
 .retro-card {
   background: var(--retro-card-bg);
-  border-top: $retro-border-width-thick solid var(--retro-border-medium);
-  border-left: $retro-border-width-thick solid var(--retro-border-medium);
-  border-right: $retro-border-width-thick solid var(--retro-border-light);
-  border-bottom: $retro-border-width-thick solid var(--retro-border-light);
+  // Win9x raised panel: light on the top/left edges, dark on the bottom/right,
+  // with an inner second tone. This was inverted -- grey top-left and white
+  // bottom-right reads as sunken, which is why cards looked like flat boxes
+  // rather than raised windows.
+  border: $retro-border-width-thick solid;
+  border-color:
+    var(--retro-border-light) var(--retro-border-dark)
+    var(--retro-border-dark) var(--retro-border-light);
+  box-shadow:
+    inset 1px 1px 0 var(--retro-bg),
+    inset -1px -1px 0 var(--retro-border-medium);
   // border-radius: 0 !important; // Redundant, handled by global reset
   font-family: var(--retro-font);
   // box-shadow: none; // Redundant, handled by global reset

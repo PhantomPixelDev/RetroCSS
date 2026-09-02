@@ -33,6 +33,37 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Vertical rhythm.
+   The reset above zeroes every margin, and nothing restored it for flow
+   content — so every paragraph, list and table in the framework sat flush
+   against the next one. Only .retro-prose had spacing. These are the base
+   defaults; components that manage their own spacing still override them. */
+p,
+ul,
+ol,
+dl,
+blockquote,
+pre,
+figure,
+table {
+  margin-bottom: var(--retro-spacing-md);
+}
+
+// Nested lists belong to their parent item, not the block flow.
+li > ul,
+li > ol {
+  margin-bottom: 0;
+}
+
+/* A Win9x etched divider: one dark line with a light one under it. */
+hr {
+  height: 0;
+  margin: var(--retro-spacing-md) 0;
+  border: none;
+  border-top: 1px solid var(--retro-border-medium);
+  border-bottom: 1px solid var(--retro-border-light);
+}
+
 /* Links */
 a {
   color: var(--retro-primary);

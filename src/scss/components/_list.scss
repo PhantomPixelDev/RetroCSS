@@ -8,7 +8,7 @@
   background: var(--retro-list-bg);
   color: var(--retro-list-text);
   border-radius: 6px;
-  box-shadow: 0 1px 4px rgba(var(--retro-black-rgb), 0.04);
+  box-shadow: 0 1px 4px rgba(var(--retro-shadow-rgb), 0.04);
   
   // List items
   li {
@@ -53,7 +53,7 @@
   &-bordered {
     border: 1px solid var(--retro-border-medium);
     background: var(--retro-white);
-    box-shadow: 0 2px 8px rgba(var(--retro-black-rgb), 0.03);
+    box-shadow: 0 2px 8px rgba(var(--retro-shadow-rgb), 0.03);
     
     li {
       border-bottom: 1px solid var(--retro-border-light);
@@ -78,7 +78,7 @@
       &:hover, &:focus-visible {
         background-color: var(--retro-primary);
         color: var(--retro-white);
-        box-shadow: 0 2px 8px rgba(var(--retro-black-rgb), 0.06);
+        box-shadow: 0 2px 8px rgba(var(--retro-shadow-rgb), 0.06);
         outline: none;
       }
     }
@@ -120,7 +120,7 @@ ol.retro-list {
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 1px 2px rgba(var(--retro-black-rgb), 0.08);
+      box-shadow: 0 1px 2px rgba(var(--retro-shadow-rgb), 0.08);
       border: 2px solid var(--retro-border-dark);
     }
 

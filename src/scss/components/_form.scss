@@ -25,7 +25,7 @@
   &-group > label {
     display: block;
     margin-bottom: $retro-spacing-xs;
-    font-weight: bold;
+    font-weight: var(--retro-font-weight-normal);
     color: var(--retro-input-text);
   }
 }
@@ -363,12 +363,28 @@ input[type="radio"].retro-input {
   font-family: var(--retro-font);
   font-size: var(--retro-font-size);
 
-  option {
-    padding: var(--retro-spacing-xs) var(--retro-spacing-sm);
+  // Works as a <select multiple> and as a plain <ul>. Only `option` was styled
+  // before, so a <ul class="retro-listbox"> fell through to the base list rules
+  // and rendered with disc markers and no padding.
+  margin: 0;
+  list-style: none;
+  overflow-y: auto;
 
-    &:checked {
-      background: var(--retro-primary);
-      color: var(--retro-primary-fg);
-    }
+  option,
+  li {
+    display: block;
+    padding: var(--retro-spacing-xs) var(--retro-spacing-sm);
+    list-style: none;
+  }
+
+  li + li {
+    border-top: 1px solid var(--retro-border-light);
+  }
+
+  option:checked,
+  li[aria-selected="true"],
+  li.active {
+    background: var(--retro-primary);
+    color: var(--retro-primary-fg);
   }
 }

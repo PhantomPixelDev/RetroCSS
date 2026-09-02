@@ -74,7 +74,7 @@ h5, h6 { font-size: var(--retro-font-size); }
   margin-bottom: 0.5rem;
   color: var(--retro-text);
   border: 2.5px double var(--retro-border-dark);
-  box-shadow: inset 0 2px 8px rgba(var(--retro-white-rgb), 0.53), 0 2px 0 rgba(var(--retro-black-rgb), 0.27);
+  box-shadow: inset 0 2px 8px var(--retro-border-light), 0 2px 0 rgba(var(--retro-shadow-rgb), 0.27);
   background: var(--retro-bg);
   display: flex;
   align-items: center;
@@ -102,7 +102,7 @@ h5, h6 { font-size: var(--retro-font-size); }
       inset -1px -1px 0 var(--retro-shadow-light),
       inset 1px 1px 0 var(--retro-border-dark),
       2px 2px 0 rgba(var(--retro-black-rgb), 0.2);
-    text-shadow: 1px 1px 0 rgba(var(--retro-black-rgb), 0.3);
+    text-shadow: 1px 1px 0 rgba(var(--retro-shadow-rgb), 0.3);
     background: linear-gradient(to bottom, rgba(var(--retro-white-rgb), 0.1) 0%, rgba(var(--retro-white-rgb), 0) 100%);
     transform: translateZ(0);
     transition: transform 0.1s ease;
@@ -256,7 +256,7 @@ h5, h6 { font-size: var(--retro-font-size); }
   text-fill-color: transparent;
   animation: rainbow-hue 3s linear infinite;
   font-weight: bold;
-  text-shadow: 0 1px 1px var(--retro-bg), 0 2px 2px rgba(var(--retro-black-rgb), 0.13);
+  text-shadow: 0 1px 1px var(--retro-bg), 0 2px 2px rgba(var(--retro-shadow-rgb), 0.13);
 }
 @keyframes rainbow-hue {
   0% { filter: hue-rotate(0deg); }
@@ -280,7 +280,7 @@ h5, h6 { font-size: var(--retro-font-size); }
   color: transparent;
   text-fill-color: transparent;
   font-weight: var(--retro-font-weight-bold);
-  text-shadow: 0 1px 1px var(--retro-bg), 0 2px 2px rgba(var(--retro-black-rgb), 0.13);
+  text-shadow: 0 1px 1px var(--retro-bg), 0 2px 2px rgba(var(--retro-shadow-rgb), 0.13);
 }
 
 .retro-text-outline-strong {
@@ -332,7 +332,7 @@ h5, h6 { font-size: var(--retro-font-size); }
   text-fill-color: transparent;
   font-weight: bold;
   -webkit-text-stroke: 1px var(--retro-border-dark);
-  text-shadow: 0 1px 2px var(--retro-bg), 0 2px 4px rgba(var(--retro-black-rgb), 0.53);
+  text-shadow: 0 1px 2px var(--retro-bg), 0 2px 4px rgba(var(--retro-shadow-rgb), 0.53);
 }
 
 .retro-text-fire {

@@ -131,7 +131,7 @@
 }
 
 .retro-toast {
-  box-shadow: 2px 4px 16px rgba(var(--retro-black-rgb), 0.18), 1px 1px 0 var(--retro-border-light), 2px 2px 0 var(--retro-border-medium);
+  box-shadow: 2px 4px 16px rgba(var(--retro-shadow-rgb), 0.18), 1px 1px 0 var(--retro-border-light), 2px 2px 0 var(--retro-border-medium);
   border-width: 1.5px;
   margin-bottom: 0.75em;
   animation: retro-toast-fadein 0.3s;

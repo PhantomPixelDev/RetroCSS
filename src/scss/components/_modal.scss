@@ -57,8 +57,7 @@
     margin: 1.75rem auto;
     background: var(--retro-modal-bg);
     border: 2px solid var(--retro-border-dark);
-    box-shadow: 4px 4px 8px rgba(var(--retro-black-rgb), 0.5), inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
-    border-radius: 4px !important;
+    box-shadow: 4px 4px 8px rgba(var(--retro-shadow-rgb), 0.5), inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
     font-family: var(--retro-font-heading);
     transition: none;
     text-align: left;
@@ -75,14 +74,13 @@
     border-top: 2px solid var(--retro-border-light);
     border-bottom: 2px solid var(--retro-border-dark);
     border-left: 8px solid var(--retro-modal-header-bg);
-    border-radius: 4px 4px 0 0 !important;
     font-family: var(--retro-font-heading);
     font-size: var(--retro-font-size-lg);
     font-weight: bold;
     line-height: 1.5;
     user-select: none;
     letter-spacing: 0.5px;
-    text-shadow: 1px 1px 0 rgba(var(--retro-black-rgb), 0.8), 0 1px 0 rgba(var(--retro-black-rgb), 0.8);
+    text-shadow: 1px 1px 0 rgba(var(--retro-shadow-rgb), 0.8), 0 1px 0 rgba(var(--retro-shadow-rgb), 0.8);
   }
 
   // A modal with no header puts its close button in the body, which is already
@@ -111,7 +109,6 @@
     color: var(--retro-text);
     text-shadow: none;
     cursor: pointer;
-    border-radius: 2px;
     font-family: inherit;
     transition: background 0.1s, border 0.1s;
     &:hover {
@@ -207,5 +204,5 @@
   font-weight: bold;
   margin: 0;
   font-family: inherit;
-  text-shadow: 1px 1px 0 rgba(var(--retro-black-rgb), 0.8), 0 1px 0 rgba(var(--retro-black-rgb), 0.8);
+  text-shadow: 1px 1px 0 rgba(var(--retro-shadow-rgb), 0.8), 0 1px 0 rgba(var(--retro-shadow-rgb), 0.8);
 } 

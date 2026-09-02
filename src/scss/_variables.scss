@@ -310,6 +310,7 @@ $retro-line-height: 1.5;         // body copy
 $retro-line-height-tight: 1.25;  // headings, buttons, badges
 
 $retro-font-weight-normal: 400;
+$retro-font-weight-medium: 600;
 $retro-font-weight-bold: 700;
 
 // Prose measure -- caps line length on long-form text blocks.
@@ -606,6 +607,7 @@ $retro-container-fluid: 100%;
   --retro-line-height: #{$retro-line-height};
   --retro-line-height-tight: #{$retro-line-height-tight};
   --retro-font-weight-normal: #{$retro-font-weight-normal};
+  --retro-font-weight-medium: #{$retro-font-weight-medium};
   --retro-font-weight-bold: #{$retro-font-weight-bold};
   --retro-measure: #{$retro-measure};
 
@@ -632,6 +634,9 @@ $retro-container-fluid: 100%;
   // Legacy alias: the highlight edge of a Win9x bevel.
   --retro-shadow-light: #{$retro-border-light};
   --retro-box-shadow-outset-button: #{$retro-border-raised};
+  // Shadows must stay dark in both themes. --retro-black-rgb inverts to white
+  // in dark mode, which is correct for text but turns a drop shadow into a glow.
+  --retro-shadow-rgb: 0, 0, 0;
   --retro-box-shadow-inset: #{$retro-border-sunken};
   
   // Z-index
