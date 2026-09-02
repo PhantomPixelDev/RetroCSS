@@ -301,4 +301,74 @@ input[type="radio"].retro-input {
   align-items: center;
   cursor: pointer;
   margin-right: 16px;
-} 
+}
+
+/**
+ * @name Form Shell
+ * @group components
+ * @description
+ * Wrapper and a few pieces the demo pages referenced but the framework never
+ * shipped: .retro-form, .retro-input-icon, .retro-file-input, .retro-listbox.
+ */
+.retro-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--retro-spacing-md);
+  width: 100%;
+}
+
+/// An input with a leading glyph. Wrap the input and the icon together.
+.retro-input-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  > .retro-input,
+  > input {
+    width: 100%;
+    padding-left: 2.2em;
+  }
+
+  // The glyph itself: any non-input first child.
+  > :first-child:not(input):not(.retro-input) {
+    position: absolute;
+    left: 0.6em;
+    pointer-events: none;
+    color: var(--retro-text-muted);
+    line-height: 1;
+  }
+}
+
+.retro-file-input {
+  display: block;
+  width: 100%;
+  padding: var(--retro-spacing-xs);
+  background: var(--retro-input-bg);
+  color: var(--retro-input-text);
+  border: var(--retro-border-width-thick) solid var(--retro-border-dark);
+  box-shadow: var(--retro-border-sunken);
+  font-family: var(--retro-font);
+  font-size: var(--retro-font-size);
+}
+
+/// Multi-select list, styled to match .retro-select.
+.retro-listbox {
+  width: 100%;
+  padding: 0;
+  background: var(--retro-input-bg);
+  color: var(--retro-input-text);
+  border: var(--retro-border-width-thick) solid var(--retro-border-dark);
+  box-shadow: var(--retro-border-sunken);
+  font-family: var(--retro-font);
+  font-size: var(--retro-font-size);
+
+  option {
+    padding: var(--retro-spacing-xs) var(--retro-spacing-sm);
+
+    &:checked {
+      background: var(--retro-primary);
+      color: var(--retro-primary-fg);
+    }
+  }
+}

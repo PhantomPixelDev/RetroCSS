@@ -179,6 +179,30 @@ default; for a modern heading font, set
 > renamed or removed, but 2.0 visibly restyles a few things to meet WCAG AA —
 > each with a one-line override.
 
+## Utilities
+
+Atomic helpers driven by the same tokens as the components, all `retro-` prefixed.
+
+| Group | Classes |
+| --- | --- |
+| Layout | `retro-main-layout`, `retro-flex`, `retro-flex-col`, `retro-flex-1`, `retro-items-center`, `retro-justify-between` |
+| Spacing | `retro-m{t,b,l,r,x,y}-0…8`, `retro-p…`, `retro-gap-0…8`, `retro-mx-auto` (0, 4, 8, 12, 16, 24, 32, 40, 48px) |
+| Sizing | `retro-w-full`, `retro-max-w-full`, `retro-max-w-prose`, `retro-max-w-{sm…xxl}` |
+| Colour | `retro-bg-<hue>`, `retro-bg-<hue>-subtle`, `retro-text-<hue>`, `retro-border-<hue>` |
+| Effects | `retro-raised`, `retro-sunken`, `retro-shadow-{sm,md,lg}`, `retro-rounded` |
+
+`retro-bg-<hue>` sets the fill **and** its matching on-fill text colour, so a filled
+panel is legible in both themes from a single class:
+
+```html
+<div class="retro-bg-primary retro-p-4">Readable in both themes</div>
+<div class="retro-bg-success-subtle retro-p-4">Tinted callout</div>
+```
+
+Pick the tier by role: `retro-bg-*` to fill a surface, `retro-text-*` for text sitting
+on a page surface. Putting an on-surface colour inside a filled panel paints the hue
+on itself — that is the one combination to avoid.
+
 ## Accessibility
 
 Every text/surface pair the framework produces clears WCAG AA (4.5:1) in both

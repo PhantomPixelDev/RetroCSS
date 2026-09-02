@@ -110,6 +110,7 @@
           <a href="examples/blog-post.html" class="retro-dropdown-item">Blog Post</a>
           <a href="examples/login.html" class="retro-dropdown-item">Login</a>
           <a href="examples/register.html" class="retro-dropdown-item">Register</a>
+          <a href="examples/theme-matrix.html" class="retro-dropdown-item">Theme Matrix</a>
         </div>
       </div>
       <button class="retro-nav-item retro-theme-toggle" data-retro-tooltip="Toggle dark/light mode">🌓 Toggle Theme</button>
@@ -128,6 +129,7 @@
             <li><a href="#components">Components</a></li>
             <li><a href="#javascript-api">JavaScript API</a></li>
             <li><a href="#theming">Theming & Dark Mode</a></li>
+            <li><a href="#utilities">Utilities</a></li>
             <li><a href="#accessibility">Accessibility</a></li>
             <li><a href="#customization">Customization</a></li>
             <li><a href="#faq">FAQ</a></li>
@@ -144,13 +146,13 @@
           <p>Welcome to the <b>RetroCSS</b> documentation! Here you'll find everything you need to build beautiful, retro-inspired UIs with modern CSS and JavaScript.</p>
         </div>
       </div>
-      <div class="doc-section" id="getting-started">
+      <div class="doc-section retro-prose" id="getting-started">
         <h2>🚀 Getting Started</h2>
         <p>RetroCSS is a retro-inspired CSS framework for building classic Win9x style UIs with modern CSS and JS. It provides SASS variables, utility classes, components, and a JS API for interactive features.</p>
         <pre><code>&lt;link rel="stylesheet" href="dist/retro.min.css"&gt;
 &lt;script src="dist/retro.min.js"&gt;&lt;/script&gt;</code></pre>
       </div>
-      <div class="doc-section" id="installation">
+      <div class="doc-section retro-prose" id="installation">
         <h2>📦 Installation</h2>
         <h3>NPM</h3>
         <pre><code>npm install @phantompixeldev/retrocss</code></pre>
@@ -160,7 +162,7 @@
         <h3>Manual</h3>
         <pre><code>Download from GitHub and include the CSS and JS files in your project.</code></pre>
       </div>
-      <div class="doc-section" id="usage">
+      <div class="doc-section retro-prose" id="usage">
         <h2>🛠️ Usage</h2>
         <p>RetroCSS provides a wide range of components and utilities to build retro-styled interfaces. Here's a simple card example:</p>
         <pre><code>&lt;div class="retro-card"&gt;
@@ -172,7 +174,7 @@
 &lt;/div&gt;</code></pre>
         <p>See the <a href="#components">Components</a> section for more examples.</p>
       </div>
-      <div class="doc-section" id="components">
+      <div class="doc-section retro-prose" id="components">
         <h2>🧩 Components</h2>
         <ul>
           <li><b>Buttons:</b> <code>.retro-btn</code>, <code>.retro-btn-primary</code>, ...</li>
@@ -188,7 +190,7 @@
           <li>...and many more! See the <a href="index.html">demo</a> for all available classes.</li>
         </ul>
       </div>
-      <div class="doc-section" id="javascript-api">
+      <div class="doc-section retro-prose" id="javascript-api">
         <h2>📜 JavaScript API</h2>
         <p>RetroCSS includes a modular JavaScript API for interactive components. Each component is available through the global <code>RetroCSS</code> object.</p>
         <h3>Initialization</h3>
@@ -224,7 +226,7 @@ import RetroCSS from '@phantompixeldev/retrocss';
 // Or import specific components
 import { RetroModal, RetroToast } from '@phantompixeldev/retrocss/components';</code></pre>
       </div>
-      <div class="doc-section" id="theming">
+      <div class="doc-section retro-prose" id="theming">
         <h2>🎨 Theming & Dark Mode</h2>
         <p>Colours are organised in four tiers. Picking the right tier is the whole trick &mdash;
           a value tuned as a background is usually unreadable as text.</p>
@@ -266,7 +268,37 @@ import { RetroModal, RetroToast } from '@phantompixeldev/retrocss/components';</
           <code>--retro-font-heading: 'Segoe UI', Tahoma, sans-serif;</code>.</p>
         <p>Use the theme toggle button in the navbar to switch between light and dark mode.</p>
       </div>
-      <div class="doc-section" id="accessibility">
+      <div class="doc-section retro-prose" id="utilities">
+        <h2>🧰 Utilities</h2>
+        <p>Atomic helpers for layout and colour, all driven by the same tokens as the
+          components. Everything below is prefixed <code>retro-</code>.</p>
+        <h3>Layout</h3>
+        <pre><code>&lt;div class="retro-main-layout"&gt;          &lt;!-- sidebar + content shell --&gt;
+  &lt;aside class="retro-sidebar"&gt;…&lt;/aside&gt;
+  &lt;div class="main-content"&gt;…&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        <ul>
+          <li><strong>Flex:</strong> <code>retro-flex</code>, <code>retro-flex-col</code>, <code>retro-flex-wrap</code>, <code>retro-flex-1</code>, <code>retro-items-center</code>, <code>retro-justify-between</code>, <code>retro-self-center</code></li>
+          <li><strong>Spacing:</strong> <code>retro-m{t,b,l,r,x,y}-0…8</code> and <code>retro-p…</code>, plus <code>retro-gap-0…8</code> and <code>retro-mx-auto</code>. Scale: 0, 4, 8, 12, 16, 24, 32, 40, 48px.</li>
+          <li><strong>Sizing:</strong> <code>retro-w-full</code>, <code>retro-max-w-full</code>, <code>retro-max-w-prose</code>, <code>retro-max-w-{sm…xxl}</code></li>
+          <li><strong>Effects:</strong> <code>retro-raised</code>, <code>retro-sunken</code>, <code>retro-shadow-{sm,md,lg}</code>, <code>retro-rounded</code></li>
+        </ul>
+        <h3>Colour</h3>
+        <p><code>retro-bg-&lt;hue&gt;</code> sets the fill <em>and</em> its matching on-fill text colour,
+          so a filled panel is legible in both themes from one class — that pairing is what
+          <code>npm run check:a11y</code> verifies. <code>retro-bg-&lt;hue&gt;-subtle</code> is a low-alpha
+          tint of the same hue that keeps normal body text on top.</p>
+        <pre><code>&lt;div class="retro-bg-primary retro-p-4"&gt;Readable in both themes&lt;/div&gt;
+&lt;div class="retro-bg-success-subtle retro-p-4"&gt;Tinted callout&lt;/div&gt;
+&lt;span class="retro-text-danger"&gt;On-surface text&lt;/span&gt;</code></pre>
+        <p>Pick the tier by role: <code>retro-bg-*</code> for a fill,
+          <code>retro-text-*</code> for text on a page surface. Putting an on-surface colour
+          inside a filled panel is the one mistake to avoid — it paints the hue on itself.</p>
+        <h3>Prose</h3>
+        <p><code>retro-prose</code> caps running text at a comfortable measure while leaving
+          code blocks and tables full width.</p>
+      </div>
+      <div class="doc-section retro-prose" id="accessibility">
         <h2>♿ Accessibility</h2>
         <p>Every text/surface pair clears WCAG AA (4.5:1) in both themes.
           <code>npm run check:a11y</code> compiles the SCSS and asserts it, and also fails on any
@@ -281,7 +313,7 @@ import { RetroModal, RetroToast } from '@phantompixeldev/retrocss/components';</
           <code>.retro-sr-only-focusable</code> for a skip link:</p>
         <pre><code>&lt;button class="retro-btn"&gt;💾&lt;span class="retro-sr-only"&gt;Save&lt;/span&gt;&lt;/button&gt;</code></pre>
       </div>
-      <div class="doc-section" id="customization">
+      <div class="doc-section retro-prose" id="customization">
         <h2>⚙️ Customization</h2>
         <p>Override SASS variables or CSS custom properties to customize RetroCSS for your brand or project. See <code>src/scss/_variables.scss</code> for all available variables.</p>
         <pre><code>:root {
@@ -290,7 +322,7 @@ import { RetroModal, RetroToast } from '@phantompixeldev/retrocss/components';</
   --retro-font: 'Comic Sans MS', cursive, sans-serif;
 }</code></pre>
       </div>
-      <div class="doc-section" id="faq">
+      <div class="doc-section retro-prose" id="faq">
         <h2>❓ FAQ</h2>
         <h3>Is RetroCSS responsive?</h3>
         <p>Yes, RetroCSS is built with modern responsive design in mind while maintaining the nostalgic Win9x aesthetic.</p>

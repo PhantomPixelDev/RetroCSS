@@ -1,0 +1,95 @@
+/**
+ * @name Colour Utilities
+ * @group utilities
+ * @description
+ * Background, text and border helpers built on the 2.0 token tiers.
+ *
+ * `retro-bg-<hue>` sets the fill **and** its matching on-fill text colour, so a
+ * filled surface is legible in both themes without a second class. That pairing
+ * is what the accessibility gate verifies, so these are AA by construction.
+ *
+ * `retro-bg-<hue>-subtle` is a low-alpha tint of the same hue for callout
+ * panels; it keeps the normal body text colour on top.
+ * @example html
+ *   <div class="retro-bg-primary retro-p-4">Readable in both themes</div>
+ *   <div class="retro-bg-success-subtle retro-p-4">Tinted callout</div>
+ */
+// Quoted: teal, tan, lime, gray, maroon, gold, navy, olive and silver are CSS
+// colour keywords, and Sass would interpolate them as colour values.
+$retro-hues: "primary", "success", "danger", "warning", "info", "teal", "tan",
+             "pink", "lime", "cyan", "orange", "brown", "violet", "gray",
+             "maroon", "gold", "navy", "olive", "silver";
+
+@each $hue in $retro-hues {
+  .retro-bg-#{$hue} {
+    background-color: var(--retro-#{$hue}) !important;
+    color: var(--retro-#{$hue}-fg) !important;
+
+    // Headings set their own colour, which would otherwise beat inheritance
+    // and paint body-coloured text on a filled surface.
+    h1, h2, h3, h4, h5, h6 { color: inherit; }
+  }
+
+  // Tint. Alpha over the current surface, so it follows the theme.
+  .retro-bg-#{$hue}-subtle {
+    background-color: rgba(var(--retro-#{$hue}-rgb), 0.14) !important;
+    color: var(--retro-text) !important;
+  }
+
+  // 1.x used `-lightest`; kept as an alias so existing markup keeps working.
+  .retro-bg-#{$hue}-lightest {
+    background-color: rgba(var(--retro-#{$hue}-rgb), 0.14) !important;
+    color: var(--retro-text) !important;
+  }
+
+  .retro-border-#{$hue} { border-color: var(--retro-#{$hue}) !important; }
+}
+
+/* Surfaces */
+.retro-bg-body { background-color: var(--retro-body-bg) !important; color: var(--retro-text) !important; }
+.retro-body-bg { background-color: var(--retro-body-bg) !important; }
+.retro-bg-surface,
+.retro-bg-white { background-color: var(--retro-bg) !important; color: var(--retro-text) !important; }
+.retro-bg-light,
+.retro-bg-lightest { background-color: var(--retro-light) !important; color: var(--retro-text) !important; }
+// A deliberately dark panel in both themes — used for the neon badges, which
+// need a black ground to read as neon at all.
+.retro-bg-dark {
+  background-color: var(--retro-body-bg-dark) !important;
+  color: #fff !important;
+
+  h1, h2, h3, h4, h5, h6 { color: inherit; }
+}
+.retro-bg-transparent { background-color: transparent !important; }
+
+/* Text */
+.retro-text-body { color: var(--retro-text) !important; }
+.retro-text-muted,
+.retro-text-secondary { color: var(--retro-text-muted) !important; }
+/// Deprecated name from 1.x — this is "text on a filled surface", not literally white.
+.retro-text-white,
+.retro-text-inverse { color: var(--retro-text-inverse) !important; }
+
+.retro-text-left { text-align: left !important; }
+.retro-text-center { text-align: center !important; }
+.retro-text-right { text-align: right !important; }
+
+.retro-font-normal { font-weight: var(--retro-font-weight-normal) !important; }
+.retro-font-bold { font-weight: var(--retro-font-weight-bold) !important; }
+
+.retro-text-2xl { font-size: var(--retro-font-size-2xl) !important; }
+.retro-text-3xl { font-size: var(--retro-font-size-3xl) !important; }
+
+/* Borders */
+.retro-border { border: var(--retro-border-width) solid var(--retro-border-dark) !important; }
+.retro-border-2 { border: var(--retro-border-width-thick) solid var(--retro-border-dark) !important; }
+.retro-border-0 { border: 0 !important; }
+.retro-border-t-0 { border-top: 0 !important; }
+.retro-border-b-0 { border-bottom: 0 !important; }
+.retro-border-top { border-top: var(--retro-border-width-thick) solid var(--retro-border-dark) !important; }
+.retro-border-bottom { border-bottom: var(--retro-border-width-thick) solid var(--retro-border-dark) !important; }
+.retro-border-left { border-left: var(--retro-border-width-thick) solid var(--retro-border-dark) !important; }
+.retro-border-right { border-right: var(--retro-border-width-thick) solid var(--retro-border-dark) !important; }
+.retro-border-black { border-color: var(--retro-border-dark) !important; }
+.retro-border-gray { border-color: var(--retro-border-medium) !important; }
+.retro-border-light { border-color: var(--retro-border-light) !important; }

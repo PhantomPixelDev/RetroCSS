@@ -1,0 +1,25 @@
+/**
+ * @name Effect Utilities
+ * @group utilities
+ * @description
+ * Bevels and shadows. The Win9x look is built from hard-edged insets rather
+ * than soft blur, so `retro-raised` / `retro-sunken` are usually what you want;
+ * the `retro-shadow-*` scale is there for depth on floating surfaces.
+ */
+.retro-raised { box-shadow: var(--retro-border-raised) !important; }
+.retro-sunken { box-shadow: var(--retro-border-sunken) !important; }
+.retro-shadow-none { box-shadow: none !important; }
+.retro-shadow-sm { box-shadow: var(--retro-box-shadow-subtle) !important; }
+.retro-shadow-md { box-shadow: var(--retro-box-shadow-medium) !important; }
+.retro-shadow-lg { box-shadow: 3px 3px 0 var(--retro-border-medium), 0 4px 12px rgba(var(--retro-black-rgb), 0.18) !important; }
+
+/// The global reset pins border-radius to 0 to keep the era right. These opt
+/// back in where a design genuinely wants it.
+.retro-rounded { border-radius: 4px !important; }
+.retro-rounded-lg { border-radius: 8px !important; }
+.retro-rounded-full { border-radius: 9999px !important; }
+.retro-rounded-none { border-radius: 0 !important; }
+
+.retro-overflow-hidden { overflow: hidden !important; }
+.retro-overflow-auto { overflow: auto !important; }
+.retro-overflow-x-auto { overflow-x: auto !important; }

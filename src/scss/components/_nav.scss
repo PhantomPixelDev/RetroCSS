@@ -386,4 +386,31 @@
       z-index: 2;
     }
   }
-} 
+}
+
+/**
+ * @name Tab Panes
+ * @group components
+ * @description
+ * Panel bodies for the tabbed / underlined / button nav variants. Referenced by
+ * the demos but never defined, so tab content rendered unstyled and every pane
+ * stayed visible at once.
+ */
+.retro-tab-pane {
+  display: none;
+  padding: var(--retro-spacing-md);
+  background: var(--retro-bg);
+  color: var(--retro-text);
+  border: var(--retro-border-width-thick) solid var(--retro-border-dark);
+  border-top: none;
+
+  &.active { display: block; }
+}
+
+// The underlined and button navs have no boxed body, so their panes lose the frame.
+.retro-tab-pane-underlined,
+.retro-tab-pane-buttons {
+  border: none;
+  padding: var(--retro-spacing-md) 0;
+  background: transparent;
+}

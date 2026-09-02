@@ -495,8 +495,27 @@ h5, h6 { font-size: var(--retro-font-size); }
  *   <article class="retro-prose">...</article>
  */
 .retro-prose {
-  max-width: var(--retro-measure);
   line-height: var(--retro-line-height);
+
+  // The measure caps running text only. Putting it on the container squeezes
+  // code blocks and tables into needless horizontal scrollbars, so those are
+  // explicitly allowed the full width.
+  > p,
+  > ul,
+  > ol,
+  > dl,
+  > blockquote,
+  > h1, > h2, > h3, > h4, > h5, > h6 {
+    max-width: var(--retro-measure);
+  }
+
+  > pre,
+  > table,
+  > figure,
+  > .retro-code,
+  > .retro-table {
+    max-width: 100%;
+  }
 
   p, ul, ol, blockquote, pre { margin-bottom: var(--retro-spacing-md); }
   > :first-child { margin-top: 0; }

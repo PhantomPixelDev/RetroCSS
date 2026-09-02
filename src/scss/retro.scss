@@ -12,6 +12,7 @@
 
 /* Components */
 @use "components/button";
+@use "components/avatar";
 @use "components/card";
 @use "components/form";
 @use "components/checkbox-radio";
@@ -40,6 +41,10 @@
 /* Utilities */
 @use "utilities/accessibility";
 @use "utilities/spacing";
+@use "utilities/flex";
+@use "utilities/sizing";
+@use "utilities/colors";
+@use "utilities/effects";
 @use "utilities/grid";
 @use "utilities/container-queries";
 @use "utilities/layout";

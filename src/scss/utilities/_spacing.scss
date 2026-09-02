@@ -1,31 +1,55 @@
-// Spacing Utilities for RetroCSS
-// Margin
-$spacer: 4px;
+/**
+ * @name Spacing Utilities
+ * @group utilities
+ * @description
+ * Margin and padding on a numeric scale. Every page in this repo already used
+ * the `retro-` prefixed names (retro-mt-5, retro-p-4); only the unprefixed
+ * ones existed, so none of them did anything.
+ *
+ * Scale: 0=0  1=4px  2=8px  3=12px  4=16px  5=24px  6=32px  7=40px  8=48px
+ * @example html
+ *   <div class="retro-mt-4 retro-px-5">…</div>
+ */
+$retro-spacers: (0: 0, 1: 4px, 2: 8px, 3: 12px, 4: 16px, 5: 24px, 6: 32px, 7: 40px, 8: 48px);
 
+@each $key, $val in $retro-spacers {
+  .retro-m-#{$key}  { margin: $val !important; }
+  .retro-mt-#{$key} { margin-top: $val !important; }
+  .retro-mb-#{$key} { margin-bottom: $val !important; }
+  .retro-ml-#{$key} { margin-left: $val !important; }
+  .retro-mr-#{$key} { margin-right: $val !important; }
+  .retro-mx-#{$key} { margin-left: $val !important; margin-right: $val !important; }
+  .retro-my-#{$key} { margin-top: $val !important; margin-bottom: $val !important; }
+
+  .retro-p-#{$key}  { padding: $val !important; }
+  .retro-pt-#{$key} { padding-top: $val !important; }
+  .retro-pb-#{$key} { padding-bottom: $val !important; }
+  .retro-pl-#{$key} { padding-left: $val !important; }
+  .retro-pr-#{$key} { padding-right: $val !important; }
+  .retro-px-#{$key} { padding-left: $val !important; padding-right: $val !important; }
+  .retro-py-#{$key} { padding-top: $val !important; padding-bottom: $val !important; }
+
+  .retro-gap-#{$key} { gap: $val !important; }
+}
+
+.retro-mx-auto { margin-left: auto !important; margin-right: auto !important; }
+.retro-ml-auto { margin-left: auto !important; }
+.retro-mr-auto { margin-right: auto !important; }
+
+/// Legacy unprefixed spacing utilities from 1.x. Kept so existing markup does
+/// not break; prefer the retro- prefixed versions above.
+$spacer: 4px;
 @for $i from 0 through 5 {
   .mt-#{$i} { margin-top: $i * $spacer !important; }
   .mb-#{$i} { margin-bottom: $i * $spacer !important; }
   .ml-#{$i} { margin-left: $i * $spacer !important; }
   .mr-#{$i} { margin-right: $i * $spacer !important; }
-  .mx-#{$i} {
-    margin-left: $i * $spacer !important;
-    margin-right: $i * $spacer !important;
-  }
-  .my-#{$i} {
-    margin-top: $i * $spacer !important;
-    margin-bottom: $i * $spacer !important;
-  }
-  // Padding
+  .mx-#{$i} { margin-left: $i * $spacer !important; margin-right: $i * $spacer !important; }
+  .my-#{$i} { margin-top: $i * $spacer !important; margin-bottom: $i * $spacer !important; }
   .pt-#{$i} { padding-top: $i * $spacer !important; }
   .pb-#{$i} { padding-bottom: $i * $spacer !important; }
   .pl-#{$i} { padding-left: $i * $spacer !important; }
   .pr-#{$i} { padding-right: $i * $spacer !important; }
-  .px-#{$i} {
-    padding-left: $i * $spacer !important;
-    padding-right: $i * $spacer !important;
-  }
-  .py-#{$i} {
-    padding-top: $i * $spacer !important;
-    padding-bottom: $i * $spacer !important;
-  }
-} 
+  .px-#{$i} { padding-left: $i * $spacer !important; padding-right: $i * $spacer !important; }
+  .py-#{$i} { padding-top: $i * $spacer !important; padding-bottom: $i * $spacer !important; }
+}

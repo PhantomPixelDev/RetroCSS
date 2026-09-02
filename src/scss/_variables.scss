@@ -99,6 +99,7 @@ $retro-warning-rgb: 255, 165, 0;
 $retro-danger-rgb: 255, 0, 0;
 $retro-info-rgb: 0, 255, 255;
 $retro-teal-rgb: 0, 128, 128;
+$retro-tan-rgb: 210, 180, 140;
 $retro-pink-rgb: 255, 105, 180;
 $retro-lime-rgb: 50, 205, 50;
 $retro-cyan-rgb: 0, 229, 238;
@@ -507,6 +508,7 @@ $retro-container-fluid: 100%;
   --retro-teal: #{$retro-teal}; /* Fallback for IE11 */
   --retro-teal-rgb: #{$retro-teal-rgb}; /* Fallback for IE11 */
   --retro-tan: #{$retro-tan}; /* Fallback for IE11 */
+  --retro-tan-rgb: #{$retro-tan-rgb};
   --retro-pink: #{$retro-pink}; /* Fallback for IE11 */
   --retro-pink-rgb: #{$retro-pink-rgb}; /* Fallback for IE11 */
   --retro-lime: #{$retro-lime}; /* Fallback for IE11 */
@@ -734,6 +736,7 @@ $retro-container-fluid: 100%;
   --retro-teal: #1abc9c;
   --retro-teal-rgb: 26, 188, 156;
   --retro-tan: #d4b483;
+  --retro-tan-rgb: 212, 180, 131;
   --retro-pink: #e84393;
   --retro-pink-rgb: 232, 67, 147;
   --retro-lime: #00b894;

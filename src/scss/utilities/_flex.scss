@@ -1,0 +1,43 @@
+/**
+ * @name Flexbox & Display Utilities
+ * @group utilities
+ * @description
+ * The grid utilities shipped gap/justify/align, but the flex primitives the
+ * demo pages leaned on (retro-flex, retro-items-center, retro-flex-1) did not
+ * exist, so those layouts fell back to plain block flow.
+ */
+.retro-block { display: block !important; }
+.retro-inline-block { display: inline-block !important; }
+.retro-inline { display: inline !important; }
+.retro-hidden { display: none !important; }
+.retro-flex { display: flex !important; }
+.retro-inline-flex { display: inline-flex !important; }
+
+.retro-flex-row { flex-direction: row !important; }
+.retro-flex-col { flex-direction: column !important; }
+.retro-flex-wrap { flex-wrap: wrap !important; }
+.retro-flex-nowrap { flex-wrap: nowrap !important; }
+
+.retro-flex-1 { flex: 1 1 0% !important; min-width: 0; }
+.retro-flex-auto { flex: 1 1 auto !important; min-width: 0; }
+.retro-flex-none { flex: none !important; }
+.retro-grow { flex-grow: 1 !important; }
+.retro-shrink-0 { flex-shrink: 0 !important; }
+
+.retro-items-start { align-items: flex-start !important; }
+.retro-items-center { align-items: center !important; }
+.retro-items-end { align-items: flex-end !important; }
+.retro-items-stretch { align-items: stretch !important; }
+.retro-items-baseline { align-items: baseline !important; }
+
+.retro-justify-between { justify-content: space-between !important; }
+.retro-justify-around { justify-content: space-around !important; }
+.retro-justify-evenly { justify-content: space-evenly !important; }
+
+.retro-self-start { align-self: flex-start !important; }
+.retro-self-center { align-self: center !important; }
+.retro-self-end { align-self: flex-end !important; }
+
+.retro-relative { position: relative !important; }
+.retro-absolute { position: absolute !important; }
+.retro-sticky { position: sticky !important; }

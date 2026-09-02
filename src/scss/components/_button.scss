@@ -55,7 +55,10 @@ $retro-btn-shadow-hover-default: inset -0.5px -0.5px 0 var(--retro-border-light)
 // Filled variants. Previously $retro-* SCSS vars plus color.adjust(), both of
 // which compile to fixed hexes -- so a dark-theme button kept its light fill
 // and carried hardcoded white text over it.
-@each $n in "primary", "success", "danger", "warning" {
+//
+// .retro-btn-secondary rides the neutral gray; the demo pages referenced both
+// it and .retro-btn-info without either existing.
+@each $n in "primary", "success", "danger", "warning", "info", "teal" {
   .retro-btn-#{$n} {
     background: var(--retro-#{$n});
     color: var(--retro-#{$n}-fg);
@@ -95,4 +98,17 @@ $retro-btn-shadow-hover-default: inset -0.5px -0.5px 0 var(--retro-border-light)
 .retro-btn-xxl {
   font-size: var(--retro-font-size-2xl);
   padding: 10px 24px;
-} 
+}
+
+.retro-btn-secondary {
+  background: var(--retro-gray);
+  color: var(--retro-gray-fg);
+  &:hover { background: var(--retro-gray-hover); }
+  &:active { background: var(--retro-gray-active); }
+}
+
+/// Full-width button, for stacked forms.
+.retro-btn-block {
+  display: block;
+  width: 100%;
+}

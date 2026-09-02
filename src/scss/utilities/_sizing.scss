@@ -1,0 +1,24 @@
+/**
+ * @name Sizing Utilities
+ * @group utilities
+ */
+.retro-w-full { width: 100% !important; }
+.retro-w-auto { width: auto !important; }
+.retro-h-full { height: 100% !important; }
+.retro-max-w-full { max-width: 100% !important; }
+.retro-min-w-0 { min-width: 0 !important; }
+.retro-box-border { box-sizing: border-box !important; }
+
+/// Fixed maxima in 4px steps, for constraining a form or a card.
+@each $n in 40, 56, 72, 80, 96, 120 {
+  .retro-max-w-#{$n} { max-width: $n * 4px !important; }
+  .retro-min-w-#{$n} { min-width: $n * 4px !important; }
+}
+
+/// Prose measure, matching --retro-measure.
+.retro-max-w-prose { max-width: var(--retro-measure) !important; }
+
+/// Container maxima, from the container tokens.
+@each $name in sm, md, lg, xl, xxl {
+  .retro-max-w-#{$name} { max-width: var(--retro-container-#{$name}) !important; }
+}

@@ -65,4 +65,11 @@
 @keyframes retro-progress-blocks {
   0% { background-position: 0 0; }
   100% { background-position: 18px 0; }
-} 
+}
+
+// Colour variants for the filled bar. Only the default primary bar existed.
+@each $n in "success", "danger", "warning", "info" {
+  .retro-progress-bar-#{$n} {
+    background: var(--retro-#{$n});
+  }
+}
