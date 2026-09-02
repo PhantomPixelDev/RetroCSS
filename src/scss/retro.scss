@@ -42,22 +42,10 @@
 @use "utilities/spacing";
 @use "utilities/grid";
 @use "utilities/container-queries";
+@use "utilities/layout";
 
-.main-content {
-  margin-left: $retro-sidebar-width;
-}
-@media (max-width: 768px) {
-  .main-content {
-    margin-left: 0 !important;
-    width: 100vw !important;
-    max-width: 100vw !important;
-    box-sizing: border-box;
-  }
-  .retro-container, .demo-section {
-    width: 100vw !important;
-    max-width: 100vw !important;
-    box-sizing: border-box;
-    margin-left: 0 !important;
-    padding: 0 var(--retro-spacing-md) !important;
-  }
-}
+// NOTE: a `.main-content { margin-left: 220px }` rule and a mobile override
+// using `width: 100vw !important` used to sit here — app layout hardcoded into
+// the framework entry file. The margin assumed a fixed-position sidebar that
+// the component does not use, and 100vw includes the scrollbar, so it caused
+// horizontal overflow. Layout now lives in utilities/_layout.scss.

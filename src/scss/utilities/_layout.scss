@@ -1,0 +1,54 @@
+/**
+ * @name Layout
+ * @group utilities
+ * @description
+ * Page shell: an optional sidebar beside a main content column.
+ *
+ * This lived in index.html's inline <style> while every page in the repo used
+ * the class, so the five example pages — which carry no <style> block — got no
+ * layout at all. The sidebar and the content stacked as plain blocks, leaving a
+ * tall empty gap and pushing the content far below the fold.
+ *
+ * @example html
+ *   <div class="retro-main-layout">
+ *     <aside class="retro-sidebar">...</aside>
+ *     <div class="main-content">...</div>
+ *   </div>
+ */
+.retro-main-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--retro-spacing-md);
+  width: 100%;
+  max-width: var(--retro-container-xxl);
+  margin: 0 auto;
+  padding: 0 var(--retro-spacing-md);
+  box-sizing: border-box;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    // Start-aligned so a short sidebar does not stretch to the content height.
+    align-items: flex-start;
+  }
+
+  // The sidebar sets its own width (100% under 768px, 250px above).
+  > .retro-sidebar {
+    flex: 0 0 auto;
+  }
+
+  > .main-content,
+  > main {
+    flex: 1 1 auto;
+    // Flex items default to min-width: auto, which refuses to shrink below the
+    // widest child — that is what pushed wide cards and tables out of the
+    // container. min-width: 0 lets the column actually fit.
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+.main-content {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}

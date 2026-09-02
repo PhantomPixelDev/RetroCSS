@@ -20,59 +20,9 @@
     box-shadow: var(--retro-box-shadow-medium);
   }
 
-  /* Main layout with sidebar */
-  .retro-main-layout {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    min-height: 100vh;
-    max-width: var(--retro-container-xxl);
-    margin: 0 auto;
-  }
-
-  @media (min-width: 768px) {
-    .retro-main-layout {
-      flex-direction: row;
-      gap: 0; /* Remove any gap between sidebar and content */
-    }
-  }
-
-  .retro-main-layout .main-content {
-    flex: 1;
-    width: 100%;
-    overflow-x: hidden;
-    padding: var(--retro-spacing-md);
-    box-sizing: border-box;
-  }
-
-  .main-content {
-    margin-left: 0;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  @media (min-width: 768px) {
-    .main-content {
-      margin-left: 0; /* Remove the 220px fixed margin that was causing the gap */
-      padding-left: var(--retro-spacing-md);
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .main-content {
-      margin-left: 0 !important;
-      width: 100% !important;
-      max-width: 100% !important;
-      box-sizing: border-box;
-    }
-    .retro-container, .demo-section {
-      width: 100% !important;
-      max-width: 100% !important;
-      box-sizing: border-box;
-      margin-left: 0 !important;
-      padding: 0 var(--retro-spacing-md) !important;
-    }
-  }
+  /* .retro-main-layout and .main-content now ship in the framework
+     (src/scss/utilities/_layout.scss) — they used to be defined here, which is
+     why the example pages, which have no <style> block, had no layout at all. */
 
   /* Improved grid layout */
   .retro-main-grid {
