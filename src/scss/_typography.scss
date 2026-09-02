@@ -81,6 +81,46 @@ h5, h6 { font-size: var(--retro-font-size); }
   gap: 0.5em;
 }
 
+/**
+ * @name Display Heading Classes
+ * @group typography
+ * @description
+ * Heading *appearance* without the heading *semantics*. Use these when
+ * something should look like a heading but must not enter the document
+ * outline — a component gallery demonstrating h1 styling, or a caption that
+ * would otherwise create a second h1 on the page.
+ * @example html
+ *   <p class="retro-h1">Looks like an h1, is still a paragraph</p>
+ */
+.retro-h1, .retro-h2, .retro-h3, .retro-h4, .retro-h5, .retro-h6 {
+  display: block;
+  font-family: var(--retro-font-heading);
+  font-weight: var(--retro-font-weight-bold);
+  line-height: var(--retro-line-height-tight);
+  color: var(--retro-text);
+  margin: var(--retro-spacing-lg) 0 var(--retro-spacing-sm);
+}
+
+.retro-h1 {
+  background: var(--retro-bg);
+  border-left: 6px solid var(--retro-primary);
+  padding: 0.18em 0.7em 0.18em 0.6em;
+  font-size: var(--retro-font-size-3xl);
+  margin-top: var(--retro-spacing-xl);
+}
+
+.retro-h2 {
+  background: var(--retro-bg);
+  border-left: 4px solid var(--retro-primary);
+  padding: 0.15em 0.7em 0.15em 0.5em;
+  font-size: var(--retro-font-size-2xl);
+  margin-top: var(--retro-spacing-xl);
+}
+
+.retro-h3 { font-size: var(--retro-font-size-xl); }
+.retro-h4 { font-size: var(--retro-font-size-lg); }
+.retro-h5, .retro-h6 { font-size: var(--retro-font-size); }
+
 // Heading Variants
 .retro-heading {
   &-primary,

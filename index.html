@@ -4,7 +4,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RetroCSS Win9x Demo</title>
+
+  <title>RetroCSS — Windows 95/98 CSS Framework for Retro UIs</title>
+  <meta name="description" content="A Windows 95/98 style CSS framework: 26 retro UI components, themeable custom properties, an accessible dark mode and a keyboard-safe JavaScript API.">
+  <link rel="canonical" href="https://phantompixeldev.github.io/RetroCSS/">
+  <meta name="theme-color" content="#000080">
+
+  <!-- Win9x window glyph, inline so the site ships no extra binary asset. -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23c0c0c0' stroke='%23000'/%3E%3Crect x='1' y='1' width='14' height='4' fill='%23000080'/%3E%3Crect x='2' y='7' width='10' height='1' fill='%23808080'/%3E%3Crect x='2' y='10' width='10' height='1' fill='%23808080'/%3E%3C/svg%3E">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="RetroCSS">
+  <meta property="og:url" content="https://phantompixeldev.github.io/RetroCSS/">
+  <meta property="og:title" content="RetroCSS — Windows 95/98 CSS Framework for Retro UIs">
+  <meta property="og:description" content="A Windows 95/98 style CSS framework: 26 retro UI components, themeable CSS custom properties, an accessible dark mode and a keyboard-safe JavaScript API.">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="RetroCSS — Windows 95/98 CSS Framework for Retro UIs">
+  <meta name="twitter:description" content="A Windows 95/98 style CSS framework with 26 retro UI components, an accessible dark mode and a keyboard-safe JavaScript API.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://phantompixeldev.github.io/RetroCSS/#website",
+        "url": "https://phantompixeldev.github.io/RetroCSS/",
+        "name": "RetroCSS",
+        "description": "A Windows 95/98 style CSS framework for building retro user interfaces."
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "RetroCSS",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "url": "https://phantompixeldev.github.io/RetroCSS/",
+        "downloadUrl": "https://www.npmjs.com/package/@phantompixeldev/retrocss",
+        "codeRepository": "https://github.com/PhantomPixelDev/RetroCSS",
+        "license": "https://opensource.org/licenses/MIT",
+        "description": "A Windows 95/98 style CSS framework: 26 retro UI components, themeable CSS custom properties, an accessible dark mode that meets WCAG AA, and a keyboard-safe JavaScript API.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    ]
+  }
+  </script>
+
   <link rel="stylesheet" href="dist/retro.min.css">
   <style>
     
@@ -1480,21 +1525,21 @@
               <div class="retro-card">
                 <h3>Slide 1: Welcome to RetroCSS!</h3>
                 <p>This is the first slide of the carousel. It can contain any content you want.</p>
-                <img src="https://placehold.co/600x400" alt="Placeholder Image">
+                <img src="https://placehold.co/600x400" loading="lazy" width="600" height="400" alt="Win9x style card with a placeholder image">
               </div>
             </div>
             <div class="retro-carousel-slide">
               <div class="retro-card">
                 <h3>Slide 2: You can add any content here.</h3>
                 <p>This is the second slide of the carousel. It can contain any content you want.</p>
-                <img src="https://placehold.co/600x400" alt="Placeholder Image">
+                <img src="https://placehold.co/600x400" loading="lazy" width="600" height="400" alt="Retro card image example">
               </div>
             </div>
             <div class="retro-carousel-slide">
               <div class="retro-card">
                 <h3>Slide 3: Try the arrows or dots below.</h3>
                 <p>This is the third slide of the carousel. It can contain any content you want.</p>
-                <img src="https://placehold.co/600x400" alt="Placeholder Image">
+                <img src="https://placehold.co/600x400" loading="lazy" width="600" height="400" alt="Card image with a Win9x bevelled border">
               </div>
             </div>
           </div>
@@ -1533,7 +1578,7 @@
 
       <div class="demo-section retro-card" id="section-typography">
         <h2>🔤 Typography</h2>
-        <h1>Heading 1 (h1)</h1>
+        <p class="retro-h1">Heading 1 (h1)</p>
         <h2>Heading 2 (h2)</h2>
         <h3>Heading 3 (h3)</h3>
         <h4>Heading 4 (h4)</h4>

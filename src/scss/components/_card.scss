@@ -41,6 +41,17 @@
   &-header {
     background: var(--retro-card-header-bg);
     color: var(--retro-card-header-text);
+
+    // A heading used as the header's text must take the header's colour.
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+      font-size: inherit;
+      color: inherit;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
     border-bottom: $retro-border-width-thick solid var(--retro-card-header-bg);
     // border-radius: 0; // Redundant
     font-family: inherit;
