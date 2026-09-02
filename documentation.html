@@ -6,93 +6,44 @@
   <title>RetroCSS Documentation</title>
   <link rel="stylesheet" href="dist/retro.min.css">
   <style>
+    /* Page-specific only. Sidebar, layout and code styling all come from the
+       framework — this block used to re-declare .retro-sidebar, its header,
+       sections and lists, which fought the component and pinned a border to
+       --retro-border-dark (near-invisible on the dark chassis). */
     .doc-section {
       padding: var(--retro-spacing-md);
-      box-sizing: border-box;
-      box-shadow: var(--retro-box-shadow-subtle);
-      border-radius: var(--retro-border-radius);
       margin-bottom: var(--retro-spacing-lg);
-    }
-    .doc-section h2 {
-      margin-top: 0;
-      margin-bottom: var(--retro-spacing-md);
-      box-shadow: var(--retro-box-shadow-medium);
-    }
-    /* .retro-main-layout and .main-content now ship in the framework
-       (src/scss/utilities/_layout.scss). */
-    @media (max-width: 768px) {
-      .retro-container, .doc-section {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box;
-        margin-left: 0 !important;
-        padding: 0 var(--retro-spacing-md) !important;
-      }
+      box-sizing: border-box;
     }
 
-    .retro-sidebar {
-      min-width: 220px;
-      max-width: 260px;
-      background: var(--retro-sidebar-bg);
-      border-right: 2px solid var(--retro-border-dark);
-      padding: var(--retro-spacing-md) 0;
-      height: 100%;
+    .doc-section h2 {
+      margin-top: 0;
     }
-    .retro-sidebar-header {
-      font-weight: bold;
-      font-size: 1.1em;
-      margin-bottom: var(--retro-spacing-md);
-      padding-left: var(--retro-spacing-md);
-    }
-    .retro-sidebar-section {
-      padding-left: var(--retro-spacing-md);
-      padding-right: var(--retro-spacing-md);
-    }
-    .retro-sidebar .retro-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .retro-sidebar .retro-list li {
-      margin-bottom: 0.5em;
-    }
-    .retro-sidebar .retro-list a {
-      color: var(--retro-primary-text);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-    .retro-sidebar .retro-list a:hover {
-      color: var(--retro-danger-text);
-      text-decoration: underline;
-    }
-    .retro-card pre, .retro-card code, .doc-section pre, .doc-section code {
-      background: var(--retro-list-bg);
-      color: var(--retro-list-text);
-      border-radius: 4px;
-      padding: 0.5em 1em;
-      font-size: 1em;
-      font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+
+    /* Code blocks in the docs: the framework mono token, no ad-hoc stack. */
+    .doc-section pre {
+      background: var(--retro-input-bg);
+      color: var(--retro-input-text);
+      border: var(--retro-border-width-thick) solid var(--retro-border-dark);
+      box-shadow: var(--retro-border-sunken);
+      padding: var(--retro-spacing-md);
       overflow-x: auto;
-      display: block;
     }
-    /* The rule above sets display:block for the shared pre/code styling, which
-       also caught inline <code> and pushed every one onto its own full-width
-       line. Inline code goes back to being inline here. */
-    .retro-card code, .doc-section code {
-      display: inline;
-      padding: 0.1em 0.3em;
-      background: var(--retro-bg);
-      border-radius: 3px;
-      font-size: 0.95em;
+
+    .doc-section :not(pre) > code {
+      padding: 0.1em 0.35em;
+      background: var(--retro-light);
+      color: var(--retro-text);
+      font-size: var(--retro-font-size-sm);
     }
-    .retro-card pre code, .doc-section pre code {
-      display: block;
-      padding: 0;
-      background: none;
-    }
-    .retro-theme-toggle {
-      float: right;
+
+    @media (max-width: 768px) {
+      .retro-container, .doc-section {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 0 var(--retro-spacing-md);
+      }
     }
   </style>
 </head>
@@ -120,19 +71,19 @@
   <div class="retro-main-layout retro-gap-4">
     <div class="retro-sidebar">
       <div class="retro-sidebar-header">Docs Sections</div>
-      <nav aria-label="Documentation navigation">
+      <nav aria-label="Documentation navigation" class="retro-nav-vertical retro-w-full">
         <div class="retro-sidebar-section">
-          <ul class="retro-list">
-            <li><a href="#getting-started">Getting Started</a></li>
-            <li><a href="#installation">Installation</a></li>
-            <li><a href="#usage">Usage</a></li>
-            <li><a href="#components">Components</a></li>
-            <li><a href="#javascript-api">JavaScript API</a></li>
-            <li><a href="#theming">Theming & Dark Mode</a></li>
-            <li><a href="#utilities">Utilities</a></li>
-            <li><a href="#accessibility">Accessibility</a></li>
-            <li><a href="#customization">Customization</a></li>
-            <li><a href="#faq">FAQ</a></li>
+          <ul>
+            <li><a class="retro-nav-item" href="#getting-started">Getting Started</a></li>
+            <li><a class="retro-nav-item" href="#installation">Installation</a></li>
+            <li><a class="retro-nav-item" href="#usage">Usage</a></li>
+            <li><a class="retro-nav-item" href="#components">Components</a></li>
+            <li><a class="retro-nav-item" href="#javascript-api">JavaScript API</a></li>
+            <li><a class="retro-nav-item" href="#theming">Theming & Dark Mode</a></li>
+            <li><a class="retro-nav-item" href="#utilities">Utilities</a></li>
+            <li><a class="retro-nav-item" href="#accessibility">Accessibility</a></li>
+            <li><a class="retro-nav-item" href="#customization">Customization</a></li>
+            <li><a class="retro-nav-item" href="#faq">FAQ</a></li>
           </ul>
         </div>
       </nav>
@@ -303,7 +254,7 @@ import { RetroModal, RetroToast } from '@phantompixeldev/retrocss/components';</
         <p>Every text/surface pair clears WCAG AA (4.5:1) in both themes.
           <code>npm run check:a11y</code> compiles the SCSS and asserts it, and also fails on any
           <code>var(--retro-*)</code> that resolves to nothing.</p>
-        <ul class="retro-list">
+        <ul>
           <li><strong>Focus rings use <code>:focus-visible</code></strong> — keyboard users get a ring, mouse clicks do not. Text inputs still ring on click, because browsers treat their focus as visible.</li>
           <li><strong>Modals are keyboard-safe</strong> — <code>role="dialog"</code>, <code>aria-modal</code>, a name taken from the header, focus moved in and trapped, the rest of the page <code>inert</code>, and focus returned to the trigger on close.</li>
           <li><strong>Dropdowns are navigable</strong> — <code>aria-haspopup</code>/<code>aria-expanded</code>, <code>role="menu"</code>/<code>menuitem</code>, and Arrow / Home / End / Escape / Tab.</li>
