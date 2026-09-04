@@ -8,9 +8,11 @@
   padding: 2px 10px;
   font-size: var(--retro-font-size-sm);
   font-family: var(--retro-font-heading);
-  font-weight: var(--retro-font-weight-medium);
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
+  // Badges are labels, not headlines. They were bold AND uppercase AND
+  // letter-spaced — three kinds of emphasis stacked on the smallest text on
+  // the page, and there are dozens of them per screen, so nothing they sat
+  // beside could stand out. Sentence case at normal weight reads as a label.
+  font-weight: var(--retro-font-weight-normal);
   color: var(--retro-badge-text);
   background: var(--retro-badge-bg);
   border: 1px solid var(--retro-border-dark);
