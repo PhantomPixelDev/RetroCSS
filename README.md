@@ -175,9 +175,10 @@ Typography is tokenised the same way: `--retro-font`, `--retro-font-heading`,
 default; for a modern heading font, set
 `--retro-font-heading: 'Segoe UI', Tahoma, sans-serif;`.
 
-> **Upgrading from 1.x?** See [MIGRATION.md](MIGRATION.md). No classes were
-> renamed or removed, but 2.0 visibly restyles a few things to meet WCAG AA —
-> each with a one-line override.
+> **Upgrading?** See [MIGRATION.md](MIGRATION.md). No class has ever been
+> renamed, but 3.0 raises the body text to 16px and drops the `!important` from
+> the `border-radius` reset, both of which are visible on every page — each with
+> a one-line override. 2.0 restyled a few things to meet WCAG AA.
 
 ## Utilities
 
