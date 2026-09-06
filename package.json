@@ -24,7 +24,8 @@
     "clean": "rimraf \"dist\"",
     "postbuild": "npm run build:min",
     "migrate-scss": "npx sass-migrator module --migrate-deps src/scss/retro.scss",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "check:pages": "node scripts/check-pages.mjs"
   },
   "keywords": [
     "css",
@@ -46,6 +47,7 @@
     "esbuild": "^0.25.0",
     "mkdirp": "^1.0.4",
     "onchange": "^7.1.0",
+    "playwright": "^1.63.0",
     "rimraf": "^5.0.10",
     "sass": "^1.69.5",
     "sassdoc": "^2.7.4",

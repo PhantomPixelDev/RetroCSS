@@ -75,7 +75,7 @@
     background-color: var(--retro-table-striped-bg);
     &:hover {
       background-color: var(--retro-primary);
-      color: var(--retro-white);
+      color: var(--retro-primary-fg);
     }
   }
 
@@ -160,4 +160,32 @@
 // }
 // }  // End of removed .retro-table-responsive
 
+/**
+ * @name Responsive Table Wrapper
+ * @group components
+ * @description
+ * Horizontal scroll container for a wide table. `table-responsive.js` wraps
+ * every `.retro-table` in this class — but the styles had been commented out,
+ * so the wrapper was inert and wide tables simply overflowed the page on
+ * narrow viewports.
+ */
+.retro-table-responsive {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  // Stop the table's max-content width propagating to a flex or grid parent.
+  // Grid and flex items default to min-width: auto, so without this the
+  // intrinsic width of a wide table blows the whole column out -- it produced
+  // a 1,000,000px card on the theme-matrix page.
+  min-width: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 
+  > .retro-table {
+    // Deliberately no `min-width: max-content` here. Combined with the
+    // `width: 100%` these tables carry, it forms a circular size resolution
+    // that browsers settle at ~1,000,000px, blowing out any flex or grid
+    // ancestor. overflow-x on the wrapper is enough on its own.
+    margin-bottom: 0;
+  }
+}

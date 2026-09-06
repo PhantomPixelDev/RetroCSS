@@ -15,6 +15,8 @@
 .retro-tooltip {
   position: absolute;
   padding: 6px 10px;
+  // Both of these invert together (black -> #fff, white -> #3a3a3a), so the
+  // default tooltip flips to a light chip on dark text and stays legible.
   background: var(--retro-black);
   color: var(--retro-white);
   font-size: var(--retro-font-size-sm);
@@ -23,9 +25,11 @@
   box-shadow: 3px 3px 0 rgba(var(--retro-shadow-rgb), 0.2);
   z-index: 1050;
   pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s, visibility 0.2s;
+  // `visibility: hidden` leaves the box in the scrollable overflow region, so
+  // a .retro-tooltip-right on a trigger near the viewport edge widened the
+  // whole page while invisible. display:none is what actually removes it.
+  // The fade goes with it; instant tooltips are period-correct anyway.
+  display: none;
   font-family: var(--retro-font);
   max-width: 200px;
   line-height: 1.4;
@@ -39,8 +43,7 @@
 
   /* Active state */
   &.show {
-    opacity: 1;
-    visibility: visible;
+    display: block;
   }
 
   /* Positions */
@@ -115,7 +118,7 @@
 
   &.retro-tooltip-primary {
     background: var(--retro-primary);
-    color: var(--retro-white);
+    color: var(--retro-primary-fg);
 
     &.retro-tooltip-top::after { border-top-color: var(--retro-primary); }
     &.retro-tooltip-bottom::after { border-bottom-color: var(--retro-primary); }
@@ -125,7 +128,7 @@
 
   &.retro-tooltip-success {
     background: var(--retro-success);
-    color: var(--retro-white);
+    color: var(--retro-success-fg);
 
     &.retro-tooltip-top::after { border-top-color: var(--retro-success); }
     &.retro-tooltip-bottom::after { border-bottom-color: var(--retro-success); }
@@ -145,7 +148,7 @@
 
   &.retro-tooltip-danger {
     background: var(--retro-danger);
-    color: var(--retro-white);
+    color: var(--retro-danger-fg);
 
     &.retro-tooltip-top::after { border-top-color: var(--retro-danger); }
     &.retro-tooltip-bottom::after { border-bottom-color: var(--retro-danger); }

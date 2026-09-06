@@ -77,7 +77,7 @@
       cursor: pointer;
       &:hover, &:focus-visible {
         background-color: var(--retro-primary);
-        color: var(--retro-white);
+        color: var(--retro-primary-fg);
         box-shadow: 0 2px 8px rgba(var(--retro-shadow-rgb), 0.06);
         outline: none;
       }
@@ -112,7 +112,7 @@ ol.retro-list {
       width: 2em;
       height: 2em;
       background: var(--retro-primary);
-      color: var(--retro-white);
+      color: var(--retro-primary-fg);
       font-weight: bold;
       font-family: inherit;
       font-size: 1.1em;
@@ -142,7 +142,7 @@ ol.retro-list {
           height: 1.5em;
           font-size: 0.95em;
           background: var(--retro-success); // Use a different color for nested
-          color: var(--retro-white);
+          color: var(--retro-success-fg);
           border-radius: 4px;
           border: 2px solid var(--retro-border-medium);
           top: 0.1em;

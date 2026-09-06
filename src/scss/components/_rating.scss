@@ -8,7 +8,11 @@
 }
 .retro-rating-star {
   font-size: var(--retro-font-size-3xl);
-  color: var(--retro-border-dark);
+  // An unfilled star still has to be readable -- it is what communicates the
+  // scale. This was --retro-border-dark, a *border* token, which lands at
+  // #151515 on the #3a3a3a dark card: 1.6:1. --retro-text-muted is the token
+  // that carries a contrast guarantee against the surface.
+  color: var(--retro-text-muted);
   cursor: pointer;
   transition: color 0.2s, text-shadow 0.2s, border 0.2s;
   text-shadow: 1px 1px 0 var(--retro-border-light);

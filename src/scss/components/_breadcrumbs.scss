@@ -3,6 +3,9 @@
 .retro-breadcrumbs {
   display: flex;
   align-items: center;
+  // A trail is arbitrarily deep; let it run onto a second line rather
+  // than widen the page.
+  flex-wrap: wrap;
   font-family: var(--retro-font);
   font-size: var(--retro-font-size-lg);
   background: var(--retro-card-bg);

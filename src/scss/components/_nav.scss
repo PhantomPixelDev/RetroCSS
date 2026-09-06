@@ -48,7 +48,7 @@
 
   &.active {
     background: var(--retro-primary);
-    color: var(--retro-white);
+    color: var(--retro-primary-fg);
     text-shadow: 0 1px 2px var(--retro-border-dark), 0 0 2px var(--retro-border-light);
     outline: 2px solid var(--retro-border-light);
     outline-offset: -2px;
@@ -121,7 +121,9 @@
 .retro-nav-vertical {
   display: flex;
   flex-direction: column;
+  // max-content sizes to the longest label, which overflowed narrow viewports.
   width: max-content;
+  max-width: 100%;
   border: 2px solid var(--retro-border-dark);
   background: var(--retro-light);
   padding: 0;
@@ -162,11 +164,11 @@
   color: var(--retro-black);
   &:hover {
     background: var(--retro-primary);
-    color: var(--retro-white);
+    color: var(--retro-primary-fg);
   }
   &.active {
     background: var(--retro-primary);
-    color: var(--retro-white);
+    color: var(--retro-primary-fg);
     font-weight: bold;
     box-shadow: 0 1px 4px rgba(var(--retro-primary-rgb), 0.35) inset;
   }
@@ -259,6 +261,10 @@
 // --- Tabbed Navigation ---
 .retro-nav-tabbed {
   display: flex;
+  // Wrap rather than push the page wide. A nav is a list of labels of
+  // unknown length, and a single flex row of them was the largest source
+  // of horizontal overflow on narrow viewports.
+  flex-wrap: wrap;
   padding: 0;
   margin: 0 0 -1px 0;
   background: transparent;
@@ -296,6 +302,10 @@
 // --- Underlined Navigation ---
 .retro-nav-underlined {
   display: flex;
+  // Wrap rather than push the page wide. A nav is a list of labels of
+  // unknown length, and a single flex row of them was the largest source
+  // of horizontal overflow on narrow viewports.
+  flex-wrap: wrap;
   padding: 0;
   margin: 0;
   background: transparent;
@@ -345,6 +355,10 @@
 // --- Button Group Navigation ---
 .retro-nav-buttons {
   display: inline-flex;
+  // Wrap rather than push the page wide. A nav is a list of labels of
+  // unknown length, and a single flex row of them was the largest source
+  // of horizontal overflow on narrow viewports.
+  flex-wrap: wrap;
   padding: 0;
   margin: 0;
   background: transparent;
@@ -382,7 +396,7 @@
     
     &.active {
       background: var(--retro-primary);
-      color: var(--retro-white);
+      color: var(--retro-primary-fg);
       z-index: 2;
     }
   }

@@ -29,6 +29,17 @@ jobs:
       - name: Accessibility gate
         run: npm run check:a11y
 
+      # check:a11y proves the tokens are sound; this proves the pages built from
+      # them are. Every defect that reached production in the 2.x line -- a
+      # modal that threw, tables 1,000,000px wide, input glyphs 19px off centre,
+      # white-on-white text in dark mode -- was invisible to the token gate and
+      # found by hand. Needs a real browser, so it installs one.
+      - name: Install Chromium for the page gate
+        run: npx playwright install --with-deps chromium
+
+      - name: Rendered-page gate
+        run: npm run check:pages
+
       # dist/ is gitignored, so there is no committed artifact to diff against.
       # This just proves the build produced what package.json promises to ship.
       - name: Verify build output

@@ -68,8 +68,9 @@ h5, h6 { font-size: var(--retro-font-size); }
   font-family: var(--retro-font-mono);
   font-size: var(--retro-font-size-2xl);
   font-weight: var(--retro-font-weight-bold);
+  // Monospace and caps already carry the emphasis; the extra tracking on top
+  // made it a fourth signal on the same text.
   text-transform: uppercase;
-  letter-spacing: 0.08em;
   padding: 0.5rem 1.2rem;
   margin-bottom: 0.5rem;
   color: var(--retro-text);
@@ -133,6 +134,10 @@ h5, h6 { font-size: var(--retro-font-size); }
   &-lime {
     padding: var(--retro-spacing-sm) var(--retro-spacing-md);
     margin-bottom: var(--retro-spacing-md);
+    // These often sit in a flex row beside an avatar. Flex items default to
+    // min-width: auto and refuse to shrink below their text, which pushed
+    // long headings off narrow viewports.
+    min-width: 0;
     border: 2px solid;
     position: relative;
     font-family: var(--retro-font-heading);

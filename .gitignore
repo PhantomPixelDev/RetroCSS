@@ -12,6 +12,7 @@ yarn.lock
 *.scss.map
 
 # Editor directories and files
+.claude/
 .idea/
 .vscode/
 *.suo

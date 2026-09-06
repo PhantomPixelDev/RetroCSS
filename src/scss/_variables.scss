@@ -293,18 +293,22 @@ $retro-font: 'MS Sans Serif', 'Microsoft Sans Serif', Arial, sans-serif;
 $retro-font-heading: $retro-font;
 $retro-font-mono: 'Courier New', Courier, monospace;
 
-// Scale is expressed in rem against the 16px root so sizes no longer compound
-// (html was 16px while body was 14px in px, so every em measured against the
-// wrong base and nested ems stacked). base/sm/lg keep their current computed
-// px values, so existing --retro-font-size-* overrides still land where they did.
-$retro-font-size-base: 0.875rem;  // 14px
+// Scale is expressed in rem against the browser root, so sizes compose rather
+// than compound and honour the reader's own font-size setting.
+//
+// The base moved from 14px to 16px in 3.0. 14px is the authentic Win9x metric,
+// but this framework is read on modern displays and 14px was consistently the
+// thing that made pages feel cramped. The whole ladder shifted with it so the
+// relationships between steps are unchanged. To go back, one line:
+//   :root { --retro-font-size: 0.875rem; }
+$retro-font-size-base: 1rem;      // 16px
 $retro-font-size: $retro-font-size-base;
-$retro-font-size-xs: 0.6875rem;   // 11px
-$retro-font-size-sm: 0.75rem;     // 12px
-$retro-font-size-lg: 1rem;        // 16px
-$retro-font-size-xl: 1.125rem;    // 18px
-$retro-font-size-2xl: 1.375rem;   // 22px
-$retro-font-size-3xl: 1.75rem;    // 28px
+$retro-font-size-xs: 0.75rem;     // 12px
+$retro-font-size-sm: 0.875rem;    // 14px
+$retro-font-size-lg: 1.125rem;    // 18px
+$retro-font-size-xl: 1.25rem;     // 20px
+$retro-font-size-2xl: 1.5rem;     // 24px
+$retro-font-size-3xl: 1.875rem;   // 30px
 
 $retro-line-height: 1.5;         // body copy
 $retro-line-height-tight: 1.25;  // headings, buttons, badges

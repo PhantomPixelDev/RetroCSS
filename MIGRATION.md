@@ -1,3 +1,98 @@
+# Migrating to RetroCSS 3.0
+
+3.0 is a visual release. Nothing was renamed and no class was removed, but two
+changes are visible on every page that consumes the framework, so they are
+called out first.
+
+## 1. Body text is 16px
+
+`--retro-font-size` moves from `0.875rem` (14px) to `1rem` (16px). The rest of
+the scale is expressed in `rem` against the root, so headings, buttons, badges
+and inputs all move with it.
+
+14px is the authentic Win9x metric and 16px is not. The trade was made
+deliberately: the framework is used to build things people read, and 14px is
+below the size at which most people read comfortably. One line puts it back:
+
+```css
+:root { --retro-font-size: 0.875rem; }
+```
+
+Expect layouts that were tuned to the pixel at 14px to need a little room. If
+you pinned a width in `px` to fit a specific string, it will now clip.
+
+## 2. `border-radius: 0` is no longer `!important`
+
+The reset was `* { border-radius: 0 !important }`, which meant nothing in a
+consuming application could round a corner — including `.retro-rounded`, which
+had to fight the reset, and `_modal.scss`, which needed its own `!important` to
+get 4px back. The default is still square:
+
+```css
+* { border-radius: 0; }
+```
+
+If you were relying on the reset to flatten a third-party widget's corners,
+that widget's own radius now wins, and you will need to zero it yourself.
+
+## 3. On-fill text follows the theme
+
+If you built a component that pairs a RetroCSS hue fill with white text:
+
+```css
+/* before */
+.my-chip { background: var(--retro-primary); color: var(--retro-white); }
+```
+
+...that pair breaks in dark mode. `--retro-white` inverts to `#3a3a3a` while
+the fill *lightens* to `#4a90e2`, so both move and the contrast collapses —
+this was measuring 3.45:1 on the framework's own active nav items. Use the
+`-fg` token, which is defined as "text on this fill" and is contrast-gated in
+both themes:
+
+```css
+/* after */
+.my-chip { background: var(--retro-primary); color: var(--retro-primary-fg); }
+```
+
+The `--retro-black` / `--retro-white` pair is still fine *together* — both
+invert, so a black chip with white text simply becomes a white chip with dark
+text.
+
+## 4. Tooltips are instant
+
+`.retro-tooltip` toggles `display` rather than `opacity` + `visibility`, so the
+0.2s fade is gone. This was not a style choice: a hidden tooltip kept its box in
+the page's scrollable overflow region, so a `.retro-tooltip-right` on a trigger
+near the viewport edge widened the whole page while invisible. Instant tooltips
+are period-correct anyway.
+
+If you were animating `.retro-tooltip` yourself, animate a child instead.
+
+## Smaller changes
+
+- **Nav variants and breadcrumbs wrap.** `.retro-nav-tabbed`,
+  `.retro-nav-underlined`, `.retro-nav-buttons` and `.retro-breadcrumbs` were
+  single unwrapped flex rows, so a long set of labels pushed the page sideways
+  on narrow viewports. They wrap onto a second line now.
+- **`.retro-nav-vertical`** is capped at `max-width: 100%`; it was sized to its
+  longest label with `width: max-content`.
+- **`.retro-alert-close`** inherits the alert's own text colour and no longer
+  renders at `opacity: 0.7`.
+- **Unfilled `.retro-rating-star`** uses `--retro-text-muted` instead of
+  `--retro-border-dark`, which was invisible on the dark chassis.
+- **`.retro-heading-variant`** drops its `letter-spacing`. Uppercase plus
+  monospace already carries the emphasis.
+
+## Verifying your own pages
+
+`npm run check:pages` renders every page in the repo in real Chromium, in both
+themes, at 1200/980/760/420/360px, and fails on console errors, horizontal
+overflow, a missing or duplicated `h1`, contrast below AA on any rendered text,
+or an input glyph off-centre. It is worth pointing at your own pages.
+
+---
+
 # Migrating to RetroCSS 2.0
 
 2.0 is an accessibility and readability release. Nothing was renamed and no
