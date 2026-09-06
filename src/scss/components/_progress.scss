@@ -10,7 +10,7 @@
   border-bottom: 2px solid var(--retro-border-light);
   border-left: 2px solid var(--retro-border-medium);
   border-top: 2px solid var(--retro-border-medium);
-  border-radius: 0;
+  border-radius: var(--retro-border-radius);
   height: 22px;
   position: relative;
   margin: 1em 0;
@@ -25,7 +25,7 @@
   width: 0%;
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-right: 2px solid var(--retro-border-light);
-  border-radius: 0;
+  border-radius: var(--retro-border-radius);
   box-shadow: none;
   position: absolute;
   left: 0;

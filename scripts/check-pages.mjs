@@ -18,54 +18,16 @@
  * Requires a build first: the pages load dist/.
  */
 import { chromium } from 'playwright';
-import { createServer } from 'node:http';
-import { readFile } from 'node:fs/promises';
-import { extname, join, normalize } from 'node:path';
 import process from 'node:process';
+import { PAGES, THEMES, serveRepo, primeTheme, freezeMotion } from './lib/harness.mjs';
 
-const PAGES = [
-  'index.html',
-  'documentation.html',
-  'examples/dashboard.html',
-  'examples/login.html',
-  'examples/register.html',
-  'examples/blog.html',
-  'examples/blog-post.html',
-  'examples/theme-matrix.html',
-];
 const WIDTHS = [1200, 980, 760, 420, 360];
-const THEMES = ['light', 'dark'];
 // A few px of slop. Sub-pixel layout rounding reports scrollWidth one greater
 // than clientWidth on elements that are not actually overflowing.
 const OVERFLOW_SLOP = 2;
 
 /* ---------- static server ---------- */
-const MIME = {
-  '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript',
-  '.json': 'application/json', '.png': 'image/png', '.jpg': 'image/jpeg',
-  '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.woff2': 'font/woff2',
-  '.map': 'application/json', '.xml': 'application/xml', '.txt': 'text/plain',
-};
-const root = process.cwd();
-const server = createServer(async (req, res) => {
-  // Strip the query and normalise before joining, so a request cannot walk
-  // out of the repo root.
-  const rel = normalize(decodeURIComponent(req.url.split('?')[0])).replace(/^[/\\]+/, '');
-  const path = join(root, rel || 'index.html');
-  if (!path.startsWith(root)) {
-    res.writeHead(403).end();
-    return;
-  }
-  try {
-    const body = await readFile(path);
-    res.writeHead(200, { 'content-type': MIME[extname(path)] || 'application/octet-stream' });
-    res.end(body);
-  } catch {
-    res.writeHead(404).end('not found');
-  }
-});
-const port = await new Promise((r) => server.listen(0, '127.0.0.1', () => r(server.address().port)));
-const origin = `http://127.0.0.1:${port}`;
+const { origin, close: closeServer } = await serveRepo();
 
 /* ---------- in-page probes ---------- */
 // This runs in the browser. Kept as one function so a page is only walked once.
@@ -219,29 +181,9 @@ for (const page of PAGES) {
     });
     tab.on('pageerror', (e) => errors.push(String(e)));
 
-    // Set the theme before any script runs, the way a returning visitor's
-    // localStorage would, so nothing initialises against the wrong palette.
-    await tab.addInitScript((t) => {
-      try {
-        localStorage.setItem('retro-theme', t);
-      } catch {
-        /* storage blocked; the attribute below still applies */
-      }
-      // addInitScript runs at document-start, before the parser has created
-      // <html>, so documentElement is null on the first tick.
-      const apply = () => document.documentElement?.setAttribute('data-theme', t);
-      apply();
-      document.addEventListener('DOMContentLoaded', apply);
-    }, theme);
-
+    await primeTheme(tab, theme);
     await tab.goto(`${origin}/${page}`, { waitUntil: 'load' });
-    // Freeze transitions and animations. Theme tokens are transitioned, and
-    // getComputedStyle during a transition returns the *animating* value --
-    // which made striped list rows report their light-theme background while
-    // the page was already dark. Measuring a moving target is not a test.
-    await tab.addStyleTag({
-      content: '*, *::before, *::after { transition: none !important; animation: none !important; }',
-    });
+    await freezeMotion(tab);
     await tab.evaluate((t) => document.documentElement.setAttribute('data-theme', t), theme);
     // Let fonts settle: text metrics drive both the overflow and glyph checks.
     await tab.evaluate(() => document.fonts?.ready);
@@ -278,7 +220,7 @@ for (const page of PAGES) {
 }
 
 await browser.close();
-server.close();
+closeServer();
 
 if (failures.length) {
   console.error(`\n✗ ${failures.length} page failure(s) across ${checks} checks:\n`);

@@ -20,12 +20,50 @@ import RetroCodeCopy from './code-copy.js';
 import './infinite-scroll.js';
 import './table-responsive.js';
 
-function readStoredTheme() {
+// localStorage is read at module scope, so anything that throws here takes the
+// whole bundle down during evaluation -- which is what happens in a sandboxed
+// iframe or with third-party storage blocked. Every access is guarded.
+// Matches anything the browser will put in the tab order. Shared by the
+// tooltip trigger check and the rating group.
+const FOCUSABLE_SELECTOR =
+  'a[href],area[href],button:not([disabled]),input:not([disabled]):not([type="hidden"]),' +
+  'select:not([disabled]),textarea:not([disabled]),iframe,[contenteditable]:not([contenteditable="false"]),' +
+  '[tabindex]:not([tabindex="-1"])';
+
+// Tooltips need stable ids to be referenced by aria-describedby.
+let tooltipSeq = 0;
+
+function storedTheme() {
   try {
-    return localStorage.getItem('retro-theme') || 'light';
+    return localStorage.getItem('retro-theme');
   } catch (e) {
-    return 'light';
+    return null;
   }
+}
+
+function storeTheme(theme) {
+  try {
+    localStorage.setItem('retro-theme', theme);
+  } catch (e) {
+    // Storage unavailable. The theme still applies for this page view; it just
+    // will not survive a reload.
+  }
+}
+
+/** The OS-level preference, or null where matchMedia is unavailable. */
+function systemTheme() {
+  if (typeof window === 'undefined' || !window.matchMedia) return null;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+/**
+ * An explicit choice always wins; otherwise follow the OS. Before this the
+ * default was a hardcoded 'light', so a visitor whose system was set to dark
+ * got a light page until they found the toggle -- on a framework that ships a
+ * full dark theme.
+ */
+function readStoredTheme() {
+  return storedTheme() || systemTheme() || 'light';
 }
 
 // Create a namespace for all RetroCSS components
@@ -103,6 +141,7 @@ const RetroCSS = {
     
     // Initialize theme toggler
     this.initThemeToggle();
+    this.initSystemThemeWatch();
     
     // Apply current theme
     this.applyTheme(this.theme);
@@ -143,13 +182,38 @@ const RetroCSS = {
       trigger.style.position = 'relative';
       trigger.appendChild(tooltip);
       
-      // Show/hide tooltip on hover
-      trigger.addEventListener('mouseenter', () => {
-        tooltip.classList.add('show');
-      });
-      
-      trigger.addEventListener('mouseleave', () => {
-        tooltip.classList.remove('show');
+      // Name the tooltip and point the trigger at it. Without this the text is
+      // decorative: it renders, and a screen reader never reads it out.
+      tooltip.setAttribute('role', 'tooltip');
+      if (!tooltip.id) {
+        tooltipSeq += 1;
+        tooltip.id = `retro-tooltip-${tooltipSeq}`;
+      }
+      const describedBy = trigger.getAttribute('aria-describedby');
+      if (!describedBy) {
+        trigger.setAttribute('aria-describedby', tooltip.id);
+      } else if (!describedBy.split(/\s+/).includes(tooltip.id)) {
+        trigger.setAttribute('aria-describedby', `${describedBy} ${tooltip.id}`);
+      }
+
+      // A trigger that is not reachable cannot show its tooltip on focus. Every
+      // trigger on the demo pages is already an <a> or <button>; this covers a
+      // consumer who put the attribute on a <span>.
+      if (!trigger.matches(FOCUSABLE_SELECTOR) && !trigger.hasAttribute('tabindex')) {
+        trigger.tabIndex = 0;
+      }
+
+      const show = () => tooltip.classList.add('show');
+      const hide = () => tooltip.classList.remove('show');
+
+      trigger.addEventListener('mouseenter', show);
+      trigger.addEventListener('mouseleave', hide);
+      // WCAG 1.4.13: content revealed on hover must also appear on focus.
+      trigger.addEventListener('focus', show);
+      trigger.addEventListener('blur', hide);
+      // ...and must be dismissible without moving the pointer or the focus.
+      trigger.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') hide();
       });
     });
   },
@@ -254,6 +318,21 @@ const RetroCSS = {
         // Add event listener to remove button
         const removeBtn = tag.querySelector('.retro-tag-remove');
         if (removeBtn) {
+          // Authored markup uses a <span>. It cannot be turned into a <button>
+          // without replacing the node, so give it the role and a tab stop.
+          if (removeBtn.tagName !== 'BUTTON') {
+            removeBtn.setAttribute('role', 'button');
+            if (!removeBtn.hasAttribute('tabindex')) removeBtn.tabIndex = 0;
+            removeBtn.addEventListener('keydown', (e) => {
+              if (e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                removeBtn.click();
+              }
+            });
+          }
+          if (!removeBtn.hasAttribute('aria-label')) {
+            removeBtn.setAttribute('aria-label', `Remove ${tagText}`);
+          }
           removeBtn.addEventListener('click', () => {
             // Remove from DOM
             tag.remove();
@@ -282,10 +361,14 @@ const RetroCSS = {
         tag.className = 'retro-tag';
         tag.textContent = tagText;
         
-        // Create remove button
-        const removeBtn = document.createElement('span');
+        // A real button: as a <span> this was unreachable by keyboard and
+        // announced as nothing, so a tag could be added but never removed
+        // without a mouse.
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
         removeBtn.className = 'retro-tag-remove';
         removeBtn.textContent = '×';
+        removeBtn.setAttribute('aria-label', `Remove ${tagText}`);
         removeBtn.addEventListener('click', () => {
           // Remove from DOM
           tag.remove();
@@ -337,8 +420,8 @@ const RetroCSS = {
         // Apply theme
         this.applyTheme(this.theme);
         
-        // Save preference
-        localStorage.setItem('retro-theme', this.theme);
+        // Save preference. From here on this choice outranks the OS setting.
+        storeTheme(this.theme);
         
         // Show toast notification
         RetroToast.show(`Theme switched to ${this.theme} mode!`, {
@@ -348,6 +431,26 @@ const RetroCSS = {
     });
   },
   
+  /**
+   * Follow the OS while the visitor has expressed no preference of their own.
+   * Once the toggle has been used, that choice is stored and this stops
+   * applying -- flipping the system theme must not silently undo a deliberate
+   * choice.
+   */
+  initSystemThemeWatch() {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const query = window.matchMedia('(prefers-color-scheme: dark)');
+    const onChange = (e) => {
+      if (storedTheme()) return;
+      this.theme = e.matches ? 'dark' : 'light';
+      this.applyTheme(this.theme);
+      RetroEvents.emit('themechange', { theme: this.theme, source: 'system' });
+    };
+    // Safari below 14 has no addEventListener on MediaQueryList.
+    if (query.addEventListener) query.addEventListener('change', onChange);
+    else if (query.addListener) query.addListener(onChange);
+  },
+
   // Apply theme to document
   applyTheme(theme) {
     if (theme === 'dark') {
@@ -357,41 +460,100 @@ const RetroCSS = {
     }
   },
 
-  // Interactive rating stars
+  /**
+   * Interactive rating stars, on the ARIA radiogroup pattern.
+   *
+   * These were five <span>s wired to mouseenter/mouseleave/click: an input a
+   * keyboard user could not reach, let alone set, with no role and no state to
+   * announce. The markup is unchanged -- the roles, tabindex and key handling
+   * are added here, so existing pages get the fix without editing their HTML.
+   */
   initRatingStars() {
-    const ratings = document.querySelectorAll('.retro-rating');
-    ratings.forEach(rating => {
-      const stars = rating.querySelectorAll('.retro-rating-star');
-      let selected = -1;
-      // Restore previous rating if needed (optional: data-rating)
-      if (rating.hasAttribute('data-rating')) {
-        selected = parseInt(rating.getAttribute('data-rating')) - 1;
-        stars.forEach((star, i) => {
-          if (i <= selected) star.classList.add('selected');
-        });
+    document.querySelectorAll('.retro-rating').forEach((rating) => {
+      // RetroCSS.init() is documented as a manual entry point, so this can be
+      // called more than once. Rebinding would stack duplicate handlers.
+      if (rating.dataset.retroRatingBound === 'true') return;
+      rating.dataset.retroRatingBound = 'true';
+
+      const stars = Array.from(rating.querySelectorAll('.retro-rating-star'));
+      if (!stars.length) return;
+
+      const max = stars.length;
+      const readValue = () => parseInt(rating.getAttribute('data-rating'), 10) || 0;
+
+      rating.setAttribute('role', 'radiogroup');
+      if (!rating.hasAttribute('aria-label') && !rating.hasAttribute('aria-labelledby')) {
+        rating.setAttribute('aria-label', `Rating out of ${max}`);
       }
+
+      /**
+       * Paint the stars and move the tab stop. Only one member of a radiogroup
+       * is tabbable: Tab enters the group and leaves it, arrows move within.
+       * With nothing selected the first star holds the stop so the group can
+       * still be reached.
+       */
+      const render = (value, previewOnly) => {
+        stars.forEach((star, i) => {
+          star.classList.toggle('active', previewOnly !== undefined && i <= previewOnly);
+          if (previewOnly === undefined) star.classList.remove('active');
+          star.classList.toggle('selected', i < value);
+          star.setAttribute('aria-checked', String(i === value - 1));
+          star.tabIndex = i === (value > 0 ? value - 1 : 0) ? 0 : -1;
+        });
+      };
+
+      const select = (index, focus) => {
+        const value = index + 1;
+        rating.setAttribute('data-rating', String(value));
+        render(value);
+        if (focus) stars[index].focus();
+        rating.dispatchEvent(
+          new CustomEvent('retro:rating', { detail: { rating: value, max }, bubbles: true }),
+        );
+      };
+
       stars.forEach((star, idx) => {
-        // Hover effect
-        star.addEventListener('mouseenter', () => {
-          stars.forEach((s, i) => {
-            s.classList.toggle('active', i <= idx);
-          });
-        });
-        star.addEventListener('mouseleave', () => {
-          stars.forEach(s => s.classList.remove('active'));
-        });
-        // Click to select
-        star.addEventListener('click', () => {
-          selected = idx;
-          stars.forEach((s, i) => {
-            s.classList.toggle('selected', i <= idx);
-          });
-          // Store rating in data-rating
-          rating.setAttribute('data-rating', idx + 1);
-          // Optional: emit event
-          rating.dispatchEvent(new CustomEvent('retro:rating', { detail: { rating: idx + 1 } }));
+        star.setAttribute('role', 'radio');
+        star.setAttribute('aria-label', `${idx + 1} of ${max}`);
+
+        star.addEventListener('mouseenter', () => render(readValue(), idx));
+        star.addEventListener('mouseleave', () => render(readValue()));
+        star.addEventListener('click', () => select(idx));
+
+        star.addEventListener('keydown', (e) => {
+          // -1 when nothing is selected yet, so the first arrow press lands on 0.
+          const current = readValue() - 1;
+          const clamp = (n) => Math.max(0, Math.min(max - 1, n));
+          let next;
+          switch (e.key) {
+            case 'ArrowRight':
+            case 'ArrowDown':
+              next = clamp(current + 1);
+              break;
+            case 'ArrowLeft':
+            case 'ArrowUp':
+              next = current < 0 ? 0 : clamp(current - 1);
+              break;
+            case 'Home':
+              next = 0;
+              break;
+            case 'End':
+              next = max - 1;
+              break;
+            case ' ':
+            case 'Enter':
+              next = idx;
+              break;
+            default:
+              return;
+          }
+          // These keys would otherwise scroll the page or activate a parent.
+          e.preventDefault();
+          select(next, true);
         });
       });
+
+      render(readValue());
     });
   }
 };

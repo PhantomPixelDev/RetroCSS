@@ -1,3 +1,44 @@
+# Migrating to RetroCSS 3.x
+
+## 3.1 — keyboard access, OS dark mode, and the rest of the radius token
+
+Additive. Nothing was renamed and no class removed; existing markup keeps
+working, because the fixes are applied by the JavaScript at init time rather
+than by requiring new HTML. Three things are worth knowing:
+
+**Dark mode now follows the operating system.** Previously the default was a
+hardcoded `light`, so a visitor whose system was set to dark got a light page
+until they found the toggle — on a framework that ships a full dark theme. Now
+an explicit choice (anything stored under `retro-theme`) still wins; only when
+there is none does `prefers-color-scheme` decide. To keep the old behaviour,
+store a theme yourself before `RetroCSS.init()`:
+
+```js
+localStorage.setItem('retro-theme', 'light');
+```
+
+Note that the theme is applied by script, so a dark-OS visitor may see a brief
+light flash before it runs. If that matters, set `data-theme` on `<html>` from
+an inline script in your `<head>`.
+
+**`--retro-border-radius` now reaches the whole framework.** 3.0.1 wired 31
+components to the token; the core chrome — card, button, badge, nav, progress,
+alert, input, checkbox, accordion — still hardcoded `0`, so setting the token
+rounded dropdowns but left buttons square. All of it follows the token now. The
+default is unchanged (the token is `0`); but if you had already set
+`--retro-border-radius`, more of the framework will round than before.
+
+**Interactive components gained roles and keyboard handling.** Rating stars are
+a `radiogroup` of `radio`s, carousel dots are `button`s with `aria-current`,
+tooltips appear on focus and carry `aria-describedby`, tag removes are
+`button`s, and tabs use a roving tabindex. If you styled any of these by tag
+name (`span.retro-tag-remove`, `div.retro-carousel-dot`), switch to the class —
+newly generated ones are `<button>`. If you hid a file input with
+`.retro-hidden`, switch to `.retro-sr-only`: `display: none` removes it from the
+tab order, leaving no keyboard route to the file picker.
+
+---
+
 # Migrating to RetroCSS 3.0
 
 3.0 is a visual release. Nothing was renamed and no class was removed, but two

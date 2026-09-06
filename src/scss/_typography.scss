@@ -24,7 +24,7 @@ h1, h2, h3, h4, h5, h6 {
   // got a proportionally larger gap, so h1 sat on 37px of space and h6 on 15px
   // -- backwards for a hierarchy.
   margin: var(--retro-spacing-lg) 0 var(--retro-spacing-sm);
-  border-radius: 0;
+  border-radius: var(--retro-border-radius);
   box-shadow: none;
   letter-spacing: 0;
   background: none;

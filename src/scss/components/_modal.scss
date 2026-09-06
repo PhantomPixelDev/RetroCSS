@@ -62,6 +62,7 @@
     transition: none;
     text-align: left;
     vertical-align: middle;
+    border-radius: var(--retro-border-radius);
   }
 
   &-header {
@@ -69,6 +70,8 @@
     align-items: center;
     justify-content: space-between;
     padding: $retro-spacing-sm $retro-spacing-lg;
+    // Top half of the dialog's radius; -footer already takes the bottom.
+    border-radius: var(--retro-border-radius) var(--retro-border-radius) 0 0;
     background: var(--retro-modal-header-bg);
     color: var(--retro-modal-header-text);
 

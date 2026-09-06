@@ -46,7 +46,7 @@
 
 /* Checkbox specific styles */
 .retro-checkbox {
-  border-radius: 0;
+  border-radius: var(--retro-border-radius);
   
   &:checked {
     background: var(--retro-white);

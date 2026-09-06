@@ -24,7 +24,7 @@
   list-style: none;
   background: var(--retro-light);
   border: 2px solid var(--retro-border-dark);
-  border-radius: 0;
+  border-radius: var(--retro-border-radius);
   box-shadow: inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
   font-family: var(--retro-font);
   transition: none;
@@ -35,7 +35,7 @@
   padding: $retro-spacing-sm $retro-spacing-md;
   color: var(--retro-black);
   text-decoration: none;
-  border-radius: 0;
+  border-radius: var(--retro-border-radius);
   background: var(--retro-light);
   border-right: 1px solid var(--retro-border-medium);
   font-family: var(--retro-font);
@@ -136,7 +136,7 @@
   display: block;
   border-right: none;
   border-bottom: 1px solid var(--retro-border-medium);
-  border-radius: 0;
+  border-radius: var(--retro-border-radius);
   width: 100%;
   &:last-child {
     border-bottom: none;
@@ -198,7 +198,7 @@
   margin: 0;
   background: var(--retro-light);
   border: 2px solid var(--retro-border-dark);
-  border-radius: 0;
+  border-radius: var(--retro-border-radius);
   box-shadow: inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
   font-family: var(--retro-font);
   
@@ -214,7 +214,7 @@
     text-decoration: none;
     background: var(--retro-light);
     border: 2px solid transparent;
-    border-radius: 0;
+    border-radius: var(--retro-border-radius);
     text-align: center;
     
     &:hover {

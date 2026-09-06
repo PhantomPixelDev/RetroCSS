@@ -183,9 +183,14 @@ sidebar, tabs, pagination and the file uploader:
 :root { --retro-border-radius: 4px; }
 ```
 
-The core chrome — card, button, badge, table, input, modal — stays square
-regardless, and `.retro-rounded` / `-lg` / `-full` still round one element at a
-time.
+`.retro-rounded` / `-lg` / `-full` still round one element at a time. Two
+components keep their shape on purpose: `.retro-nav-pills` and `.retro-tag`.
+Tables stay square because `border-collapse: collapse` — what merges their cell
+borders into a single hairline — makes every engine ignore `border-radius`.
+
+Dark mode follows the operating system when the visitor has expressed no
+preference of their own. The moment they use a `.retro-theme-toggle`, that
+choice is stored and outranks the OS from then on.
 
 > **Upgrading?** See [MIGRATION.md](MIGRATION.md). No class has ever been
 > renamed, but 3.0 raises the body text to 16px and drops the `!important` from
@@ -229,8 +234,13 @@ That proves the *tokens* are sound. `npm run check:pages` proves the *pages*
 are: it renders every page in the repo in real Chromium, in both themes, at
 1200/980/760/420/360px, and fails on a console error, horizontal overflow, a
 missing or duplicated `<h1>`, any rendered text below AA against the surface
-actually painted behind it, or an input glyph off its field's centre line. Both
-run in CI on every push.
+actually painted behind it, or an input glyph off its field's centre line.
+
+Neither can see whether a control can be *reached*, so `npm run check:keyboard`
+asserts that too: every control the framework drives from script is in the tab
+order and carries an accessible name, roving-tabindex groups expose exactly one
+tab stop, and every tooltip appears on focus and not only on hover. All four
+gates run in CI on every push.
 
 Beyond colour:
 
@@ -248,8 +258,19 @@ Beyond colour:
   neutralised, with the looping text effects switched off outright.
 - **Sortable tables are operable.** `.retro-table-sortable` headers are
   focusable, sort on Enter and Space as well as click, and carry `aria-sort`.
+  Add `data-sort="none"` to a column that should not sort.
+- **Rating stars are a radiogroup.** Tab reaches the group, Arrow keys move and
+  set the value, Home/End jump to the ends, and each star reports `aria-checked`.
+- **Carousels are keyboard-driven.** Dots are real buttons with labels and
+  `aria-current`; Left/Right arrows move between slides once focus is inside.
+- **Tooltips appear on focus,** not only on hover, are dismissible with Escape,
+  and are wired to their trigger with `aria-describedby` (WCAG 1.4.13).
+- **Tabs use a roving tabindex.** Tab steps over the tablist into the panel;
+  Arrow keys, Home and End move between tabs.
 - **`.retro-sr-only`** labels icon-only controls; `.retro-sr-only-focusable`
-  gives you a skip link.
+  gives you a skip link. Use it — not `.retro-hidden` — to hide a real form
+  control you still want reachable, such as a styled `<input type="file">`:
+  `display: none` takes it out of the tab order entirely.
 
 ```html
 <button class="retro-btn">💾<span class="retro-sr-only">Save</span></button>
@@ -289,13 +310,14 @@ npm run watch
 Run the gates:
 
 ```bash
-npm run check:a11y && npm run check:radius && npm run check:pages
+npm run check:a11y && npm run check:radius && npm run check:pages && npm run check:keyboard
 ```
 
 `check:a11y` gates the tokens (every `var(--retro-*)` resolves, every
 text/surface pair clears WCAG AA), `check:radius` gates the shape (nothing
-hardcodes a corner behind `--retro-border-radius`), and `check:pages` gates the
-rendered result across 8 pages × 2 themes × 5 widths.
+hardcodes a corner behind `--retro-border-radius`), `check:pages` gates the
+rendered result across 8 pages × 2 themes × 5 widths, and `check:keyboard`
+gates operability — that every control can actually be reached and used.
 
 `check:pages` needs a browser once: `npx playwright install chromium`.
 

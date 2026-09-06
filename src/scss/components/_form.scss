@@ -41,7 +41,7 @@
   color: var(--retro-input-text);
   font-family: var(--retro-font);
   font-size: var(--retro-font-size);
-  border-radius: 0 !important;
+  border-radius: var(--retro-border-radius);
   transition: none;
 
   // Border and inset shadow stay on plain :focus -- clicking into a text field
@@ -257,7 +257,7 @@ input[type="radio"].retro-input {
 }
 
 input[type="checkbox"].retro-input {
-  border-radius: 0;
+  border-radius: var(--retro-border-radius);
 }
 input[type="checkbox"].retro-input:checked::after {
   content: "";

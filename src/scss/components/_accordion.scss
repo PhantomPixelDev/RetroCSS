@@ -9,6 +9,7 @@
 }
 
 .retro-accordion-item {
+  border-radius: var(--retro-border-radius);
   border: 2px solid var(--retro-border-dark);
   margin-bottom: 0.5rem;
   background-color: var(--retro-bg);

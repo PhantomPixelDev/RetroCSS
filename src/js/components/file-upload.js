@@ -9,7 +9,6 @@ const RetroFileUpload = {
     root.querySelectorAll(".retro-file-upload").forEach((upload) => {
       const input = upload.querySelector(".retro-file-input");
       const display = upload.querySelector(".retro-file-filename, .retro-file-display");
-      const label = upload.querySelector(".retro-file-label");
       const drop = upload.querySelector(".retro-file-drop");
       if (!input || !display) return;
       // Show file name on change
@@ -23,13 +22,9 @@ const RetroFileUpload = {
           upload.classList.remove("has-files");
         }
       });
-      // Clicking label or drop area triggers file input
-      if (label) {
-        label.addEventListener("click", e => {
-          e.preventDefault();
-          input.click();
-        });
-      }
+      // No handler on the label: `<label for>` already opens the picker
+      // natively. The old preventDefault()-then-input.click() pairing merely
+      // re-implemented that, and is the classic way to get a double-open.
       if (drop) {
         drop.addEventListener("click", e => {
           e.preventDefault();

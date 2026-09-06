@@ -35,10 +35,15 @@
   font-family: var(--retro-font);
   // box-shadow: none; // Redundant, handled by global reset
   margin-bottom: $retro-spacing-lg; // Used SASS Variable (approx 1.5em)
+  border-radius: var(--retro-border-radius);
   position: relative;
   // overflow: visible; // Default, can be removed
 
   &-header {
+  // Corner nesting: the card owns the radius and its bands take the matching
+  // half, so a rounded card does not show square header/footer corners
+  // poking through. All of these resolve to 0 by default.
+    border-radius: var(--retro-border-radius) var(--retro-border-radius) 0 0;
     background: var(--retro-card-header-bg);
     color: var(--retro-card-header-text);
 
@@ -67,6 +72,8 @@
 
   &-content {
     padding: $retro-spacing-md $retro-spacing-md; // Approx 1em
+    // Only the last band gets the bottom corners; a footer takes them otherwise.
+    &:last-child { border-radius: 0 0 var(--retro-border-radius) var(--retro-border-radius); }
     background: var(--retro-card-content-bg);
     border-top: $retro-border-width-thick solid var(--retro-card-content-bg);
     font-size: $retro-font-size-base; // Approx 1em
@@ -82,7 +89,7 @@
   color: var(--retro-card-footer-text);
   padding: $retro-spacing-sm $retro-spacing-md; // Approx 0.4em and 1em
   font-size: $retro-font-size-sm; // Approx 0.95em
-  // border-radius: 0; // Redundant
+  border-radius: 0 0 var(--retro-border-radius) var(--retro-border-radius);
   text-align: left;
 }
 

@@ -60,18 +60,26 @@ class RetroTabs {
           this.activateTab(index);
         }
         
-        // Left/Right arrow keys to navigate between tabs
+        // Left/Right arrow keys to navigate between tabs, Home/End to jump.
+        let newIndex = null;
         if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-          e.preventDefault();
-          
           const direction = e.key === 'ArrowLeft' ? -1 : 1;
-          let newIndex = index + direction;
+          newIndex = index + direction;
           
           // Loop around if we're at the ends
           if (newIndex < 0) newIndex = this.tabs.length - 1;
           if (newIndex >= this.tabs.length) newIndex = 0;
-          
-          // Focus the new tab
+        } else if (e.key === 'Home') {
+          newIndex = 0;
+        } else if (e.key === 'End') {
+          newIndex = this.tabs.length - 1;
+        }
+
+        if (newIndex !== null) {
+          e.preventDefault();
+          // Move the tab stop with the focus, or Tab would land back on the
+          // previously selected tab instead of leaving the tablist.
+          this.setTabStop(newIndex);
           this.tabs[newIndex].focus();
         }
       });
@@ -81,6 +89,18 @@ class RetroTabs {
     this.activateTab(this.options.defaultTab);
   }
   
+  /**
+   * Roving tabindex: exactly one tab is in the page tab order at a time.
+   * Every tab used to be tabindex=0, so Tab walked through all of them one by
+   * one instead of stepping over the tablist and into the panel -- twelve
+   * stops on the demo page before the content.
+   */
+  setTabStop(index) {
+    this.tabs.forEach((tab, i) => {
+      tab.tabIndex = i === index ? 0 : -1;
+    });
+  }
+
   activateTab(index) {
     // Update tab active states
     this.tabs.forEach(tab => {
@@ -89,6 +109,7 @@ class RetroTabs {
     });
     this.tabs[index].classList.add(this.options.activeClass);
     this.tabs[index].setAttribute('aria-selected', 'true');
+    this.setTabStop(index);
     
     // Fade out currently visible tab content first
     var visibleContent = null;

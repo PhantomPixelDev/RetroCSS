@@ -41,7 +41,7 @@
   color: var(--retro-black);
   border: 2px solid var(--retro-border-dark);
   box-shadow: 2px 2px 0 var(--retro-border-light), -2px -2px 0 var(--retro-border-dark);
-  border-radius: 0;
+  border-radius: var(--retro-border-radius);
   width: 32px;
   height: 32px;
   cursor: pointer;
@@ -73,7 +73,7 @@
 .retro-carousel-dot {
   width: 12px;
   height: 12px;
-  border-radius: 0;
+  border-radius: var(--retro-border-radius);
   background: var(--retro-border-medium);
   border: 2px solid var(--retro-border-dark);
   box-shadow: 1px 1px 0 var(--retro-border-light);

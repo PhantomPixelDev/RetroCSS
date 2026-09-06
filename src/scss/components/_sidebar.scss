@@ -146,15 +146,32 @@
 }
 
 /// Small caps label that separates groups of links in a long sidebar.
+///
+/// Inside a .retro-nav-vertical this is a header *band*, not a floating label.
+/// It used to carry its own margins and a bottom border while the section
+/// around it added 16px of its own, which chopped the nav's single bordered box
+/// into a stack of disconnected fragments with grey rules drifting between
+/// them. The documentation sidebar looked right only because it has no groups.
 .retro-sidebar-group {
-  margin: var(--retro-spacing-sm) 0 var(--retro-spacing-xs);
+  margin: 0;
+  padding: var(--retro-spacing-xs) var(--retro-spacing-md);
   font-size: var(--retro-font-size-xs);
   font-weight: var(--retro-font-weight-bold);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  // No letter-spacing: uppercase and bold already carry the emphasis, and the
+  // tracking is what made these read as grey noise rather than as labels.
   color: var(--retro-text-muted);
+  background: var(--retro-bg);
   border-bottom: 1px solid var(--retro-border-medium);
-  padding-bottom: 2px;
 }
 
-.retro-sidebar-section:first-of-type .retro-sidebar-group { margin-top: 0; }
+// Keep the box continuous. The sections are dividers within one panel, not
+// separate panels, so they must not add vertical gaps that break the border.
+.retro-nav-vertical .retro-sidebar-section {
+  margin-bottom: 0;
+}
+
+// The band spans the panel, so the divider above it would double up.
+.retro-nav-vertical .retro-sidebar-section + .retro-sidebar-section .retro-sidebar-group {
+  border-top: 1px solid var(--retro-border-medium);
+}

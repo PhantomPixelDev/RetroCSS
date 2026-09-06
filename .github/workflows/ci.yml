@@ -48,6 +48,13 @@ jobs:
       - name: Rendered-page gate
         run: npm run check:pages
 
+      # check:pages measures what a page looks like; this measures whether it
+      # can be operated. The framework shipped carousel dots, rating stars, tag
+      # removes and a file input that a mouse could drive and a keyboard could
+      # not -- none of it visible to a layout or contrast check.
+      - name: Keyboard-operability gate
+        run: npm run check:keyboard
+
       # dist/ is gitignored, so there is no committed artifact to diff against.
       # This just proves the build produced what package.json promises to ship.
       - name: Verify build output

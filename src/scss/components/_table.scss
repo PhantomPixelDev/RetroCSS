@@ -28,7 +28,12 @@
 
 .retro-table {
   width: 100%;
+  // Deliberately no border-radius here. `border-collapse: collapse` is what
+  // merges adjacent cell borders into the single hairline this table wants,
+  // and collapsed tables ignore border-radius in every engine. Switching to
+  // `separate` to win a rounded corner would double every interior border.
   border-collapse: collapse;
+
   border: 1px solid var(--retro-border-dark);
   background-color: var(--retro-table-bg);
   color: var(--retro-table-header-text);

@@ -13,6 +13,12 @@
   // Square by default, but overridable. This carried !important, which meant
   // nothing could round a corner -- the modal needed its own !important to get
   // 4px, and the retro-rounded utility had to fight the reset to work at all.
+  //
+  // Deliberately a literal 0 rather than var(--retro-border-radius): this rule
+  // matches *every* element on the page, including third-party markup the
+  // framework knows nothing about. Setting the token should round RetroCSS
+  // components, not everything a consuming app happens to render, so the
+  // components opt in individually.
   border-radius: 0;
   box-shadow: none;
   transition: none;

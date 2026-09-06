@@ -16,6 +16,17 @@
   cursor: pointer;
   margin-bottom: 0;
 }
+
+// The <input type="file"> is visually hidden with .retro-sr-only so it stays
+// focusable -- .retro-hidden is `display: none`, which took it out of the tab
+// order entirely and left no keyboard route to the file picker at all. Because
+// the input is clipped, its focus ring is invisible, so the label wears it.
+// Matches the retro-focus-ring mixin's values; the mixin itself styles the
+// focused element, and here the ring has to move to a sibling.
+.retro-file-input:focus-visible + .retro-file-label {
+  outline: 2px solid var(--retro-primary);
+  outline-offset: 2px;
+}
 .retro-file-filename {
   font-size: var(--retro-font-size);
   color: var(--retro-input-text);

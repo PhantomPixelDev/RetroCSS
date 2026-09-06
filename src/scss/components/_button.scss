@@ -32,7 +32,7 @@ $retro-btn-shadow-hover-default: inset -0.5px -0.5px 0 var(--retro-border-light)
   user-select: none;
   padding: var(--retro-spacing-xs) var(--retro-spacing-md);
   border: var(--retro-border-width-thick) solid var(--retro-border-dark);
-  border-radius: 0;
+  border-radius: var(--retro-border-radius);
   background: var(--retro-light);
   color: var(--retro-text);
   box-shadow: $retro-btn-shadow-raised;
