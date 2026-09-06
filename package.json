@@ -1,6 +1,6 @@
 {
   "name": "@phantompixeldev/retrocss",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "A Retro-Inspired CSS Framework",
   "main": "dist/retro.css",
   "style": "dist/retro.css",
