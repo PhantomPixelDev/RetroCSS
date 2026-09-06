@@ -7,7 +7,7 @@
   gap: 6px;
   background: var(--retro-input-bg);
   border: 2px solid var(--retro-border-dark);
-  border-radius: 4px;
+  border-radius: var(--retro-border-radius);
   padding: 8px 12px;
   min-width: 220px;
 }
@@ -22,6 +22,8 @@
   background: var(--retro-input-bg);
   color: var(--retro-input-text);
   border: 1px solid var(--retro-border-medium);
+  // Deliberate, like .retro-nav-pills: a tag reads as a chip. The wrapper
+  // above it is square. Allowlisted in scripts/check-radius.mjs.
   border-radius: 12px;
   padding: 3px 12px 3px 10px;
   font-size: var(--retro-font-size);

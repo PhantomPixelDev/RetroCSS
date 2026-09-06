@@ -153,7 +153,7 @@ input[type="color"].retro-input {
   width: 48px;
   height: 36px;
   padding: 2px;
-  border-radius: 4px;
+  border-radius: var(--retro-border-radius);
   border: 2px solid var(--retro-border-dark);
   background: var(--retro-input-bg);
   box-shadow: 1px 1px 0 var(--retro-border-light);
@@ -165,7 +165,7 @@ input[type="range"].retro-input {
   background: transparent;
   appearance: none;
   height: 6px;
-  border-radius: 4px;
+  border-radius: var(--retro-border-radius);
   outline: none;
   border: 2px solid var(--retro-border-dark);
   box-shadow: 1px 1px 0 var(--retro-border-light);
@@ -174,7 +174,7 @@ input[type="range"].retro-input::-webkit-slider-thumb {
   appearance: none;
   width: 18px;
   height: 18px;
-  border-radius: 4px;
+  border-radius: var(--retro-border-radius);
   background: var(--retro-primary);
   border: 2px solid var(--retro-border-dark);
   box-shadow: 1px 1px 0 var(--retro-border-light);
@@ -183,7 +183,7 @@ input[type="range"].retro-input::-webkit-slider-thumb {
 input[type="range"].retro-input::-moz-range-thumb {
   width: 18px;
   height: 18px;
-  border-radius: 4px;
+  border-radius: var(--retro-border-radius);
   background: var(--retro-primary);
   border: 2px solid var(--retro-border-dark);
   box-shadow: 1px 1px 0 var(--retro-border-light);
@@ -192,7 +192,7 @@ input[type="range"].retro-input::-moz-range-thumb {
 input[type="range"].retro-input::-ms-thumb {
   width: 18px;
   height: 18px;
-  border-radius: 4px;
+  border-radius: var(--retro-border-radius);
   background: var(--retro-primary);
   border: 2px solid var(--retro-border-dark);
   box-shadow: 1px 1px 0 var(--retro-border-light);
@@ -201,7 +201,7 @@ input[type="range"].retro-input::-ms-thumb {
 input[type="range"].retro-input::-webkit-slider-runnable-track {
   height: 6px;
   background: var(--retro-input-bg);
-  border-radius: 4px;
+  border-radius: var(--retro-border-radius);
 }
 input[type="range"].retro-input::-ms-fill-lower,
 input[type="range"].retro-input::-ms-fill-upper {

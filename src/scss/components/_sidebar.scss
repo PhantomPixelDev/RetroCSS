@@ -2,7 +2,7 @@
 .retro-sidebar {
   background: var(--retro-sidebar-bg);
   border: 1px solid var(--retro-border-medium);
-  border-radius: 4px;
+  border-radius: var(--retro-border-radius);
   padding: var(--retro-spacing-md, 16px);
   width: 100%;
   height: auto;
@@ -76,7 +76,7 @@
   background: var(--retro-bg);
   border: 1px solid var(--retro-border-medium);
   padding: 6px 10px;
-  border-radius: 4px;
+  border-radius: var(--retro-border-radius);
   cursor: pointer;
   margin-bottom: var(--retro-spacing-sm, 8px);
   

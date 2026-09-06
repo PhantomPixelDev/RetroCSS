@@ -4,6 +4,9 @@
 changes are visible on every page that consumes the framework, so they are
 called out first.
 
+> **If you are on 3.0.0, upgrade to 3.0.1.** 3.0.0 shipped a regression that
+> rounded eleven components. See [section 2](#2-border-radius-is-no-longer-important).
+
 ## 1. Body text is 16px
 
 `--retro-font-size` moves from `0.875rem` (14px) to `1rem` (16px). The rest of
@@ -34,6 +37,52 @@ get 4px back. The default is still square:
 
 If you were relying on the reset to flatten a third-party widget's corners,
 that widget's own radius now wins, and you will need to zero it yourself.
+
+### The 3.0.0 regression, fixed in 3.0.1
+
+Dropping the `!important` had a consequence nobody caught: the reset had been
+suppressing 31 hardcoded `border-radius` declarations scattered through the
+components, written over the years by people who never saw them take effect.
+All of them came alive at once. **3.0.0 renders these rounded**, and 3.0.1
+returns them to square:
+
+| Component | 3.0.0 | 3.0.1 |
+| --- | --- | --- |
+| `.retro-nav-pills .retro-nav-item` | 999px | 999px *(kept, see below)* |
+| `.retro-tag` | 12px | 12px *(kept, see below)* |
+| `.retro-list` / `.retro-list li` | 6px / 4px | 0 |
+| `.retro-rating-star` | 6px | 0 |
+| `.retro-tag-input`, `.retro-search-bar`, `.retro-file-upload`, `.retro-tooltip`, `.retro-sidebar`, `.retro-tab` | 4px | 0 |
+| `.retro-breadcrumbs`, `.retro-dropdown-menu`, `.retro-pagination .retro-btn`, `.retro-divider-vertical` | 2px | 0 |
+
+Those declarations now read `var(--retro-border-radius)`, which is `0` by
+default. So the fix is not a second reversal — it is the radius system finally
+being wired up. **You can round all of them at once:**
+
+```css
+:root { --retro-border-radius: 4px; }
+```
+
+`.retro-nav-pills` and `.retro-tag` keep their shapes deliberately: a pill and
+a chip are the shapes those components are named for, and they are the one
+place the framework spends a modern idiom on purpose.
+
+Note that the core Win9x chrome — card, button, badge, table, input, modal,
+alert, progress, carousel — sets `border-radius: 0` directly and does **not**
+follow the token. Rounding those too is a change under consideration; if you
+need it today, override them yourself.
+
+`scripts/check-radius.mjs` now runs in CI and fails the build on any new
+hardcoded radius, so this cannot recur.
+
+### Radio buttons and the spinner are round again
+
+The same reset had been squaring six declarations that were never chrome:
+`.retro-radio` and its checked dot, `input[type="radio"].retro-input` and its
+dot, `.retro-spinner`, and the `.retro-list` bullet. A Windows 95 radio button
+is a circle, so squaring them was a long-standing bug. They are circular from
+3.0.0 onward and stay that way. If you were relying on square radios, set
+`border-radius: 0` on them yourself.
 
 ## 3. On-fill text follows the theme
 

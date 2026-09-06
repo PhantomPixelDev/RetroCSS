@@ -7,7 +7,7 @@
   align-items: flex-start;
   background: var(--retro-input-bg);
   border: 2px dashed var(--retro-border-dark);
-  border-radius: 4px;
+  border-radius: var(--retro-border-radius);
   padding: 16px;
   box-shadow: 1px 1px 0 var(--retro-border-light);
   min-width: 260px;
@@ -27,7 +27,7 @@
   text-align: center;
   background: var(--retro-input-bg);
   border: 1px solid var(--retro-border-medium);
-  border-radius: 4px;
+  border-radius: var(--retro-border-radius);
   color: var(--retro-text-muted);
   font-size: var(--retro-font-size-lg);
   margin-top: 8px;

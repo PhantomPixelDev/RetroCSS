@@ -175,10 +175,24 @@ Typography is tokenised the same way: `--retro-font`, `--retro-font-heading`,
 default; for a modern heading font, set
 `--retro-font-heading: 'Segoe UI', Tahoma, sans-serif;`.
 
+Corners are square, because Windows 95 was. One token softens the components
+that opt in — lists, dropdowns, breadcrumbs, tooltips, the search bar, the
+sidebar, tabs, pagination and the file uploader:
+
+```css
+:root { --retro-border-radius: 4px; }
+```
+
+The core chrome — card, button, badge, table, input, modal — stays square
+regardless, and `.retro-rounded` / `-lg` / `-full` still round one element at a
+time.
+
 > **Upgrading?** See [MIGRATION.md](MIGRATION.md). No class has ever been
 > renamed, but 3.0 raises the body text to 16px and drops the `!important` from
 > the `border-radius` reset, both of which are visible on every page — each with
-> a one-line override. 2.0 restyled a few things to meet WCAG AA.
+> a one-line override. **On 3.0.0, upgrade to 3.0.1**: dropping that
+> `!important` woke 31 dormant radius declarations and rounded eleven
+> components. 2.0 restyled a few things to meet WCAG AA.
 
 ## Utilities
 
@@ -275,8 +289,13 @@ npm run watch
 Run the gates:
 
 ```bash
-npm run check:a11y && npm run check:pages
+npm run check:a11y && npm run check:radius && npm run check:pages
 ```
+
+`check:a11y` gates the tokens (every `var(--retro-*)` resolves, every
+text/surface pair clears WCAG AA), `check:radius` gates the shape (nothing
+hardcodes a corner behind `--retro-border-radius`), and `check:pages` gates the
+rendered result across 8 pages × 2 themes × 5 widths.
 
 `check:pages` needs a browser once: `npx playwright install chromium`.
 

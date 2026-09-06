@@ -29,6 +29,14 @@ jobs:
       - name: Accessibility gate
         run: npm run check:a11y
 
+      # 3.0.0 dropped `border-radius: 0 !important` from the `*` reset, which
+      # had been suppressing 40-odd hardcoded radius declarations nobody had
+      # ever seen render. They all came alive at once and shipped a Windows 95
+      # framework with 999px nav pills. Static, so it also covers components
+      # that appear on no demo page -- which is how they accumulated unseen.
+      - name: Shape gate
+        run: npm run check:radius
+
       # check:a11y proves the tokens are sound; this proves the pages built from
       # them are. Every defect that reached production in the 2.x line -- a
       # modal that threw, tables 1,000,000px wide, input glyphs 19px off centre,

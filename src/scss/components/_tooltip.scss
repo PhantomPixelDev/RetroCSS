@@ -20,7 +20,7 @@
   background: var(--retro-black);
   color: var(--retro-white);
   font-size: var(--retro-font-size-sm);
-  border-radius: 4px;
+  border-radius: var(--retro-border-radius);
   white-space: nowrap;
   box-shadow: 3px 3px 0 rgba(var(--retro-shadow-rgb), 0.2);
   z-index: 1050;

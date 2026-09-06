@@ -10,7 +10,7 @@
   font-size: var(--retro-font-size-lg);
   background: var(--retro-card-bg);
   padding: 6px 12px;
-  border-radius: 2px;
+  border-radius: var(--retro-border-radius);
   border: 1px solid var(--retro-border-dark);
   box-shadow: 1px 1px 0 var(--retro-border-light);
   gap: 4px;
@@ -22,7 +22,7 @@
   align-items: center;
   gap: 2px;
   padding: 4px 10px;
-  border-radius: 2px;
+  border-radius: var(--retro-border-radius);
   transition: background 0.2s;
   &.active {
     color: var(--retro-card-content-text);

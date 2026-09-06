@@ -12,6 +12,7 @@
   "scripts": {
     "build": "npm run build:css && npm run build:js",
     "check:a11y": "node scripts/check-contrast.mjs",
+    "check:radius": "node scripts/check-radius.mjs",
     "version": "node scripts/sync-version.mjs && git add index.html",
     "watch": "concurrently \"npm run watch:css\" \"npm run watch:js\"",
     "build:css": "sass src/scss/retro.scss:dist/retro.css",
