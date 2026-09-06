@@ -211,6 +211,13 @@ themes. `npm run check:a11y` compiles the SCSS and asserts it, and fails the
 build on a regression — it also catches any `var(--retro-*)` that resolves to
 nothing.
 
+That proves the *tokens* are sound. `npm run check:pages` proves the *pages*
+are: it renders every page in the repo in real Chromium, in both themes, at
+1200/980/760/420/360px, and fails on a console error, horizontal overflow, a
+missing or duplicated `<h1>`, any rendered text below AA against the surface
+actually painted behind it, or an input glyph off its field's centre line. Both
+run in CI on every push.
+
 Beyond colour:
 
 - **Focus rings are `:focus-visible`.** Keyboard and assistive-tech users get a
@@ -225,6 +232,8 @@ Beyond colour:
   Tab all behave. Escape returns focus to the toggle.
 - **`prefers-reduced-motion` is honoured** — every animation and transition is
   neutralised, with the looping text effects switched off outright.
+- **Sortable tables are operable.** `.retro-table-sortable` headers are
+  focusable, sort on Enter and Space as well as click, and carry `aria-sort`.
 - **`.retro-sr-only`** labels icon-only controls; `.retro-sr-only-focusable`
   gives you a skip link.
 
@@ -261,6 +270,20 @@ Watch for changes:
 
 ```bash
 npm run watch
+```
+
+Run the gates:
+
+```bash
+npm run check:a11y && npm run check:pages
+```
+
+`check:pages` needs a browser once: `npx playwright install chromium`.
+
+Render the SassDoc API reference to `docs/api/`:
+
+```bash
+npm run docs:api
 ```
 
 ## License
