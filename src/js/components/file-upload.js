@@ -54,7 +54,6 @@ const RetroFileUpload = {
         });
       }
     });
-    console.log('File uploads initialized:', root.querySelectorAll('.retro-file-upload').length);
   },
 };
 

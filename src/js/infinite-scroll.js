@@ -1,104 +1,101 @@
 /**
- * RetroCSS Infinite Scroll Implementation
+ * RetroCSS Infinite Scroll
+ *
+ * Watches a scroll container and asks the page for more content when the
+ * bottom comes into view. It does not invent content: previously this module
+ * generated placeholder "Item N" cards with Math.random() progress bars and a
+ * hardcoded five-page limit, which meant every consuming application got fake
+ * data injected into its own scroll containers.
+ *
+ * Supply content by listening for the `retro:loadmore` event:
+ *
+ *   container.addEventListener('retro:loadmore', (e) => {
+ *     const { page, append, done } = e.detail;
+ *     fetchPage(page).then((items) => {
+ *       items.forEach((i) => append(renderCard(i)));
+ *       if (!items.length) done();
+ *     });
+ *   });
+ *
+ * With no listener the container simply never grows, which is the correct
+ * default for a component that has no data source.
  */
 const RetroInfiniteScroll = {
-  isLoading: false,
-  page: 1,
-  itemsPerPage: 5,
-  maxPages: 5, // For demo purposes
+  /** How close to the bottom, in px, before more content is requested. */
+  threshold: 50,
 
-  init() {
-    const containers = document.querySelectorAll(".retro-infinite-scroll");
-    if (!containers.length) return;
+  init(root = document) {
+    const containers = root.querySelectorAll('.retro-infinite-scroll');
 
     containers.forEach((container) => {
-      // Initialize with first batch of items
-      this.appendItems(container, 1);
+      // Idempotent: RetroCSS.init() is documented as a manual entry point, and
+      // binding twice would fire two requests per scroll.
+      if (container.dataset.retroInfiniteBound === 'true') return;
+      container.dataset.retroInfiniteBound = 'true';
 
-      // Set up scroll event listener
-      container.addEventListener("scroll", () => {
-        // Check if we're near the bottom of the container
-        if (
-          this.isNearBottom(container) &&
-          !this.isLoading &&
-          this.page < this.maxPages
-        ) {
-          this.loadMoreItems(container);
-        }
+      // Per container. These used to live on the singleton, so two lists on a
+      // page shared one page counter and one loading flag.
+      const state = { page: 1, loading: false, finished: false };
+
+      container.addEventListener('scroll', () => {
+        if (state.loading || state.finished) return;
+        if (!this.isNearBottom(container)) return;
+        this.requestMore(container, state);
       });
     });
   },
 
   isNearBottom(container) {
     return (
-      container.scrollHeight - container.scrollTop - container.clientHeight < 50
+      container.scrollHeight - container.scrollTop - container.clientHeight <
+      this.threshold
     );
   },
 
-  loadMoreItems(container) {
-    const loader = container.querySelector(".retro-infinite-loader");
+  requestMore(container, state) {
+    const loader = container.querySelector('.retro-infinite-loader');
+    state.loading = true;
+    if (loader) loader.style.display = 'flex';
 
-    // Show loading state
-    this.isLoading = true;
-    if (loader) loader.style.display = "flex";
+    const settle = () => {
+      state.loading = false;
+      if (loader) loader.style.display = 'none';
+    };
 
-    // Simulate API request with delay
-    setTimeout(() => {
-      this.page++;
-      this.appendItems(container, this.page);
+    const detail = {
+      page: state.page + 1,
+      /** Insert a node above the loader. */
+      append(node) {
+        if (loader) container.insertBefore(node, loader);
+        else container.appendChild(node);
+      },
+      /** Call when a page has been added. */
+      loaded() {
+        state.page += 1;
+        settle();
+      },
+      /** Call when there is nothing left. */
+      done() {
+        state.finished = true;
+        settle();
+        if (container.querySelector('.retro-infinite-end')) return;
+        const end = document.createElement('div');
+        end.className = 'retro-infinite-end';
+        end.textContent = 'End of content';
+        container.appendChild(end);
+      },
+    };
 
-      // Hide loading state
-      this.isLoading = false;
-      if (loader) loader.style.display = "none";
+    const delivered = container.dispatchEvent(
+      new CustomEvent('retro:loadmore', { detail, bubbles: true, cancelable: true }),
+    );
 
-      // If we've reached the max pages, add an end message
-      if (this.page >= this.maxPages) {
-        const endMessage = document.createElement("div");
-        endMessage.className = "retro-infinite-end";
-        endMessage.textContent = "End of content";
-        endMessage.style.textAlign = "center";
-        endMessage.style.padding = "20px";
-        endMessage.style.color = "var(--retro-border-medium)";
-        container.appendChild(endMessage);
-      }
-    }, 800); // Simulate network delay
-  },
-
-  appendItems(container, page) {
-    const loader = container.querySelector(".retro-infinite-loader");
-
-    // Create demo items for the current page
-    for (let i = 1; i <= this.itemsPerPage; i++) {
-      const itemIndex = (page - 1) * this.itemsPerPage + i;
-
-      const item = document.createElement("div");
-      item.className = "retro-card retro-mb-3";
-
-      const card = `
-        <div class="retro-card-header">
-          Item ${itemIndex}
-        </div>
-        <div class="retro-card-content">
-          <p>This is demo content for infinite scroll. Scroll down to load more items.</p>
-          <div class="retro-progress" style="margin-top: 10px;">
-            <div class="retro-progress-bar" style="width: ${Math.floor(
-              Math.random() * 100
-            )}%;"></div>
-          </div>
-        </div>
-      `;
-
-      item.innerHTML = card;
-
-      // Insert before the loader
-      if (loader) {
-        container.insertBefore(item, loader);
-      } else {
-        container.appendChild(item);
-      }
-    }
+    // Nothing listening, or nobody resolved it synchronously: release the lock
+    // so the container is not wedged in a loading state forever.
+    if (delivered && state.loading) settle();
   },
 };
 
-// Expose globally for RetroCSS.js to pick up
 window.RetroInfiniteScroll = RetroInfiniteScroll;
+
+export default RetroInfiniteScroll;

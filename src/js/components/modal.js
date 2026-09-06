@@ -130,8 +130,6 @@ const RetroModal = {
       }
       this._trap(e, openModal);
     });
-
-    console.log('Modal component initialized');
   },
 
   show(modalId) {
@@ -171,8 +169,6 @@ const RetroModal = {
     // else the dialog itself.
     const target = modal.querySelector('[autofocus]') || this._focusable(modal)[0] || modal;
     target.focus();
-
-    console.log(`Modal ${modalId} opened`);
   },
 
   hide(modalId) {
@@ -190,8 +186,6 @@ const RetroModal = {
       this._lastFocused.focus();
     }
     this._lastFocused = null;
-
-    console.log(`Modal ${modalId} closed`);
   },
 };
 

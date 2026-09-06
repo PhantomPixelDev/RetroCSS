@@ -181,11 +181,16 @@ RetroCSS.events.on('init', data => {
 RetroCSS.events.emit('custom:event', { foo: 'bar' });
 // Remove an event listener
 RetroCSS.events.off('init', myHandler);</code></pre>
-        <h3>Using ES Modules</h3>
-        <pre><code>// Import the entire RetroCSS library
-import RetroCSS from '@phantompixeldev/retrocss';
-// Or import specific components
-import { RetroModal, RetroToast } from '@phantompixeldev/retrocss/components';</code></pre>
+        <h3>Using a script tag</h3>
+        <pre><code>&lt;script src="dist/retro.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  RetroCSS.toast.show('Saved', { type: 'success' });
+  RetroModal.show('myModal');
+&lt;/script&gt;</code></pre>
+        <p>The bundle exposes <code>RetroCSS</code> plus the component singletons
+          (<code>RetroModal</code>, <code>RetroToast</code>, <code>RetroForm</code>,
+          <code>RetroTable</code>, <code>RetroDropdown</code>, <code>RetroFileUpload</code>,
+          <code>RetroEvents</code>) on <code>window</code>.</p>
       </div>
       <div class="doc-section retro-prose" id="theming">
         <h2>🎨 Theming & Dark Mode</h2>

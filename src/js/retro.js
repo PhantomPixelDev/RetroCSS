@@ -20,7 +20,14 @@ import './code-copy.js';
 import './infinite-scroll.js';
 import './table-responsive.js';
 import './sidebar.js';
-import './datetime.js';
+
+function readStoredTheme() {
+  try {
+    return localStorage.getItem('retro-theme') || 'light';
+  } catch (e) {
+    return 'light';
+  }
+}
 
 // Create a namespace for all RetroCSS components
 const RetroCSS = {
@@ -38,12 +45,14 @@ const RetroCSS = {
   tabs: window.RetroTabs,
   infiniteScroll: window.RetroInfiniteScroll,
   
-  // Store theme preference
-  theme: localStorage.getItem('retro-theme') || 'light',
+  // Store theme preference. Read defensively: in a sandboxed iframe, or with
+  // third-party storage blocked, touching localStorage throws SecurityError —
+  // and this runs during module evaluation, so it would take the whole bundle
+  // down before init() ever ran.
+  theme: readStoredTheme(),
   
   // Initialize all components
   init() {
-    console.log("RetroCSS initializing components...");
     
     // Initialize modular components
     RetroModal.init();
@@ -55,24 +64,20 @@ const RetroCSS = {
     // Initialize standalone components from window
     if (window.RetroCarousel && typeof window.RetroCarousel.init === 'function') {
       window.RetroCarousel.init();
-      console.log("Carousel initialized");
     } else {
       console.warn("RetroCarousel not available");
     }
     
-    if (window.RetroTabsInit && typeof window.RetroTabsInit.init === 'function') {
-      window.RetroTabsInit.init();
-      console.log("Tabs initialized");
+    if (window.RetroTabs && typeof window.RetroTabs.init === 'function') {
+      window.RetroTabs.init();
     }
     
     if (window.RetroAccordion && typeof window.RetroAccordion.init === 'function') {
       window.RetroAccordion.init();
-      console.log("Accordion initialized");
     }
 
     if (window.RetroInfiniteScroll && typeof window.RetroInfiniteScroll.init === 'function') {
       window.RetroInfiniteScroll.init();
-      console.log("Infinite Scroll initialized");
     }
     
     // NOTE: [data-retro-modal] triggers used to get a per-element click
@@ -144,8 +149,6 @@ const RetroCSS = {
         tooltip.classList.remove('show');
       });
     });
-    
-    console.log("Tooltips initialized:", tooltipTriggers.length);
   },
   
   // Initialize toast trigger elements
@@ -164,99 +167,67 @@ const RetroCSS = {
           duration,
           html
         });
-        
-        // Handle stacked toasts demo
-        if (message === "Stacked Toast 1") {
-          setTimeout(() => {
-            RetroToast.show("Stacked Toast 2", { type: "primary" });
-            setTimeout(() => {
-              RetroToast.show("Stacked Toast 3", { type: "success" });
-            }, 600);
-          }, 600);
-        }
       });
     });
-    
-    console.log("Toast triggers initialized:", toastTriggers.length);
   },
   
   // Initialize search bar components
   initSearchBars() {
     const searchBars = document.querySelectorAll('.retro-search-bar');
-    
-    searchBars.forEach(searchBar => {
+
+    searchBars.forEach((searchBar) => {
       const input = searchBar.querySelector('.retro-search-input');
       const suggestions = searchBar.querySelector('.retro-search-suggestions');
-      
       if (!input) return;
-      
-      // Show suggestions when input is focused
+
+      // The author's own suggestion nodes. This used to do
+      // `suggestions.innerHTML = ''` on every keystroke and inject three
+      // hardcoded "<value> - Result N" items, destroying real markup in any
+      // page that used the component. Filter what the author wrote instead.
+      const items = suggestions
+        ? Array.from(suggestions.querySelectorAll('.retro-search-suggestion'))
+        : [];
+
+      const choose = (item) => {
+        input.value = item.textContent.trim();
+        searchBar.classList.remove('active');
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+        input.focus();
+      };
+      items.forEach((item) => item.addEventListener('click', () => choose(item)));
+
       input.addEventListener('focus', () => {
-        if (suggestions) {
-          searchBar.classList.add('active');
-        }
+        if (suggestions) searchBar.classList.add('active');
       });
-      
-      // Hide suggestions when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!searchBar.contains(e.target)) {
-          searchBar.classList.remove('active');
-        }
-      });
-      
-      // Handle suggestion clicks
-      if (suggestions) {
-        const suggestionItems = suggestions.querySelectorAll('.retro-search-suggestion');
-        suggestionItems.forEach(item => {
-          item.addEventListener('click', () => {
-            input.value = item.textContent;
-            searchBar.classList.remove('active');
-            // Trigger change event
-            input.dispatchEvent(new Event('change', { bubbles: true }));
-            // Focus input
-            input.focus();
-          });
-        });
-      }
-      
-      // Add demo suggestions based on input
+
       input.addEventListener('input', () => {
-        if (!suggestions) return;
-        
         const value = input.value.trim().toLowerCase();
-        
-        // Clear existing suggestions
-        suggestions.innerHTML = '';
-        
-        if (value) {
-          // Add demo suggestions
-          const demoItems = [
-            `${value} - Result 1`,
-            `${value} - Result 2`,
-            `${value} - Result 3`
-          ];
-          
-          demoItems.forEach(item => {
-            const suggestion = document.createElement('div');
-            suggestion.className = 'retro-search-suggestion';
-            suggestion.textContent = item;
-            suggestion.addEventListener('click', () => {
-              input.value = item;
-              searchBar.classList.remove('active');
-              // Focus input
-              input.focus();
-            });
-            suggestions.appendChild(suggestion);
-          });
-          
-          searchBar.classList.add('active');
-        } else {
-          searchBar.classList.remove('active');
-        }
+
+        // Authors filtering server-side can listen for this and rewrite the
+        // list themselves; the default below is a plain client-side match.
+        RetroEvents.emit('search', { searchBar, input, value });
+
+        if (!suggestions) return;
+
+        let visible = 0;
+        items.forEach((item) => {
+          const match = !value || item.textContent.toLowerCase().includes(value);
+          item.hidden = !match;
+          if (match) visible += 1;
+        });
+
+        searchBar.classList.toggle('active', visible > 0);
       });
     });
-    
-    console.log("Search bars initialized:", searchBars.length);
+
+    // One delegated listener rather than one per search bar: the previous
+    // version added a document-level listener inside the loop, so a page with
+    // ten search bars accumulated ten of them, none removable.
+    document.addEventListener('click', (e) => {
+      document.querySelectorAll('.retro-search-bar.active').forEach((bar) => {
+        if (!bar.contains(e.target)) bar.classList.remove('active');
+      });
+    });
   },
   
   // Initialize tag input components
@@ -349,8 +320,6 @@ const RetroCSS = {
         }
       });
     });
-    
-    console.log("Tag inputs initialized:", tagInputs.length);
   },
   
   // Initialize theme toggle button
@@ -374,8 +343,6 @@ const RetroCSS = {
             });
           });
     });
-    
-    console.log("Theme toggles initialized:", themeToggles.length);
   },
   
   // Apply theme to document
@@ -423,12 +390,27 @@ const RetroCSS = {
         });
       });
     });
-    console.log('Rating stars initialized:', ratings.length);
   }
 };
 
-// Expose RetroCSS to the global scope
+// Expose RetroCSS to the global scope.
+//
+// The bundle is built WITHOUT esbuild's --global-name: that option emits an
+// outer `var RetroCSS = <module namespace>`, which is itself a global and so
+// overwrote the assignment below with `{ default: ... }`. Every documented
+// call — RetroCSS.toast.show, RetroCSS.modal.show — was a TypeError as a
+// result. The globals are declared here instead, explicitly.
 window.RetroCSS = RetroCSS;
+
+// Component singletons, for markup that calls them inline and for the API the
+// documentation describes.
+window.RetroModal = RetroModal;
+window.RetroToast = RetroToast;
+window.RetroForm = RetroForm;
+window.RetroTable = RetroTable;
+window.RetroDropdown = RetroDropdown;
+window.RetroFileUpload = RetroFileUpload;
+window.RetroEvents = RetroEvents;
 
 // Auto-initialize when the DOM is ready
 if (document.readyState === 'loading') {

@@ -96,8 +96,6 @@
       startX = null;
       moveX = null;
     });
-    
-    console.log("Carousel initialized:", this.slides.length, "slides");
   };
   
   RetroCarousel.prototype.goTo = function(idx) {

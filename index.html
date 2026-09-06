@@ -43,7 +43,7 @@
         "@type": "SoftwareApplication",
         "name": "RetroCSS",
         "applicationCategory": "DeveloperApplication",
-        "softwareVersion": "2.8.0",
+        "softwareVersion": "2.8.1",
         "operatingSystem": "Any",
         "url": "https://phantompixeldev.github.io/RetroCSS/",
         "downloadUrl": "https://www.npmjs.com/package/@phantompixeldev/retrocss",
@@ -1208,7 +1208,7 @@
           </div>
           <div class="retro-modal-body">
             This is a modal dialog. <br>
-            <button class="retro-btn" onclick="RetroModal.hide('demoModal')">Close</button>
+            <button class="retro-btn" data-close="modal">Close</button>
           </div>
         </div>
       </div>
@@ -1709,7 +1709,7 @@
       </div>
       <div class="retro-modal-body">
         This is a modal dialog. <br>
-        <button class="retro-btn" onclick="RetroModal.hide('demoModal')">Close</button>
+        <button class="retro-btn" data-close="modal">Close</button>
       </div>
     </div>
   </div>
@@ -1725,8 +1725,8 @@
         <p>This is a basic modal dialog. It's great for short messages or simple confirmations.</p>
       </div>
       <div class="retro-modal-footer">
-        <button class="retro-btn retro-btn-primary" onclick="RetroModal.hide('basicModal')">OK</button>
-        <button class="retro-btn" onclick="RetroModal.hide('basicModal')">Cancel</button>
+        <button class="retro-btn retro-btn-primary" data-close="modal">OK</button>
+        <button class="retro-btn" data-close="modal">Cancel</button>
       </div>
     </div>
   </div>
@@ -1745,7 +1745,7 @@
         <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.</p>
       </div>
       <div class="retro-modal-footer">
-        <button class="retro-btn" onclick="RetroModal.hide('longContentModal')">Close</button>
+        <button class="retro-btn" data-close="modal">Close</button>
       </div>
     </div>
   </div>
@@ -1775,7 +1775,7 @@
       </div>
       <div class="retro-modal-footer">
         <button class="retro-btn retro-btn-primary" type="submit" form="modalLoginForm">Login</button>
-        <button class="retro-btn" type="button" onclick="RetroModal.hide('formModal')">Cancel</button>
+        <button class="retro-btn" type="button" data-close="modal">Cancel</button>
       </div>
     </div>
   </div>
@@ -1788,7 +1788,7 @@
         <p>Content directly in the body.</p>
       </div>
       <div class="retro-modal-footer">
-        <button class="retro-btn" onclick="RetroModal.hide('noHeaderModal')">Done</button>
+        <button class="retro-btn" data-close="modal">Done</button>
       </div>
     </div>
   </div>
@@ -1808,6 +1808,42 @@
 
   <!-- Load Individual RetroCSS JS Source Files -->
   <script src="dist/retro.js"></script>
+  <script>
+    // Demo-only behaviour. This used to live inside the framework, where it
+    // fired a toast for every date input and injected placeholder cards into
+    // every scroll container in the consuming application.
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('input[type="date"], input[type="time"]').forEach(function (input) {
+        input.addEventListener('change', function () {
+          if (window.RetroCSS && RetroCSS.toast) {
+            RetroCSS.toast.show('Selected: ' + input.value, { type: 'info' });
+          }
+        });
+      });
+
+      document.querySelectorAll('.retro-infinite-scroll').forEach(function (container) {
+        var perPage = 5, maxPages = 5;
+        container.addEventListener('retro:loadmore', function (e) {
+          var d = e.detail;
+          if (d.page > maxPages) { d.done(); return; }
+          setTimeout(function () {
+            for (var i = 1; i <= perPage; i++) {
+              var n = (d.page - 1) * perPage + i;
+              var card = document.createElement('div');
+              card.className = 'retro-card retro-mb-3';
+              card.innerHTML =
+                '<div class="retro-card-header">Item ' + n + '</div>' +
+                '<div class="retro-card-content"><p>Demo content for infinite scroll. Keep scrolling to load more.</p></div>';
+              d.append(card);
+            }
+            d.loaded();
+          }, 400);
+        });
+        // seed the first page
+        container.dispatchEvent(new Event('scroll'));
+      });
+    });
+  </script>
   <script>
     // Add keyframes for spinner animation if not already present
     if (!document.querySelector('#spin-keyframes')) {

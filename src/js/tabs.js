@@ -2,21 +2,38 @@
  * RetroCSS Tabs Implementation
  */
 class RetroTabs {
-  constructor(selector, options = {}) {
-    this.tabContainer = document.querySelector(selector);
+  constructor(target, options = {}) {
+    // Accept an element or a selector. Every call site in this file passes an
+    // element, which querySelector cannot take -- it stringifies to
+    // "[object HTMLElement]" and throws.
+    this.tabContainer = typeof target === 'string' ? document.querySelector(target) : target;
     if (!this.tabContainer) return;
-    
+
     this.options = {
       contentSelector: options.contentSelector || '.retro-tab-content',
       activeClass: options.activeClass || 'active',
-      defaultTab: options.defaultTab || 0,
-      ...options
+      ...options,
+      // findIndex returns -1 when no tab carries .active, and `-1 || 0` is -1
+      // because -1 is truthy -- which then indexes this.tabs[-1].
+      defaultTab: Math.max(0, options.defaultTab ?? 0),
     };
-    
+
     this.tabs = Array.from(this.tabContainer.querySelectorAll('.retro-nav-item'));
-    this.contentElements = this.options.contentContainer ? 
-      Array.from(document.querySelector(this.options.contentContainer).children) :
-      Array.from(this.tabContainer.nextElementSibling.querySelectorAll(this.options.contentSelector));
+
+    // Resolve panes against this nav, not the document. Passing a class here
+    // meant every tablist on the page bound to the first matching pane.
+    let paneRoot = this.options.contentContainer;
+    if (typeof paneRoot === 'string') paneRoot = document.querySelector(paneRoot);
+    if (!paneRoot) paneRoot = this.tabContainer.nextElementSibling;
+    if (!paneRoot) return;
+
+    this.contentElements = Array.from(
+      paneRoot.querySelectorAll(this.options.contentSelector),
+    );
+    if (!this.contentElements.length) {
+      this.contentElements = Array.from(paneRoot.children);
+    }
+    if (!this.tabs.length || !this.contentElements.length) return;
     
     this.init();
   }
@@ -133,11 +150,7 @@ const RetroTabsInit = {
             if (i === 0 && tabs[0].classList.contains('active')) {
               content.appendChild(existingContent);
             } else {
-              content.textContent = `Content for ${tab.textContent}`;
-              content.style.padding = '20px';
-              content.style.border = '2px solid #000';
-              content.style.borderTop = '0';
-              content.style.background = '#fff';
+              // Left empty on purpose: the framework does not invent copy.
             }
             wrapper.appendChild(content);
           });
@@ -147,7 +160,7 @@ const RetroTabsInit = {
       }
       
       new RetroTabs(nav, {
-        contentContainer: '.retro-tab-pane',
+        contentContainer,
         defaultTab: Array.from(nav.querySelectorAll('.retro-nav-item')).findIndex(tab => tab.classList.contains('active'))
       });
     });
@@ -174,8 +187,7 @@ const RetroTabsInit = {
             if (i === 0 && tabs[0].classList.contains('active')) {
               content.appendChild(existingContent);
             } else {
-              content.textContent = `Content for ${tab.textContent}`;
-              content.style.padding = '20px';
+              // Left empty on purpose: the framework does not invent copy.
               content.style.marginTop = '10px';
               content.style.background = '#f5f5f5';
             }
@@ -187,7 +199,7 @@ const RetroTabsInit = {
       }
       
       new RetroTabs(nav, {
-        contentContainer: '.retro-tab-pane-underlined',
+        contentContainer,
         defaultTab: Array.from(nav.querySelectorAll('.retro-nav-item')).findIndex(tab => tab.classList.contains('active'))
       });
     });
@@ -215,8 +227,7 @@ const RetroTabsInit = {
                 (tab.classList.contains('active'))) {
               content.appendChild(nextEl);
             } else {
-              content.textContent = `Content for ${tab.textContent}`;
-              content.style.padding = '20px';
+              // Left empty on purpose: the framework does not invent copy.
               content.style.marginTop = '10px';
               content.style.background = '#f5f5f5';
             }
@@ -227,7 +238,7 @@ const RetroTabsInit = {
         }
         
         new RetroTabs(nav, {
-          contentContainer: '.retro-tab-pane-buttons',
+          contentContainer,
           defaultTab: Array.from(nav.querySelectorAll('.retro-nav-item')).findIndex(tab => tab.classList.contains('active'))
         });
       }
@@ -282,8 +293,6 @@ class RetroAccordion {
         });
       });
     });
-
-    console.log("Accordion component initialized");
   }
 
   static init(selector = '.retro-accordion') {

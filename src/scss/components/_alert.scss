@@ -94,7 +94,7 @@
 }
 
 // Remove icon and close button styles
-.retro-alert-icon, .retro-toast-icon, .retro-alert-close, .retro-toast-close { display: none !important; }
+.retro-alert-icon, .retro-toast-icon { display: none !important; }
 
 // The `color` here was hardcoded #fff/#222 over a themed background. In dark
 // mode that put white on the light dark-palette fills -- #fff on the dark
@@ -105,6 +105,11 @@
     color: var(--retro-#{$n}-fg);
     border-left: 6px solid var(--retro-#{$n}-active);
   }
+}
+
+.retro-toast-body {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .retro-toast-close {
@@ -131,6 +136,9 @@
 }
 
 .retro-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--retro-spacing-sm);
   box-shadow: 2px 4px 16px rgba(var(--retro-shadow-rgb), 0.18), 1px 1px 0 var(--retro-border-light), 2px 2px 0 var(--retro-border-medium);
   border-width: 1.5px;
   margin-bottom: 0.75em;
