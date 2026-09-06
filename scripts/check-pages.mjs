@@ -219,6 +219,55 @@ for (const page of PAGES) {
   }
 }
 
+/* ---------- no theme flash ---------- */
+// The theme used to be applied only by script, so a dark-OS visitor was shown
+// a fully light page until the bundle had parsed and run. The fix is twofold:
+// the stylesheet carries the dark palette under prefers-color-scheme, and the
+// pages set a stored choice from an inline <head> script. Both are only worth
+// anything if they work with the bundle absent -- which is exactly what the
+// first paint looks like. So: block the bundle, and assert the page is already
+// the right colour.
+const FLASH_CASES = [
+  { os: 'dark', stored: null, want: 'dark' },
+  { os: 'dark', stored: 'light', want: 'light' },
+  { os: 'light', stored: 'dark', want: 'dark' },
+  { os: 'light', stored: null, want: 'light' },
+];
+
+for (const page of PAGES) {
+  for (const { os, stored, want } of FLASH_CASES) {
+    const ctx = await browser.newContext({ viewport: { width: 1200, height: 900 }, colorScheme: os });
+    const tab = await ctx.newPage();
+    if (stored) {
+      await tab.addInitScript((t) => {
+        try {
+          localStorage.setItem('retro-theme', t);
+        } catch {
+          /* storage blocked */
+        }
+      }, stored);
+    }
+    // Never let the bundle load: this is the pre-script first paint.
+    await tab.route('**/retro*.js', (r) => r.abort());
+    await tab.goto(`${origin}/${page}`, { waitUntil: 'load' });
+
+    const isDark = await tab.evaluate(() => {
+      const bg = getComputedStyle(document.body).backgroundColor;
+      const [r, g, b] = bg.match(/\d+/g).map(Number);
+      // The light chassis is #c0c0c0 and the dark one #2b2b2b; anything below
+      // mid-grey is the dark palette.
+      return (r + g + b) / 3 < 128;
+    });
+    checks += 1;
+    const got = isDark ? 'dark' : 'light';
+    if (got !== want) {
+      fail(`${page}  first paint  OS=${os} stored=${stored || 'none'}`,
+        `painted ${got}, expected ${want} -- theme flash`);
+    }
+    await ctx.close();
+  }
+}
+
 await browser.close();
 closeServer();
 
@@ -228,6 +277,6 @@ if (failures.length) {
   process.exit(1);
 }
 console.log(
-  `✓ ${PAGES.length} pages x ${THEMES.length} themes x ${WIDTHS.length} widths: ` +
-    `${checks} checks clean`,
+  `✓ ${PAGES.length} pages x ${THEMES.length} themes x ${WIDTHS.length} widths, ` +
+    `plus ${FLASH_CASES.length} first-paint cases per page: ${checks} checks clean`,
 );

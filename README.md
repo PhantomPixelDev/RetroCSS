@@ -192,6 +192,24 @@ Dark mode follows the operating system when the visitor has expressed no
 preference of their own. The moment they use a `.retro-theme-toggle`, that
 choice is stored and outranks the OS from then on.
 
+This is done in CSS, not script — the dark palette is emitted both for
+`[data-theme="dark"]` and under `@media (prefers-color-scheme: dark)` for
+`:root:not([data-theme="light"])` — so a dark-OS visitor gets the right colours
+on the very first paint, with no flash, even before the bundle loads.
+
+The one case CSS cannot see is a *stored* choice that differs from the OS.
+Add this to your `<head>` to cover it. It must be inline: an external or
+`defer`red script runs after the first paint, which is the whole problem.
+
+```html
+<script>
+  try {
+    var retroTheme = localStorage.getItem('retro-theme');
+    if (retroTheme) document.documentElement.setAttribute('data-theme', retroTheme);
+  } catch (e) {}
+</script>
+```
+
 > **Upgrading?** See [MIGRATION.md](MIGRATION.md). No class has ever been
 > renamed, but 3.0 raises the body text to 16px and drops the `!important` from
 > the `border-radius` reset, both of which are visible on every page — each with
@@ -316,8 +334,10 @@ npm run check:a11y && npm run check:radius && npm run check:pages && npm run che
 `check:a11y` gates the tokens (every `var(--retro-*)` resolves, every
 text/surface pair clears WCAG AA), `check:radius` gates the shape (nothing
 hardcodes a corner behind `--retro-border-radius`), `check:pages` gates the
-rendered result across 8 pages × 2 themes × 5 widths, and `check:keyboard`
-gates operability — that every control can actually be reached and used.
+rendered result across 8 pages × 2 themes × 5 widths — including that the first
+paint is already the right theme with the bundle blocked, so a theme flash fails
+the build — and `check:keyboard` gates operability: that every control can
+actually be reached and used.
 
 `check:pages` needs a browser once: `npx playwright install chromium`.
 

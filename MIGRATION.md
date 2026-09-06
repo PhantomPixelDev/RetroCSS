@@ -17,9 +17,21 @@ store a theme yourself before `RetroCSS.init()`:
 localStorage.setItem('retro-theme', 'light');
 ```
 
-Note that the theme is applied by script, so a dark-OS visitor may see a brief
-light flash before it runs. If that matters, set `data-theme` on `<html>` from
-an inline script in your `<head>`.
+The palette itself is applied in CSS, so there is **no theme flash**: the dark
+tokens are emitted both for `[data-theme="dark"]` and, under
+`@media (prefers-color-scheme: dark)`, for `:root:not([data-theme="light"])`.
+A dark-OS visitor is painted dark before a line of JavaScript runs.
+
+Two consequences:
+
+- `applyTheme('light')` now writes `data-theme="light"` instead of *removing*
+  the attribute. It has to: on a dark OS the attribute is the only thing that
+  can hold a deliberate light choice in place. If you keyed any CSS off
+  `:root:not([data-theme])` to mean "light", match `[data-theme="light"]`
+  instead.
+- To also cover a *stored* choice that differs from the OS — the one case CSS
+  cannot see — add the inline `<head>` snippet documented in the README. Every
+  page in this repo now ships it.
 
 **`--retro-border-radius` now reaches the whole framework.** 3.0.1 wired 31
 components to the token; the core chrome — card, button, badge, nav, progress,

@@ -716,7 +716,15 @@ $retro-container-fluid: 100%;
   --retro-syntax-attribute: #a03000;
 }
 
-[data-theme="dark"] {
+/// Every dark-theme token, in one place so it can be emitted twice: once for
+/// an explicit `[data-theme="dark"]`, and once under prefers-color-scheme so
+/// a dark-OS visitor gets the right palette on the very first paint.
+///
+/// Without the media-query copy the theme could only be applied by script,
+/// which meant a dark-OS visitor was shown a fully light page until the
+/// bundle had parsed and run -- a flash no consuming site could avoid without
+/// hand-writing its own blocking <head> script.
+@mixin retro-dark-tokens {
   // Win9x grey chassis rather than a flat modern near-black: a dark desktop
   // grey, a lighter window face, and bevels with real depth. The highlight
   // edge carries the perceivable boundary here — no dark colour can reach
@@ -891,6 +899,21 @@ $retro-container-fluid: 100%;
   --retro-syntax-property: #9cdcfe;
   --retro-syntax-tag: #6ba9db;
   --retro-syntax-attribute: #c8a2e0;
+}
+
+// An explicit choice, stored by the theme toggle. Highest precedence.
+[data-theme="dark"] {
+  @include retro-dark-tokens;
+}
+
+// No explicit choice: follow the operating system. The :not() guard is what
+// lets a visitor who deliberately picked light stay light on a dark OS --
+// applyTheme() writes data-theme="light" rather than removing the attribute,
+// precisely so this rule can be opted out of.
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    @include retro-dark-tokens;
+  }
 }
 
 /* Layout Specific Variables */

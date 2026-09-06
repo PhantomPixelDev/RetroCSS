@@ -451,13 +451,17 @@ const RetroCSS = {
     else if (query.addListener) query.addListener(onChange);
   },
 
-  // Apply theme to document
+  /**
+   * Apply theme to document.
+   *
+   * Light writes `data-theme="light"` rather than removing the attribute. The
+   * stylesheet applies the dark palette under `prefers-color-scheme: dark` to
+   * `:root:not([data-theme="light"])`, so on a dark OS the attribute is the
+   * only thing that can hold a deliberate light choice in place -- removing it
+   * would hand the visitor straight back to the system preference.
+   */
   applyTheme(theme) {
-    if (theme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-      document.documentElement.removeAttribute('data-theme');
-    }
+    document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
   },
 
   /**
