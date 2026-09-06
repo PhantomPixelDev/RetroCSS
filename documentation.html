@@ -110,23 +110,23 @@
       <div class="doc-section retro-prose" id="getting-started">
         <h2>🚀 Getting Started</h2>
         <p>RetroCSS is a retro-inspired CSS framework for building classic Win9x style UIs with modern CSS and JS. It provides SASS variables, utility classes, components, and a JS API for interactive features.</p>
-        <pre><code>&lt;link rel="stylesheet" href="dist/retro.min.css"&gt;
+        <pre class="retro-code"><code>&lt;link rel="stylesheet" href="dist/retro.min.css"&gt;
 &lt;script src="dist/retro.min.js"&gt;&lt;/script&gt;</code></pre>
       </div>
       <div class="doc-section retro-prose" id="installation">
         <h2>📦 Installation</h2>
         <h3>NPM</h3>
-        <pre><code>npm install @phantompixeldev/retrocss</code></pre>
+        <pre class="retro-code"><code>npm install @phantompixeldev/retrocss</code></pre>
         <h3>CDN</h3>
-        <pre><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss/dist/retro.min.css"&gt;
+        <pre class="retro-code"><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss/dist/retro.min.css"&gt;
 &lt;script src="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss/dist/retro.min.js"&gt;&lt;/script&gt;</code></pre>
         <h3>Manual</h3>
-        <pre><code>Download from GitHub and include the CSS and JS files in your project.</code></pre>
+        <pre class="retro-code"><code>Download from GitHub and include the CSS and JS files in your project.</code></pre>
       </div>
       <div class="doc-section retro-prose" id="usage">
         <h2>🛠️ Usage</h2>
         <p>RetroCSS provides a wide range of components and utilities to build retro-styled interfaces. Here's a simple card example:</p>
-        <pre><code>&lt;div class="retro-card"&gt;
+        <pre class="retro-code"><code>&lt;div class="retro-card"&gt;
   &lt;div class="retro-card-header"&gt;Windows 95&lt;/div&gt;
   &lt;div class="retro-card-content"&gt;
     &lt;p&gt;Welcome to RetroCSS!&lt;/p&gt;
@@ -141,7 +141,7 @@
           <li><b>Buttons:</b> <code>.retro-btn</code>, <code>.retro-btn-primary</code>, ...</li>
           <li><b>Cards:</b> <code>.retro-card</code>, <code>.retro-card-header</code>, ...</li>
           <li><b>Alerts:</b> <code>.retro-alert</code>, <code>.retro-alert-success</code>, ...</li>
-          <li><b>Tables:</b> <code>.retro-table</code>, <code>.retro-table-bordered</code>, ...</li>
+          <li><b>Tables:</b> <code>.retro-table</code>, <code>.retro-table-bordered</code>, <code>.retro-table-striped</code>, <code>.retro-table-sortable</code>, ...</li>
           <li><b>Badges:</b> <code>.retro-badge</code>, <code>.retro-badge-primary</code>, ...</li>
           <li><b>Navs:</b> <code>.retro-nav</code>, <code>.retro-nav-item</code>, ...</li>
           <li><b>Modals:</b> <code>.retro-modal</code>, <code>.retro-modal-content</code>, ...</li>
@@ -155,25 +155,56 @@
         <h2>📜 JavaScript API</h2>
         <p>RetroCSS includes a modular JavaScript API for interactive components. Each component is available through the global <code>RetroCSS</code> object.</p>
         <h3>Initialization</h3>
-        <pre><code>// Auto-initialization happens on DOMContentLoaded
+        <pre class="retro-code"><code>// Auto-initialization happens on DOMContentLoaded
 // If you need to manually initialize:
 RetroCSS.init();</code></pre>
         <h3>Toast</h3>
-        <pre><code>RetroCSS.toast.show('Message', { type: 'success', duration: 3000, html: false });</code></pre>
+        <pre class="retro-code"><code>RetroCSS.toast.show('Message', { type: 'success', duration: 3000, html: false });</code></pre>
         <h3>Modal</h3>
-        <pre><code>RetroCSS.modal.show('modalId');
+        <pre class="retro-code"><code>RetroCSS.modal.show('modalId');
 RetroCSS.modal.hide('modalId');</code></pre>
         <h3>Form Validation</h3>
-        <pre><code>RetroCSS.form.validate(formElement);
+        <pre class="retro-code"><code>RetroCSS.form.validate(formElement);
 RetroCSS.form.validateField(inputElement);</code></pre>
-        <h3>Table</h3>
-        <pre><code>RetroCSS.table.init();</code></pre>
+        <h3>Table sorting</h3>
+        <p>Add <code>.retro-table-sortable</code>. Headings become focusable and
+          sort on click, <kbd>Enter</kbd> or <kbd>Space</kbd>, and carry
+          <code>aria-sort</code> so the direction is announced.</p>
+        <pre class="retro-code"><code>&lt;table class="retro-table retro-table-sortable"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;/th&gt;                    &lt;!-- sniffed: number or text --&gt;
+      &lt;th data-sort="number"&gt;Size&lt;/th&gt;
+      &lt;th data-sort="none"&gt;Actions&lt;/th&gt; &lt;!-- opts the column out --&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;README&lt;/td&gt;
+      &lt;td data-sort-value="2048"&gt;2 KB&lt;/td&gt;
+      &lt;td&gt;&lt;button class="retro-btn retro-btn-sm"&gt;Edit&lt;/button&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+RetroCSS.table.init(); // only needed for tables added after load</code></pre>
+        <p><code>data-sort-value</code> sorts a formatted cell by what it means
+          rather than how it reads. The numeric sniff is strict on purpose: a
+          loose <code>parseFloat</code> reads <code>2023-09-01</code> as
+          <code>2023</code> and <code>SKU-001</code> as <code>-1</code>, which
+          silently sorts a date column by year and an ID column by the digits
+          after the first dash.</p>
+        <h3>Code blocks</h3>
+        <p>Any <code>&lt;pre class="retro-code"&gt;&lt;code&gt;</code> gets a copy
+          button automatically. Outside a secure context, where
+          <code>navigator.clipboard</code> is unavailable, it selects the code
+          and prompts for <kbd>Ctrl</kbd>+<kbd>C</kbd> instead.</p>
         <h3>Dropdown</h3>
-        <pre><code>RetroCSS.dropdown.init();</code></pre>
+        <pre class="retro-code"><code>RetroCSS.dropdown.init();</code></pre>
         <h3>File Upload</h3>
-        <pre><code>RetroCSS.fileUpload.init();</code></pre>
+        <pre class="retro-code"><code>RetroCSS.fileUpload.init();</code></pre>
         <h3>Events System</h3>
-        <pre><code>// Subscribe to an event
+        <pre class="retro-code"><code>// Subscribe to an event
 RetroCSS.events.on('init', data => {
   console.log('Framework initialized at:', data.timestamp);
 });
@@ -182,7 +213,7 @@ RetroCSS.events.emit('custom:event', { foo: 'bar' });
 // Remove an event listener
 RetroCSS.events.off('init', myHandler);</code></pre>
         <h3>Using a script tag</h3>
-        <pre><code>&lt;script src="dist/retro.min.js"&gt;&lt;/script&gt;
+        <pre class="retro-code"><code>&lt;script src="dist/retro.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
   RetroCSS.toast.show('Saved', { type: 'success' });
   RetroModal.show('myModal');
@@ -214,7 +245,7 @@ RetroCSS.events.off('init', myHandler);</code></pre>
           themes, but <code>--retro-text</code> / <code>--retro-text-inverse</code> say what they mean.</p>
         <p>Override SASS variables before importing <code>retro.scss</code>, or override the custom
           properties at runtime:</p>
-        <pre><code>:root {
+        <pre class="retro-code"><code>:root {
   --retro-primary: #0000aa;        /* fill */
   --retro-primary-fg: #ffffff;     /* text on that fill */
   --retro-primary-text: #000080;   /* that hue as text on a page background */
@@ -239,7 +270,7 @@ RetroCSS.events.off('init', myHandler);</code></pre>
         <p>Atomic helpers for layout and colour, all driven by the same tokens as the
           components. Everything below is prefixed <code>retro-</code>.</p>
         <h3>Layout</h3>
-        <pre><code>&lt;div class="retro-main-layout"&gt;          &lt;!-- sidebar + content shell --&gt;
+        <pre class="retro-code"><code>&lt;div class="retro-main-layout"&gt;          &lt;!-- sidebar + content shell --&gt;
   &lt;aside class="retro-sidebar"&gt;…&lt;/aside&gt;
   &lt;div class="main-content"&gt;…&lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -254,7 +285,7 @@ RetroCSS.events.off('init', myHandler);</code></pre>
           so a filled panel is legible in both themes from one class — that pairing is what
           <code>npm run check:a11y</code> verifies. <code>retro-bg-&lt;hue&gt;-subtle</code> is a low-alpha
           tint of the same hue that keeps normal body text on top.</p>
-        <pre><code>&lt;div class="retro-bg-primary retro-p-4"&gt;Readable in both themes&lt;/div&gt;
+        <pre class="retro-code"><code>&lt;div class="retro-bg-primary retro-p-4"&gt;Readable in both themes&lt;/div&gt;
 &lt;div class="retro-bg-success-subtle retro-p-4"&gt;Tinted callout&lt;/div&gt;
 &lt;span class="retro-text-danger"&gt;On-surface text&lt;/span&gt;</code></pre>
         <p>Pick the tier by role: <code>retro-bg-*</code> for a fill,
@@ -277,12 +308,12 @@ RetroCSS.events.off('init', myHandler);</code></pre>
         </ul>
         <p>Label icon-only controls with <code>.retro-sr-only</code>, and use
           <code>.retro-sr-only-focusable</code> for a skip link:</p>
-        <pre><code>&lt;button class="retro-btn"&gt;💾&lt;span class="retro-sr-only"&gt;Save&lt;/span&gt;&lt;/button&gt;</code></pre>
+        <pre class="retro-code"><code>&lt;button class="retro-btn"&gt;💾&lt;span class="retro-sr-only"&gt;Save&lt;/span&gt;&lt;/button&gt;</code></pre>
       </div>
       <div class="doc-section retro-prose" id="customization">
         <h2>⚙️ Customization</h2>
         <p>Override SASS variables or CSS custom properties to customize RetroCSS for your brand or project. See <code>src/scss/_variables.scss</code> for all available variables.</p>
-        <pre><code>:root {
+        <pre class="retro-code"><code>:root {
   --retro-primary: #ff00cc;
   --retro-bg: #222233;
   --retro-font: 'Comic Sans MS', cursive, sans-serif;

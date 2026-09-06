@@ -10,75 +10,12 @@
   container-name: retro-container;
 }
 
-// Container Query Breakpoints
-@container retro-container (min-width: 20rem) {
-  .retro-cq-sm {
-    // Small container styles
-  }
-}
-
-@container retro-container (min-width: 30rem) {
-  .retro-cq-md {
-    // Medium container styles
-  }
-}
-
-@container retro-container (min-width: 40rem) {
-  .retro-cq-lg {
-    // Large container styles
-  }
-}
-
-@container retro-container (min-width: 50rem) {
-  .retro-cq-xl {
-    // Extra large container styles
-  }
-}
-
-// Container Query Aspect Ratio
-@container retro-container (min-aspect-ratio: 16/9) {
-  .retro-cq-wide {
-    // Wide aspect ratio styles
-  }
-}
-
-@container retro-container (max-aspect-ratio: 4/3) {
-  .retro-cq-tall {
-    // Tall aspect ratio styles
-  }
-}
-
-// Container Query Orientation
-@container retro-container (orientation: landscape) {
-  .retro-cq-landscape {
-    // Landscape orientation styles
-  }
-}
-
-@container retro-container (orientation: portrait) {
-  .retro-cq-portrait {
-    // Portrait orientation styles
-  }
-}
-
-// Container Query Size
-@container retro-container (min-width: 20rem) and (max-width: 30rem) {
-  .retro-cq-size-sm {
-    // Small size range styles
-  }
-}
-
-@container retro-container (min-width: 30rem) and (max-width: 40rem) {
-  .retro-cq-size-md {
-    // Medium size range styles
-  }
-}
-
-@container retro-container (min-width: 40rem) and (max-width: 50rem) {
-  .retro-cq-size-lg {
-    // Large size range styles
-  }
-}
+// NOTE: eleven @container blocks used to sit here -- .retro-cq-sm/-md/-lg/-xl,
+// -wide/-tall, -landscape/-portrait and -size-sm/-md/-lg -- each with a
+// comment for a body. They compiled to nothing, so those classes were
+// documented by their names and did not exist. Removed rather than filled
+// in: what they should do depends on the component, and the blocks below
+// cover the cases the framework actually has an opinion about.
 
 // Container Query Mixins
 @mixin container-query($breakpoint) {

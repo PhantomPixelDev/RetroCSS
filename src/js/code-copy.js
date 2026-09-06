@@ -1,52 +1,77 @@
 /**
  * RetroCSS Code Copy Button
- * Adds copy functionality to code blocks
+ *
+ * Adds a copy button to every `.retro-code` block. Called from
+ * RetroCSS.init(); previously the module was bundled but never initialised, so
+ * the button existed only in the stylesheet.
  */
 
 const RetroCodeCopy = {
-  init() {
-    const codeBlocks = document.querySelectorAll('.retro-code');
-    
-    codeBlocks.forEach(block => {
-      // Create copy button if it doesn't exist
-      if (!block.querySelector('.retro-code-copy')) {
-        const copyButton = document.createElement('button');
-        copyButton.className = 'retro-code-copy';
-        copyButton.textContent = 'Copy';
-        block.appendChild(copyButton);
-        
-        // Add click event
-        copyButton.addEventListener('click', async () => {
-          const code = block.querySelector('code').textContent;
-          
-          try {
-            await navigator.clipboard.writeText(code);
-            
-            // Visual feedback
-            const originalText = copyButton.textContent;
-            copyButton.textContent = 'Copied!';
-            copyButton.style.background = '#c0c0c0';
-            
-            // Reset button after 2 seconds
-            setTimeout(() => {
-              copyButton.textContent = originalText;
-              copyButton.style.background = '';
-            }, 2000);
-          } catch (err) {
-            console.error('Failed to copy code:', err);
-            copyButton.textContent = 'Failed to copy';
-            copyButton.style.background = '#ffcccc';
-            
-            setTimeout(() => {
-              copyButton.textContent = 'Copy';
-              copyButton.style.background = '';
-            }, 2000);
+  /** How long the "Copied!" / "Failed" state stays up, in ms. */
+  feedbackDuration: 2000,
+
+  init(root = document) {
+    root.querySelectorAll('.retro-code').forEach((block) => {
+      // Idempotent: RetroCSS.init() is documented as a manual entry point, so
+      // a second call must not stack a second button on every block.
+      if (block.querySelector('.retro-code-copy')) return;
+
+      const code = block.querySelector('code');
+      // Nothing to copy. The old version read `.textContent` off this without
+      // a guard, so a `.retro-code` with no <code> child threw on click.
+      if (!code) return;
+
+      const button = document.createElement('button');
+      // Without an explicit type a <button> inside a <form> submits it.
+      button.type = 'button';
+      button.className = 'retro-code-copy';
+      button.textContent = 'Copy';
+      button.setAttribute('aria-label', 'Copy code to clipboard');
+      // The label changes to report the result, so it has to be announced.
+      button.setAttribute('aria-live', 'polite');
+
+      let timer = null;
+      const report = (label, state) => {
+        clearTimeout(timer);
+        button.textContent = label;
+        // A class, not an inline hex. The old version assigned '#c0c0c0' and
+        // '#ffcccc' directly, which ignored [data-theme] entirely and left
+        // pale-on-pale text on the dark chassis.
+        button.classList.toggle('retro-code-copy-ok', state === 'ok');
+        button.classList.toggle('retro-code-copy-fail', state === 'fail');
+        timer = setTimeout(() => {
+          button.textContent = 'Copy';
+          button.classList.remove('retro-code-copy-ok', 'retro-code-copy-fail');
+        }, this.feedbackDuration);
+      };
+
+      button.addEventListener('click', async () => {
+        const text = code.textContent;
+        try {
+          // navigator.clipboard is undefined outside a secure context, which
+          // includes anyone opening the docs over plain http or from file://.
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            throw new Error('clipboard unavailable');
           }
-        });
-      }
+          report('Copied!', 'ok');
+        } catch {
+          // Leave the code selected so the reader can copy it by hand.
+          const range = document.createRange();
+          range.selectNodeContents(code);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+          report('Press Ctrl+C', 'fail');
+        }
+      });
+
+      block.appendChild(button);
     });
-  }
+  },
 };
 
-// Expose globally for RetroCSS.js to pick up
-window.RetroCodeCopy = RetroCodeCopy; 
+window.RetroCodeCopy = RetroCodeCopy;
+
+export default RetroCodeCopy;

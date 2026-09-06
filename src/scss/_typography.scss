@@ -512,6 +512,21 @@ h5, h6 { font-size: var(--retro-font-size); }
         inset 1px 1px 0 var(--retro-shadow-light),
         inset -1px -1px 0 var(--retro-border-dark);
     }
+
+    // Result states. code-copy.js used to assign '#c0c0c0' and '#ffcccc'
+    // inline, which ignored [data-theme] and left pale text on pale fill on
+    // the dark chassis. These ride the palette instead.
+    &.retro-code-copy-ok {
+      background: var(--retro-success);
+      color: var(--retro-success-fg);
+      border-color: var(--retro-success-active);
+    }
+
+    &.retro-code-copy-fail {
+      background: var(--retro-danger);
+      color: var(--retro-danger-fg);
+      border-color: var(--retro-danger-active);
+    }
   }
   
   code {

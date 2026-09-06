@@ -986,18 +986,23 @@
             </tbody>
           </table>
           
-          <!-- New Striped Table -->
-          <table class="retro-table retro-table-striped retro-w-full">
+          <!-- Striped + sortable. Click or focus a header and press Enter.
+               data-sort is optional; it is spelled out here to show the API. -->
+          <table class="retro-table retro-table-striped retro-table-sortable retro-w-full">
+            <caption class="retro-text-muted retro-text-sm retro-mb-2">
+              Click a column heading to sort. Headings are focusable, so Enter
+              and Space work too.
+            </caption>
             <thead>
               <tr>
-                <th>Item ID</th>
-                <th>Description of Item which can be quite lengthy for testing purposes</th>
-                <th>Quantity</th>
-                <th>Unit Price</th>
-                <th>Total Price</th>
-                <th>Warehouse Location and Bin Number</th>
-                <th>Last Restock Date</th>
-                <th>Status Notes</th>
+                <th data-sort="text">Item ID</th>
+                <th data-sort="text">Description of Item which can be quite lengthy for testing purposes</th>
+                <th data-sort="number">Quantity</th>
+                <th data-sort="number">Unit Price</th>
+                <th data-sort="number">Total Price</th>
+                <th data-sort="text">Warehouse Location and Bin Number</th>
+                <th data-sort="text">Last Restock Date</th>
+                <th data-sort="none">Status Notes</th>
               </tr>
             </thead>
             <tbody>

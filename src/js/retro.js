@@ -16,10 +16,9 @@ import RetroEvents from './components/events.js';
 // we need to actually reference them from the window object
 import './carousel.js';
 import './tabs.js';
-import './code-copy.js';
+import RetroCodeCopy from './code-copy.js';
 import './infinite-scroll.js';
 import './table-responsive.js';
-import './sidebar.js';
 
 function readStoredTheme() {
   try {
@@ -79,6 +78,10 @@ const RetroCSS = {
     if (window.RetroInfiniteScroll && typeof window.RetroInfiniteScroll.init === 'function') {
       window.RetroInfiniteScroll.init();
     }
+
+    // Was bundled but never called, so .retro-code-copy existed only in the
+    // stylesheet and no code block ever got a button.
+    RetroCodeCopy.init();
     
     // NOTE: [data-retro-modal] triggers used to get a per-element click
     // listener here, on top of the delegated one RetroModal.init() already

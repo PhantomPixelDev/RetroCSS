@@ -84,6 +84,71 @@ If you were animating `.retro-tooltip` yourself, animate a child instead.
 - **`.retro-heading-variant`** drops its `letter-spacing`. Uppercase plus
   monospace already carries the emphasis.
 
+## Removed
+
+Everything here was already dead: unreachable, uninitialised, or compiling to
+nothing. If you were using any of it, it was not doing what its name implied.
+
+- **`window.RetroSidebar` / `src/js/sidebar.js`** — 234 lines that were bundled
+  but never initialised. Wiring it in would have injected a toggle button and a
+  full-screen overlay into every consuming page, hijacked every sidebar link
+  with smooth scrolling and `history.pushState`, overwritten whichever link the
+  author had marked `.active`, and bound an unthrottled `scroll` listener that
+  re-queried `section[id], div[id]` across the whole document on every event.
+  That is application logic, not framework logic. The CSS stays —
+  `.retro-sidebar`, `.retro-sidebar-toggle` and `.retro-sidebar-overlay` are all
+  still styled, so the same UI is a few lines of your own JS.
+- **Eleven `@container` blocks** in `utilities/_container-queries.scss`:
+  `.retro-cq-sm`, `-md`, `-lg`, `-xl`, `-wide`, `-tall`, `-landscape`,
+  `-portrait`, `-size-sm`, `-size-md`, `-size-lg`. Every one had a comment for a
+  body and compiled to nothing. The blocks with real declarations
+  (`.retro-cq-hide`, `-show`, `-text-lg`, `-text-xl`, `-flex-row`, `-flex-col`,
+  `-p-4`, `-p-6`, `-grid-2`, `-grid-3`) are untouched.
+- **Five Sass mixins**: `retro-border`, `retro-hover`, `retro-active`,
+  `retro-transition`, `retro-z-index`. None was called from anywhere in the
+  framework. Their values are all reachable directly as custom properties —
+  `--retro-border-dark`, `--retro-border-sunken`, `--retro-z-index-modal` and so
+  on — which is what the components use. `retro-box-shadow`, `retro-focus`,
+  `retro-focus-ring` and `retro-breakpoint` are still here.
+- **Five devDependencies**: `concat-cli`, `copyfiles`, `mkdirp`, `onchange`,
+  `uglify-js`. No script, workflow or config invoked any of them.
+
+## New
+
+- **Sortable tables actually work.** `.retro-table-sortable` had working JS and
+  no styles, no markup anywhere in the repo, and no way to reach it from the
+  keyboard. Headers are now focusable and respond to Enter and Space, carry
+  `aria-sort`, and show a direction indicator. Columns are sniffed as numeric or
+  text, or declared:
+
+  ```html
+  <table class="retro-table retro-table-sortable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th data-sort="number">Size</th>
+        <th data-sort="none">Actions</th>
+      </tr>
+    </thead>
+    <tbody>...</tbody>
+  </table>
+  ```
+
+  A cell can carry `data-sort-value` to sort a formatted value ("2 days ago",
+  "$1,204.00") by what it means. The numeric sniff is deliberately strict: a
+  loose `parseFloat` reads `2023-09-01` as `2023` and `SKU-001` as `-1`, which
+  quietly sorts a date column by year and an ID column by the digits after the
+  first dash.
+
+- **Code blocks get a copy button.** `code-copy.js` was bundled but never
+  initialised, so `.retro-code-copy` existed only in the stylesheet. It now runs
+  from `RetroCSS.init()`. Outside a secure context, where
+  `navigator.clipboard` is undefined, it selects the code and says
+  `Press Ctrl+C` rather than failing silently.
+
+- **`npm run docs:api`** renders the SassDoc blocks the SCSS has always carried
+  to `docs/api/`. `sassdoc` was installed and never wired up.
+
 ## Verifying your own pages
 
 `npm run check:pages` renders every page in the repo in real Chromium, in both

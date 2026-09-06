@@ -25,7 +25,8 @@
     "postbuild": "npm run build:min",
     "migrate-scss": "npx sass-migrator module --migrate-deps src/scss/retro.scss",
     "prepublishOnly": "npm run build",
-    "check:pages": "node scripts/check-pages.mjs"
+    "check:pages": "node scripts/check-pages.mjs",
+    "docs:api": "sassdoc src/scss --dest docs/api"
   },
   "keywords": [
     "css",
@@ -41,16 +42,11 @@
     "url": "https://github.com/PhantomPixelDev/RetroCSS.git"
   },
   "devDependencies": {
-    "concat-cli": "^4.0.0",
     "concurrently": "^8.2.2",
-    "copyfiles": "^2.4.1",
     "esbuild": "^0.25.0",
-    "mkdirp": "^1.0.4",
-    "onchange": "^7.1.0",
     "playwright": "^1.63.0",
     "rimraf": "^5.0.10",
     "sass": "^1.69.5",
-    "sassdoc": "^2.7.4",
-    "uglify-js": "^3.19.3"
+    "sassdoc": "^2.7.4"
   }
 }
