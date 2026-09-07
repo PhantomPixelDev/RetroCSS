@@ -35,6 +35,94 @@
     font-size: var(--retro-font-size-sm);
     text-align: center;
   }
+
+  /* A measure, so long-form prose does not run the full width of a desktop
+     card. Around 70 characters is where a line stops being tiring to track. */
+  .article-body { max-width: 68ch; }
+  .article-body > * + * { margin-top: var(--retro-spacing-md); }
+  .article-body h2 {
+    margin-top: var(--retro-spacing-xl);
+    padding-bottom: var(--retro-spacing-xs);
+    background: none;
+    border: 0;
+    border-bottom: 2px solid var(--retro-border-dark);
+    box-shadow: 0 1px 0 var(--retro-border-light);
+    font-size: var(--retro-font-size-2xl);
+  }
+  .article-body h3 {
+    margin-top: var(--retro-spacing-lg);
+    font-size: var(--retro-font-size-lg);
+  }
+  .article-lede {
+    font-size: var(--retro-font-size-lg);
+    line-height: 1.6;
+  }
+
+  .article-hero {
+    display: block;
+    width: 100%;
+    /* Letterboxed, not 3:2. At full ratio across a desktop column the hero was
+       625px tall and pushed the headline off the first screen entirely. */
+    aspect-ratio: 3 / 1;
+    max-height: 320px;
+    object-fit: cover;
+  }
+  @media (max-width: 600px) {
+    .article-hero { aspect-ratio: 2 / 1; }
+  }
+
+  figure.article-figure { margin: var(--retro-spacing-lg) 0; }
+  figure.article-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border: 2px solid var(--retro-border-dark);
+  }
+  figure.article-figure figcaption {
+    margin-top: var(--retro-spacing-xs);
+    font-size: var(--retro-font-size-sm);
+    color: var(--retro-text-muted);
+  }
+
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--retro-spacing-xs) var(--retro-spacing-sm);
+    font-size: var(--retro-font-size-sm);
+    color: var(--retro-text-muted);
+  }
+
+  .author-card { display: flex; gap: var(--retro-spacing-md); align-items: flex-start; }
+  .comment { display: flex; gap: var(--retro-spacing-md); align-items: flex-start; }
+  .comment + .comment {
+    margin-top: var(--retro-spacing-md);
+    padding-top: var(--retro-spacing-md);
+    border-top: 1px solid var(--retro-border-medium);
+  }
+  .comment-body { flex: 1; min-width: 0; }
+  .comment-body p { margin: var(--retro-spacing-xs) 0 0; }
+
+  .related-grid {
+    display: grid;
+    gap: var(--retro-spacing-md);
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+  .related-grid img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+  .related-grid h3 { margin: var(--retro-spacing-sm) 0 0; font-size: var(--retro-font-size); }
+
+  @media (min-width: 768px) {
+    .toc-col { position: sticky; top: var(--retro-spacing-md); align-self: start; }
+  }
+  .sidebar-widget { margin-bottom: var(--retro-spacing-lg); }
   </style>
 </head>
 <body class="retro-body-bg">
@@ -49,85 +137,267 @@
   </div>
   <hr class="retro-mt-5 retro-border-muted">
   <div class="retro-main-layout retro-gap-4">
-    <div class="retro-sidebar retro-bg-light retro-border-right retro-shadow-lg">
-      <div class="retro-sidebar-header">Blog</div>
-      <nav aria-label="Blog navigation" class="retro-nav-vertical retro-w-full">
+    <div class="retro-sidebar retro-bg-light retro-border-right retro-shadow-lg toc-col">
+      <div class="retro-sidebar-header">On this page</div>
+      <nav aria-label="Article contents" class="retro-nav-vertical retro-w-full sidebar-widget">
         <div class="retro-sidebar-section">
-          <a href="blog.html" class="retro-btn retro-w-full retro-mb-2">Back to Blog</a>
           <ul>
-                        <li><a class="retro-nav-item" href="#comments">Comments</a></li>
+            <li><a class="retro-nav-item" href="#why">Why square corners</a></li>
+            <li><a class="retro-nav-item" href="#tokens">The token layer</a></li>
+            <li><a class="retro-nav-item" href="#dark">Dark mode</a></li>
+            <li><a class="retro-nav-item" href="#keyboard">Keyboard access</a></li>
+            <li><a class="retro-nav-item" href="#wrapping">Wrapping up</a></li>
+            <li><a class="retro-nav-item" href="#comments">Comments (4)</a></li>
           </ul>
         </div>
       </nav>
+      <div class="sidebar-widget">
+        <div class="retro-sidebar-group">Filed under</div>
+        <div class="retro-flex retro-flex-wrap retro-gap-1">
+          <span class="retro-badge retro-badge-primary">release</span>
+          <span class="retro-badge retro-badge-info">theming</span>
+          <span class="retro-badge">css</span>
+        </div>
+      </div>
+      <a class="retro-btn retro-w-full" href="blog.html">&laquo; All posts</a>
     </div>
+
     <div class="main-content retro-pb-8">
-      <!-- Hero Section -->
-      <div class="retro-card retro-mb-4 retro-bg-primary-lightest retro-shadow-lg">
-        <div class="retro-card-header retro-flex retro-items-center retro-gap-3">
-          <div class="retro-avatar retro-avatar-lg retro-bg-primary retro-shadow-md" aria-hidden="true">RD</div>
-          <div class="retro-flex-1">
-            <h1 class="retro-heading-primary retro-mb-1">Introducing RetroCSS 4.0</h1>
-            <div class="retro-flex retro-gap-2 retro-items-center">
-              <span class="retro-badge retro-badge-primary">@retrodev</span>
-              <span class="retro-badge retro-badge-info">7 September 2026</span>
-              <span class="retro-badge retro-badge-success">Release</span>
+      <article class="retro-card retro-mb-5">
+        <div class="retro-card-header">Release notes</div>
+        <div class="retro-card-content">
+          <img class="article-hero" src="../images/covers/release.svg" width="600" height="400"
+               alt="Stylised mountain range beneath a dithered teal sky, in the manner of a 256-colour desktop wallpaper.">
+
+          <div class="article-body">
+            <h1 class="retro-mt-4">Everything new in RetroCSS 4.0</h1>
+
+            <div class="post-meta retro-mb-4">
+              <span class="retro-avatar retro-avatar-sm retro-bg-primary" aria-hidden="true">RD</span>
+              <span>Rita Delgado</span>
+              <span aria-hidden="true">&middot;</span>
+              <time datetime="2026-09-07">7 September 2026</time>
+              <span aria-hidden="true">&middot;</span>
+              <span>9 min read</span>
+            </div>
+
+            <p class="article-lede">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. This
+              release is mostly about the things you cannot see: packaging,
+              keyboard access, and a colour bug that had been hiding in plain
+              sight since the first dark theme.
+            </p>
+
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+          <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+
+            <h2 id="why">Why square corners</h2>
+          <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+
+            <figure class="article-figure">
+              <img src="../images/covers/theming.svg" width="600" height="400"
+                   alt="A yellow sun low over water beneath a dithered blue sky.">
+              <figcaption>
+                The dithered gradient is period-correct: a 256-colour display
+                could not show a smooth ramp, so it interleaved two colours in a
+                fixed matrix.
+              </figcaption>
+            </figure>
+
+          <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
+
+            <blockquote>
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+              accusantium doloremque laudantium, totam rem aperiam.
+            </blockquote>
+
+          <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
+
+            <h2 id="tokens">The token layer</h2>
+          <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.</p>
+
+            <h3>Four tiers per hue</h3>
+          <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
+
+            <pre class="retro-code"><code>:root {
+  --retro-primary: #0000aa;       /* fill */
+  --retro-primary-fg: #ffffff;    /* text on that fill */
+  --retro-primary-text: #000080;  /* that hue as text on a surface */
+  --retro-border-radius: 0;       /* one token, whole framework */
+}</code></pre>
+
+          <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur, excepteur sint occaecat cupidatat non proident.</p>
+
+            <h3>Rounding everything at once</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+
+            <figure class="article-figure">
+              <img src="../images/covers/typography.svg" width="600" height="400"
+                   alt="A grid of pale pink squares at varying opacity on a dithered magenta field.">
+              <figcaption>Every component routes its corners through one token.</figcaption>
+            </figure>
+
+            <h2 id="dark">Dark mode</h2>
+          <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+          <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+
+            <div class="retro-alert retro-alert-info">
+              <strong>Worth knowing:</strong> the dark palette ships under
+              <code>prefers-color-scheme</code> as well as
+              <code>[data-theme]</code>, so a dark-OS visitor is painted dark on
+              the first frame rather than after the bundle parses.
+            </div>
+
+          <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
+
+            <figure class="article-figure">
+              <img src="../images/covers/dark-mode.svg" width="600" height="400"
+                   alt="A pale crescent moon and scattered stars on a dithered indigo sky.">
+              <figcaption>
+                Nulla pariatur excepteur sint occaecat cupidatat non proident.
+              </figcaption>
+            </figure>
+
+            <h2 id="keyboard">Keyboard access</h2>
+          <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
+
+            <ul class="retro-list">
+              <li>Carousel dots are real buttons with labels and <code>aria-current</code>.</li>
+              <li>Rating stars are a radiogroup driven by the arrow keys.</li>
+              <li>Tooltips appear on focus and dismiss with <kbd>Esc</kbd>.</li>
+              <li>Tabs use a roving tabindex, so <kbd>Tab</kbd> steps into the panel.</li>
+            </ul>
+
+          <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.</p>
+
+            <figure class="article-figure">
+              <img src="../images/covers/accessibility.svg" width="600" height="400"
+                   alt="Concentric cream rings on a dithered orange field.">
+              <figcaption>Every control the JavaScript drives is in the tab order.</figcaption>
+            </figure>
+
+          <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
+
+            <h2 id="wrapping">Wrapping up</h2>
+          <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur, excepteur sint occaecat cupidatat non proident.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+          </div>
+        </div>
+      </article>
+
+      <div class="retro-card retro-mb-5">
+        <div class="retro-card-header">About the author</div>
+        <div class="retro-card-content">
+          <div class="author-card">
+            <span class="retro-avatar retro-avatar-lg retro-bg-primary" aria-hidden="true">RD</span>
+            <div>
+              <h2 class="retro-mt-0 retro-mb-2">Rita Delgado</h2>
+              <p class="retro-mb-0">
+                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit
+                aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                voluptatem sequi nesciunt. Writes about interface plumbing and
+                the 1990s.
+              </p>
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="retro-card retro-mb-5" id="comments">
+        <div class="retro-card-header">Comments (4)</div>
         <div class="retro-card-content">
-          <p class="retro-text-lg">We are thrilled to announce the 4.0 release of <b>RetroCSS</b>! This framework brings the nostalgia of Win9x to your modern web projects, with a full suite of components, utilities, and theming options.</p>
-        </div>
-      </div>
-      <!-- Post Content -->
-      <div class="retro-card retro-mb-4 retro-shadow-sm">
-        <div class="retro-card-content retro-prose">
-          <h3>Features</h3>
-          <ul class="retro-list retro-list-striped">
-            <li>Classic Win9x look and feel</li>
-            <li>Modern responsive layout</li>
-            <li>Dark mode & theming</li>
-            <li>Interactive JS components</li>
-            <li>Easy customization</li>
-          </ul>
-          <blockquote class="retro-blockquote retro-mt-4">“RetroCSS makes building nostalgic UIs fun and easy!”</blockquote>
-          <h3 class="retro-mt-5">Get Started</h3>
-          <pre class="retro-code retro-bg-light retro-p-2 retro-mb-2"><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss/dist/retro.min.css"&gt;
-&lt;script src="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss/dist/retro.min.js"&gt;&lt;/script&gt;</code></pre>
-          <div class="retro-mt-3">
-            <span class="retro-badge retro-badge-primary">#retrocss</span>
-            <span class="retro-badge retro-badge-success">#release</span>
-            <span class="retro-badge retro-badge-info">#css</span>
-            <span class="retro-badge retro-badge-warning">#win9x</span>
+
+          <div class="comment">
+            <span class="retro-avatar retro-bg-info" aria-hidden="true">AK</span>
+            <div class="comment-body">
+              <strong>Alice Kowalski</strong>
+              <span class="retro-text-secondary retro-text-sm">&middot; 2 hours ago</span>
+              <p>
+                Ut enim ad minima veniam, quis nostrum exercitationem ullam
+                corporis suscipit laboriosam. The dithered covers are a lovely
+                touch.
+              </p>
+            </div>
           </div>
-        </div>
-      </div>
-      <!-- Author Card -->
-      <div class="retro-card retro-mb-4 retro-shadow-sm">
-        <div class="retro-card-header">Author</div>
-        <div class="retro-card-content retro-flex retro-items-center retro-gap-3">
-          <div class="retro-avatar retro-avatar-lg retro-bg-primary retro-shadow-md" aria-hidden="true">RD</div>
-          <div>
-            <b>@retrodev</b><br>
-            <span class="retro-text-secondary">Retro Enthusiast</span>
+
+          <div class="comment">
+            <span class="retro-avatar retro-bg-success" aria-hidden="true">BM</span>
+            <div class="comment-body">
+              <strong>Bo Meyer</strong>
+              <span class="retro-text-secondary retro-text-sm">&middot; 5 hours ago</span>
+              <p>
+                At vero eos et accusamus et iusto odio dignissimos ducimus qui
+                blanditiis praesentium voluptatum deleniti atque corrupti.
+                Finally shipped the exports map!
+              </p>
+            </div>
           </div>
-        </div>
-      </div>
-      <!-- Comments -->
-      <div class="retro-card retro-shadow-sm" id="comments">
-        <div class="retro-card-header">Comments</div>
-        <div class="retro-card-content">
-          <ul class="retro-list retro-list-striped">
-            <li><b>alice</b>: Love the retro vibes!</li>
-            <li><b>bob</b>: Can't wait to use this in my next project!</li>
-            <li><b>charlie</b>: Theming is so easy, great job!</li>
-          </ul>
-          <form class="retro-form retro-mt-4 retro-flex retro-gap-2">
-            <input type="text" id="comment" class="retro-input retro-flex-1" placeholder="Type your comment...">
-            <button class="retro-btn retro-btn-primary" type="submit">Post</button>
+
+          <div class="comment">
+            <span class="retro-avatar retro-bg-warning" aria-hidden="true">CN</span>
+            <div class="comment-body">
+              <strong>Chidi Nwosu</strong>
+              <span class="retro-text-secondary retro-text-sm">&middot; yesterday</span>
+              <p>
+                Et harum quidem rerum facilis est et expedita distinctio. Nam
+                libero tempore, cum soluta nobis est eligendi optio cumque nihil
+                impedit.
+              </p>
+            </div>
+          </div>
+
+          <div class="comment">
+            <span class="retro-avatar retro-bg-danger" aria-hidden="true">DP</span>
+            <div class="comment-body">
+              <strong>Dana Petrov</strong>
+              <span class="retro-text-secondary retro-text-sm">&middot; 2 days ago</span>
+              <p>
+                Temporibus autem quibusdam et aut officiis debitis aut rerum
+                necessitatibus saepe eveniet ut et voluptates repudiandae sint
+                et molestiae non recusandae.
+              </p>
+            </div>
+          </div>
+
+          <form class="retro-form retro-mt-4" onsubmit="return false;">
+            <div class="retro-form-group">
+              <label class="retro-label" for="comment-name">Name</label>
+              <input class="retro-input" id="comment-name" type="text" placeholder="Your name">
+            </div>
+            <div class="retro-form-group">
+              <label class="retro-label" for="comment-text">Comment</label>
+              <textarea class="retro-textarea" id="comment-text" rows="4"
+                        placeholder="Say something nice"></textarea>
+            </div>
+            <button class="retro-btn retro-btn-primary" type="submit">Post comment</button>
           </form>
         </div>
       </div>
-      <!-- Footer -->
+
+      <div class="retro-card">
+        <div class="retro-card-header">Related posts</div>
+        <div class="retro-card-content">
+          <div class="related-grid">
+            <a href="blog-post.html" class="retro-text-decoration-none">
+              <img src="../images/covers/theming.svg" width="600" height="400"
+                   alt="A yellow sun low over water beneath a dithered blue sky.">
+              <h3>Designing a token system that survives dark mode</h3>
+            </a>
+            <a href="blog-post.html" class="retro-text-decoration-none">
+              <img src="../images/covers/components.svg" width="600" height="400"
+                   alt="Three pale green squares arranged on a dithered green field.">
+              <h3>Building a component that is square on purpose</h3>
+            </a>
+            <a href="blog-post.html" class="retro-text-decoration-none">
+              <img src="../images/covers/accessibility.svg" width="600" height="400"
+                   alt="Concentric cream rings on a dithered orange field.">
+              <h3>Why your div is not a button</h3>
+            </a>
+          </div>
+        </div>
+      </div>
+
       <footer class="example-footer">
         <p>
           A RetroCSS example &middot; <a href="index.html">All examples</a>

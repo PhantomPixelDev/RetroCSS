@@ -19,6 +19,7 @@
     "build:js:esm": "esbuild src/js/retro.js --bundle --outfile=dist/retro.esm.js --format=esm",
     "build:js:min": "esbuild src/js/retro.js --bundle --minify --drop:console --outfile=dist/retro.min.js --format=iife",
     "build:min": "npm run build:css:min && npm run build:js:min",
+    "build:placeholders": "node scripts/make-placeholders.mjs",
     "build:types": "node -e \"require('fs').copyFileSync('src/types/retro.d.ts','dist/retro.d.ts')\"",
     "check:a11y": "node scripts/check-contrast.mjs",
     "check:css": "node scripts/check-css.mjs",

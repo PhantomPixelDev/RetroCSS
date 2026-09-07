@@ -35,6 +35,66 @@
     font-size: var(--retro-font-size-sm);
     text-align: center;
   }
+
+  /* --- post cards --- */
+  .post-grid {
+    display: grid;
+    gap: var(--retro-spacing-md);
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+  /* Equal heights: a ragged bottom row is the first thing that makes a card
+     grid look unfinished, and post excerpts are never the same length. */
+  .post-grid > article {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+  }
+  .post-grid .retro-card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .post-cover {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* The covers are 3:2. Reserving the ratio stops the grid reflowing as they
+       decode, which is what makes a card list jump about on load. */
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+  /* The card body is a flex column, so its children stretch across the cross
+     axis by default -- which turned every category badge and Read more button
+     into a full-width bar. */
+  .post-grid .retro-card-content > .retro-badge,
+  .post-grid .retro-card-content > .retro-btn { align-self: flex-start; }
+  .post-excerpt { flex: 1; margin: 0 0 var(--retro-spacing-md); }
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--retro-spacing-xs) var(--retro-spacing-sm);
+    margin-bottom: var(--retro-spacing-sm);
+    font-size: var(--retro-font-size-sm);
+    color: var(--retro-text-muted);
+  }
+  .post-title { margin: 0 0 var(--retro-spacing-xs); font-size: var(--retro-font-size-lg); }
+  .post-title a { text-decoration: none; }
+  .post-title a:hover { text-decoration: underline; }
+
+  /* --- featured --- */
+  .featured-body { display: grid; gap: var(--retro-spacing-lg); }
+  @media (min-width: 760px) {
+    .featured-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
+  }
+  .featured-body h2 {
+    margin: 0 0 var(--retro-spacing-sm);
+    font-size: clamp(1.3rem, 1rem + 1.6vw, 1.9rem);
+    line-height: 1.2;
+  }
+
+  .sidebar-widget { margin-bottom: var(--retro-spacing-lg); }
+  .tag-cloud { display: flex; flex-wrap: wrap; gap: var(--retro-spacing-xs); }
   </style>
 </head>
 <body class="retro-body-bg">
@@ -50,92 +110,225 @@
   <hr class="retro-mt-5 retro-border-muted">
   <div class="retro-main-layout retro-gap-4">
     <div class="retro-sidebar retro-bg-light retro-border-right retro-shadow-lg">
-      <h1 class="retro-sidebar-header">Blog</h1>
-      <nav aria-label="Blog navigation" class="retro-nav-vertical retro-w-full">
+      <div class="retro-sidebar-header">Retro Dispatch</div>
+      <nav aria-label="Blog navigation" class="retro-nav-vertical retro-w-full sidebar-widget">
         <div class="retro-sidebar-section">
+          <div class="retro-sidebar-group">Sections</div>
           <ul>
-            <li><a class="retro-nav-item" href="#latest">🆕 Latest Posts</a></li>
+            <li><a class="retro-nav-item" href="#latest">Latest posts</a></li>
             <li><a class="retro-nav-item" href="#categories">Categories</a></li>
             <li><a class="retro-nav-item" href="#about">About</a></li>
           </ul>
         </div>
       </nav>
+
+      <div class="sidebar-widget">
+        <div class="retro-sidebar-group">Archive</div>
+        <ul class="retro-list retro-list-striped">
+          <li>September 2026 <span class="retro-badge retro-badge-sm">6</span></li>
+          <li>August 2026 <span class="retro-badge retro-badge-sm">11</span></li>
+          <li>July 2026 <span class="retro-badge retro-badge-sm">9</span></li>
+          <li>June 2026 <span class="retro-badge retro-badge-sm">14</span></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-widget">
+        <div class="retro-sidebar-group">Tags</div>
+        <div class="tag-cloud">
+          <span class="retro-badge retro-badge-info">theming</span>
+          <span class="retro-badge retro-badge-success">components</span>
+          <span class="retro-badge retro-badge-warning">accessibility</span>
+          <span class="retro-badge retro-badge-primary">css</span>
+          <span class="retro-badge">tokens</span>
+          <span class="retro-badge">layout</span>
+        </div>
+      </div>
     </div>
+
     <div class="main-content retro-pb-8">
-      <!-- Featured Post -->
-      <div class="retro-card retro-mb-5 retro-bg-primary-lightest retro-shadow-lg">
+      <h1>Retro Dispatch</h1>
+      <p class="retro-text-lg retro-text-secondary retro-mb-4">
+        Notes on building interfaces that look like 1995 and behave like today.
+      </p>
+
+      <article class="retro-card retro-mb-5 retro-shadow-lg">
         <div class="retro-card-header retro-flex retro-items-center retro-gap-2">
           <span class="retro-badge retro-badge-primary">Featured</span>
-          <span class="retro-text-lg">Introducing RetroCSS 4.0</span>
+          <span>Release notes</span>
         </div>
-        <div class="retro-card-content retro-flex retro-gap-4 retro-items-center">
-          <div class="retro-avatar retro-avatar-xl retro-bg-primary retro-shadow-md" aria-hidden="true">RD</div>
-          <div class="retro-flex-1">
-            <p class="retro-text-lg retro-mb-2">We are excited to announce the 4.0 release of RetroCSS!</p>
-            <a href="blog-post.html" class="retro-btn retro-btn-primary">Read More</a>
+        <div class="retro-card-content">
+          <div class="featured-body">
+            <img class="post-cover" src="../images/covers/release.svg" width="600" height="400"
+                 alt="Stylised mountain range beneath a dithered teal sky, in the manner of a 256-colour desktop wallpaper.">
+            <div>
+              <h2><a href="blog-post.html">Everything new in RetroCSS 4.0</a></h2>
+              <div class="post-meta">
+                <span class="retro-avatar retro-avatar-sm retro-bg-primary" aria-hidden="true">RD</span>
+                <span>Rita Delgado</span>
+                <span aria-hidden="true">&middot;</span>
+                <time datetime="2026-09-07">7 September 2026</time>
+                <span aria-hidden="true">&middot;</span>
+                <span>9 min read</span>
+              </div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore.
+              </p>
+              <a href="blog-post.html" class="retro-btn retro-btn-primary">Read the post</a>
+            </div>
           </div>
         </div>
+      </article>
+
+      <h2 id="latest">Latest posts</h2>
+      <div class="post-grid retro-mb-5">
+
+        <article class="retro-card retro-shadow-sm">
+          <img class="post-cover" src="../images/covers/theming.svg" width="600" height="400"
+               alt="A yellow sun low over water beneath a dithered blue sky.">
+          <div class="retro-card-content">
+            <span class="retro-badge retro-badge-info retro-mb-2">Theming</span>
+            <h3 class="post-title"><a href="blog-post.html">Designing a token system that survives dark mode</a></h3>
+            <div class="post-meta">
+              <time datetime="2026-09-02">2 September 2026</time>
+              <span aria-hidden="true">&middot;</span><span>7 min read</span>
+            </div>
+            <p class="post-excerpt">
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.
+            </p>
+            <a href="blog-post.html" class="retro-btn retro-btn-sm">Read more</a>
+          </div>
+        </article>
+
+        <article class="retro-card retro-shadow-sm">
+          <img class="post-cover" src="../images/covers/components.svg" width="600" height="400"
+               alt="Three pale green squares arranged on a dithered green field.">
+          <div class="retro-card-content">
+            <span class="retro-badge retro-badge-success retro-mb-2">Components</span>
+            <h3 class="post-title"><a href="blog-post.html">Building a component that is square on purpose</a></h3>
+            <div class="post-meta">
+              <time datetime="2026-08-28">28 August 2026</time>
+              <span aria-hidden="true">&middot;</span><span>5 min read</span>
+            </div>
+            <p class="post-excerpt">
+              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+            </p>
+            <a href="blog-post.html" class="retro-btn retro-btn-sm">Read more</a>
+          </div>
+        </article>
+
+        <article class="retro-card retro-shadow-sm">
+          <img class="post-cover" src="../images/covers/accessibility.svg" width="600" height="400"
+               alt="Concentric cream rings on a dithered orange field.">
+          <div class="retro-card-content">
+            <span class="retro-badge retro-badge-warning retro-mb-2">Accessibility</span>
+            <h3 class="post-title"><a href="blog-post.html">Why your div is not a button</a></h3>
+            <div class="post-meta">
+              <time datetime="2026-08-21">21 August 2026</time>
+              <span aria-hidden="true">&middot;</span><span>11 min read</span>
+            </div>
+            <p class="post-excerpt">
+              Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam.
+            </p>
+            <a href="blog-post.html" class="retro-btn retro-btn-sm">Read more</a>
+          </div>
+        </article>
+
+        <article class="retro-card retro-shadow-sm">
+          <img class="post-cover" src="../images/covers/dark-mode.svg" width="600" height="400"
+               alt="A pale crescent moon and scattered stars on a dithered indigo sky.">
+          <div class="retro-card-content">
+            <span class="retro-badge retro-badge-primary retro-mb-2">Dark mode</span>
+            <h3 class="post-title"><a href="blog-post.html">Painting the right theme before the first frame</a></h3>
+            <div class="post-meta">
+              <time datetime="2026-08-14">14 August 2026</time>
+              <span aria-hidden="true">&middot;</span><span>6 min read</span>
+            </div>
+            <p class="post-excerpt">
+              Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur, quis autem vel eum iure reprehenderit.
+            </p>
+            <a href="blog-post.html" class="retro-btn retro-btn-sm">Read more</a>
+          </div>
+        </article>
+
+        <article class="retro-card retro-shadow-sm">
+          <img class="post-cover" src="../images/covers/typography.svg" width="600" height="400"
+               alt="A grid of pale pink squares at varying opacity on a dithered magenta field.">
+          <div class="retro-card-content">
+            <span class="retro-badge retro-badge-danger retro-mb-2">Typography</span>
+            <h3 class="post-title"><a href="blog-post.html">A type scale for interfaces that shout</a></h3>
+            <div class="post-meta">
+              <time datetime="2026-08-07">7 August 2026</time>
+              <span aria-hidden="true">&middot;</span><span>8 min read</span>
+            </div>
+            <p class="post-excerpt">
+              At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint.
+            </p>
+            <a href="blog-post.html" class="retro-btn retro-btn-sm">Read more</a>
+          </div>
+        </article>
+
+        <article class="retro-card retro-shadow-sm">
+          <img class="post-cover" src="../images/covers/release.svg" width="600" height="400"
+               alt="Stylised mountains beneath a dithered teal sky.">
+          <div class="retro-card-content">
+            <span class="retro-badge retro-mb-2">Changelog</span>
+            <h3 class="post-title"><a href="blog-post.html">What we removed in 3.0, and why</a></h3>
+            <div class="post-meta">
+              <time datetime="2026-07-30">30 July 2026</time>
+              <span aria-hidden="true">&middot;</span><span>4 min read</span>
+            </div>
+            <p class="post-excerpt">
+              Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat.
+            </p>
+            <a href="blog-post.html" class="retro-btn retro-btn-sm">Read more</a>
+          </div>
+        </article>
+
       </div>
-      <div class="retro-divider retro-divider-dotted"></div>
-      <!-- Latest Posts -->
-      <div class="retro-grid retro-grid-cols-1 md:retro-grid-cols-2 retro-gap-4" id="latest">
-        <div class="retro-card retro-shadow-sm">
-          <div class="retro-card-header retro-flex retro-items-center retro-gap-2">Theming Tips<span class="retro-badge retro-badge-info">Theming</span></div>
-          <div class="retro-card-content retro-flex retro-gap-3 retro-items-center">
-            <div class="retro-avatar retro-bg-info"></div>
-            <div class="retro-flex-1">
-              <p>Learn how to customize your app with RetroCSS themes and variables.</p>
-              <a href="blog-post.html" class="retro-btn retro-btn-info retro-btn-xs">Read More</a>
-            </div>
-          </div>
-        </div>
-        <div class="retro-card retro-shadow-sm">
-          <div class="retro-card-header retro-flex retro-items-center retro-gap-2">Building Components<span class="retro-badge retro-badge-success">Components</span></div>
-          <div class="retro-card-content retro-flex retro-gap-3 retro-items-center">
-            <div class="retro-avatar retro-bg-success"></div>
-            <div class="retro-flex-1">
-              <p>Discover how to create your own retro components with our framework.</p>
-              <a href="blog-post.html" class="retro-btn retro-btn-success retro-btn-xs">Read More</a>
-            </div>
-          </div>
-        </div>
-        <div class="retro-card retro-shadow-sm">
-          <div class="retro-card-header retro-flex retro-items-center retro-gap-2">Accessibility Matters<span class="retro-badge retro-badge-warning">Accessibility</span></div>
-          <div class="retro-card-content retro-flex retro-gap-3 retro-items-center">
-            <div class="retro-avatar retro-bg-warning"></div>
-            <div class="retro-flex-1">
-              <p>Tips for making your retro UI accessible to everyone.</p>
-              <a href="blog-post.html" class="retro-btn retro-btn-warning retro-btn-xs">Read More</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="retro-card retro-mt-5 retro-shadow-sm" id="categories">
+
+      <nav class="retro-pagination retro-mb-5" aria-label="Post pages">
+        <button class="retro-btn" type="button" disabled>&laquo; Newer</button>
+        <button class="retro-btn retro-btn-primary" type="button" aria-current="page">1</button>
+        <button class="retro-btn" type="button">2</button>
+        <button class="retro-btn" type="button">3</button>
+        <button class="retro-btn" type="button">Older &raquo;</button>
+      </nav>
+
+      <div class="retro-card retro-mb-5" id="categories">
         <div class="retro-card-header">Categories</div>
-        <div class="retro-card-content retro-flex retro-gap-2 retro-flex-wrap">
-          <span class="retro-badge retro-badge-info">Theming</span>
-          <span class="retro-badge retro-badge-success">Components</span>
-          <span class="retro-badge retro-badge-warning">Accessibility</span>
-          <span class="retro-badge retro-badge-primary">News</span>
-        </div>
-      </div>
-      <div class="retro-card retro-mt-5 retro-shadow-sm" id="about">
-        <div class="retro-card-header">About</div>
         <div class="retro-card-content">
-          <p>This blog is powered by <b>RetroCSS</b>and maintained by retro UI enthusiasts.</p>
+          <div class="tag-cloud">
+            <span class="retro-badge retro-badge-info">Theming (12)</span>
+            <span class="retro-badge retro-badge-success">Components (18)</span>
+            <span class="retro-badge retro-badge-warning">Accessibility (9)</span>
+            <span class="retro-badge retro-badge-primary">Dark mode (6)</span>
+            <span class="retro-badge retro-badge-danger">Typography (7)</span>
+            <span class="retro-badge">Changelog (21)</span>
+          </div>
         </div>
       </div>
-      <!-- Subscribe Call-to-Action -->
-      <div class="retro-card retro-mt-5 retro-bg-success-lightest retro-shadow-md retro-text-center">
-        <div class="retro-card-header">Subscribe for Updates</div>
+
+      <div class="retro-card" id="about">
+        <div class="retro-card-header">About this blog</div>
         <div class="retro-card-content">
-          <form class="retro-form retro-flex retro-gap-2 retro-justify-center retro-items-center retro-max-w-100 retro-mx-auto">
-            <input type="email" class="retro-input" placeholder="Your email..." required>
-            <button class="retro-btn retro-btn-success" type="submit">Subscribe</button>
-          </form>
+          <p>
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+            quae ab illo inventore veritatis et quasi architecto beatae vitae
+            dicta sunt explicabo.
+          </p>
+          <p class="retro-mb-0">
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
+            fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt neque porro quisquam est.
+          </p>
         </div>
       </div>
-      <!-- Footer -->
+
       <footer class="example-footer">
         <p>
           A RetroCSS example &middot; <a href="index.html">All examples</a>

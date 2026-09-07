@@ -316,6 +316,16 @@ input[type="radio"].retro-input {
   flex-direction: column;
   gap: var(--retro-spacing-md);
   width: 100%;
+
+  // A flex column stretches its children across the cross axis, which is what
+  // fields want and buttons do not: every submit button in a .retro-form
+  // silently spanned the whole form. Fields keep the stretch; a direct-child
+  // button sits at its natural width unless it asks for more (.retro-w-full
+  // still wins, since width beats the alignment).
+  > button,
+  > .retro-btn {
+    align-self: flex-start;
+  }
 }
 
 /// An input with a leading glyph.
