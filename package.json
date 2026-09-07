@@ -1,7 +1,7 @@
 {
   "name": "@phantompixeldev/retrocss",
   "version": "4.0.0",
-  "description": "A Retro-Inspired CSS Framework",
+  "description": "Windows 95/98 UI framework for the modern web. WCAG AA in light and dark, keyboard-operable components, RTL support, and TypeScript types \u2014 with no runtime dependencies.",
   "main": "dist/retro.cjs",
   "style": "dist/retro.css",
   "files": [
@@ -38,9 +38,22 @@
   "keywords": [
     "css",
     "scss",
+    "sass",
     "framework",
     "retro",
-    "ui"
+    "ui",
+    "windows-95",
+    "windows-98",
+    "win9x",
+    "vaporwave",
+    "css-framework",
+    "dark-mode",
+    "accessibility",
+    "wcag",
+    "rtl",
+    "design-system",
+    "components",
+    "typescript"
   ],
   "author": "PhantomPixelDev",
   "license": "MIT",

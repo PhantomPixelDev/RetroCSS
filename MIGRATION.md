@@ -192,13 +192,17 @@ being wired up. **You can round all of them at once:**
 a chip are the shapes those components are named for, and they are the one
 place the framework spends a modern idiom on purpose.
 
-Note that the core Win9x chrome — card, button, badge, table, input, modal,
-alert, progress, carousel — sets `border-radius: 0` directly and does **not**
-follow the token. Rounding those too is a change under consideration; if you
-need it today, override them yourself.
+At 3.0.1 the core Win9x chrome — card, button, badge, input, modal, alert,
+progress, carousel — still set `border-radius: 0` directly and did not follow
+the token. **4.0 routed all of it through the token**, so on a current version
+one declaration rounds the whole framework; see the 4.0 section above. Tables
+remain square, because `border-collapse: collapse` makes every engine ignore
+`border-radius`.
 
-`scripts/check-radius.mjs` now runs in CI and fails the build on any new
-hardcoded radius, so this cannot recur.
+A static gate runs in CI and fails the build on any new hardcoded radius, so
+this cannot recur. It was `scripts/check-radius.mjs` at 3.0.1 and is now
+`scripts/check-css.mjs` (`npm run check:css`), which also gates the theme-
+inverting colour bug fixed in 4.0.
 
 ### Radio buttons and the spinner are round again
 

@@ -22,14 +22,27 @@
 
 ## Features
 
-- **Authentic Retro Look**: Carefully crafted to mimic the classic Windows 95/98 UI
-- **Modern CSS**: Built with modern CSS features while maintaining the retro aesthetic
-- **Responsive**: Works on all screen sizes while preserving the retro feel
-- **Modular JS**: Organized component-based JavaScript architecture using ES modules
-- **Dark Mode**: Built-in dark mode support
-- **Accessible**: Designed with accessibility in mind
-- **Data Attribute API**: Use data attributes for easy component triggers (modals, toasts, tooltips, etc.)
-- **Beautiful Examples**: Includes dashboard, blog, login, register, and more, all with retro style
+- **Authentic Win9x chrome** — raised and sunken bevels, square corners, and a
+  grey chassis, down to the light source sitting at the top-left.
+- **Dark mode that follows the OS.** The dark palette ships under
+  `prefers-color-scheme` as well as `[data-theme]`, so a dark-OS visitor is
+  painted dark on the first frame with no flash. Using the toggle stores an
+  explicit choice, which then wins.
+- **WCAG AA in both themes, enforced.** All 370 text/surface pairs the
+  framework produces are checked on every push, as is every rendered page.
+- **Keyboard-operable.** Every control the JavaScript drives is in the tab
+  order with an accessible name — carousel dots, rating stars, tag removes,
+  sortable headers — and tooltips appear on focus, not only on hover.
+- **Right-to-left.** Set `dir="rtl"` and the layout mirrors. The bevels
+  deliberately do not, because Windows does not mirror them either.
+- **One token rounds everything.** `--retro-border-radius` is `0` by default;
+  set it once and the whole framework follows.
+- **Ships ESM, CJS and TypeScript types** behind an `exports` map, and is safe
+  to import during server-side rendering.
+- **Data attribute API** for modals, toasts, tooltips and dropdowns — no
+  JavaScript required to use them.
+- **No runtime dependencies.** ~21 KB of CSS and ~8 KB of JavaScript, gzipped,
+  and the JavaScript is optional.
 
 ## Installation
 
@@ -47,6 +60,46 @@ npm install @phantompixeldev/retrocss
 
 <!-- JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/@phantompixeldev/retrocss/dist/retro.min.js"></script>
+```
+
+### With a bundler
+
+The package ships ESM, CJS and a browser IIFE behind an `exports` map, so a
+bare import resolves to JavaScript and the stylesheet has its own entry point.
+
+```js
+// JavaScript
+import RetroCSS from '@phantompixeldev/retrocss';        // ESM
+const RetroCSS = require('@phantompixeldev/retrocss');    // CJS
+
+// Styles — pick one
+import '@phantompixeldev/retrocss/css';                   // full
+import '@phantompixeldev/retrocss/css/min';               // minified
+```
+
+Importing the bundle is safe during server-side rendering: it touches no
+browser global until the DOM exists, so Next, Remix and Astro can import it at
+the top level.
+
+### Sass
+
+```scss
+@use '@phantompixeldev/retrocss/scss' as retro;
+```
+
+### TypeScript
+
+Type definitions ship in the package and are picked up automatically — there is
+no `@types` package to install.
+
+```ts
+import RetroCSS, { RetroTheme, RetroHue } from '@phantompixeldev/retrocss';
+
+const theme: RetroTheme = 'dark';   // 'light' | 'dark'
+const hue: RetroHue = 'success';    // every hue with a full token set
+
+RetroCSS.applyTheme(theme);
+RetroCSS.toast.show('Saved', { type: hue, duration: 0 });
 ```
 
 ### Download
@@ -72,19 +125,24 @@ RetroCSS provides a wide range of components and utilities to build retro-styled
 </div>
 ```
 
-See the [documentation](documentation.html) for detailed usage instructions and examples.
+See the [documentation](https://phantompixeldev.github.io/RetroCSS/documentation.html) for detailed usage instructions and examples.
 
 ### Example Pages
 
-Check out the beautiful, ready-to-use examples in the `examples/` folder:
+Complete pages built from the framework and nothing else — no per-page
+component CSS. Every one is checked in CI at five widths in both themes.
 
-- [Dashboard](examples/dashboard.html)
-- [Blog](examples/blog.html)
-- [Blog Post](examples/blog-post.html)
-- [Login](examples/login.html)
-- [Register](examples/register.html)
+**[Browse them all](https://phantompixeldev.github.io/RetroCSS/examples/)**
 
-Each page demonstrates best practices, retro layouts, and interactive components.
+| Example | What it shows |
+| --- | --- |
+| [Dashboard](https://phantompixeldev.github.io/RetroCSS/examples/dashboard.html) | Application shell: sidebar, stat tiles, activity feed |
+| [Blog](https://phantompixeldev.github.io/RetroCSS/examples/blog.html) | Post listing, featured item, category badges |
+| [Blog post](https://phantompixeldev.github.io/RetroCSS/examples/blog-post.html) | Long-form prose, pull quote, code block, comments |
+| [Sign in](https://phantompixeldev.github.io/RetroCSS/examples/login.html) | Compact auth form with a show-password toggle |
+| [Sign up](https://phantompixeldev.github.io/RetroCSS/examples/register.html) | Longer form with live password requirements |
+| [Right-to-left](https://phantompixeldev.github.io/RetroCSS/examples/rtl.html) | The same components under `dir="rtl"` |
+| [Theme matrix](https://phantompixeldev.github.io/RetroCSS/examples/theme-matrix.html) | Every hue on every surface, both themes |
 
 ## JavaScript Architecture & Data Attribute API
 
@@ -175,18 +233,37 @@ Typography is tokenised the same way: `--retro-font`, `--retro-font-heading`,
 default; for a modern heading font, set
 `--retro-font-heading: 'Segoe UI', Tahoma, sans-serif;`.
 
-Corners are square, because Windows 95 was. One token softens the components
-that opt in — lists, dropdowns, breadcrumbs, tooltips, the search bar, the
-sidebar, tabs, pagination and the file uploader:
+Corners are square, because Windows 95 was. Every component routes its corners
+through one token, so a single declaration rounds the whole framework —
+buttons, cards, badges, inputs, navs and the rest together:
 
 ```css
-:root { --retro-border-radius: 4px; }
+:root { --retro-border-radius: 6px; }
 ```
 
-`.retro-rounded` / `-lg` / `-full` still round one element at a time. Two
-components keep their shape on purpose: `.retro-nav-pills` and `.retro-tag`.
-Tables stay square because `border-collapse: collapse` — what merges their cell
-borders into a single hairline — makes every engine ignore `border-radius`.
+`.retro-rounded` / `-lg` / `-full` still round one element at a time. Three
+things keep their shape on purpose: `.retro-nav-pills` and `.retro-tag`, which
+are named for it, and `.retro-badge-pixel`, whose whole point is being square.
+Radio buttons and the spinner are circles, as they are in Windows. Tables stay
+square because `border-collapse: collapse` — what merges their cell borders
+into a single hairline — makes every engine ignore `border-radius`.
+
+### Right-to-left
+
+Set `dir="rtl"` and the layout mirrors. Spacing, text alignment and start/end
+positioning use logical properties, so there is nothing to import and no
+separate stylesheet.
+
+```html
+<html lang="ar" dir="rtl">
+```
+
+The bevels deliberately do **not** mirror. In the Win9x visual language the
+light source is fixed at the top-left, and Windows keeps it there in RTL;
+flipping the raised and sunken edges would make every button read as sunken on
+the wrong side. Only the semantic accents move — an alert's stripe, a
+blockquote's rule — because those mark where a line of text begins. See the
+[RTL example](https://phantompixeldev.github.io/RetroCSS/examples/rtl.html).
 
 Dark mode follows the operating system when the visitor has expressed no
 preference of their own. The moment they use a `.retro-theme-toggle`, that
@@ -210,12 +287,16 @@ Add this to your `<head>` to cover it. It must be inline: an external or
 </script>
 ```
 
-> **Upgrading?** See [MIGRATION.md](MIGRATION.md). No class has ever been
-> renamed, but 3.0 raises the body text to 16px and drops the `!important` from
-> the `border-radius` reset, both of which are visible on every page — each with
-> a one-line override. **On 3.0.0, upgrade to 3.0.1**: dropping that
-> `!important` woke 31 dormant radius declarations and rounded eleven
-> components. 2.0 restyled a few things to meet WCAG AA.
+> **Upgrading?** See [MIGRATION.md](https://github.com/phantompixeldev/retrocss/blob/main/MIGRATION.md).
+> No class has ever been renamed. **4.0** moves the package's main entry from a
+> CSS file to JavaScript and adds an `exports` map — every existing deep path
+> still resolves — and `--retro-border-radius` now reaches the core chrome, so
+> if you had already set it, more will round than before. **3.0** raises the
+> body text to 16px and drops the `!important` from the `border-radius` reset,
+> both visible on every page, each with a one-line override. **On 3.0.0,
+> upgrade to 3.0.1**: dropping that `!important` woke 31 dormant radius
+> declarations and rounded eleven components. 2.0 restyled a few things to meet
+> WCAG AA.
 
 ## Utilities
 
@@ -256,9 +337,10 @@ actually painted behind it, or an input glyph off its field's centre line.
 
 Neither can see whether a control can be *reached*, so `npm run check:keyboard`
 asserts that too: every control the framework drives from script is in the tab
-order and carries an accessible name, roving-tabindex groups expose exactly one
-tab stop, and every tooltip appears on focus and not only on hover. All four
-gates run in CI on every push.
+order and carries an accessible name, no form control ships without one,
+roving-tabindex groups expose exactly one tab stop, and every tooltip appears on
+focus and not only on hover. `npm run check:css` gates the stylesheet itself,
+and `npm test` is a jsdom unit suite. All five run in CI on every push.
 
 Beyond colour:
 
@@ -285,6 +367,8 @@ Beyond colour:
   and are wired to their trigger with `aria-describedby` (WCAG 1.4.13).
 - **Tabs use a roving tabindex.** Tab steps over the tablist into the panel;
   Arrow keys, Home and End move between tabs.
+- **Dismiss controls meet the 24px target** WCAG 2.5.8 asks for. Inline text
+  links are exempt, and the `-xs` / `-sm` button variants are opt-in.
 - **`.retro-sr-only`** labels icon-only controls; `.retro-sr-only-focusable`
   gives you a skip link. Use it — not `.retro-hidden` — to hide a real form
   control you still want reachable, such as a styled `<input type="file">`:
@@ -337,12 +421,14 @@ text/surface pair clears WCAG AA), `check:css` gates the stylesheet statically
 (nothing hardcodes a corner behind `--retro-border-radius`, nothing builds a
 shadow or scrim from a token that inverts between themes, and no component
 class ships without appearing on a page), `check:pages` gates the
-rendered result across 8 pages × 2 themes × 5 widths — including that the first
+rendered result across 10 pages × 2 themes × 5 widths — including that the first
 paint is already the right theme with the bundle blocked, so a theme flash fails
-the build — and `check:keyboard` gates operability: that every control can
-actually be reached and used.
+the build — and `check:keyboard` gates operability: that every control the
+framework drives can be reached and named, that roving-tabindex groups expose
+exactly one tab stop, and that no form control ships without an accessible
+name.
 
-`check:pages` needs a browser once: `npx playwright install chromium`.
+`check:pages` and `check:keyboard` need a browser once: `npx playwright install chromium`.
 
 Render the SassDoc API reference to `docs/api/`:
 
