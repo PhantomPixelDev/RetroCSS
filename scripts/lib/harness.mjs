@@ -17,6 +17,7 @@ export const PAGES = [
   'examples/register.html',
   'examples/blog.html',
   'examples/blog-post.html',
+  'examples/index.html',
   'examples/theme-matrix.html',
   'examples/rtl.html',
 ];

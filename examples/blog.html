@@ -26,6 +26,16 @@
   <meta name="twitter:image" content="https://phantompixeldev.github.io/RetroCSS/images/og-card.png">
   <meta property="og:description" content="A blog index built with RetroCSS: sidebar navigation, post cards, badges and category tags in a Windows 95/98 interface.">
   <link rel="stylesheet" href="../dist/retro.min.css">
+  <style>
+  .example-footer {
+    margin-top: var(--retro-spacing-xl);
+    padding-top: var(--retro-spacing-md);
+    border-top: 1px solid var(--retro-border-medium);
+    color: var(--retro-text-muted);
+    font-size: var(--retro-font-size-sm);
+    text-align: center;
+  }
+  </style>
 </head>
 <body class="retro-body-bg">
   <div class="retro-container">
@@ -33,30 +43,20 @@
       <a href="../index.html" class="retro-nav-item" data-retro-tooltip="Home page">Home</a>
       <a href="../documentation.html" class="retro-nav-item" data-retro-tooltip="Documentation">Documentation</a>
       <a href="https://github.com/phantompixeldev/retrocss" class="retro-nav-item" data-retro-tooltip="GitHub">GitHub</a>
-      <div class="retro-dropdown">
-        <button class="retro-nav-item retro-dropdown-toggle" data-retro-dropdown data-retro-tooltip="Examples">Examples ▼</button>
-        <div class="retro-dropdown-menu">
-          <a href="dashboard.html" class="retro-dropdown-item">Dashboard</a>
-          <a href="blog.html" class="retro-dropdown-item">Blog</a>
-          <a href="blog-post.html" class="retro-dropdown-item">Blog Post</a>
-          <a href="login.html" class="retro-dropdown-item">Login</a>
-          <a href="register.html" class="retro-dropdown-item">Register</a>
-          <a href="theme-matrix.html" class="retro-dropdown-item">Theme Matrix</a>
-        </div>
-      </div>
-      <button class="retro-nav-item retro-theme-toggle" data-retro-tooltip="Toggle dark/light mode">🌓 Toggle Theme</button>
+      <a href="index.html" class="retro-nav-item" data-retro-tooltip="Examples">Examples</a>
+      <button class="retro-nav-item retro-theme-toggle" data-retro-tooltip="Toggle dark/light mode">Toggle Theme</button>
     </nav>
   </div>
   <hr class="retro-mt-5 retro-border-muted">
   <div class="retro-main-layout retro-gap-4">
     <div class="retro-sidebar retro-bg-light retro-border-right retro-shadow-lg">
-      <h1 class="retro-sidebar-header">📰 Blog</h1>
+      <h1 class="retro-sidebar-header">Blog</h1>
       <nav aria-label="Blog navigation" class="retro-nav-vertical retro-w-full">
         <div class="retro-sidebar-section">
           <ul>
             <li><a class="retro-nav-item" href="#latest">🆕 Latest Posts</a></li>
-            <li><a class="retro-nav-item" href="#categories">📚 Categories</a></li>
-            <li><a class="retro-nav-item" href="#about">👤 About</a></li>
+            <li><a class="retro-nav-item" href="#categories">Categories</a></li>
+            <li><a class="retro-nav-item" href="#about">About</a></li>
           </ul>
         </div>
       </nav>
@@ -66,12 +66,12 @@
       <div class="retro-card retro-mb-5 retro-bg-primary-lightest retro-shadow-lg">
         <div class="retro-card-header retro-flex retro-items-center retro-gap-2">
           <span class="retro-badge retro-badge-primary">Featured</span>
-          <span class="retro-text-lg">✨ Introducing RetroCSS v1.0</span>
+          <span class="retro-text-lg">Introducing RetroCSS 4.0</span>
         </div>
         <div class="retro-card-content retro-flex retro-gap-4 retro-items-center">
-          <div class="retro-avatar retro-avatar-xl retro-bg-primary retro-shadow-md">🧑‍💻</div>
+          <div class="retro-avatar retro-avatar-xl retro-bg-primary retro-shadow-md" aria-hidden="true">RD</div>
           <div class="retro-flex-1">
-            <p class="retro-text-lg retro-mb-2">We are excited to announce the first release of RetroCSS! 🎉</p>
+            <p class="retro-text-lg retro-mb-2">We are excited to announce the 4.0 release of RetroCSS!</p>
             <a href="blog-post.html" class="retro-btn retro-btn-primary">Read More</a>
           </div>
         </div>
@@ -80,38 +80,38 @@
       <!-- Latest Posts -->
       <div class="retro-grid retro-grid-cols-1 md:retro-grid-cols-2 retro-gap-4" id="latest">
         <div class="retro-card retro-shadow-sm">
-          <div class="retro-card-header retro-flex retro-items-center retro-gap-2">🎨 Theming Tips <span class="retro-badge retro-badge-info">Theming</span></div>
+          <div class="retro-card-header retro-flex retro-items-center retro-gap-2">Theming Tips<span class="retro-badge retro-badge-info">Theming</span></div>
           <div class="retro-card-content retro-flex retro-gap-3 retro-items-center">
-            <div class="retro-avatar retro-bg-info">🎨</div>
+            <div class="retro-avatar retro-bg-info"></div>
             <div class="retro-flex-1">
-              <p>Learn how to customize your app with RetroCSS themes and variables. 🌈</p>
+              <p>Learn how to customize your app with RetroCSS themes and variables.</p>
               <a href="blog-post.html" class="retro-btn retro-btn-info retro-btn-xs">Read More</a>
             </div>
           </div>
         </div>
         <div class="retro-card retro-shadow-sm">
-          <div class="retro-card-header retro-flex retro-items-center retro-gap-2">🛠️ Building Components <span class="retro-badge retro-badge-success">Components</span></div>
+          <div class="retro-card-header retro-flex retro-items-center retro-gap-2">Building Components<span class="retro-badge retro-badge-success">Components</span></div>
           <div class="retro-card-content retro-flex retro-gap-3 retro-items-center">
-            <div class="retro-avatar retro-bg-success">🛠️</div>
+            <div class="retro-avatar retro-bg-success"></div>
             <div class="retro-flex-1">
-              <p>Discover how to create your own retro components with our framework. 🕹️</p>
+              <p>Discover how to create your own retro components with our framework.</p>
               <a href="blog-post.html" class="retro-btn retro-btn-success retro-btn-xs">Read More</a>
             </div>
           </div>
         </div>
         <div class="retro-card retro-shadow-sm">
-          <div class="retro-card-header retro-flex retro-items-center retro-gap-2">💡 Accessibility Matters <span class="retro-badge retro-badge-warning">Accessibility</span></div>
+          <div class="retro-card-header retro-flex retro-items-center retro-gap-2">Accessibility Matters<span class="retro-badge retro-badge-warning">Accessibility</span></div>
           <div class="retro-card-content retro-flex retro-gap-3 retro-items-center">
-            <div class="retro-avatar retro-bg-warning">💡</div>
+            <div class="retro-avatar retro-bg-warning"></div>
             <div class="retro-flex-1">
-              <p>Tips for making your retro UI accessible to everyone. ♿</p>
+              <p>Tips for making your retro UI accessible to everyone.</p>
               <a href="blog-post.html" class="retro-btn retro-btn-warning retro-btn-xs">Read More</a>
             </div>
           </div>
         </div>
       </div>
       <div class="retro-card retro-mt-5 retro-shadow-sm" id="categories">
-        <div class="retro-card-header">📚 Categories</div>
+        <div class="retro-card-header">Categories</div>
         <div class="retro-card-content retro-flex retro-gap-2 retro-flex-wrap">
           <span class="retro-badge retro-badge-info">Theming</span>
           <span class="retro-badge retro-badge-success">Components</span>
@@ -120,14 +120,14 @@
         </div>
       </div>
       <div class="retro-card retro-mt-5 retro-shadow-sm" id="about">
-        <div class="retro-card-header">👤 About</div>
+        <div class="retro-card-header">About</div>
         <div class="retro-card-content">
-          <p>This blog is powered by <b>RetroCSS</b> and maintained by retro UI enthusiasts. ✨</p>
+          <p>This blog is powered by <b>RetroCSS</b>and maintained by retro UI enthusiasts.</p>
         </div>
       </div>
       <!-- Subscribe Call-to-Action -->
       <div class="retro-card retro-mt-5 retro-bg-success-lightest retro-shadow-md retro-text-center">
-        <div class="retro-card-header">📬 Subscribe for Updates</div>
+        <div class="retro-card-header">Subscribe for Updates</div>
         <div class="retro-card-content">
           <form class="retro-form retro-flex retro-gap-2 retro-justify-center retro-items-center retro-max-w-100 retro-mx-auto">
             <input type="email" class="retro-input" placeholder="Your email..." required>
@@ -136,9 +136,13 @@
         </div>
       </div>
       <!-- Footer -->
-      <footer class="retro-mt-8 retro-text-center retro-text-xs retro-text-secondary">
-        <div class="retro-divider retro-divider-dotted"></div>
-        <p>© 2024 RetroCSS Blog. Made with <span class="retro-text-danger">♥</span> in Win9x style.</p>
+      <footer class="example-footer">
+        <p>
+          A RetroCSS example &middot; <a href="index.html">All examples</a>
+          &middot; <a href="../index.html">Components</a>
+          &middot; <a href="../documentation.html">Docs</a>
+          &middot; <a href="https://github.com/phantompixeldev/retrocss">GitHub</a>
+        </p>
       </footer>
     </div>
   </div>

@@ -27,6 +27,15 @@
   <meta property="og:description" content="RetroCSS rendered right-to-left: layout mirrors on logical properties while the Win9x bevels deliberately stay physical.">
   <link rel="stylesheet" href="../dist/retro.min.css">
   <style>
+  .example-footer {
+    margin-top: var(--retro-spacing-xl);
+    padding-top: var(--retro-spacing-md);
+    border-top: 1px solid var(--retro-border-medium);
+    color: var(--retro-text-muted);
+    font-size: var(--retro-font-size-sm);
+    text-align: center;
+  }
+
     .rtl-page { max-width: 900px; margin: 0 auto; padding: var(--retro-spacing-lg); }
     .rtl-note { margin-bottom: var(--retro-spacing-lg); }
   </style>
@@ -36,6 +45,7 @@
     <nav aria-label="Site" class="retro-nav retro-mb-4">
       <a href="../index.html" class="retro-nav-item">الرئيسية</a>
       <a href="../documentation.html" class="retro-nav-item">التوثيق</a>
+      <a href="index.html" class="retro-nav-item">أمثلة</a>
       <button class="retro-nav-item retro-theme-toggle" type="button">تبديل السمة</button>
     </nav>
 
@@ -105,6 +115,16 @@
       </div>
     </div>
   </div>
+
+    <footer class="example-footer">
+        <p>
+          A RetroCSS example &middot; <a href="index.html">All examples</a>
+          &middot; <a href="../index.html">Components</a>
+          &middot; <a href="../documentation.html">Docs</a>
+          &middot; <a href="https://github.com/phantompixeldev/retrocss">GitHub</a>
+        </p>
+      </footer>
+
 
   <script src="../dist/retro.min.js"></script>
 </body>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Applies a stored theme choice before first paint. The stylesheet already
+       follows prefers-color-scheme on its own, so this is only needed for the
+       one case CSS cannot see: a visitor whose stored choice differs from their
+       OS setting. Must stay inline and in <head> -- an external or deferred
+       script runs too late to prevent the flash. -->
+  <script>
+    try {
+      var retroTheme = localStorage.getItem('retro-theme');
+      if (retroTheme) document.documentElement.setAttribute('data-theme', retroTheme);
+    } catch (e) { /* storage blocked; prefers-color-scheme still applies */ }
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Examples — RetroCSS</title>
+  <meta name="description" content="Complete pages built with RetroCSS: a dashboard, a blog and post, sign-in and sign-up forms, a right-to-left layout and the full theme matrix.">
+  <link rel="canonical" href="https://phantompixeldev.github.io/RetroCSS/examples/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="RetroCSS">
+  <meta property="og:url" content="https://phantompixeldev.github.io/RetroCSS/examples/">
+  <meta property="og:title" content="Examples — RetroCSS">
+  <meta property="og:image" content="https://phantompixeldev.github.io/RetroCSS/images/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://phantompixeldev.github.io/RetroCSS/images/og-card.png">
+  <meta property="og:description" content="Complete pages built with RetroCSS: a dashboard, a blog and post, sign-in and sign-up forms, a right-to-left layout and the full theme matrix.">
+  <link rel="stylesheet" href="../dist/retro.min.css">
+  <style>
+  .gallery-shell {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 var(--retro-spacing-md);
+    box-sizing: border-box;
+  }
+  .hero { margin-bottom: var(--retro-spacing-xl); }
+  .hero h1 {
+    margin: 0 0 var(--retro-spacing-sm);
+    font-size: clamp(1.6rem, 1.1rem + 2vw, 2.4rem);
+    line-height: 1.15;
+  }
+  .hero-lede {
+    font-size: var(--retro-font-size-lg);
+    line-height: 1.55;
+    max-width: 60ch;
+    margin: 0;
+  }
+
+  .gallery {
+    display: grid;
+    gap: var(--retro-spacing-md);
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  /* Equal-height cards: the demo pages' own grids left ragged rows, which is
+     the first thing that makes a set of examples look unfinished. */
+  .gallery > .retro-card {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+  }
+  .gallery .retro-card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .ex-desc { flex: 1; margin: 0 0 var(--retro-spacing-md); }
+  .ex-shows {
+    margin: 0 0 var(--retro-spacing-md);
+    padding: 0;
+    list-style: none;
+    font-size: var(--retro-font-size-sm);
+    color: var(--retro-text-muted);
+  }
+  .ex-shows li { padding: 2px 0; }
+  .ex-shows code { font-size: var(--retro-font-size-xs); }
+
+  .site-footer {
+    margin-top: var(--retro-spacing-xl);
+    padding: var(--retro-spacing-lg) 0 var(--retro-spacing-xl);
+    border-top: 2px solid var(--retro-border-dark);
+    box-shadow: 0 1px 0 var(--retro-border-light);
+    color: var(--retro-text-muted);
+    font-size: var(--retro-font-size-sm);
+  }
+  </style>
+</head>
+<body class="retro-body-bg">
+  <div class="retro-container">
+    <nav class="retro-nav">
+      <a href="../index.html" class="retro-nav-item" data-retro-tooltip="Home page">Home</a>
+      <a href="../documentation.html" class="retro-nav-item" data-retro-tooltip="Documentation">Documentation</a>
+      <a href="https://github.com/phantompixeldev/retrocss" class="retro-nav-item" data-retro-tooltip="GitHub">GitHub</a>
+      <a href="index.html" class="retro-nav-item active" data-retro-tooltip="Examples">Examples</a>
+      <button class="retro-nav-item retro-theme-toggle" data-retro-tooltip="Toggle dark/light mode">Toggle Theme</button>
+    </nav>
+  </div>
+  <hr class="retro-mt-5 retro-border-muted">
+
+  <div class="gallery-shell">
+    <section class="hero retro-card" aria-labelledby="ex-title">
+      <div class="retro-card-header">RetroCSS &mdash; Examples</div>
+      <div class="retro-card-content">
+        <h1 class="retro-mt-0" id="ex-title">Complete pages, not snippets</h1>
+        <p class="hero-lede">
+          Each of these is a whole page built from the framework and nothing
+          else &mdash; no per-page component CSS. Every one is checked in CI at
+          five widths in both themes, so what you see here is what the build
+          guarantees.
+        </p>
+      </div>
+    </section>
+
+    <div class="gallery">
+      <div class="retro-card">
+        <div class="retro-card-header">Dashboard</div>
+        <div class="retro-card-content">
+          <p class="ex-desc">An application shell: sidebar navigation, stat
+            tiles, a quick-action bar and an activity feed.</p>
+          <ul class="ex-shows">
+            <li><code>.retro-main-layout</code> &middot; <code>.retro-sidebar</code></li>
+            <li><code>.retro-card</code> &middot; <code>.retro-progress</code></li>
+          </ul>
+          <a class="retro-btn retro-btn-primary" href="dashboard.html">Open dashboard</a>
+        </div>
+      </div>
+
+      <div class="retro-card">
+        <div class="retro-card-header">Blog index</div>
+        <div class="retro-card-content">
+          <p class="ex-desc">A post listing with a featured item, category
+            badges and a card grid that stays even as content changes.</p>
+          <ul class="ex-shows">
+            <li><code>.retro-grid</code> &middot; <code>.retro-badge</code></li>
+            <li><code>.retro-card-header</code></li>
+          </ul>
+          <a class="retro-btn retro-btn-primary" href="blog.html">Open blog</a>
+        </div>
+      </div>
+
+      <div class="retro-card">
+        <div class="retro-card-header">Blog post</div>
+        <div class="retro-card-content">
+          <p class="ex-desc">A long-form reading layout: article prose, a pull
+            quote, a code block and a comment thread.</p>
+          <ul class="ex-shows">
+            <li><code>.retro-prose</code> &middot; <code>blockquote</code></li>
+            <li><code>.retro-code</code> with copy-to-clipboard</li>
+          </ul>
+          <a class="retro-btn retro-btn-primary" href="blog-post.html">Open post</a>
+        </div>
+      </div>
+
+      <div class="retro-card">
+        <div class="retro-card-header">Sign in</div>
+        <div class="retro-card-content">
+          <p class="ex-desc">A compact auth form with icon fields, a show-password
+            toggle and third-party sign-in buttons.</p>
+          <ul class="ex-shows">
+            <li><code>.retro-input</code> &middot; <code>.retro-input-icon</code></li>
+            <li><code>.retro-checkbox</code></li>
+          </ul>
+          <a class="retro-btn retro-btn-primary" href="login.html">Open sign in</a>
+        </div>
+      </div>
+
+      <div class="retro-card">
+        <div class="retro-card-header">Sign up</div>
+        <div class="retro-card-content">
+          <p class="ex-desc">A longer form with live password requirements and
+            inline validation feedback.</p>
+          <ul class="ex-shows">
+            <li><code>.retro-form-group</code> &middot; <code>.retro-label</code></li>
+            <li>Validation via <code>RetroCSS.form</code></li>
+          </ul>
+          <a class="retro-btn retro-btn-primary" href="register.html">Open sign up</a>
+        </div>
+      </div>
+
+      <div class="retro-card">
+        <div class="retro-card-header">Right-to-left</div>
+        <div class="retro-card-content">
+          <p class="ex-desc">The same components under <code>dir="rtl"</code>.
+            Layout mirrors; the Win9x bevels deliberately do not.</p>
+          <ul class="ex-shows">
+            <li>Logical properties throughout</li>
+            <li>Bevels stay lit from the top-left</li>
+          </ul>
+          <a class="retro-btn retro-btn-primary" href="rtl.html">Open RTL layout</a>
+        </div>
+      </div>
+
+      <div class="retro-card">
+        <div class="retro-card-header">Theme matrix</div>
+        <div class="retro-card-content">
+          <p class="ex-desc">Every hue against every surface, in both themes.
+            The reference for checking a token change by eye.</p>
+          <ul class="ex-shows">
+            <li>All 19 hues &middot; fill, text and states</li>
+            <li>Mirrors what <code>check:a11y</code> asserts</li>
+          </ul>
+          <a class="retro-btn retro-btn-primary" href="theme-matrix.html">Open theme matrix</a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <p>
+        RetroCSS <span data-version>4.0.0</span> &middot;
+        <a href="../index.html">All components</a> &middot;
+        <a href="../documentation.html">Documentation</a> &middot;
+        <a href="https://github.com/phantompixeldev/retrocss">GitHub</a>
+      </p>
+    </footer>
+  </div>
+
+  <script src="../dist/retro.min.js"></script>
+</body>
+</html>

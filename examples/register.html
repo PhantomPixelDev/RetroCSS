@@ -27,6 +27,15 @@
   <meta property="og:description" content="A Win9x style sign-up form built with RetroCSS, with live password validation and bevelled form controls.">
   <link rel="stylesheet" href="../dist/retro.min.css">
   <style>
+  .example-footer {
+    margin-top: var(--retro-spacing-xl);
+    padding-top: var(--retro-spacing-md);
+    border-top: 1px solid var(--retro-border-medium);
+    color: var(--retro-text-muted);
+    font-size: var(--retro-font-size-sm);
+    text-align: center;
+  }
+
     .pw-checklist {
       margin: 0 0 var(--retro-spacing-md);
       padding-left: 1.2em;
@@ -44,38 +53,25 @@
       <a href="../index.html" class="retro-nav-item" data-retro-tooltip="Home page">Home</a>
       <a href="../documentation.html" class="retro-nav-item" data-retro-tooltip="Documentation">Documentation</a>
       <a href="https://github.com/phantompixeldev/retrocss" class="retro-nav-item" data-retro-tooltip="GitHub">GitHub</a>
-      <div class="retro-dropdown">
-        <button class="retro-nav-item retro-dropdown-toggle" data-retro-dropdown data-retro-tooltip="Examples">Examples ▼</button>
-        <div class="retro-dropdown-menu">
-          <a href="dashboard.html" class="retro-dropdown-item">Dashboard</a>
-          <a href="blog.html" class="retro-dropdown-item">Blog</a>
-          <a href="blog-post.html" class="retro-dropdown-item">Blog Post</a>
-          <a href="login.html" class="retro-dropdown-item">Login</a>
-          <a href="register.html" class="retro-dropdown-item">Register</a>
-          <a href="theme-matrix.html" class="retro-dropdown-item">Theme Matrix</a>
-        </div>
-      </div>
-      <button class="retro-nav-item retro-theme-toggle" data-retro-tooltip="Toggle dark/light mode">🌓 Toggle Theme</button>
+      <a href="index.html" class="retro-nav-item" data-retro-tooltip="Examples">Examples</a>
+      <button class="retro-nav-item retro-theme-toggle" data-retro-tooltip="Toggle dark/light mode">Toggle Theme</button>
     </nav>
   </div>
   <hr class="retro-mt-5 retro-border-muted">
   <div class="retro-main-layout retro-gap-4">
     <div class="main-content retro-max-w-120 retro-mx-auto">
       <div class="retro-card retro-mt-8 retro-shadow-lg retro-border-2 retro-border-primary">
-        <div class="retro-card-header retro-bg-primary retro-flex retro-items-center retro-gap-2"><h1><span>📝</span> <span>Register</span></h1></div>
+        <div class="retro-card-header retro-bg-primary retro-flex retro-items-center retro-gap-2"><h1>Register</h1></div>
         <div class="retro-card-content">
           <form class="retro-form" onsubmit="return false;">
-            <div class="retro-form-group retro-input-icon">
-              <span class="icon">👤</span>
-              <input type="text" id="username" class="retro-input" placeholder="Choose a username" required>
+            <div class="retro-form-group">
+                            <input type="text" id="username" class="retro-input" placeholder="Choose a username" required>
             </div>
-            <div class="retro-form-group retro-input-icon">
-              <span class="icon">📧</span>
-              <input type="email" id="email" class="retro-input" placeholder="Enter your email" required>
+            <div class="retro-form-group">
+                            <input type="email" id="email" class="retro-input" placeholder="Enter your email" required>
             </div>
-            <div class="retro-form-group retro-input-icon">
-              <span class="icon">🔑</span>
-              <input type="password" id="password" class="retro-input" placeholder="Create a password" required oninput="checkStrength(this.value)">
+            <div class="retro-form-group">
+                            <input type="password" id="password" class="retro-input" placeholder="Create a password" required oninput="checkStrength(this.value)">
             </div>
             <ul class="pw-checklist" id="pwcheck">
               <li id="pwlen" class="bad">At least 8 characters</li>
@@ -90,16 +86,21 @@
           </form>
           <div class="retro-mt-4 retro-text-center">
             <span class="retro-text-secondary">Already have an account?</span>
-            <a href="login.html" class="retro-btn retro-btn-sm">🔐 Login</a>
+            <a href="login.html" class="retro-btn retro-btn-sm">Login</a>
           </div>
         </div>
-        <div class="retro-card-footer retro-text-center retro-text-xs retro-text-secondary">
-          <div class="retro-divider retro-divider-dotted"></div>
-          <p>© 2024 RetroCSS Register. Win9x vibes only.</p>
-        </div>
       </div>
+      <footer class="example-footer">
+        <p>
+          A RetroCSS example &middot; <a href="index.html">All examples</a>
+          &middot; <a href="../index.html">Components</a>
+          &middot; <a href="../documentation.html">Docs</a>
+          &middot; <a href="https://github.com/phantompixeldev/retrocss">GitHub</a>
+        </p>
+      </footer>
+
     </div>
-  </div>
+    </div>
   <script src="../dist/retro.js"></script>
   <script>
     function checkStrength(pw) {
