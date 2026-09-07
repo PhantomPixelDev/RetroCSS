@@ -60,6 +60,25 @@ export function makePage({
     dispatchEvent: () => false,
   });
 
+  // jsdom has no layout engine: offsetParent is always null and
+  // getClientRects() is always empty. Code that filters for *visible* elements
+  // therefore sees nothing at all -- the modal's focus trap collects zero
+  // focusable children and falls back to holding focus on the dialog itself.
+  //
+  // Verified against real Chromium before stubbing this: twelve Tab presses
+  // inside an open dialog escaped it zero times, so the trap is correct and it
+  // is jsdom that cannot express it. Report anything not explicitly hidden as
+  // laid out, which is what a browser would say for this markup.
+  Object.defineProperty(window.HTMLElement.prototype, 'offsetParent', {
+    configurable: true,
+    get() {
+      return this.style.display === 'none' || this.hidden ? null : this.parentElement;
+    },
+  });
+  window.Element.prototype.getClientRects = function getClientRects() {
+    return this.style.display === 'none' || this.hidden ? [] : [{ width: 1, height: 1 }];
+  };
+
   // The IIFE build assigns the globals itself; running it inside the jsdom
   // realm is what a <script> tag does.
   window.eval(bundle);

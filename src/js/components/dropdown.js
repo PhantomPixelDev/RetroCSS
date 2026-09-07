@@ -3,6 +3,8 @@
  * Provides dropdown menu functionality
  */
 
+import { claimGlobal } from '../util/bind.js';
+
 const RetroDropdown = {
   /** Visible menu items, in DOM order. */
   _items(drop) {
@@ -98,7 +100,12 @@ const RetroDropdown = {
   },
 
   init(root = document) {
+    // Annotating is idempotent -- it sets the same attributes again -- so it
+    // runs on every call and picks up dropdowns added since the last one.
     root.querySelectorAll('.retro-dropdown').forEach((drop) => this._annotate(drop));
+
+    // The delegated handlers below must only ever be attached once.
+    if (!claimGlobal('dropdown')) return;
 
     document.addEventListener('click', (e) => {
       // Dropdown toggle

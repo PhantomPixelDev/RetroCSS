@@ -101,7 +101,7 @@
     &::after {
       // The unsorted state gets a dimmed double arrow, so a reader can tell
       // which columns are sortable before clicking one.
-      content: '95'; // up-down arrow
+      content: '\2195'; // up-down arrow
       position: absolute;
       inset-inline-end: 6px;
       top: 50%;
@@ -111,12 +111,12 @@
     }
 
     &.asc::after {
-      content: 'B2'; // filled up triangle
+      content: '\25B2'; // filled up triangle
       opacity: 1;
     }
 
     &.desc::after {
-      content: 'BC'; // filled down triangle
+      content: '\25BC'; // filled down triangle
       opacity: 1;
     }
   }
@@ -167,7 +167,6 @@
     display: block; // Required for some browsers
     height: 16px;
     width: 16px;
-    // TODO: Add arrow icons using background images or pseudo-elements if desired
   }
 }
 
@@ -207,7 +206,6 @@
 // display: block; // Required for some browsers
 // height: 16px;
 // width: 16px;
-// // TODO: Add arrow icons using background images or pseudo-elements if desired
 // }
 // }  // End of removed .retro-table-responsive
 

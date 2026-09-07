@@ -4,9 +4,14 @@
  */
 
 // Form Validation
+import { bindOnce } from '../util/bind.js';
+
 const RetroForm = {
   init(root = document) {
     root.querySelectorAll(".retro-form").forEach((form) => {
+      // A repeat init() used to add another submit handler here and
+      // another blur handler to all 34 fields on the demo page.
+      if (!bindOnce(form, "formValidate")) return;
       form.addEventListener("submit", (e) => {
         if (!this.validate(form)) {
           e.preventDefault();

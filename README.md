@@ -430,11 +430,9 @@ name.
 
 `check:pages` and `check:keyboard` need a browser once: `npx playwright install chromium`.
 
-Render the SassDoc API reference to `docs/api/`:
-
-```bash
-npm run docs:api
-```
+The SCSS carries SassDoc `///` comments throughout. The `sassdoc` renderer
+was dropped in 5.0: unmaintained since 2022, its output was never published,
+and it accounted for every security advisory in the dependency tree.
 
 ## License
 

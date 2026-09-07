@@ -19,10 +19,17 @@ const FOCUSABLE = [
   '[tabindex]:not([tabindex="-1"])',
 ].join(',');
 
+import { claimGlobal } from '../util/bind.js';
+
 // Modal System
 const RetroModal = {
-  // The element that had focus when the modal opened, so it can be restored.
-  _lastFocused: null,
+  /**
+   * The elements that had focus when each modal opened, innermost last.
+   * A single slot could not describe a dialog opened from a dialog: the
+   * inner one overwrote the outer one's opener, so closing both returned
+   * focus to the wrong place.
+   */
+  _focusStack: [],
 
   /**
    * Visible, focusable descendants, in DOM order.
@@ -95,6 +102,11 @@ const RetroModal = {
   },
 
   init(root = document) {
+    // Delegated handlers belong to the document, not to a call of init().
+    // Without this a second init() added a second click and keydown
+    // listener, each doing the same closest() walk again.
+    if (!claimGlobal('modal')) return;
+
     // Event delegation for modal open/close
     document.addEventListener('click', (e) => {
       // Open modal
@@ -144,7 +156,7 @@ const RetroModal = {
     // that is how focus restore silently starts returning to the wrong place.
     if (modal.classList.contains('show')) return;
 
-    this._lastFocused = document.activeElement;
+    this._focusStack.push(document.activeElement);
 
     // Dialog semantics, applied here so existing markup needs no changes.
     if (!modal.hasAttribute('role')) modal.setAttribute('role', 'dialog');
@@ -180,12 +192,10 @@ const RetroModal = {
     document.body.style.overflow = '';
     this._release();
 
-    // Return focus to whatever opened the modal, so keyboard users do not get
+    // Return focus to whatever opened this modal, so keyboard users do not get
     // dropped back at the top of the document.
-    if (this._lastFocused && document.contains(this._lastFocused)) {
-      this._lastFocused.focus();
-    }
-    this._lastFocused = null;
+    const opener = this._focusStack.pop();
+    if (opener && document.contains(opener)) opener.focus();
   },
 };
 

@@ -26,7 +26,6 @@
     "check:keyboard": "node scripts/check-keyboard.mjs",
     "check:pages": "node scripts/check-pages.mjs",
     "clean": "rimraf \"dist\"",
-    "docs:api": "sassdoc src/scss --dest docs/api",
     "migrate-scss": "npx sass-migrator module --migrate-deps src/scss/retro.scss",
     "postbuild": "npm run build:min",
     "prepublishOnly": "npm run build",
@@ -68,8 +67,7 @@
     "jsdom": "^29.1.1",
     "playwright": "^1.63.0",
     "rimraf": "^5.0.10",
-    "sass": "^1.69.5",
-    "sassdoc": "^2.7.4"
+    "sass": "^1.69.5"
   },
   "module": "dist/retro.esm.js",
   "types": "dist/retro.d.ts",

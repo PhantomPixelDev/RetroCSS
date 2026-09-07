@@ -1,0 +1,53 @@
+name: Bug report
+description: Something renders or behaves incorrectly.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before filing: the framework has five CI gates covering contrast,
+        layout, keyboard operability and stylesheet invariants. If you can say
+        which one *should* have caught this, say so — that is usually the
+        fastest route to a fix.
+
+  - type: input
+    id: version
+    attributes:
+      label: RetroCSS version
+      placeholder: "5.0.0"
+    validations: { required: true }
+
+  - type: dropdown
+    id: theme
+    attributes:
+      label: Theme
+      options: [Light, Dark, Both]
+    validations: { required: true }
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happens, and what you expected instead
+    validations: { required: true }
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal markup that reproduces it
+      description: The smallest snippet that shows the problem. A link to a live page is fine too.
+      render: html
+    validations: { required: true }
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+      placeholder: "Firefox 141, Windows 11"
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I am on the latest major.
+        - label: The page loads the stylesheet, and the bundle if the component needs JavaScript.

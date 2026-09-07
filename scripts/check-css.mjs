@@ -26,6 +26,8 @@
  * Exits non-zero on any failure. Run with `npm run check:css`.
  */
 import { compile } from 'sass';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { join, extname } from 'node:path';
 import process from 'node:process';
 
 /**
@@ -190,9 +192,6 @@ const COVERAGE_ALLOW = new Set([
   'retro-heading-',
 ]);
 
-const { readdirSync, readFileSync, statSync } = await import('node:fs');
-const { join } = await import('node:path');
-
 const walk = (dir) =>
   readdirSync(dir).flatMap((e) => {
     const full = join(dir, e);
@@ -226,4 +225,55 @@ if (undocumented.length) {
   process.exit(1);
 }
 
-console.log(`✓ every component class is demonstrated (${COVERAGE_ALLOW.size} allowlisted sub-parts)`);
+
+/* ---------- source hygiene: no raw control bytes ---------- */
+/**
+ * A stray control character in a stylesheet is almost always an escape that
+ * something ate on the way in. The sortable-table arrows shipped for a whole
+ * major that way: `\\2195` reached the file as U+0011 followed by the
+ * literal text `95`, so every sortable header rendered a tofu box and the
+ * digits `95` instead of an up-down arrow. Sass passes it through happily and
+ * the browser renders it, so nothing downstream notices.
+ *
+ * Tab, newline and carriage return are legitimate; nothing else is.
+ */
+const CONTROL_BYTE = new RegExp('[' + [
+  '\\u0000-\\u0008',
+  '\\u000b\\u000c',
+  '\\u000e-\\u001f',
+].join('') + ']');
+
+const scssFiles = (dir) =>
+  readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
+    e.isDirectory() ? scssFiles(join(dir, e.name)) : extname(e.name) === '.scss' ? [join(dir, e.name)] : [],
+  );
+
+const controlBytes = [];
+for (const file of scssFiles('src/scss')) {
+  readFileSync(file, 'utf8')
+    .split('\n')
+    .forEach((line, i) => {
+      const m = line.match(CONTROL_BYTE);
+      if (!m) return;
+      const code = m[0].codePointAt(0).toString(16).padStart(4, '0');
+      controlBytes.push({ where: `${file}:${i + 1}`, code, line: line.trim().slice(0, 60) });
+    });
+}
+
+if (controlBytes.length) {
+  console.error(`\n\u2717 ${controlBytes.length} raw control byte(s) in the SCSS sources:`);
+  for (const c of controlBytes) {
+    console.error(`    ${c.where.padEnd(46)} U+${c.code.toUpperCase()}  ${c.line}`);
+  }
+  console.error(
+    '\n  This is almost always an escape that was eaten before it reached the\n' +
+      '  file. Write the codepoint escape you meant, and check it compiles to\n' +
+      '  the glyph you expect.\n',
+  );
+  process.exit(1);
+}
+
+console.log(
+  `✓ every component class is demonstrated (${COVERAGE_ALLOW.size} allowlisted sub-parts); ` +
+    'no raw control bytes in the sources',
+);

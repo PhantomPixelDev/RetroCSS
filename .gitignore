@@ -2,12 +2,9 @@
 node_modules/
 npm-debug.log
 yarn-error.log
-package-lock.json
 yarn.lock
 
 # Build files
-# `npm run docs:api` output -- generated from the /// blocks in src/scss.
-docs/api/
 .sass-cache/
 *.css.map
 *.sass.map

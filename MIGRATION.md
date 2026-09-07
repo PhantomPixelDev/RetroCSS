@@ -1,3 +1,55 @@
+# Migrating to RetroCSS 5.x
+
+## 5.0 — two module shapes change, everything else is a fix
+
+Almost all of this release is corrections and tooling. Two things break.
+
+### Breaking: `RetroCarousel` and `RetroAccordion` are objects, not constructors
+
+The public globals were three different kinds of thing: ten plain objects with
+`init()`, one constructor function, and one class. They are all objects with
+`init()` now.
+
+```js
+// No longer works
+new RetroCarousel(document.querySelector('.retro-carousel'));
+new RetroAccordion('.retro-accordion');
+
+// Use the static entry point, which every demo page and the documentation
+// already used
+RetroCarousel.init();          // wires every .retro-carousel under document
+RetroAccordion.init();         // same, and keeps watching for new ones
+RetroCSS.init();               // or just this, which calls both
+```
+
+Both accept an optional root, so scoping to a subtree still works:
+`RetroCarousel.init(myContainer)`.
+
+### Breaking: `sassdoc` and `npm run docs:api` are gone
+
+The renderer was unmaintained since 2022, its output was never published, and
+it accounted for every security advisory in the dependency tree — eleven of
+them, now zero. The `///` documentation comments remain in the SCSS. If you
+were rendering them, install `sassdoc` yourself and point it at `src/scss`.
+
+### Worth knowing, but not breaking
+
+- **`RetroCSS.init()` is now idempotent.** It used to re-register about 250
+  listeners per call, and each call added another handler to every
+  `[data-retro-toast]` trigger, so a page initialised three times showed three
+  toasts per click. Calling it repeatedly — after a route change, say — is now
+  safe and is the intended use.
+- **Sortable table headers show their arrows.** They had been rendering a
+  control character followed by the text `95` since 4.0.
+- **Buttons directly inside a `.retro-form` no longer stretch** to the full
+  width of the form. If you were relying on that, add `.retro-w-full`.
+- **Dismiss controls are 24px** rather than 22×20, to meet WCAG 2.5.8. Slightly
+  larger hit areas on `.retro-alert-close` and `.retro-toast-close`.
+- **Nested dialogs restore focus correctly.** Only relevant if you open a modal
+  from inside a modal.
+
+---
+
 # Migrating to RetroCSS 4.x
 
 ## 4.0 — packaging, RTL, and three fixed bugs

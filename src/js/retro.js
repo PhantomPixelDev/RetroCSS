@@ -19,6 +19,7 @@ import './tabs.js';
 import RetroCodeCopy from './code-copy.js';
 import './infinite-scroll.js';
 import './table-responsive.js';
+import { bindOnce, claimGlobal } from './util/bind.js';
 
 // localStorage is read at module scope, so anything that throws here takes the
 // whole bundle down during evaluation -- which is what happens in a sandboxed
@@ -173,6 +174,7 @@ const RetroCSS = {
     const tooltipTriggers = document.querySelectorAll('[data-retro-tooltip]');
     
     tooltipTriggers.forEach(trigger => {
+      if (!bindOnce(trigger, 'tooltip')) return;
       // Get tooltip content
       const content = trigger.getAttribute('data-retro-tooltip');
       if (!content) return;
@@ -236,6 +238,9 @@ const RetroCSS = {
     const toastTriggers = document.querySelectorAll('[data-retro-toast]');
     
     toastTriggers.forEach(trigger => {
+      // Without this each init() added another click handler, so a page
+      // re-initialised three times showed three toasts per click.
+      if (!bindOnce(trigger, 'toastTrigger')) return;
       trigger.addEventListener('click', () => {
         const message = trigger.getAttribute('data-retro-toast');
         const type = trigger.getAttribute('data-retro-toast-type') || '';
@@ -256,6 +261,7 @@ const RetroCSS = {
     const searchBars = document.querySelectorAll('.retro-search-bar');
 
     searchBars.forEach((searchBar) => {
+      if (!bindOnce(searchBar, 'searchBar')) return;
       const input = searchBar.querySelector('.retro-search-input');
       const suggestions = searchBar.querySelector('.retro-search-suggestions');
       if (!input) return;
@@ -302,7 +308,9 @@ const RetroCSS = {
 
     // One delegated listener rather than one per search bar: the previous
     // version added a document-level listener inside the loop, so a page with
-    // ten search bars accumulated ten of them, none removable.
+    // ten search bars accumulated ten of them, none removable. It is still one
+    // per init() without this guard, which is the same leak more slowly.
+    if (!claimGlobal('searchBarDismiss')) return;
     document.addEventListener('click', (e) => {
       document.querySelectorAll('.retro-search-bar.active').forEach((bar) => {
         if (!bar.contains(e.target)) bar.classList.remove('active');
@@ -315,6 +323,7 @@ const RetroCSS = {
     const tagInputs = document.querySelectorAll('.retro-tag-input');
     
     tagInputs.forEach(container => {
+      if (!bindOnce(container, 'tagInput')) return;
       const tagsContainer = container.querySelector('.retro-tags');
       const input = container.querySelector('.retro-tag-text');
       
@@ -426,6 +435,7 @@ const RetroCSS = {
     const themeToggles = document.querySelectorAll('.retro-theme-toggle');
     
     themeToggles.forEach(toggle => {
+      if (!bindOnce(toggle, 'themeToggle')) return;
       toggle.addEventListener('click', () => {
         // Toggle theme
         this.theme = this.theme === 'light' ? 'dark' : 'light';
@@ -452,6 +462,8 @@ const RetroCSS = {
    */
   initSystemThemeWatch() {
     if (typeof window === 'undefined' || !window.matchMedia) return;
+    // One media-query listener for the page, not one per init().
+    if (!claimGlobal('systemTheme')) return;
     const query = window.matchMedia('(prefers-color-scheme: dark)');
     const onChange = (e) => {
       if (storedTheme()) return;

@@ -4,9 +4,12 @@
  */
 
 // File Upload
+import { bindOnce } from '../util/bind.js';
+
 const RetroFileUpload = {
   init(root = document) {
     root.querySelectorAll(".retro-file-upload").forEach((upload) => {
+      if (!bindOnce(upload, "fileUpload")) return;
       const input = upload.querySelector(".retro-file-input");
       const display = upload.querySelector(".retro-file-filename, .retro-file-display");
       const drop = upload.querySelector(".retro-file-drop");

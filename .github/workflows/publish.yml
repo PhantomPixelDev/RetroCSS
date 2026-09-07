@@ -17,10 +17,38 @@ jobs:
         with:
           node-version: '22'
           registry-url: 'https://registry.npmjs.org'
+
+      # `npm ci` rather than `npm install`: a published package should be built
+      # from the exact dependency tree the lockfile pins, not from whatever the
+      # ranges resolve to on the day the tag is pushed.
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
       - name: Build
         run: npm run build
+
+      # This job used to build and publish, and nothing else. CI runs the gates
+      # on every push to main, but nothing re-ran them for the commit a tag
+      # actually points at -- so a tag on an unverified commit would publish.
+      # The gates are cheap next to shipping a broken release.
+      - name: Unit tests
+        run: npm test
+
+      - name: Accessibility gate
+        run: npm run check:a11y
+
+      - name: Static CSS gate
+        run: npm run check:css
+
+      - name: Install Chromium for the browser gates
+        run: npx playwright install --with-deps chromium
+
+      - name: Rendered-page gate
+        run: npm run check:pages
+
+      - name: Keyboard-operability gate
+        run: npm run check:keyboard
+
       - name: Publish to npm
         run: npm publish --access public --provenance
         env:
