@@ -28,7 +28,7 @@
   display: block;
   width: 100%;
   padding: 0.75rem 1rem;
-  text-align: left;
+  text-align: start;
   cursor: pointer;
   background-color: var(--retro-bg);
   border: none;
@@ -49,7 +49,7 @@
 
 .retro-accordion-icon {
   position: absolute;
-  right: 1rem;
+  inset-inline-end: 1rem;
   top: 50%;
   transform: translateY(-50%);
   font-weight: bold;

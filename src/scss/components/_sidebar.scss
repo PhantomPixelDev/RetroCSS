@@ -47,7 +47,7 @@
       margin-bottom: 4px;
       
       ul, ol {
-        padding-left: 16px;
+        padding-inline-start: 16px;
         margin-top: 4px;
       }
     }
@@ -62,87 +62,26 @@
     height: calc(100vh - 32px);
     overflow-y: auto;
     margin: 16px;
-    margin-right: 0;
+    margin-inline-end: 0;
     border-right: 2px solid var(--retro-border-medium);
     box-shadow: 2px 0 5px rgba(var(--retro-shadow-rgb), 0.05);
   }
 }
 
-// Mobile toggle and overlay
-.retro-sidebar-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--retro-bg);
-  border: 1px solid var(--retro-border-medium);
-  padding: 6px 10px;
-  border-radius: var(--retro-border-radius);
-  cursor: pointer;
-  margin-bottom: var(--retro-spacing-sm, 8px);
-  
-  &-icon {
-    width: 24px;
-    height: 24px;
-    position: relative;
-    
-    &:before,
-    &:after,
-    span {
-      content: '';
-      display: block;
-      width: 100%;
-      height: 2px;
-      background: var(--retro-text);
-      position: absolute;
-      left: 0;
-      transition: transform 0.3s ease, opacity 0.3s ease, top 0.3s ease;
-    }
-    
-    &:before {
-      top: 6px;
-    }
-    
-    span {
-      top: 14px;
-    }
-    
-    &:after {
-      bottom: 6px;
-    }
-  }
-  
-  @media (min-width: 768px) {
-    display: none;
-  }
-}
+// The mobile drawer that used to live here -- .retro-sidebar-toggle, its
+// hamburger icon and .retro-sidebar-overlay -- is gone. It had been dead three
+// times over: sidebar.js was deleted in the 3.0 cleanup so nothing toggled the
+// .active class, and a "legacy classes" rule at the end of the block set
+// `display: none` on both, unconditionally overriding the fifty lines above it
+// at every viewport. On narrow screens the sidebar stacks above the content,
+// which is what actually happens today and works.
 
-// Only show on mobile
-.retro-sidebar-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(var(--retro-black-rgb), 0.5);
-  z-index: 999;
-  
-  &.active {
-    display: block;
-  }
-}
-
-// Legacy classes - keep empty for backward compatibility
-.retro-sidebar-toggle,
-.retro-sidebar-overlay {
-  display: none;
-} 
 /// The sidebar's link lists are navigation, not prose: the base `ul` rule adds
 /// list markers and inline padding that do not belong here.
 .retro-sidebar nav ul {
   list-style: none;
   margin: 0;
-  padding-left: 0;
+  padding-inline-start: 0;
 }
 
 /// Small caps label that separates groups of links in a long sidebar.

@@ -18,6 +18,7 @@ export const PAGES = [
   'examples/blog.html',
   'examples/blog-post.html',
   'examples/theme-matrix.html',
+  'examples/rtl.html',
 ];
 
 export const THEMES = ['light', 'dark'];

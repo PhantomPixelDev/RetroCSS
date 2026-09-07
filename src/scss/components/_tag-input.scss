@@ -25,14 +25,15 @@
   // Deliberate, like .retro-nav-pills: a tag reads as a chip. The wrapper
   // above it is square. Allowlisted in scripts/check-radius.mjs.
   border-radius: 12px;
-  padding: 3px 12px 3px 10px;
+  padding-block: 3px 3px;
+  padding-inline: 10px 12px;
   font-size: var(--retro-font-size);
-  margin-right: 4px;
+  margin-inline-end: 4px;
   margin-bottom: 4px;
   box-shadow: 1px 1px 0 var(--retro-border-light);
 }
 .retro-tag-remove {
-  margin-left: 8px;
+  margin-inline-start: 8px;
   color: var(--retro-danger-text);
   cursor: pointer;
   font-weight: bold;
@@ -46,6 +47,6 @@
   background: transparent;
   font-size: var(--retro-font-size);
   min-width: 80px;
-  margin-left: 4px;
+  margin-inline-start: 4px;
   padding: 2px 0;
 } 

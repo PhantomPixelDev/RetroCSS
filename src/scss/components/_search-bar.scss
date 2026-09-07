@@ -13,7 +13,7 @@
 .retro-search-icon {
   font-size: var(--retro-font-size-xl);
   color: var(--retro-text);
-  margin-right: 8px;
+  margin-inline-end: 8px;
 }
 .retro-search-input {
   border: none;
@@ -27,7 +27,7 @@
 .retro-search-suggestions {
   display: none;
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   top: 100%;
   width: 100%;
   background: var(--retro-input-bg);

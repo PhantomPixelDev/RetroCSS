@@ -38,7 +38,7 @@
   }
 }
 .retro-dropdown-arrow {
-  margin-left: 8px;
+  margin-inline-start: 8px;
   font-size: var(--retro-font-size);
   transition: transform 0.2s ease;
 
@@ -48,7 +48,7 @@
 }
 .retro-dropdown-menu {
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   min-width: 100%;
   background: var(--retro-dropdown-bg);
   border: 2px solid var(--retro-border-dark);

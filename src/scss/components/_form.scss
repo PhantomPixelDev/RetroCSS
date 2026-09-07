@@ -63,7 +63,7 @@
 .retro-select {
   appearance: none;
   background-image: none;
-  padding-right: $retro-spacing-md;
+  padding-inline-end: $retro-spacing-md;
 }
 
 .retro-form {
@@ -86,7 +86,7 @@
       label {
         width: 200px;
         margin-bottom: 0;
-        text-align: right;
+        text-align: end;
       }
     }
   }
@@ -247,7 +247,8 @@ input[type="radio"].retro-input {
   border: 2px solid var(--retro-border-medium);
   width: 16px;
   height: 16px;
-  margin: 0 8px 0 0;
+  margin-block: 0 0;
+  margin-inline: 0 8px;
   vertical-align: middle;
   display: inline-block;
   position: relative;
@@ -300,7 +301,7 @@ input[type="radio"].retro-input {
   display: inline-flex;
   align-items: center;
   cursor: pointer;
-  margin-right: 16px;
+  margin-inline-end: 16px;
 }
 
 /**
@@ -332,7 +333,7 @@ input[type="radio"].retro-input {
   > .retro-select,
   > select {
     width: 100%;
-    padding-left: 2.2em;
+    padding-inline-start: 2.2em;
   }
 
   // The glyph: any non-field first child. Absolutely positioned and centred,
@@ -341,7 +342,7 @@ input[type="radio"].retro-input {
   > :first-child:not(input):not(select):not(.retro-input):not(.retro-select) {
     position: absolute;
     top: 50%;
-    left: 0.7em;
+    inset-inline-start: 0.7em;
     transform: translateY(-50%);
     line-height: 1;
     pointer-events: none;

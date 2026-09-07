@@ -98,7 +98,7 @@ img {
 /* Lists */
 ul, ol {
   list-style-position: inside;
-  padding-left: var(--retro-spacing-md);
+  padding-inline-start: var(--retro-spacing-md);
 }
 
 /* Tables */
@@ -261,7 +261,7 @@ pre {
 #retro-toast-container {
   position: fixed;
   bottom: var(--retro-spacing-xl);
-  right: var(--retro-spacing-xl);
+  inset-inline-end: var(--retro-spacing-xl);
   z-index: var(--retro-z-index-tooltip);
   display: flex;
   flex-direction: column;

@@ -26,7 +26,7 @@
       height: 8px;
       background: var(--retro-primary);
       border-radius: 50%;
-      margin-right: var(--retro-spacing-md);
+      margin-inline-end: var(--retro-spacing-md);
       vertical-align: middle;
       position: relative;
       top: -1px;
@@ -43,7 +43,7 @@
   .retro-list {
     margin-top: var(--retro-spacing-xs);
     margin-bottom: var(--retro-spacing-xs);
-    margin-left: var(--retro-spacing-lg);
+    margin-inline-start: var(--retro-spacing-lg);
     background: none;
     box-shadow: none;
     border-radius: var(--retro-border-radius);
@@ -88,18 +88,18 @@
 // Unordered list
 ul.retro-list {
   list-style-type: none;
-  padding-left: 0;
+  padding-inline-start: 0;
 }
 
 // Ordered list
 ol.retro-list {
   list-style: none;
-  padding-left: 0;
+  padding-inline-start: 0;
   counter-reset: retro-ol;
 
   li {
     position: relative;
-    padding-left: 2.5em;
+    padding-inline-start: 2.5em;
     margin-bottom: var(--retro-spacing-sm);
     min-height: 2em;
     counter-increment: retro-ol;
@@ -107,7 +107,7 @@ ol.retro-list {
     &::before {
       content: counter(retro-ol);
       position: absolute;
-      left: 0;
+      inset-inline-start: 0;
       top: 0.2em;
       width: 2em;
       height: 2em;
@@ -128,11 +128,11 @@ ol.retro-list {
     ol.retro-list {
       margin-top: var(--retro-spacing-xs);
       margin-bottom: var(--retro-spacing-xs);
-      margin-left: 2.5em;
+      margin-inline-start: 2.5em;
       counter-reset: retro-ol-nested;
 
       li {
-        padding-left: 2em;
+        padding-inline-start: 2em;
         min-height: 1.6em;
         counter-increment: retro-ol-nested;
 
@@ -161,7 +161,7 @@ dl.retro-list {
   }
   
   dd {
-    margin-left: var(--retro-spacing-md);
+    margin-inline-start: var(--retro-spacing-md);
     margin-bottom: var(--retro-spacing-sm);
     color: var(--retro-text-muted);
   }

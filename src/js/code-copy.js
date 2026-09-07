@@ -72,6 +72,6 @@ const RetroCodeCopy = {
   },
 };
 
-window.RetroCodeCopy = RetroCodeCopy;
+if (typeof window !== 'undefined') window.RetroCodeCopy = RetroCodeCopy;
 
 export default RetroCodeCopy;

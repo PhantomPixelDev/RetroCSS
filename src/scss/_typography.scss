@@ -19,7 +19,7 @@
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--retro-font-heading);
   font-weight: var(--retro-font-weight-bold);
-  text-align: left;
+  text-align: start;
   // Fixed rhythm rather than em-relative margins. With em, a larger heading
   // got a proportionally larger gap, so h1 sat on 37px of space and h6 on 15px
   // -- backwards for a hierarchy.
@@ -36,15 +36,17 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   background: var(--retro-bg);
-  border-left: 6px solid var(--retro-primary);
-  padding: 0.18em 0.7em 0.18em 0.6em;
+  border-inline-start: 6px solid var(--retro-primary);
+  padding-block: 0.18em 0.18em;
+  padding-inline: 0.6em 0.7em;
   font-size: var(--retro-font-size-3xl);
   margin-top: var(--retro-spacing-xl);
 }
 h2 {
   background: var(--retro-bg);
-  border-left: 4px solid var(--retro-primary);
-  padding: 0.15em 0.7em 0.15em 0.5em;
+  border-inline-start: 4px solid var(--retro-primary);
+  padding-block: 0.15em 0.15em;
+  padding-inline: 0.5em 0.7em;
   font-size: var(--retro-font-size-2xl);
   margin-top: var(--retro-spacing-xl);
 }
@@ -104,16 +106,18 @@ h5, h6 { font-size: var(--retro-font-size); }
 
 .retro-h1 {
   background: var(--retro-bg);
-  border-left: 6px solid var(--retro-primary);
-  padding: 0.18em 0.7em 0.18em 0.6em;
+  border-inline-start: 6px solid var(--retro-primary);
+  padding-block: 0.18em 0.18em;
+  padding-inline: 0.6em 0.7em;
   font-size: var(--retro-font-size-3xl);
   margin-top: var(--retro-spacing-xl);
 }
 
 .retro-h2 {
   background: var(--retro-bg);
-  border-left: 4px solid var(--retro-primary);
-  padding: 0.15em 0.7em 0.15em 0.5em;
+  border-inline-start: 4px solid var(--retro-primary);
+  padding-block: 0.15em 0.15em;
+  padding-inline: 0.5em 0.7em;
   font-size: var(--retro-font-size-2xl);
   margin-top: var(--retro-spacing-xl);
 }
@@ -146,9 +150,14 @@ h5, h6 { font-size: var(--retro-font-size); }
     box-shadow:
       inset -1px -1px 0 var(--retro-shadow-light),
       inset 1px 1px 0 var(--retro-border-dark),
-      2px 2px 0 rgba(var(--retro-black-rgb), 0.2);
+      // Was --retro-black-rgb, which inverts: this drop shadow rendered as a
+      // white glow in dark mode, while the text-shadow directly below it
+      // already used the fixed token and stayed dark.
+      2px 2px 0 rgba(var(--retro-shadow-rgb), 0.2);
     text-shadow: 1px 1px 0 rgba(var(--retro-shadow-rgb), 0.3);
-    background: linear-gradient(to bottom, rgba(var(--retro-white-rgb), 0.1) 0%, rgba(var(--retro-white-rgb), 0) 100%);
+    // A gloss is white in both themes; --retro-white-rgb would make it a dark
+    // smudge on the dark chassis.
+    background: linear-gradient(to bottom, rgba(var(--retro-sheen-rgb), 0.1) 0%, rgba(var(--retro-sheen-rgb), 0) 100%);
     transform: translateZ(0);
     transition: transform 0.1s ease;
 
@@ -174,8 +183,8 @@ h5, h6 { font-size: var(--retro-font-size); }
         45deg,
         transparent,
         transparent 2px,
-        rgba(var(--retro-white-rgb), 0.1) 2px,
-        rgba(var(--retro-white-rgb), 0.1) 4px
+        rgba(var(--retro-sheen-rgb), 0.1) 2px,
+        rgba(var(--retro-sheen-rgb), 0.1) 4px
       );
       pointer-events: none;
     }
@@ -423,7 +432,7 @@ h5, h6 { font-size: var(--retro-font-size); }
     font-size: 2.5em;
     color: var(--retro-primary-text);
     position: absolute;
-    left: 0.3rem;
+    inset-inline-start: 0.3rem;
     top: -0.2rem;
     font-family: var(--retro-font);
     opacity: 0.7;
@@ -434,7 +443,7 @@ h5, h6 { font-size: var(--retro-font-size); }
     font-size: 2.5em;
     color: var(--retro-primary-text);
     position: absolute;
-    right: 0.3rem;
+    inset-inline-end: 0.3rem;
     bottom: -0.5rem;
     font-family: var(--retro-font);
     opacity: 0.7;
@@ -477,7 +486,7 @@ h5, h6 { font-size: var(--retro-font-size); }
     content: 'Code';
     position: absolute;
     top: 2px;
-    left: 8px;
+    inset-inline-start: 8px;
     color: var(--retro-primary-fg);
     font-family: var(--retro-font);
     font-size: var(--retro-font-size-sm);
@@ -487,7 +496,7 @@ h5, h6 { font-size: var(--retro-font-size); }
   .retro-code-copy {
     position: absolute;
     top: 2px;
-    right: 4px;
+    inset-inline-end: 4px;
     background: var(--retro-bg);
     border: 1px solid var(--retro-border-dark);
     border-right: 1px solid var(--retro-border-light);

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <!-- Applies a stored theme choice before first paint. The stylesheet already
+       follows prefers-color-scheme on its own, so this is only needed for the
+       one case CSS cannot see: a visitor whose stored choice differs from their
+       OS setting. Must stay inline and in <head> -- an external or deferred
+       script runs too late to prevent the flash. -->
+  <script>
+    try {
+      var retroTheme = localStorage.getItem('retro-theme');
+      if (retroTheme) document.documentElement.setAttribute('data-theme', retroTheme);
+    } catch (e) { /* storage blocked; prefers-color-scheme still applies */ }
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RTL Layout Example — RetroCSS</title>
+  <meta name="description" content="RetroCSS rendered right-to-left: layout mirrors on logical properties while the Win9x bevels deliberately stay physical.">
+  <link rel="canonical" href="https://phantompixeldev.github.io/RetroCSS/examples/rtl.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="RetroCSS">
+  <meta property="og:url" content="https://phantompixeldev.github.io/RetroCSS/examples/rtl.html">
+  <meta property="og:title" content="RTL Layout Example — RetroCSS">
+  <meta property="og:image" content="https://phantompixeldev.github.io/RetroCSS/images/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://phantompixeldev.github.io/RetroCSS/images/og-card.png">
+  <meta property="og:description" content="RetroCSS rendered right-to-left: layout mirrors on logical properties while the Win9x bevels deliberately stay physical.">
+  <link rel="stylesheet" href="../dist/retro.min.css">
+  <style>
+    .rtl-page { max-width: 900px; margin: 0 auto; padding: var(--retro-spacing-lg); }
+    .rtl-note { margin-bottom: var(--retro-spacing-lg); }
+  </style>
+</head>
+<body>
+  <div class="rtl-page">
+    <nav aria-label="Site" class="retro-nav retro-mb-4">
+      <a href="../index.html" class="retro-nav-item">الرئيسية</a>
+      <a href="../documentation.html" class="retro-nav-item">التوثيق</a>
+      <button class="retro-nav-item retro-theme-toggle" type="button">تبديل السمة</button>
+    </nav>
+
+    <h1>تخطيط من اليمين إلى اليسار</h1>
+
+    <div class="retro-alert retro-alert-info rtl-note">
+      <strong>ما الذي يُعكس؟</strong>
+      Spacing, text alignment and start/end positioning are written with logical
+      properties, so they mirror automatically under <code>dir="rtl"</code>.
+      The raised and sunken bevels do <em>not</em> mirror: in the Win9x visual
+      language the light source is fixed at the top-left, and Windows itself
+      keeps it there in RTL. Flipping them would make every button read as
+      sunken on the wrong edge.
+    </div>
+
+    <div class="retro-card retro-mb-4">
+      <div class="retro-card-header">نموذج</div>
+      <div class="retro-card-content">
+        <div class="retro-form-group">
+          <label class="retro-label" for="rtl-name">الاسم</label>
+          <input class="retro-input" id="rtl-name" type="text" placeholder="اكتب اسمك">
+        </div>
+        <div class="retro-form-group">
+          <label class="retro-label" for="rtl-note">ملاحظة</label>
+          <textarea class="retro-textarea" id="rtl-note" rows="3"></textarea>
+        </div>
+        <label class="retro-checkbox-label">
+          <input type="checkbox" class="retro-input" checked> تذكرني
+        </label>
+        <div class="retro-mt-3">
+          <button class="retro-btn retro-btn-primary" type="button">حفظ</button>
+          <button class="retro-btn" type="button">إلغاء</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="retro-card retro-mb-4">
+      <div class="retro-card-header">قائمة وجدول</div>
+      <div class="retro-card-content">
+        <ul class="retro-list">
+          <li>العنصر الأول</li>
+          <li>العنصر الثاني</li>
+          <li>العنصر الثالث</li>
+        </ul>
+        <table class="retro-table retro-w-full">
+          <thead>
+            <tr><th>المنتج</th><th>الكمية</th><th>السعر</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>لوحة مفاتيح</td><td>2</td><td>120</td></tr>
+            <tr><td>فأرة</td><td>5</td><td>60</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="retro-card">
+      <div class="retro-card-header">شارات وتقدم</div>
+      <div class="retro-card-content">
+        <span class="retro-badge retro-badge-primary">جديد</span>
+        <span class="retro-badge retro-badge-success">تم</span>
+        <span class="retro-badge retro-badge-danger">خطأ</span>
+        <div class="retro-progress retro-mt-3">
+          <div class="retro-progress-bar" style="width: 60%"></div>
+        </div>
+        <blockquote>الاقتباس يبدأ من الحافة الأمامية، وتنعكس مع اتجاه النص.</blockquote>
+      </div>
+    </div>
+  </div>
+
+  <script src="../dist/retro.min.js"></script>
+</body>
+</html>

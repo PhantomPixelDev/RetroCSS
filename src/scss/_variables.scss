@@ -638,9 +638,17 @@ $retro-container-fluid: 100%;
   // Legacy alias: the highlight edge of a Win9x bevel.
   --retro-shadow-light: #{$retro-border-light};
   --retro-box-shadow-outset-button: #{$retro-border-raised};
-  // Shadows must stay dark in both themes. --retro-black-rgb inverts to white
-  // in dark mode, which is correct for text but turns a drop shadow into a glow.
+  // Lighting effects must not follow the theme. --retro-black-rgb and
+  // --retro-white-rgb invert (black <-> white, white -> #3a3a3a), which is
+  // right for text and surfaces and wrong for anything modelling a light
+  // source: a drop shadow becomes a glow, a backdrop becomes a spotlight, a
+  // gloss becomes a smudge. These three are fixed in both themes.
   --retro-shadow-rgb: 0, 0, 0;
+  // Modal and drawer backdrops. Separate from the shadow token so a consumer
+  // can tint the scrim without touching every shadow in the framework.
+  --retro-scrim-rgb: 0, 0, 0;
+  // Top-edge gloss on raised fills.
+  --retro-sheen-rgb: 255, 255, 255;
   --retro-box-shadow-inset: #{$retro-border-sunken};
   
   // Z-index

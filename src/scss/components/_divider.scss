@@ -52,11 +52,11 @@
   }
   
   &::before {
-    margin-right: var(--retro-spacing-md);
+    margin-inline-end: var(--retro-spacing-md);
   }
   
   &::after {
-    margin-left: var(--retro-spacing-md);
+    margin-inline-start: var(--retro-spacing-md);
   }
 }
 

@@ -205,6 +205,7 @@
             <li><a href="#section-modals" class="retro-nav-item">Modals</a></li>
             <li><a href="#section-progress" class="retro-nav-item">Progress</a></li>
             <li><a href="#section-tooltips" class="retro-nav-item">Tooltips</a></li>
+            <li><a href="#section-variants" class="retro-nav-item">Component Variants</a></li>
           </ul>
         </div>
         <div class="retro-sidebar-section">
@@ -1595,6 +1596,112 @@
           <div class="retro-infinite-loader">
             <div class="retro-spinner"></div>
           </div>
+        </div>
+      </div>
+
+      <div class="demo-section retro-card" id="section-variants">
+        <h2>🎚️ Component Variants</h2>
+        <p>
+          Size and layout modifiers that ship with the components above. These
+          were in the stylesheet for several releases without appearing on any
+          page, so nobody could find them.
+        </p>
+
+        <h3>Button and input sizes</h3>
+        <p>
+          <button class="retro-btn retro-btn-teal" type="button">Teal button</button>
+        </p>
+        <p><button class="retro-btn retro-btn-primary retro-btn-block" type="button">Full-width button (<code>.retro-btn-block</code>)</button></p>
+        <div class="retro-form-group">
+          <label class="retro-label" for="v-sm">Small input (<code>.retro-input-sm</code>)</label>
+          <input class="retro-input retro-input-sm" id="v-sm" type="text" value="Compact">
+        </div>
+        <div class="retro-form-group">
+          <label class="retro-label" for="v-lg">Large input (<code>.retro-input-lg</code>)</label>
+          <input class="retro-input retro-input-lg" id="v-lg" type="text" value="Roomy">
+        </div>
+
+        <h3>Form layouts</h3>
+        <form class="retro-form-inline retro-mb-3">
+          <label class="retro-label" for="v-inline">Inline</label>
+          <input class="retro-input" id="v-inline" type="text" placeholder="all on one row">
+          <button class="retro-btn" type="button">Go</button>
+        </form>
+        <form class="retro-form-horizontal">
+          <div class="retro-form-group">
+            <label class="retro-label" for="v-horiz">Horizontal</label>
+            <input class="retro-input" id="v-horiz" type="text" placeholder="label beside field">
+          </div>
+        </form>
+
+        <h3>Progress variants</h3>
+        <div class="retro-progress retro-mb-2"><div class="retro-progress-bar retro-progress-bar-info" style="width: 45%"></div></div>
+        <div class="retro-progress retro-mb-2"><div class="retro-progress-bar retro-progress-bar-warning" style="width: 70%"></div></div>
+        <div class="retro-progress retro-mb-2"><div class="retro-progress-bar retro-progress-bar-danger" style="width: 90%"></div></div>
+
+        <h3>Card variants</h3>
+        <div class="retro-grid retro-grid-cols-1 md:retro-grid-cols-2 retro-gap-3">
+          <div class="retro-card retro-card-compact">
+            <div class="retro-card-header">Compact card</div>
+            <div class="retro-card-content"><code>.retro-card-compact</code> tightens the content padding.</div>
+          </div>
+          <div class="retro-card">
+            <div class="retro-card-header">Card with image</div>
+            <div class="retro-card-image" role="img" aria-label="Placeholder banner"></div>
+            <div class="retro-card-content"><code>.retro-card-image</code> is a full-bleed band above the content.</div>
+          </div>
+        </div>
+
+        <h3>Avatars and loaders</h3>
+        <p>
+          <span class="retro-avatar retro-avatar-sm">RC</span>
+          <span class="retro-avatar">RC</span>
+          <span class="retro-ascii-loader" aria-hidden="true"></span>
+          <span class="retro-sr-only">Loading</span>
+        </p>
+
+        <h3>Modal sizes</h3>
+        <p>
+          Add <code>.retro-modal-lg</code>, <code>.retro-modal-xl</code> or
+          <code>.retro-modal-scroll</code> to <code>.retro-modal-content</code>.
+        </p>
+        <button class="retro-btn" type="button" data-retro-modal="variant-modal">Open a large modal</button>
+        <div class="retro-modal" id="variant-modal">
+          <div class="retro-modal-content retro-modal-lg">
+            <div class="retro-modal-header">
+              Large modal
+              <button class="retro-modal-close" type="button" aria-label="Close">×</button>
+            </div>
+            <div class="retro-modal-body">
+              <p><code>.retro-modal-lg</code> widens the dialog; <code>.retro-modal-xl</code> widens it further and <code>.retro-modal-scroll</code> caps the body height.</p>
+            </div>
+            <div class="retro-modal-footer">
+              <button class="retro-btn retro-btn-primary" type="button" data-close="modal">OK</button>
+            </div>
+          </div>
+        </div>
+
+        <h3>Tooltip positions and variants</h3>
+        <p>
+          Position with <code>data-tooltip-position</code> and colour with
+          <code>data-tooltip-variant</code> — neither was documented.
+        </p>
+        <div class="retro-flex retro-flex-wrap retro-gap-3">
+          <button class="retro-btn" type="button" data-retro-tooltip="Above" data-tooltip-position="top">top</button>
+          <button class="retro-btn" type="button" data-retro-tooltip="Below" data-tooltip-position="bottom">bottom</button>
+          <button class="retro-btn" type="button" data-retro-tooltip="Before" data-tooltip-position="left">left</button>
+          <button class="retro-btn" type="button" data-retro-tooltip="After" data-tooltip-position="right">right</button>
+          <button class="retro-btn" type="button" data-retro-tooltip="Looks good" data-tooltip-variant="success">success</button>
+          <button class="retro-btn" type="button" data-retro-tooltip="Careful" data-tooltip-variant="warning">warning</button>
+          <button class="retro-btn" type="button" data-retro-tooltip="Something broke" data-tooltip-variant="danger">danger</button>
+        </div>
+
+        <h3>Toast variants</h3>
+        <div class="retro-flex retro-flex-wrap retro-gap-3">
+          <button class="retro-btn" type="button" data-retro-toast="Saved" data-retro-toast-type="success">success</button>
+          <button class="retro-btn" type="button" data-retro-toast="Heads up" data-retro-toast-type="warning">warning</button>
+          <button class="retro-btn" type="button" data-retro-toast="Something broke" data-retro-toast-type="danger">danger</button>
+          <button class="retro-btn" type="button" data-retro-toast="For your information" data-retro-toast-type="info">info</button>
         </div>
       </div>
 

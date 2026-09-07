@@ -16,7 +16,8 @@
   -webkit-appearance: none;
   width: 18px;
   height: 18px;
-  margin: 0 8px 0 0;
+  margin-block: 0 0;
+  margin-inline: 0 8px;
   vertical-align: middle;
   position: relative;
   cursor: pointer;
@@ -135,7 +136,8 @@
   display: inline-block;
   width: 40px;
   height: 20px;
-  margin: 0 8px 0 0;
+  margin-block: 0 0;
+  margin-inline: 0 8px;
   vertical-align: middle;
   
   input {

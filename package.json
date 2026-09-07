@@ -2,33 +2,38 @@
   "name": "@phantompixeldev/retrocss",
   "version": "3.1.1",
   "description": "A Retro-Inspired CSS Framework",
-  "main": "dist/retro.css",
+  "main": "dist/retro.cjs",
   "style": "dist/retro.css",
   "files": [
     "dist/",
+    "src/scss/",
     "README.md",
     "MIGRATION.md"
   ],
   "scripts": {
-    "build": "npm run build:css && npm run build:js",
-    "check:a11y": "node scripts/check-contrast.mjs",
-    "check:radius": "node scripts/check-radius.mjs",
-    "check:keyboard": "node scripts/check-keyboard.mjs",
-    "version": "node scripts/sync-version.mjs && git add index.html",
-    "watch": "concurrently \"npm run watch:css\" \"npm run watch:js\"",
+    "build": "npm run build:css && npm run build:js && npm run build:types",
     "build:css": "sass src/scss/retro.scss:dist/retro.css",
     "build:css:min": "sass src/scss/retro.scss:dist/retro.min.css --style compressed",
-    "watch:css": "sass --watch src/scss/retro.scss:dist/retro.css",
-    "build:js": "esbuild src/js/retro.js --bundle --outfile=dist/retro.js --format=iife",
+    "build:js": "esbuild src/js/retro.js --bundle --outfile=dist/retro.js --format=iife && npm run build:js:esm && npm run build:js:cjs",
+    "build:js:cjs": "esbuild src/js/retro.js --bundle --outfile=dist/retro.cjs --format=cjs --footer:js=\"module.exports = module.exports.default;\"",
+    "build:js:esm": "esbuild src/js/retro.js --bundle --outfile=dist/retro.esm.js --format=esm",
     "build:js:min": "esbuild src/js/retro.js --bundle --minify --drop:console --outfile=dist/retro.min.js --format=iife",
-    "watch:js": "esbuild src/js/retro.js --bundle --outfile=dist/retro.js --format=iife --watch",
     "build:min": "npm run build:css:min && npm run build:js:min",
-    "clean": "rimraf \"dist\"",
-    "postbuild": "npm run build:min",
-    "migrate-scss": "npx sass-migrator module --migrate-deps src/scss/retro.scss",
-    "prepublishOnly": "npm run build",
+    "build:types": "node -e \"require('fs').copyFileSync('src/types/retro.d.ts','dist/retro.d.ts')\"",
+    "check:a11y": "node scripts/check-contrast.mjs",
+    "check:css": "node scripts/check-css.mjs",
+    "check:keyboard": "node scripts/check-keyboard.mjs",
     "check:pages": "node scripts/check-pages.mjs",
-    "docs:api": "sassdoc src/scss --dest docs/api"
+    "clean": "rimraf \"dist\"",
+    "docs:api": "sassdoc src/scss --dest docs/api",
+    "migrate-scss": "npx sass-migrator module --migrate-deps src/scss/retro.scss",
+    "postbuild": "npm run build:min",
+    "prepublishOnly": "npm run build",
+    "test": "node --test \"test/**/*.test.mjs\"",
+    "version": "node scripts/sync-version.mjs && git add index.html",
+    "watch": "concurrently \"npm run watch:css\" \"npm run watch:js\"",
+    "watch:css": "sass --watch src/scss/retro.scss:dist/retro.css",
+    "watch:js": "esbuild src/js/retro.js --bundle --outfile=dist/retro.js --format=iife --watch"
   },
   "keywords": [
     "css",
@@ -46,9 +51,29 @@
   "devDependencies": {
     "concurrently": "^8.2.2",
     "esbuild": "^0.25.0",
+    "jsdom": "^29.1.1",
     "playwright": "^1.63.0",
     "rimraf": "^5.0.10",
     "sass": "^1.69.5",
     "sassdoc": "^2.7.4"
+  },
+  "module": "dist/retro.esm.js",
+  "types": "dist/retro.d.ts",
+  "unpkg": "dist/retro.min.js",
+  "jsdelivr": "dist/retro.min.js",
+  "sass": "src/scss/retro.scss",
+  "exports": {
+    ".": {
+      "types": "./dist/retro.d.ts",
+      "import": "./dist/retro.esm.js",
+      "require": "./dist/retro.cjs",
+      "default": "./dist/retro.js"
+    },
+    "./css": "./dist/retro.css",
+    "./css/min": "./dist/retro.min.css",
+    "./scss": "./src/scss/retro.scss",
+    "./scss/*": "./src/scss/*",
+    "./dist/*": "./dist/*",
+    "./package.json": "./package.json"
   }
 }

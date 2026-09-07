@@ -271,13 +271,26 @@ const RetroTabsInit = {
  * RetroCSS Accordion Implementation
  */
 class RetroAccordion {
-  constructor(selector) {
-    const accordions = document.querySelectorAll(selector);
+  /**
+   * @param {string} selector  accordion root selector
+   * @param {ParentNode} [root=document]  subtree to search
+   *
+   * Binding is idempotent per toggle. It was not: the MutationObserver in
+   * init() re-ran this against the whole document on every addition, so each
+   * new accordion added another click listener to every toggle already on the
+   * page. One addition made a click open *and* close an existing item; two
+   * made the handlers flap odd/even. Same dataset guard as infinite-scroll.js.
+   */
+  constructor(selector, root = document) {
+    const accordions = root.querySelectorAll(selector);
     
     accordions.forEach(accordion => {
       const toggles = accordion.querySelectorAll('.retro-accordion-toggle');
       
       toggles.forEach(toggle => {
+        if (toggle.dataset.retroAccordionBound === 'true') return;
+        toggle.dataset.retroAccordionBound = 'true';
+
         toggle.addEventListener('click', () => {
           // Toggle active class
           const item = toggle.parentElement;
@@ -324,12 +337,11 @@ class RetroAccordion {
       mutations.forEach((mutation) => {
         if (mutation.type === 'childList' && mutation.addedNodes.length) {
           mutation.addedNodes.forEach((node) => {
-            if (node.nodeType === 1 && (
-                node.matches(selector) || 
-                node.querySelector(selector)
-            )) {
-              new RetroAccordion(selector);
-            }
+            if (node.nodeType !== 1) return;
+            // Scope to the node that was actually added. Passing `document`
+            // here is what made every addition re-walk the whole page.
+            if (node.matches(selector)) new RetroAccordion(selector, node.parentNode);
+            else if (node.querySelector(selector)) new RetroAccordion(selector, node);
           });
         }
       });
@@ -343,8 +355,10 @@ class RetroAccordion {
 }
 
 // Expose to global window object for RetroCSS.init()
-window.RetroTabs = RetroTabsInit; // The object with the .init() method that sets up tab instances
-window.RetroAccordion = RetroAccordion; // The class itself, its static .init() will be called
+if (typeof window !== 'undefined') {
+  window.RetroTabs = RetroTabsInit; // The object with the .init() method that sets up tab instances
+  window.RetroAccordion = RetroAccordion; // The class itself, its static .init() will be called
+}
 
 // document.addEventListener('DOMContentLoaded', () => {
 //   RetroTabsInit.init();

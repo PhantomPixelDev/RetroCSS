@@ -328,12 +328,15 @@ npm run watch
 Run the gates:
 
 ```bash
-npm run check:a11y && npm run check:radius && npm run check:pages && npm run check:keyboard
+npm test && npm run check:a11y && npm run check:css && npm run check:pages && npm run check:keyboard
 ```
 
+`npm test` is the fast loop — a jsdom unit suite over the built bundle.
 `check:a11y` gates the tokens (every `var(--retro-*)` resolves, every
-text/surface pair clears WCAG AA), `check:radius` gates the shape (nothing
-hardcodes a corner behind `--retro-border-radius`), `check:pages` gates the
+text/surface pair clears WCAG AA), `check:css` gates the stylesheet statically
+(nothing hardcodes a corner behind `--retro-border-radius`, nothing builds a
+shadow or scrim from a token that inverts between themes, and no component
+class ships without appearing on a page), `check:pages` gates the
 rendered result across 8 pages × 2 themes × 5 widths — including that the first
 paint is already the right theme with the bundle blocked, so a theme flash fails
 the build — and `check:keyboard` gates operability: that every control can

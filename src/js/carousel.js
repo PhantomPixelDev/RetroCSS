@@ -172,5 +172,5 @@
   };
 
   // Expose to window
-  window.RetroCarousel = RetroCarousel;
+  if (typeof window !== 'undefined') window.RetroCarousel = RetroCarousel;
 })(); 

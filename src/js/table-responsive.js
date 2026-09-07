@@ -1,6 +1,8 @@
 // Retro Table Responsive Enhancements
 // Automatically wraps .retro-table in .retro-table-responsive for horizontal scrolling.
 
+// Guarded: importing this from a server-rendered app must not touch `document`.
+if (typeof document !== 'undefined') {
 document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('table.retro-table').forEach(function (table) {
     // Wrap table in .retro-table-responsive if not already
@@ -11,4 +13,5 @@ document.addEventListener('DOMContentLoaded', function () {
       wrapper.appendChild(table);
     }
   });
-}); 
+});
+}

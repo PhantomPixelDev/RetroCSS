@@ -30,7 +30,10 @@
   display: none;
   overflow: auto;
   outline: 0;
-  background: rgba(var(--retro-black-rgb), 0.6);
+  // Fixed dark, not --retro-black-rgb: that token inverts, so the backdrop
+  // rendered as rgba(255,255,255,0.6) in dark mode and washed the whole page
+  // out to near-white -- the exact opposite of dimming it.
+  background: rgba(var(--retro-scrim-rgb), 0.6);
   padding: 1rem;
   box-sizing: border-box;
   text-align: center;
@@ -41,7 +44,7 @@
     display: inline-block;
     height: 100%;
     vertical-align: middle;
-    margin-right: -0.25rem; /* Adjusts for inline-block spacing */
+    margin-inline-end: -0.25rem; /* Adjusts for inline-block spacing */
   }
 
   &.show {
@@ -60,7 +63,7 @@
     box-shadow: 4px 4px 8px rgba(var(--retro-shadow-rgb), 0.5), inset 1px 1px 0 var(--retro-border-light), inset -1px -1px 0 var(--retro-border-medium);
     font-family: var(--retro-font-heading);
     transition: none;
-    text-align: left;
+    text-align: start;
     vertical-align: middle;
     border-radius: var(--retro-border-radius);
   }
@@ -85,7 +88,7 @@
     }
     border-top: 2px solid var(--retro-border-light);
     border-bottom: 2px solid var(--retro-border-dark);
-    border-left: 8px solid var(--retro-modal-header-bg);
+    border-inline-start: 8px solid var(--retro-modal-header-bg);
     font-family: var(--retro-font-heading);
     font-size: var(--retro-font-size-lg);
     font-weight: bold;
@@ -100,8 +103,8 @@
   &-close-floating {
     position: absolute;
     top: var(--retro-spacing-sm);
-    right: var(--retro-spacing-sm);
-    margin-left: 0;
+    inset-inline-end: var(--retro-spacing-sm);
+    margin-inline-start: 0;
     z-index: 1;
   }
 
@@ -109,7 +112,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: var(--retro-spacing-sm);
+    margin-inline-start: var(--retro-spacing-sm);
     background: var(--retro-light);
     border: 2px outset var(--retro-border-light);
     box-shadow: none;
@@ -178,7 +181,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(var(--retro-black-rgb), 0.5);
+    background: rgba(var(--retro-scrim-rgb), 0.5);
     z-index: 1040;
   }
 

@@ -47,7 +47,7 @@
   th,
   td {
     padding: 6px 8px;
-    text-align: left;
+    text-align: start;
     border: 1px solid var(--retro-border-medium); // Grid lines
     overflow: hidden; // Added for text truncation
     white-space: nowrap; // Added for text truncation
@@ -84,7 +84,7 @@
     cursor: pointer;
     user-select: none;
     // Room for the indicator, so the label does not shift when it appears.
-    padding-right: calc(var(--retro-spacing-md) + 14px);
+    padding-inline-end: calc(var(--retro-spacing-md) + 14px);
     position: relative;
 
     &:hover {
@@ -103,7 +103,7 @@
       // which columns are sortable before clicking one.
       content: '95'; // up-down arrow
       position: absolute;
-      right: 6px;
+      inset-inline-end: 6px;
       top: 50%;
       transform: translateY(-50%);
       font-size: var(--retro-font-size-xs);

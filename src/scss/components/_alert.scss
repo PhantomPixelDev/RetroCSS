@@ -47,7 +47,7 @@
   margin-bottom: 1.2em;
   padding: 0.7em 1.2em;
   color: var(--retro-alert-text);
-  text-align: left;
+  text-align: start;
   display: block;
 }
 
@@ -57,7 +57,7 @@
   font-weight: var(--retro-font-weight-bold);
   font-size: var(--retro-font-size-lg);
   color: inherit;
-  text-align: left;
+  text-align: start;
 }
 
 .retro-alert-body, .retro-toast-body {
@@ -65,7 +65,7 @@
   margin: 0;
   font-size: 1em;
   color: inherit;
-  text-align: left;
+  text-align: start;
 }
 
 .retro-alert-footer {
@@ -76,10 +76,13 @@
   font-family: inherit;
   border-radius: var(--retro-border-radius);
   box-shadow: none;
+  // Deliberately --retro-black-rgb, which inverts: a hairline divider should be
+  // dark on a light surface and light on a dark one. Unlike a shadow or a
+  // scrim, this is a surface tint, not a light source.
   border-top: 2px solid rgba(var(--retro-black-rgb), 0.12);
   background: var(--retro-light);
   color: var(--retro-text);
-  text-align: left;
+  text-align: start;
 }
 
 // Footers previously hardcoded their background AND text colour while the
@@ -103,7 +106,7 @@
   .retro-toast-#{$n}, .retro-toast.retro-alert-#{$n} {
     background: var(--retro-#{$n});
     color: var(--retro-#{$n}-fg);
-    border-left: 6px solid var(--retro-#{$n}-active);
+    border-inline-start: 6px solid var(--retro-#{$n}-active);
   }
 }
 
@@ -122,7 +125,7 @@
   color: inherit;
   font-size: var(--retro-font-size-xl);
   font-weight: bold;
-  margin-left: auto;
+  margin-inline-start: auto;
   cursor: pointer;
   // Was 0.7. A dismiss control is not decoration, and fading it multiplied
   // straight through the contrast the -fg token was chosen to guarantee.
@@ -141,7 +144,7 @@
   .retro-alert-#{$n} {
     background: var(--retro-#{$n});
     color: var(--retro-#{$n}-fg);
-    border-left: 6px solid var(--retro-#{$n}-active);
+    border-inline-start: 6px solid var(--retro-#{$n}-active);
   }
 }
 
@@ -180,7 +183,8 @@
   flex-direction: row;
   align-items: center;
   width: 100%;
-  padding: 0.7em 2.5em 0.7em 0.9em;
+  padding-block: 0.7em 0.7em;
+  padding-inline: 0.9em 2.5em;
   position: relative;
   min-height: 36px;
   background: inherit;
@@ -189,7 +193,7 @@
 .retro-alert-icon, .retro-toast-icon {
   width: 24px;
   height: 24px;
-  margin-right: 0.8em;
+  margin-inline-end: 0.8em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -204,7 +208,7 @@
 
 .retro-alert-close, .retro-toast-close {
   position: static;
-  margin-left: 1em;
+  margin-inline-start: 1em;
   align-self: center;
 }
 

@@ -35,7 +35,9 @@ let tooltipSeq = 0;
 
 function storedTheme() {
   try {
-    return localStorage.getItem('retro-theme');
+    // `localStorage` is not merely blocked outside a browser, it is undefined,
+    // so the guard covers SSR as well as sandboxed iframes.
+    return typeof localStorage === 'undefined' ? null : localStorage.getItem('retro-theme');
   } catch (e) {
     return null;
   }
@@ -76,11 +78,22 @@ const RetroCSS = {
   fileUpload: RetroFileUpload,
   events: RetroEvents,
   
-  // Add references to standalone modules from the window object
-  carousel: window.RetroCarousel,
-  accordion: window.RetroAccordion,
-  tabs: window.RetroTabs,
-  infiniteScroll: window.RetroInfiniteScroll,
+  // References to the standalone modules. Getters rather than values: read
+  // eagerly they touch `window` during module evaluation, which throws the
+  // moment a server-rendered app imports the package -- and they also captured
+  // whatever was on `window` at import time rather than at call time.
+  get carousel() {
+    return typeof window === 'undefined' ? undefined : window.RetroCarousel;
+  },
+  get accordion() {
+    return typeof window === 'undefined' ? undefined : window.RetroAccordion;
+  },
+  get tabs() {
+    return typeof window === 'undefined' ? undefined : window.RetroTabs;
+  },
+  get infiniteScroll() {
+    return typeof window === 'undefined' ? undefined : window.RetroInfiniteScroll;
+  },
   
   // Store theme preference. Read defensively: in a sandboxed iframe, or with
   // third-party storage blocked, touching localStorage throws SecurityError —
@@ -569,23 +582,29 @@ const RetroCSS = {
 // overwrote the assignment below with `{ default: ... }`. Every documented
 // call — RetroCSS.toast.show, RetroCSS.modal.show — was a TypeError as a
 // result. The globals are declared here instead, explicitly.
-window.RetroCSS = RetroCSS;
+// Guarded: this module is now published as ESM and CJS as well as an IIFE, and
+// a bare `window.X = Y` at module scope throws ReferenceError the moment a
+// server-rendered app (Next, Remix, Astro) imports the package. Everything
+// below is browser-only setup and is skipped outside a browser.
+if (typeof window !== 'undefined') {
+  window.RetroCSS = RetroCSS;
 
-// Component singletons, for markup that calls them inline and for the API the
-// documentation describes.
-window.RetroModal = RetroModal;
-window.RetroToast = RetroToast;
-window.RetroForm = RetroForm;
-window.RetroTable = RetroTable;
-window.RetroDropdown = RetroDropdown;
-window.RetroFileUpload = RetroFileUpload;
-window.RetroEvents = RetroEvents;
+  // Component singletons, for markup that calls them inline and for the API
+  // the documentation describes.
+  window.RetroModal = RetroModal;
+  window.RetroToast = RetroToast;
+  window.RetroForm = RetroForm;
+  window.RetroTable = RetroTable;
+  window.RetroDropdown = RetroDropdown;
+  window.RetroFileUpload = RetroFileUpload;
+  window.RetroEvents = RetroEvents;
 
-// Auto-initialize when the DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => RetroCSS.init());
+  // Auto-initialize when the DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => RetroCSS.init());
   } else {
-  RetroCSS.init();
+    RetroCSS.init();
   }
+}
 
 export default RetroCSS;

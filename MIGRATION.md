@@ -1,3 +1,75 @@
+# Migrating to RetroCSS 4.x
+
+## 4.0 — packaging, RTL, and three fixed bugs
+
+### Breaking: the package entry point is now JavaScript
+
+`main` pointed at `dist/retro.css`, so `require('@phantompixeldev/retrocss')`
+returned a stylesheet and `import RetroCSS from '@phantompixeldev/retrocss'`
+did not work at all — despite the source having had `export default` for
+years. The package now ships real ESM and CJS builds behind an `exports` map:
+
+```js
+import RetroCSS from '@phantompixeldev/retrocss';        // ESM
+const RetroCSS = require('@phantompixeldev/retrocss');    // CJS
+import '@phantompixeldev/retrocss/css';                   // stylesheet
+import '@phantompixeldev/retrocss/css/min';               // minified
+@use '@phantompixeldev/retrocss/scss' as retro;           // Sass source
+```
+
+**If you imported the package for its CSS**, change that import to
+`@phantompixeldev/retrocss/css`. Every deep path that worked before still
+works — `.../dist/retro.min.css` and friends are mapped explicitly — so only
+the bare specifier changed.
+
+TypeScript definitions ship at `dist/retro.d.ts` and are picked up
+automatically. The bundle is also SSR-safe now: importing it from Next, Remix
+or Astro no longer throws `ReferenceError: window is not defined`.
+
+### Fixed: the modal backdrop was a white scrim in dark mode
+
+`rgba(var(--retro-black-rgb), 0.6)` rendered as `rgba(255,255,255,0.6)` in
+dark, washing the page out instead of dimming it. Three tokens are fixed in
+both themes now — `--retro-shadow-rgb`, `--retro-scrim-rgb` and
+`--retro-sheen-rgb` — and a CI gate rejects any shadow, scrim or gloss built
+from a token that inverts. `.retro-heading-variant`'s drop shadow had the same
+bug and is fixed with it.
+
+### Fixed: accordions broke when one was added dynamically
+
+`RetroAccordion.init` re-bound every toggle on the page each time a new
+accordion appeared, so after one addition a click opened *and* closed an item.
+Binding is idempotent now, and the observer only walks the added subtree.
+
+### Right-to-left support
+
+Spacing, text alignment and start/end positioning use logical properties, so
+`dir="rtl"` mirrors the layout. **The Win9x bevels deliberately do not
+mirror** — the light source is fixed at the top-left, as it is in Windows
+itself. See `examples/rtl.html`. LTR rendering is unchanged.
+
+### Removed
+
+- `.retro-sidebar-toggle`, `.retro-sidebar-toggle-icon` and
+  `.retro-sidebar-overlay` — a mobile drawer with no JavaScript behind it, and
+  a later rule in the same file set `display: none` on all of it anyway. On
+  narrow screens the sidebar stacks above the content, as it already did.
+- `.retro-tab`, `.retro-tab-list` and `.retro-nav-tabs` — orphaned styling for
+  markup nothing used. Tabs are `.retro-nav-tabbed` with `.retro-tab-content`
+  panes, which is what every example and `tabs.js` already used.
+
+### Newly documented, not new
+
+Several components already had size and layout modifiers that appeared on no
+page: `.retro-btn-block`, `.retro-input-sm` / `-lg`, `.retro-card-compact` /
+`-image`, `.retro-form-inline` / `-horizontal`, the progress bar variants,
+`.retro-modal-lg` / `-xl` / `-scroll`, and the `data-tooltip-position` /
+`data-tooltip-variant` attributes. They are demonstrated on the home page now,
+and a CI gate fails the build if a component class ships without appearing
+anywhere.
+
+---
+
 # Migrating to RetroCSS 3.x
 
 ## 3.1 — keyboard access, OS dark mode, and the rest of the radius token

@@ -96,6 +96,6 @@ const RetroInfiniteScroll = {
   },
 };
 
-window.RetroInfiniteScroll = RetroInfiniteScroll;
+if (typeof window !== 'undefined') window.RetroInfiniteScroll = RetroInfiniteScroll;
 
 export default RetroInfiniteScroll;
