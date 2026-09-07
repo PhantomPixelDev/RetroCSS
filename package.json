@@ -30,7 +30,7 @@
     "postbuild": "npm run build:min",
     "prepublishOnly": "npm run build",
     "test": "node --test \"test/**/*.test.mjs\"",
-    "version": "node scripts/sync-version.mjs && git add index.html",
+    "version": "node scripts/sync-version.mjs && git add index.html documentation.html examples/",
     "watch": "concurrently \"npm run watch:css\" \"npm run watch:js\"",
     "watch:css": "sass --watch src/scss/retro.scss:dist/retro.css",
     "watch:js": "esbuild src/js/retro.js --bundle --outfile=dist/retro.js --format=iife --watch"

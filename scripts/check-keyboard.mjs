@@ -111,6 +111,28 @@ function auditPage({ controls, roving, focusable }) {
     }
   }
 
+  // Every form control needs an accessible name. A <label> with no `for`, next
+  // to an <input> with no id, associates nothing -- the field is announced as
+  // "edit text" and clicking the label does not focus it. Three pages shipped
+  // that way, including a checkbox list whose text sat beside the box as a
+  // plain sibling.
+  const CONTROLS_SEL =
+    'input:not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"]),select,textarea';
+  for (const el of document.querySelectorAll(CONTROLS_SEL)) {
+    const named =
+      el.getAttribute('aria-label') ||
+      el.getAttribute('aria-labelledby') ||
+      el.closest('label') ||
+      (el.id && document.querySelector(`label[for="${CSS.escape(el.id)}"]`)) ||
+      // A placeholder is a weak name, but it is a name, and the framework's own
+      // demos lean on it for single-purpose fields.
+      el.getAttribute('placeholder') ||
+      el.getAttribute('title');
+    if (!named) {
+      out.unnamed.push(`form control ${el.tagName.toLowerCase()}[type=${el.type || '-'}]`);
+    }
+  }
+
   return out;
 }
 

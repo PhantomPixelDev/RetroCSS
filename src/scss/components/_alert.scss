@@ -132,6 +132,14 @@
   // Hover gets a tint instead of the opacity ramp.
   opacity: 1;
   line-height: 1;
+  // WCAG 2.5.8 asks for a 24px target. The glyph alone rendered 22x20, which
+  // is a fiddly thing to hit on a phone -- and unlike an inline text link, a
+  // dismiss control has no exemption.
+  min-width: 24px;
+  min-height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0 0.25em;
   transition: background-color 0.2s;
 }
