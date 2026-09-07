@@ -27,6 +27,9 @@ const COVERS = [
   { name: 'dark-mode', dark: '#2b2b4f', light: '#6b6bb5', accent: '#c9c9ff', motif: 'moon' },
   { name: 'typography', dark: '#5c0a3a', light: '#c2417f', accent: '#ffd9ec', motif: 'grid' },
   { name: 'release', dark: '#00404d', light: '#1e9aad', accent: '#d6f7ff', motif: 'peaks' },
+  // Portrait rather than 3:2: this one is the brand panel beside the sign-in
+  // and sign-up forms, so it stands next to a column of fields.
+  { name: 'auth', dark: '#1a1a5e', light: '#5560c8', accent: '#ffd700', motif: 'key', tall: true },
 ];
 
 /**
@@ -64,14 +67,14 @@ function tile(id, colour, level) {
 // across the top and the rest was flat.
 const STEPS = [0, 1, 2, 3, 5, 7, 9, 12, 16];
 
-function dither(from, to, id) {
+function dither(from, to, id, w = W, h = H) {
   const defs = STEPS.map((lv, i) => tile(`${id}-${i}`, to, lv)).join('');
-  const bandH = Math.ceil(H / STEPS.length);
+  const bandH = Math.ceil(h / STEPS.length);
   const bands = STEPS.map(
     (_, i) =>
-      `<rect x="0" y="${i * bandH}" width="${W}" height="${bandH}" fill="url(#${id}-${i})"/>`,
+      `<rect x="0" y="${i * bandH}" width="${w}" height="${bandH}" fill="url(#${id}-${i})"/>`,
   ).join('');
-  return { defs, body: `<rect width="${W}" height="${H}" fill="${from}"/>${bands}` };
+  return { defs, body: `<rect width="${w}" height="${h}" fill="${from}"/>${bands}` };
 }
 
 const MOTIFS = {
@@ -107,26 +110,40 @@ const MOTIFS = {
   peaks: (a) => `
     <path d="M150 300 L245 175 L300 245 L370 150 L470 300 Z" fill="${a}"/>
     <path d="M245 175 L285 228 L205 228 Z" fill="#ffffff" opacity="0.55"/>`,
+  // A padlock, drawn on the same square grid as the rest. Sits low in the
+  // frame: this cover is a brand panel with copy over its top half, and a
+  // centred motif ended up behind the last line of text.
+  key: (a, w, h) => {
+    const cx = w / 2;
+    const cy = h * 0.72;
+    return `
+    <rect x="${cx - 70}" y="${cy - 20}" width="140" height="110" fill="${a}"/>
+    <path d="M${cx - 42} ${cy - 20} v-34 a42 42 0 0 1 84 0 v34 h-24 v-34 a18 18 0 0 0 -36 0 v34 z" fill="${a}"/>
+    <rect x="${cx - 12}" y="${cy + 16}" width="24" height="24" fill="#000000" opacity="0.45"/>
+    <rect x="${cx - 6}" y="${cy + 36}" width="12" height="26" fill="#000000" opacity="0.45"/>`;
+  },
 };
 
 /** The raised Win9x frame every cover sits in. */
-const bevel = () => `
-  <rect x="0" y="0" width="${W}" height="4" fill="#ffffff" opacity="0.75"/>
-  <rect x="0" y="0" width="4" height="${H}" fill="#ffffff" opacity="0.75"/>
-  <rect x="0" y="${H - 4}" width="${W}" height="4" fill="#000000" opacity="0.55"/>
-  <rect x="${W - 4}" y="0" width="4" height="${H}" fill="#000000" opacity="0.55"/>`;
+const bevel = (w = W, h = H) => `
+  <rect x="0" y="0" width="${w}" height="4" fill="#ffffff" opacity="0.75"/>
+  <rect x="0" y="0" width="4" height="${h}" fill="#ffffff" opacity="0.75"/>
+  <rect x="0" y="${h - 4}" width="${w}" height="4" fill="#000000" opacity="0.55"/>
+  <rect x="${w - 4}" y="0" width="4" height="${h}" fill="#000000" opacity="0.55"/>`;
 
 mkdirSync(OUT, { recursive: true });
 
-for (const { name, dark, light, accent, motif } of COVERS) {
-  const { defs, body } = dither(dark, light, `d-${name}`);
+for (const { name, dark, light, accent, motif, tall } of COVERS) {
+  const w = tall ? 500 : W;
+  const h = tall ? 1000 : H;
+  const { defs, body } = dither(dark, light, `d-${name}`, w, h);
   const svg =
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" ` +
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" ` +
     `role="img" shape-rendering="crispEdges">` +
     `<defs>${defs}</defs>` +
     body +
-    MOTIFS[motif](accent) +
-    bevel() +
+    MOTIFS[motif](accent, w, h) +
+    bevel(w, h) +
     `</svg>`;
   const file = join(OUT, `${name}.svg`);
   writeFileSync(file, svg);
