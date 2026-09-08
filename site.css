@@ -291,12 +291,15 @@
  * ====================================================================== */
 
 /* --- example footer --------------------------------------------------- */
-/* Lighter than .site-footer on purpose: these pages demonstrate a *reader's*
-   site, and are not chrome for this one. */
+/* Same rule and the same rhythm as .site-footer — it is the same chrome, with
+   one line of credits instead of four columns. It used to be a 1px hairline
+   with different padding, which made the examples look like a different site
+   from the one that links to them. */
 .example-footer {
   margin-top: var(--retro-spacing-xl);
-  padding-top: var(--retro-spacing-md);
-  border-top: 1px solid var(--retro-border-medium);
+  padding: var(--retro-spacing-lg) 0 var(--retro-spacing-xl);
+  border-top: 2px solid var(--retro-border-dark);
+  box-shadow: 0 1px 0 var(--retro-border-light);
   color: var(--retro-text-muted);
   font-size: var(--retro-font-size-sm);
   text-align: center;

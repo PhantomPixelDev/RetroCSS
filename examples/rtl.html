@@ -29,15 +29,30 @@
   <link rel="stylesheet" href="../site.css">
 </head>
 <body>
-  <div class="rtl-page">
-    <nav aria-label="Site" class="retro-nav retro-mb-4">
-      <a href="../index.html" class="retro-nav-item">الرئيسية</a>
-      <a href="../documentation.html" class="retro-nav-item">التوثيق</a>
-      <a href="index.html" class="retro-nav-item">أمثلة</a>
-      <button class="retro-nav-item retro-theme-toggle" type="button">تبديل السمة</button>
+  <div class="page-shell">
+    <nav class="retro-nav" aria-label="Site">
+      <a href="../index.html" class="retro-nav-item" data-retro-tooltip="الصفحة الرئيسية">الرئيسية</a>
+      <a href="../documentation.html" class="retro-nav-item" data-retro-tooltip="التوثيق">التوثيق</a>
+      <a href="https://github.com/phantompixeldev/retrocss" class="retro-nav-item" data-retro-tooltip="GitHub">GitHub</a>
+      <div class="retro-dropdown">
+        <button class="retro-nav-item retro-dropdown-toggle active" data-retro-dropdown data-retro-tooltip="أمثلة">أمثلة ▾</button>
+        <div class="retro-dropdown-menu">
+          <a href="index.html" class="retro-dropdown-item"><b>كل الأمثلة</b></a>
+          <a href="dashboard.html" class="retro-dropdown-item">لوحة التحكم</a>
+          <a href="blog.html" class="retro-dropdown-item">مدونة</a>
+          <a href="blog-post.html" class="retro-dropdown-item">مقال</a>
+          <a href="login.html" class="retro-dropdown-item">تسجيل الدخول</a>
+          <a href="register.html" class="retro-dropdown-item">إنشاء حساب</a>
+          <a href="rtl.html" class="retro-dropdown-item">من اليمين إلى اليسار</a>
+          <a href="theme-matrix.html" class="retro-dropdown-item">مصفوفة السمات</a>
+        </div>
+      </div>
+      <button class="retro-nav-item retro-theme-toggle" type="button" data-retro-tooltip="تبديل السمة">تبديل السمة</button>
     </nav>
-
-    <h1>تخطيط من اليمين إلى اليسار</h1>
+  </div>
+  <hr class="retro-mt-5 retro-border-muted">
+  <div class="rtl-page">
+<h1>تخطيط من اليمين إلى اليسار</h1>
 
     <div class="retro-alert retro-alert-info rtl-note">
       <strong>ما الذي يُعكس؟</strong>
@@ -104,6 +119,9 @@
     </div>
   </div>
 
+
+
+  <div class="page-shell">
     <footer class="example-footer">
         <p>
           A RetroCSS example &middot; <a href="index.html">All examples</a>
@@ -112,8 +130,7 @@
           &middot; <a href="https://github.com/phantompixeldev/retrocss">GitHub</a>
         </p>
       </footer>
-
-
+  </div>
   <script src="../dist/retro.min.js"></script>
 </body>
 </html>

@@ -73,7 +73,7 @@
 
 <body class="retro-body-bg">
   <div class="page-shell">
-    <nav class="retro-nav">
+    <nav class="retro-nav" aria-label="Site">
       <a href="index.html" class="retro-nav-item active" data-retro-tooltip="Home page">Home</a>
       <a href="documentation.html" class="retro-nav-item" data-retro-tooltip="Documentation">Documentation</a>
       <a href="https://github.com/phantompixeldev/retrocss" class="retro-nav-item" data-retro-tooltip="GitHub">GitHub</a>
@@ -90,7 +90,7 @@
           <a href="examples/theme-matrix.html" class="retro-dropdown-item">Theme matrix</a>
         </div>
       </div>
-      <button class="retro-nav-item retro-theme-toggle" data-retro-tooltip="Toggle dark/light mode">Toggle Theme</button>
+      <button class="retro-nav-item retro-theme-toggle" type="button" data-retro-tooltip="Toggle dark/light mode">Toggle Theme</button>
     </nav>
   </div>
   <hr class="retro-mt-5 retro-border-muted">
@@ -2013,7 +2013,13 @@
     </div>
   </div>
 
-      <footer class="site-footer">
+
+</div>
+
+  </div><!-- /.retro-main-layout -->
+
+  <div class="page-shell">
+    <footer class="site-footer">
         <div class="footer-grid">
           <div>
             <h2>Documentation</h2>
@@ -2048,11 +2054,8 @@
           Built with the framework it documents.
         </p>
       </footer>
-
-      <button class="retro-btn to-top" type="button" id="to-top" aria-label="Back to top">&uarr; Top</button>
-</div>
-
-  <!-- Load Individual RetroCSS JS Source Files -->
+  </div>
+  <button class="retro-btn to-top" type="button" id="to-top" aria-label="Back to top">&uarr; Top</button>
   <script src="dist/retro.js"></script>
   <script>
     // Demo-only behaviour. This used to live inside the framework, where it

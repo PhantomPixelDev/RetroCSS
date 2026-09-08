@@ -6,6 +6,22 @@ Notable changes per release. Breaking changes and how to handle them are in
 Versions follow [semver](https://semver.org): a major changes something you can
 observe, a minor adds, a patch fixes.
 
+## Unreleased
+
+**Site**
+
+- Every page on the site now carries the same chrome. The ten pages had three
+  different navs — the home page and the docs had an Examples dropdown inside a
+  centred shell, the seven examples had a flat link inside a full-bleed
+  container, and the RTL page had four Arabic links inside its 900px content
+  wrapper — and five different footer positions, from 322..1344 to a full-bleed
+  0..1400. Nav, rule and footer are now one block at one width on all ten pages:
+  56..1344 at a 1400px viewport, against a 40..1360 shell.
+- `.example-footer` is drawn like `.site-footer` — same rule, same rhythm — so
+  the examples stop looking like a different site from the one linking to them.
+- Fixed an unclosed `.retro-main-layout` on the home page, which had swallowed
+  the footer into the content column.
+
 ## 6.0.2
 
 **Fixed**
