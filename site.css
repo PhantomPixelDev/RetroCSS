@@ -1,0 +1,282 @@
+/* ---------------------------------------------------------------------- *
+ * Page design for the RetroCSS site.
+ *
+ * The framework's component styles live in dist/retro.css. This file is the
+ * furniture the *pages* need — a shell, a hero, section cards, a footer — and
+ * it is shared by index.html and documentation.html so the two cannot drift.
+ * They used to carry a copy each, and had: the home page ran full-bleed to the
+ * viewport while the docs were centred at 1320px, their heroes used different
+ * type scales, and their section cards were built two different ways.
+ *
+ * Everything here is built from framework tokens, so it themes with it.
+ * ---------------------------------------------------------------------- */
+
+/* --- shell ------------------------------------------------------------ */
+/* One width for the nav, the content and the footer, on every page. It is the
+   framework's own container scale, so the site demonstrates its own token. */
+.page-shell {
+  width: 100%;
+  max-width: var(--retro-container-xxl);
+  margin: 0 auto;
+  padding: 0 var(--retro-spacing-md);
+  box-sizing: border-box;
+}
+
+/* --- hero ------------------------------------------------------------- */
+/* Deliberately not a section card: the landing block used to be a card
+   identical to "Vertical Navigation", so the most important thing on the page
+   had exactly the same weight as the 35 demos under it. */
+.hero {
+  margin-bottom: var(--retro-spacing-xl);
+}
+.hero-body {
+  display: grid;
+  gap: var(--retro-spacing-lg);
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .hero-body { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); }
+}
+.hero h1 {
+  margin: 0 0 var(--retro-spacing-sm);
+  font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.75rem);
+  line-height: 1.15;
+}
+.hero-lede {
+  font-size: var(--retro-font-size-lg);
+  line-height: 1.55;
+  max-width: 60ch;
+  margin: 0 0 var(--retro-spacing-lg);
+}
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--retro-spacing-sm);
+  margin-top: var(--retro-spacing-lg);
+}
+
+/* Key facts, as a Win9x status-bar strip rather than prose. */
+.fact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--retro-spacing-xs);
+  margin-top: var(--retro-spacing-lg);
+}
+.fact {
+  padding: var(--retro-spacing-sm);
+  background: var(--retro-bg);
+  border: 1px solid var(--retro-border-dark);
+  box-shadow: inset 1px 1px 0 var(--retro-border-light);
+}
+.fact-value {
+  display: block;
+  font-family: var(--retro-font-heading);
+  font-size: var(--retro-font-size-lg);
+  font-weight: var(--retro-font-weight-bold);
+  line-height: 1.1;
+}
+.fact-label {
+  display: block;
+  margin-top: 2px;
+  font-size: var(--retro-font-size-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--retro-text-muted);
+}
+
+/* A list of links with a note under each, used in the docs hero. */
+.quick-links { margin: 0; padding: 0; list-style: none; }
+.quick-links li {
+  padding: var(--retro-spacing-xs) 0;
+  border-bottom: 1px solid var(--retro-border-medium);
+}
+.quick-links li:last-child { border-bottom: 0; }
+.quick-links .ql-note {
+  display: block;
+  font-size: var(--retro-font-size-sm);
+  color: var(--retro-text-muted);
+}
+
+/* --- group bands ------------------------------------------------------ */
+.band {
+  display: flex;
+  align-items: center;
+  gap: var(--retro-spacing-sm);
+  margin: var(--retro-spacing-xl) 0 var(--retro-spacing-md);
+}
+.band:first-of-type { margin-top: 0; }
+.band-title {
+  /* A quiet group label, not a boxed heading: the framework's own h2 style
+     (accent bar, panel background, shadow) is heavier than the section headings
+     it would sit above, which inverts the hierarchy. */
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  font-size: var(--retro-font-size-sm);
+  font-family: var(--retro-font-heading);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--retro-text-muted);
+  white-space: nowrap;
+}
+.band-rule {
+  flex: 1;
+  height: 2px;
+  background: var(--retro-border-dark);
+  box-shadow: 0 1px 0 var(--retro-border-light);
+}
+
+/* --- sections --------------------------------------------------------- */
+/* One spec for a block of the page, whether it demonstrates a component or
+   documents one. Both carry .retro-card in the markup, so the panel itself is
+   the framework's. */
+.demo-section,
+.doc-section {
+  padding: var(--retro-spacing-md);
+  margin-bottom: var(--retro-spacing-md);
+  box-sizing: border-box;
+  border-radius: var(--retro-border-radius);
+  scroll-margin-top: var(--retro-spacing-xl);
+}
+
+/* The section's own heading: underlined, not the framework's h2 panel, which
+   reads as a floating box detached from the prose beneath it. */
+.demo-section > h3,
+.doc-section > h2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--retro-spacing-sm);
+  margin: 0 0 var(--retro-spacing-md);
+  padding: 0 0 var(--retro-spacing-sm);
+  background: none;
+  border: 0;
+  border-bottom: 2px solid var(--retro-border-dark);
+  box-shadow: 0 1px 0 var(--retro-border-light);
+  font-size: var(--retro-font-size-xl);
+  /* .retro-prose caps headings at the reading measure along with the running
+     text, which left the docs' section rules stopping two-thirds of the way
+     across their card while the home page's ran the full width. The measure is
+     right for paragraphs and wrong for a rule that delimits a section. */
+  max-width: none;
+}
+
+/* Sub-headings within a section. */
+.demo-section > h4,
+.doc-section > h3 {
+  font-size: var(--retro-font-size-lg);
+  margin-top: var(--retro-spacing-lg);
+  margin-bottom: var(--retro-spacing-sm);
+  max-width: none;
+}
+.demo-section > h4:first-of-type,
+.doc-section > h3:first-of-type { margin-top: 0; }
+
+/* The class you type, beside the thing you see: the demos showed a component
+   without ever naming it. */
+.demo-class {
+  font-family: var(--retro-font-mono, monospace);
+  font-size: var(--retro-font-size-sm);
+  font-weight: normal;
+  color: var(--retro-text-muted);
+}
+
+/* Inline code inside prose. Block code is .retro-code, which the framework
+   draws with its own title bar and copy button. */
+.demo-section :not(pre) > code,
+.doc-section :not(pre) > code {
+  padding: 0.1em 0.35em;
+  background: var(--retro-light);
+  color: var(--retro-text);
+  font-size: var(--retro-font-size-sm);
+}
+
+/* --- sidebar ---------------------------------------------------------- */
+/* Sticky: the sidebar used to scroll away, so on an 18,000px page you lost
+   navigation entirely after the first screen. */
+@media (min-width: 768px) {
+  .sidebar-col {
+    position: sticky;
+    top: var(--retro-spacing-md);
+    align-self: start;
+    max-height: calc(100vh - var(--retro-spacing-xl));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+.sidebar-details > summary {
+  cursor: pointer;
+  list-style: none;
+}
+.sidebar-details > summary::-webkit-details-marker { display: none; }
+/* A disclosure caret only where the control does something. */
+.sidebar-details > summary::after {
+  content: ' ▸';
+  float: inline-end;
+}
+.sidebar-details[open] > summary::after { content: ' ▾'; }
+@media (min-width: 768px) {
+  /* Always expanded on desktop, where there is room for it. */
+  .sidebar-details > summary { cursor: default; }
+  .sidebar-details > summary::after { content: none; }
+}
+
+/* Scroll-spy state, set by the observer at the foot of each page. The
+   framework marks [aria-current] itself now; this keeps the bold weight. */
+.retro-sidebar .retro-nav-item[aria-current="true"] {
+  font-weight: bold;
+}
+
+/* --- footer ----------------------------------------------------------- */
+.site-footer {
+  /* The shell width, applied here rather than by wrapping every page's footer
+     in another div. */
+  width: 100%;
+  max-width: var(--retro-container-xxl);
+  margin-inline: auto;
+  padding-inline: var(--retro-spacing-md);
+  box-sizing: border-box;
+  margin-top: var(--retro-spacing-xl);
+  padding: var(--retro-spacing-lg) 0 var(--retro-spacing-xl);
+  border-top: 2px solid var(--retro-border-dark);
+  box-shadow: 0 1px 0 var(--retro-border-light);
+}
+.footer-grid {
+  display: grid;
+  gap: var(--retro-spacing-lg);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+.footer-grid h2 {
+  /* Column labels, not page headings: the framework's h2 (accent bar, panel
+     background, shadow) is far too heavy here and overflowed its column. */
+  margin: 0 0 var(--retro-spacing-sm);
+  padding: 0 0 var(--retro-spacing-xs);
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--retro-border-medium);
+  box-shadow: none;
+  font-size: var(--retro-font-size-sm);
+  font-family: var(--retro-font-heading);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--retro-text-muted);
+}
+.footer-grid ul { list-style: none; margin: 0; padding: 0; }
+.footer-grid li { margin-bottom: var(--retro-spacing-xs); }
+.footer-note {
+  margin-top: var(--retro-spacing-lg);
+  color: var(--retro-text-muted);
+  font-size: var(--retro-font-size-sm);
+}
+
+/* --- back to top ------------------------------------------------------ */
+.to-top {
+  position: fixed;
+  inset-inline-end: var(--retro-spacing-lg);
+  bottom: var(--retro-spacing-lg);
+  z-index: 900;
+  display: none;
+}
+.to-top.is-visible { display: inline-block; }

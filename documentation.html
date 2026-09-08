@@ -26,176 +26,10 @@
   <meta name="twitter:image" content="https://phantompixeldev.github.io/RetroCSS/images/og-card.png">
   <meta property="og:description" content="How to install and theme RetroCSS: the four-tier colour token system, dark mode, utilities, accessibility and the JavaScript API.">
   <link rel="stylesheet" href="dist/retro.min.css">
-  <style>
-  /* ------------------------------------------------------------------ *
-   * Page design for the docs. Shares its vocabulary with index.html so
-   * the two read as one site; component styling comes from the framework.
-   * ------------------------------------------------------------------ */
-
-  /* --- hero -------------------------------------------------------- */
-  .hero { margin-bottom: var(--retro-spacing-xl); }
-  .hero-body {
-    display: grid;
-    gap: var(--retro-spacing-lg);
-    align-items: start;
-  }
-  @media (min-width: 900px) {
-    .hero-body { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
-  }
-  .hero h1 {
-    margin: 0 0 var(--retro-spacing-sm);
-    font-size: clamp(1.6rem, 1.1rem + 2vw, 2.4rem);
-    line-height: 1.15;
-  }
-  .hero-lede {
-    font-size: var(--retro-font-size-lg);
-    line-height: 1.55;
-    max-width: 60ch;
-    margin: 0 0 var(--retro-spacing-md);
-  }
-  .hero-cta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--retro-spacing-sm);
-    margin-top: var(--retro-spacing-md);
-  }
-  .quick-links { margin: 0; padding: 0; list-style: none; }
-  .quick-links li {
-    padding: var(--retro-spacing-xs) 0;
-    border-bottom: 1px solid var(--retro-border-medium);
-  }
-  .quick-links li:last-child { border-bottom: 0; }
-  .quick-links .ql-note {
-    display: block;
-    font-size: var(--retro-font-size-sm);
-    color: var(--retro-text-muted);
-  }
-
-  /* --- doc sections ------------------------------------------------- */
-  .doc-section {
-    padding: var(--retro-spacing-md);
-    margin-bottom: var(--retro-spacing-lg);
-    box-sizing: border-box;
-    scroll-margin-top: var(--retro-spacing-lg);
-  }
-  .doc-section > h2 {
-    /* The framework's h2 is a panel in its own right -- accent bar, background,
-       shadow -- which reads as a floating box detached from the prose beneath
-       it. Here the heading belongs to its section. */
-    margin: 0 0 var(--retro-spacing-md);
-    padding: 0 0 var(--retro-spacing-sm);
-    background: none;
-    border: 0;
-    border-bottom: 2px solid var(--retro-border-dark);
-    box-shadow: 0 1px 0 var(--retro-border-light);
-    font-size: var(--retro-font-size-2xl);
-  }
-  .doc-section > h3 {
-    margin-top: var(--retro-spacing-lg);
-    margin-bottom: var(--retro-spacing-sm);
-    font-size: var(--retro-font-size-lg);
-  }
-  .doc-section > h3:first-of-type { margin-top: 0; }
-
-  /* Code blocks carried the section's own padding on top of the
-     component's, so a one-line snippet occupied ~140px of a page that is
-     mostly snippets. */
-  .doc-section pre {
-    background: var(--retro-input-bg);
-    color: var(--retro-input-text);
-    border: var(--retro-border-width-thick) solid var(--retro-border-dark);
-    box-shadow: var(--retro-border-sunken);
-    padding: var(--retro-spacing-sm) var(--retro-spacing-md);
-    margin: 0 0 var(--retro-spacing-md);
-    overflow-x: auto;
-  }
-  .doc-section pre code { display: block; line-height: 1.5; }
-  .doc-section :not(pre) > code {
-    padding: 0.1em 0.35em;
-    background: var(--retro-light);
-    color: var(--retro-text);
-    font-size: var(--retro-font-size-sm);
-  }
-
-  /* --- sidebar ------------------------------------------------------ */
-  @media (min-width: 768px) {
-    .sidebar-col {
-      position: sticky;
-      top: var(--retro-spacing-md);
-      align-self: start;
-      max-height: calc(100vh - var(--retro-spacing-xl));
-      overflow-y: auto;
-      overscroll-behavior: contain;
-    }
-  }
-  .retro-sidebar .retro-nav-item[aria-current="true"] {
-    background: var(--retro-primary);
-    color: var(--retro-primary-fg);
-    font-weight: bold;
-  }
-  .sidebar-details > summary { cursor: pointer; list-style: none; }
-  .sidebar-details > summary::-webkit-details-marker { display: none; }
-  .sidebar-details > summary::after { content: ' ▸ '; float: inline-end; }
-  .sidebar-details[open] > summary::after { content: ' ▾ '; }
-  @media (min-width: 768px) {
-    .sidebar-details > summary { cursor: default; }
-    .sidebar-details > summary::after { content: none; }
-  }
-
-  /* --- footer ------------------------------------------------------- */
-  .site-footer {
-    margin-top: var(--retro-spacing-xl);
-    padding: var(--retro-spacing-lg) 0 var(--retro-spacing-xl);
-    border-top: 2px solid var(--retro-border-dark);
-    box-shadow: 0 1px 0 var(--retro-border-light);
-  }
-  .footer-grid {
-    display: grid;
-    gap: var(--retro-spacing-lg);
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  }
-  .footer-grid h2 {
-    margin: 0 0 var(--retro-spacing-sm);
-    padding: 0 0 var(--retro-spacing-xs);
-    background: none;
-    border: 0;
-    border-bottom: 1px solid var(--retro-border-medium);
-    box-shadow: none;
-    font-size: var(--retro-font-size-sm);
-    font-family: var(--retro-font-heading);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--retro-text-muted);
-  }
-  .footer-grid ul { list-style: none; margin: 0; padding: 0; }
-  .footer-grid li { margin-bottom: var(--retro-spacing-xs); }
-  .footer-note {
-    margin-top: var(--retro-spacing-lg);
-    color: var(--retro-text-muted);
-    font-size: var(--retro-font-size-sm);
-  }
-
-  .to-top {
-    position: fixed;
-    inset-inline-end: var(--retro-spacing-lg);
-    bottom: var(--retro-spacing-lg);
-    z-index: 900;
-    display: none;
-  }
-  .to-top.is-visible { display: inline-block; }
-
-  @media (max-width: 768px) {
-    .retro-container, .doc-section {
-      width: 100%;
-      max-width: 100%;
-      box-sizing: border-box;
-      padding: 0 var(--retro-spacing-md);
-    }
-  }
-  </style>
+  <link rel="stylesheet" href="site.css">
 </head>
 <body class="retro-body-bg">
-  <div class="retro-container">
+  <div class="page-shell">
     <nav class="retro-nav">
       <a href="index.html" class="retro-nav-item" data-retro-tooltip="Home page">Home</a>
       <a href="documentation.html" class="retro-nav-item active" data-retro-tooltip="Documentation">Documentation</a>
@@ -292,13 +126,13 @@
           </div>
         </div>
       </section>
-      <div class="doc-section retro-prose" id="getting-started">
+      <div class="doc-section retro-prose retro-card" id="getting-started">
         <h2>Getting Started</h2>
         <p>RetroCSS is a retro-inspired CSS framework for building classic Win9x style UIs with modern CSS and JS. It provides SASS variables, utility classes, components, and a JS API for interactive features.</p>
         <pre class="retro-code"><code>&lt;link rel="stylesheet" href="dist/retro.min.css"&gt;
 &lt;script src="dist/retro.min.js"&gt;&lt;/script&gt;</code></pre>
       </div>
-      <div class="doc-section retro-prose" id="installation">
+      <div class="doc-section retro-prose retro-card" id="installation">
         <h2>Installation</h2>
         <h3>NPM</h3>
         <pre class="retro-code"><code>npm install @phantompixeldev/retrocss</code></pre>
@@ -339,7 +173,7 @@ RetroCSS.toast.show('Saved', { type: hue, duration: 0 });</code></pre>
         <pre class="retro-code"><code>&lt;link rel="stylesheet" href="dist/retro.min.css"&gt;
 &lt;script src="dist/retro.min.js"&gt;&lt;/script&gt;</code></pre>
       </div>
-      <div class="doc-section retro-prose" id="usage">
+      <div class="doc-section retro-prose retro-card" id="usage">
         <h2>Usage</h2>
         <p>RetroCSS provides a wide range of components and utilities to build retro-styled interfaces. Here's a simple card example:</p>
         <pre class="retro-code"><code>&lt;div class="retro-card"&gt;
@@ -351,7 +185,7 @@ RetroCSS.toast.show('Saved', { type: hue, duration: 0 });</code></pre>
 &lt;/div&gt;</code></pre>
         <p>See the <a href="#components">Components</a> section for more examples.</p>
       </div>
-      <div class="doc-section retro-prose" id="components">
+      <div class="doc-section retro-prose retro-card" id="components">
         <h2>Components</h2>
         <ul>
           <li><b>Buttons:</b> <code>.retro-btn</code>, <code>.retro-btn-primary</code>, ...</li>
@@ -367,7 +201,7 @@ RetroCSS.toast.show('Saved', { type: hue, duration: 0 });</code></pre>
           <li>...and many more! See the <a href="index.html">demo</a> for all available classes.</li>
         </ul>
       </div>
-      <div class="doc-section retro-prose" id="javascript-api">
+      <div class="doc-section retro-prose retro-card" id="javascript-api">
         <h2>JavaScript API</h2>
         <p>RetroCSS includes a modular JavaScript API for interactive components. Each component is available through the global <code>RetroCSS</code> object.</p>
         <h3>Initialization</h3>
@@ -439,7 +273,7 @@ RetroCSS.events.off('init', myHandler);</code></pre>
           <code>RetroTable</code>, <code>RetroDropdown</code>, <code>RetroFileUpload</code>,
           <code>RetroEvents</code>) on <code>window</code>.</p>
       </div>
-      <div class="doc-section retro-prose" id="theming">
+      <div class="doc-section retro-prose retro-card" id="theming">
         <h2>Theming & Dark Mode</h2>
         <p>Colours are organised in four tiers. Picking the right tier is the whole trick &mdash;
           a value tuned as a background is usually unreadable as text.</p>
@@ -481,7 +315,7 @@ RetroCSS.events.off('init', myHandler);</code></pre>
           <code>--retro-font-heading: 'Segoe UI', Tahoma, sans-serif;</code>.</p>
         <p>Use the theme toggle button in the navbar to switch between light and dark mode.</p>
       </div>
-      <div class="doc-section retro-prose" id="utilities">
+      <div class="doc-section retro-prose retro-card" id="utilities">
         <h2>Utilities</h2>
         <p>Atomic helpers for layout and colour, all driven by the same tokens as the
           components. Everything below is prefixed <code>retro-</code>.</p>
@@ -511,7 +345,7 @@ RetroCSS.events.off('init', myHandler);</code></pre>
         <p><code>retro-prose</code> caps running text at a comfortable measure while leaving
           code blocks and tables full width.</p>
       </div>
-      <div class="doc-section retro-prose" id="accessibility">
+      <div class="doc-section retro-prose retro-card" id="accessibility">
         <h2>Accessibility</h2>
         <p>Every text/surface pair clears WCAG AA (4.5:1) in both themes.
           <code>npm run check:a11y</code> compiles the SCSS and asserts it, and also fails on any
@@ -526,7 +360,7 @@ RetroCSS.events.off('init', myHandler);</code></pre>
           <code>.retro-sr-only-focusable</code> for a skip link:</p>
         <pre class="retro-code"><code>&lt;button class="retro-btn"&gt;💾&lt;span class="retro-sr-only"&gt;Save&lt;/span&gt;&lt;/button&gt;</code></pre>
       </div>
-      <div class="doc-section retro-prose" id="customization">
+      <div class="doc-section retro-prose retro-card" id="customization">
         <h2>Customization</h2>
         <p>Override SASS variables or CSS custom properties to customize RetroCSS for your brand or project. See <code>src/scss/_variables.scss</code> for all available variables.</p>
         <pre class="retro-code"><code>:root {
@@ -560,7 +394,7 @@ RetroCSS.events.off('init', myHandler);</code></pre>
 --retro-sheen-rgb    /* gloss highlights  */</code></pre>
       </div>
 
-      <div class="doc-section retro-prose" id="rtl">
+      <div class="doc-section retro-prose retro-card" id="rtl">
         <h2>Right-to-left</h2>
         <p>Set <code>dir="rtl"</code> and the layout mirrors. Spacing, text
           alignment and start/end positioning are written with logical
@@ -574,7 +408,7 @@ RetroCSS.events.off('init', myHandler);</code></pre>
           because those mark where a line of text begins.</p>
         <p>See the <a href="examples/rtl.html">right-to-left example</a>.</p>
       </div>
-      <div class="doc-section retro-prose" id="faq">
+      <div class="doc-section retro-prose retro-card" id="faq">
         <h2>FAQ</h2>
         <h3>Is it responsive?</h3>
         <p>Yes. Every page in the repository is checked at 1200, 980, 760, 420
