@@ -6,6 +6,30 @@ Notable changes per release. Breaking changes and how to handle them are in
 Versions follow [semver](https://semver.org): a major changes something you can
 observe, a minor adds, a patch fixes.
 
+## 6.0.4
+
+**Fixed**
+
+- **Dark mode painted card and modal headers the wrong colour.** Both were a
+  hardcoded `#1a237e` — the light theme's navy, left behind when the dark
+  palette moved on — so a card header was the one piece of chrome that did not
+  follow the accent: light blue title bars on the sidebar and over code blocks,
+  a stray navy one on every card and dialog. Both now read `--retro-primary`
+  and `--retro-primary-fg`, which also means a site that re-themes the accent
+  re-themes its headers.
+- **Every heading was bold at nearly the same size.** h5 and h6 were identical
+  (16px, bold), so the last two levels of an outline were indistinguishable,
+  and `h2` carried the same panel-and-accent-bar treatment as `h1` — which made
+  every section start with a second title bar and a page of sections read as a
+  stack of slabs. The scale steps 30 / 24 / 20 / 18 / 16 / 14 now, `h2` is
+  ruled off with the framework's bevelled hairline instead of boxed, and `h6`
+  is small caps. The same corrections apply to `.retro-h1` … `.retro-h6`.
+
+**Site**
+
+- The home page's hero topped out at 44px, shouting over section titles of 20px.
+  It tops out one step above the framework's `h1` now.
+
 ## 6.0.3
 
 **Fixed**

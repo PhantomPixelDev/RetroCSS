@@ -807,15 +807,21 @@ $retro-container-fluid: 100%;
 
   // Card Variables
   --retro-card-bg: #3a3a3a;
-  --retro-card-header-bg: #1a237e;
-  --retro-card-header-text: #fff;
+  // The header of a card is a title bar, and every other title bar in the dark
+  // theme is --retro-primary: the sidebar's, the one over a code block. This
+  // was a hardcoded #1a237e — the light theme's navy, carried into a palette
+  // that had moved on — so a card header was the one piece of chrome that did
+  // not follow the accent, and a site that re-themed the accent got a stray
+  // navy bar on every card.
+  --retro-card-header-bg: var(--retro-primary);
+  --retro-card-header-text: var(--retro-primary-fg);
   --retro-card-content-bg: #333333;
   --retro-card-content-text: #f2f2f2;
   --retro-card-footer-bg: #3a3a3a;
   --retro-card-footer-text: #f2f2f2;
   --retro-modal-bg: #3a3a3a;
-  --retro-modal-header-bg: #1a237e;
-  --retro-modal-header-text: #fff;
+  --retro-modal-header-bg: var(--retro-primary);
+  --retro-modal-header-text: var(--retro-primary-fg);
   --retro-table-bg: #333333;
   --retro-table-header-bg: #3a3a3a;
   --retro-table-header-text: #f2f2f2;

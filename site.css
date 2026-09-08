@@ -39,7 +39,9 @@
 }
 .hero h1 {
   margin: 0 0 var(--retro-spacing-sm);
-  font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.75rem);
+  /* 44px at the top end was a headline shouting over a page whose own section
+     titles are 20px. It tops out a step above the framework's h1 now. */
+  font-size: clamp(1.6rem, 1.1rem + 1.6vw, 2.25rem);
   line-height: 1.15;
 }
 .hero-lede {

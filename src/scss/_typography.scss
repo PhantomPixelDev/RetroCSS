@@ -42,17 +42,28 @@ h1 {
   font-size: var(--retro-font-size-3xl);
   margin-top: var(--retro-spacing-xl);
 }
+// The panel and accent bar belong to the page title, and to one element on the
+// page. Repeated at h2 they made every section start with a second title bar,
+// and since h1 through h6 are all bold, a page of h2s read as a stack of
+// slabs. An h2 is ruled off instead -- the same bevelled rule the framework
+// draws under a card header -- and the sizes step properly from there.
 h2 {
-  background: var(--retro-bg);
-  border-inline-start: 4px solid var(--retro-primary);
-  padding-block: 0.15em 0.15em;
-  padding-inline: 0.5em 0.7em;
+  padding-bottom: 0.15em;
+  border-bottom: 2px solid var(--retro-border-dark);
+  box-shadow: 0 1px 0 var(--retro-border-light);
   font-size: var(--retro-font-size-2xl);
   margin-top: var(--retro-spacing-xl);
 }
 h3 { font-size: var(--retro-font-size-xl); }
 h4 { font-size: var(--retro-font-size-lg); }
-h5, h6 { font-size: var(--retro-font-size); }
+h5 { font-size: var(--retro-font-size); }
+// h5 and h6 used to be the same size *and* the same weight, so the last two
+// levels of the outline were indistinguishable.
+h6 {
+  font-size: var(--retro-font-size-sm);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
 
 /**
  * @name Retro Heading Variant
@@ -114,17 +125,21 @@ h5, h6 { font-size: var(--retro-font-size); }
 }
 
 .retro-h2 {
-  background: var(--retro-bg);
-  border-inline-start: 4px solid var(--retro-primary);
-  padding-block: 0.15em 0.15em;
-  padding-inline: 0.5em 0.7em;
+  padding-bottom: 0.15em;
+  border-bottom: 2px solid var(--retro-border-dark);
+  box-shadow: 0 1px 0 var(--retro-border-light);
   font-size: var(--retro-font-size-2xl);
   margin-top: var(--retro-spacing-xl);
 }
 
 .retro-h3 { font-size: var(--retro-font-size-xl); }
 .retro-h4 { font-size: var(--retro-font-size-lg); }
-.retro-h5, .retro-h6 { font-size: var(--retro-font-size); }
+.retro-h5 { font-size: var(--retro-font-size); }
+.retro-h6 {
+  font-size: var(--retro-font-size-sm);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
 
 // Heading Variants
 .retro-heading {
