@@ -78,6 +78,20 @@
     transform: translateY(0);
   }
 }
+
+/// A closed menu takes no space at all.
+///
+/// `visibility: hidden` hides it but keeps its box, and an absolutely
+/// positioned box still counts toward the document's scrollable overflow. A
+/// menu is as wide as its longest item, so on a narrow screen — or in RTL,
+/// where it opens toward the other edge — the page grew a horizontal scrollbar
+/// for a menu nobody could see. Collapsed to nothing until it opens, it cannot.
+.retro-dropdown:not(.open) > .retro-dropdown-menu {
+  width: 0;
+  min-width: 0;
+  height: 0;
+  overflow: hidden;
+}
 .retro-dropdown-item {
   display: block;
   padding: 8px 16px;

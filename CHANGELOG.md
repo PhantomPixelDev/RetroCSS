@@ -10,11 +10,12 @@ observe, a minor adds, a patch fixes.
 
 **Fixed**
 
-- A dropdown menu could widen the page. Its items size to their longest label,
-  and on a narrow viewport — or in RTL, where the menu opens toward the left
-  edge — that pushed the document 35px past a 420px viewport and gave the page
-  a horizontal scrollbar. The menu is capped at the viewport now, so the
-  overflow happens inside it.
+- A closed dropdown menu could widen the page. `visibility: hidden` hides a box
+  but keeps it, and an absolutely positioned box still counts toward the
+  document's scrollable overflow — so a menu as wide as its longest item pushed
+  the document 35px past a 420px viewport, in RTL where it opens toward the
+  other edge, for a menu nobody could see. A closed menu now collapses to
+  nothing, and an open one is capped at the viewport.
 
 **Site**
 
