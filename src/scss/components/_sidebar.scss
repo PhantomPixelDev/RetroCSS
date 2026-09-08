@@ -85,6 +85,15 @@
   .retro-nav-vertical .retro-nav-item:hover {
     background: var(--retro-light);
   }
+  // The transparent background above is more specific than .retro-nav-item's
+  // own state rules, so it stripped the fill off the current row while leaving
+  // the on-fill text colour behind: white on the light panel, 1.14:1. The state
+  // is restored at the specificity that removed it.
+  .retro-nav-vertical .retro-nav-item.active,
+  .retro-nav-vertical .retro-nav-item[aria-current]:not([aria-current="false"]) {
+    background: var(--retro-primary);
+    color: var(--retro-primary-fg);
+  }
 
   // Active indication
   .active {

@@ -6,6 +6,18 @@ Notable changes per release. Breaking changes and how to handle them are in
 Versions follow [semver](https://semver.org): a major changes something you can
 observe, a minor adds, a patch fixes.
 
+## 6.0.2
+
+**Fixed**
+
+- The current row in a sidebar nav lost its fill but kept its on-fill text
+  colour, so a page marked with `aria-current` (or `.active`) rendered white
+  text on the light panel at 1.14:1. 6.0.1 gave sidebar rows a transparent
+  background at a specificity that outranked `.retro-nav-item`'s own state
+  rules; the state is now restored at the same specificity. Caught by a
+  consumer's contrast gate, not by this repo's: the demo pages set
+  `aria-current` from a scroll observer, so nothing carries it at load.
+
 ## 6.0.1
 
 **Fixed**
