@@ -37,19 +37,23 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  padding: 0 var(--retro-spacing-xs);
   font-size: var(--retro-font-size-sm);
-  // The label straddles two backgrounds -- the filled bar and the empty track --
-  // and those are always opposite in lightness, so no flat colour works for
-  // both. It reads against the track, and a halo in the track colour keeps it
-  // legible over the bar. Previously var(--retro-white), which is a *surface*
-  // token: white on the #f0f0f0 track in light mode was 1.14:1.
+  line-height: 1.2;
   color: var(--retro-text);
   font-family: var(--retro-font);
   pointer-events: none;
   user-select: none;
-  text-shadow:
-    0 0 2px var(--retro-progress-bg), 0 0 2px var(--retro-progress-bg),
-    0 0 4px var(--retro-progress-bg), 1px 1px 0 var(--retro-progress-bg);
+  // The label straddles two backgrounds -- the filled bar and the empty track
+  // -- and those are always opposite in lightness, so no flat colour works for
+  // both. A text-shadow halo was the previous answer, and it lost: over the
+  // striped navy bar the dark glyphs and their light fringe simply mixed. The
+  // label now carries its own plate in the track colour, so it is read against
+  // one known surface whatever the bar is doing underneath it. Bordered,
+  // because an unbordered plate on a striped bar reads as a gap in the stripes.
+  background: var(--retro-progress-bg);
+  border: 1px solid var(--retro-border-medium);
+  border-radius: var(--retro-border-radius);
 }
 
 // Striped/animated variant: blocky blue segments

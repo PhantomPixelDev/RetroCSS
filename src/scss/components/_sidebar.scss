@@ -1,7 +1,17 @@
 // RetroCSS Sidebar Component
+//
+// The sidebar is a *panel*, in the Win9x sense: a raised chassis with a title
+// bar across the top and its contents stacked inside. It used to be a flat box
+// with a 1px rule under a bold line of text, which left every widget floating
+// in grey with no relationship to the one above it.
 .retro-sidebar {
   background: var(--retro-sidebar-bg);
-  border: 1px solid var(--retro-border-medium);
+  // The framework's raised-panel idiom, the same one .retro-nav-vertical uses:
+  // a dark outer edge with the light source at the top-left.
+  border: 2px solid var(--retro-border-dark);
+  box-shadow:
+    inset 1px 1px 0 var(--retro-border-light),
+    inset -1px -1px 0 var(--retro-border-medium);
   border-radius: var(--retro-border-radius);
   padding: var(--retro-spacing-md, 16px);
   width: 100%;
@@ -10,25 +20,53 @@
   overflow-y: auto;
   transition: transform 0.3s ease, left 0.3s ease, width 0.3s ease;
   color: var(--retro-sidebar-text);
-  
-  // Sidebar header
-  &-header {
-    font-weight: bold;
-    margin-bottom: var(--retro-spacing-sm, 8px);
-    padding-bottom: var(--retro-spacing-sm, 8px);
-    border-bottom: 1px solid var(--retro-border-medium);
+
+  // Widgets stack with one rhythm. Without this every consumer invents its own
+  // margin and the column reads as a pile of unrelated boxes.
+  > * + * {
+    margin-top: var(--retro-spacing-md);
   }
-  
+
+  // Sidebar header: a title bar, bled to the panel edges, painted like the one
+  // over a code block so the two read as the same chrome.
+  &-header {
+    margin:
+      calc(var(--retro-spacing-md) * -1)
+      calc(var(--retro-spacing-md) * -1)
+      var(--retro-spacing-md);
+    padding: var(--retro-spacing-xs) var(--retro-spacing-sm);
+    background: linear-gradient(
+      to bottom,
+      var(--retro-primary) 0%,
+      var(--retro-primary-hover) 100%
+    );
+    color: var(--retro-primary-fg);
+    font-weight: var(--retro-font-weight-bold);
+    font-size: var(--retro-font-size-sm);
+    border-bottom: 2px solid var(--retro-border-dark);
+  }
+
   // Sidebar sections
   &-section {
     margin-bottom: var(--retro-spacing-md, 16px);
-    
+
     &-title {
       font-weight: bold;
       margin-bottom: var(--retro-spacing-xs, 4px);
       font-size: var(--retro-font-size-sm);
       color: var(--retro-text-muted);
     }
+  }
+
+  // A nav inside the panel spans it. Left to size itself to its longest label,
+  // it sat in the column like a card that had been dropped there.
+  .retro-nav-vertical {
+    width: 100%;
+  }
+
+  // Lists of links read as rows, not as paragraphs with bullets.
+  .retro-nav-vertical .retro-nav-item {
+    padding: var(--retro-spacing-xs) var(--retro-spacing-sm);
   }
   
   // Active indication
@@ -101,7 +139,38 @@
   // tracking is what made these read as grey noise rather than as labels.
   color: var(--retro-text-muted);
   background: var(--retro-bg);
+  // Framed, so a band that introduces a list is the top of that list's box
+  // rather than a caption floating above it. Inside a .retro-nav-vertical the
+  // frame is reset below: the nav already draws it.
+  border: 2px solid var(--retro-border-dark);
   border-bottom: 1px solid var(--retro-border-medium);
+  box-shadow: inset 1px 1px 0 var(--retro-border-light);
+}
+
+// The nav draws its own frame; a second one inside it is a double rule.
+.retro-nav-vertical .retro-sidebar-group {
+  border-inline: 0;
+  border-top: 0;
+  box-shadow: none;
+}
+
+/// A band and the block it introduces are one panel, so the seam between them
+/// is drawn once.
+.retro-sidebar-group + .retro-list,
+.retro-sidebar-group + .retro-nav-vertical {
+  border-top: 0;
+}
+
+/// Lists in a sidebar are framed like the navs beside them. Left bare, an
+/// archive list read as loose text while the section nav next to it sat in a
+/// box, and the column looked half-finished.
+.retro-sidebar .retro-list {
+  border: 2px solid var(--retro-border-dark);
+  box-shadow:
+    inset 1px 1px 0 var(--retro-border-light),
+    inset -1px -1px 0 var(--retro-border-medium);
+  background: var(--retro-light);
+  margin: 0;
 }
 
 // Keep the box continuous. The sections are dividers within one panel, not

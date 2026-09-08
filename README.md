@@ -2,7 +2,7 @@
 
 # 🖥️ RetroCSS
 
-**A retro-inspired CSS framework that brings the nostalgic Windows 95/98 aesthetic to modern web applications.**
+**A Win9x-style CSS framework that brings the mid-90s desktop look to modern web applications.**
 
 [![npm version](https://img.shields.io/npm/v/%40phantompixeldev%2Fretrocss?style=flat-square&color=0047AB&label=npm)](https://www.npmjs.com/package/@phantompixeldev/retrocss)
 [![npm downloads](https://img.shields.io/npm/dm/%40phantompixeldev%2Fretrocss?style=flat-square&color=00A86B)](https://www.npmjs.com/package/@phantompixeldev/retrocss)
@@ -117,7 +117,7 @@ RetroCSS provides a wide range of components and utilities to build retro-styled
 
 ```html
 <div class="retro-card">
-  <div class="retro-card-header">Windows 95</div>
+  <div class="retro-card-header">System Properties</div>
   <div class="retro-card-content">
     <p>Welcome to RetroCSS!</p>
     <button class="retro-btn retro-btn-primary">OK</button>
@@ -288,7 +288,11 @@ Add this to your `<head>` to cover it. It must be inline: an external or
 ```
 
 > **Upgrading?** See [MIGRATION.md](https://github.com/phantompixeldev/retrocss/blob/main/MIGRATION.md).
-> No class has ever been renamed. **4.0** moves the package's main entry from a
+> No class has ever been renamed. **6.0** changes three visual defaults and no
+> API: `--retro-danger` is `#cc0000` with white text on it (it was `#ff0000`
+> with black), the progress label sits on a plate so it survives a saturated
+> bar, and the sidebar is drawn as a raised panel with a title bar. Each one is
+> a one-line revert. **4.0** moves the package's main entry from a
 > CSS file to JavaScript and adds an `exports` map — every existing deep path
 > still resolves — and `--retro-border-radius` now reaches the core chrome, so
 > if you had already set it, more will round than before. **3.0** raises the
@@ -433,6 +437,14 @@ name.
 The SCSS carries SassDoc `///` comments throughout. The `sassdoc` renderer
 was dropped in 5.0: unmaintained since 2022, its output was never published,
 and it accounted for every security advisory in the dependency tree.
+
+## Trademarks
+
+RetroCSS imitates the visual style of mid-1990s desktop software. It is an
+independent project, **not affiliated with, sponsored by, or endorsed by
+Microsoft**. Windows is a trademark of Microsoft Corporation, named in this
+documentation only to describe the look the framework reproduces. No Microsoft
+artwork, icon, font or code is included.
 
 ## License
 

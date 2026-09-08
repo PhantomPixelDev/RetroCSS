@@ -1,4 +1,54 @@
-# Migrating to RetroCSS 5.x
+# Migrating to RetroCSS 6.x
+
+## 6.0 — three visual defaults change, and no API does
+
+Nothing is renamed and nothing is removed. Every change below is a default you
+can put back in one declaration.
+
+### `--retro-danger` is darker, and its text is white
+
+```css
+/* the 5.x pair, if you want it back */
+:root { --retro-danger: #ff0000; --retro-danger-fg: #000; }
+```
+
+Pure red could not carry white text at AA — 4.00:1 — so the framework put black
+on it, which passed and looked like safety signage. `#cc0000` takes white at
+5.89:1. `--retro-danger-rgb` moved with it (`204, 0, 0`), as did the hover and
+active states. `--retro-danger-text`, the on-surface red used for text on a page
+background, is unchanged.
+
+If you had overridden `--retro-danger` yourself, check your `-fg`: the framework
+now assumes white sits on this hue.
+
+### The progress label sits on a plate
+
+`.retro-progress-label` gained a background, a 1px border and horizontal
+padding, all from tokens. It used to be transparent with a text-shadow halo,
+which lost against a saturated bar. To go back:
+
+```css
+.retro-progress-label { background: none; border: 0; padding: 0; }
+```
+
+### The sidebar looks like a panel
+
+`.retro-sidebar` now draws the raised chassis the rest of the framework uses,
+`.retro-sidebar-header` is a title bar in `--retro-primary`, `.retro-sidebar-group`
+is framed so it reads as the head of the list it introduces, and `.retro-list`
+inside a sidebar is framed to match the navs. Widgets are spaced by a single
+`> * + *` rule.
+
+Nothing here changes markup. If you had styled around the old flat box, the
+pieces to look at are the header's title-bar background and the panel's border,
+which went from 1px medium to the 2px bevel.
+
+### Worth knowing
+
+`[aria-current]` now highlights a `.retro-nav-item` exactly as `.active` does.
+If you set both, nothing changes; if you only ever set `aria-current` — which is
+what a framework-driven router or a static site generator usually does — the
+current row is finally marked.
 
 ## 5.0 — two module shapes change, everything else is a fix
 

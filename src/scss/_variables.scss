@@ -75,7 +75,7 @@ $retro-shadow-light: $retro-border-light;
 
 $retro-success: #008000; // Classic green
 $retro-warning: #ffa500; // Dark orange - classic
-$retro-danger: #ff0000; // Classic darker red
+$retro-danger: #cc0000; // Dark red, so white text clears AA on it
 $retro-info: #00ffff; // Classic cyan blue
 $retro-teal: #008080; // Classic teal
 $retro-tan: #d2b48c; // Classic tan
@@ -96,7 +96,7 @@ $retro-silver: #c0c0c0;
 $retro-primary-rgb: 0, 0, 128;
 $retro-success-rgb: 0, 128, 0;
 $retro-warning-rgb: 255, 165, 0;
-$retro-danger-rgb: 255, 0, 0;
+$retro-danger-rgb: 204, 0, 0;
 $retro-info-rgb: 0, 255, 255;
 $retro-teal-rgb: 0, 128, 128;
 $retro-tan-rgb: 210, 180, 140;
@@ -172,13 +172,18 @@ $retro-silver-text: #4b4b4b;
  *
  * Each value is whichever of black/white scores higher on its own fill, and the
  * hover/active states below are clamped so that choice stays >=4.5:1 across all
- * three. Note --retro-danger-fg is black: white on pure #ff0000 is only 4.00:1.
- * For white-on-red at full AA, override the fill instead:
- *   :root { --retro-danger: #cc0000; --retro-danger-fg: #fff; }
+ * three.
+ *
+ * Danger is the one hue where that rule was answered by changing the fill. On
+ * pure #ff0000, white scores 4.00:1 and black 5.25:1, so the fill used to carry
+ * black text -- which passes the arithmetic and still reads as a warning label
+ * printed on a fire extinguisher. The fill is now #cc0000, where white scores
+ * 5.89:1 and looks like the button it is. To go back:
+ *   :root { --retro-danger: #ff0000; --retro-danger-fg: #000; }
  */
 $retro-primary-fg: $retro-white;
 $retro-success-fg: $retro-white;
-$retro-danger-fg: $retro-black;
+$retro-danger-fg: $retro-white;
 $retro-warning-fg: $retro-black;
 $retro-info-fg: $retro-black;
 $retro-teal-fg: $retro-white;
@@ -229,7 +234,7 @@ $retro-text-inverse: $retro-white;
 $retro-states-light: (
   "primary": (#0000b3, #00004d),
   "success": (#008500, #004d00),
-  "danger": (#ff3333, #f00000),
+  "danger": (#e60000, #990000),
   "warning": (#ffb733, #cc8400),
   "info": (#33ffff, #00cccc),
   "teal": (#008080, #004d4d),

@@ -1,7 +1,7 @@
 {
   "name": "@phantompixeldev/retrocss",
   "version": "5.0.0",
-  "description": "Windows 95/98 UI framework for the modern web. WCAG AA in light and dark, keyboard-operable components, RTL support, and TypeScript types — with no runtime dependencies.",
+  "description": "Win9x-style UI framework for the modern web: the mid-90s desktop look, WCAG AA in light and dark, keyboard-operable components, RTL support, and TypeScript types — with no runtime dependencies.",
   "main": "dist/retro.cjs",
   "style": "dist/retro.css",
   "files": [
@@ -42,9 +42,11 @@
     "framework",
     "retro",
     "ui",
-    "windows-95",
-    "windows-98",
+    "win95",
+    "win98",
     "win9x",
+    "90s",
+    "desktop-ui",
     "vaporwave",
     "css-framework",
     "dark-mode",

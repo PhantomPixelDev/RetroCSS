@@ -6,6 +6,42 @@ Notable changes per release. Breaking changes and how to handle them are in
 Versions follow [semver](https://semver.org): a major changes something you can
 observe, a minor adds, a patch fixes.
 
+## 6.0.0
+
+Three things you can see, which is what makes this a major.
+
+**Changed**
+
+- **`--retro-danger` is `#cc0000`, and its on-fill text is white.** The fill was
+  pure `#ff0000`, where white scores 4.00:1 and black 5.25:1 — so every danger
+  button, badge, alert and toast carried *black* text. That passed the
+  arithmetic and read like a label printed on a fire extinguisher. On `#cc0000`
+  white scores 5.89:1. The hover and active states move with it. To keep the old
+  pair: `:root { --retro-danger: #ff0000; --retro-danger-fg: #000; }`
+- **The progress label carries a plate.** It straddles the filled bar and the
+  empty track, which are always opposite in lightness, and a text-shadow halo
+  was not enough: over the striped navy bar the glyphs and their fringe simply
+  mixed. The label now sits on a small bordered plate in the track colour, so it
+  is read against one known surface whatever is underneath it.
+- **The sidebar is a panel, not a flat box.** It gets the framework's raised
+  chassis, its header is a title bar painted like the one over a code block, a
+  band that introduces a list is now the top of that list's box, and lists in a
+  sidebar are framed like the navs beside them. One rhythm spaces the widgets,
+  so a column of them stops reading as a pile of unrelated cards.
+
+**Added**
+
+- `[aria-current]` lights a `.retro-nav-item` the way `.active` does. Marking
+  the current page the accessible way should not cost you the highlight.
+
+**Documentation**
+
+- A trademark notice. RetroCSS imitates the look of mid-1990s desktop software;
+  it is independent, unaffiliated and unendorsed, and ships no Microsoft
+  artwork, icon, font or code. Product-facing copy says Win9x or mid-90s
+  desktop; the prose that explains how Windows itself behaved still names it,
+  because that is what the sentences are about.
+
 ## 5.0.0
 
 **Fixed**

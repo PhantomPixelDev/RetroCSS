@@ -50,7 +50,10 @@
     color: var(--retro-primary-text);
   }
 
-  &.active {
+  // [aria-current] as well as .active: marking the current page the accessible
+  // way should not cost you the highlight.
+  &.active,
+  &[aria-current]:not([aria-current="false"]) {
     background: var(--retro-primary);
     color: var(--retro-primary-fg);
     text-shadow: 0 1px 2px var(--retro-border-dark), 0 0 2px var(--retro-border-light);
