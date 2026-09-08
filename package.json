@@ -1,6 +1,6 @@
 {
   "name": "@phantompixeldev/retrocss",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "description": "Win9x-style UI framework for the modern web: the mid-90s desktop look, WCAG AA in light and dark, keyboard-operable components, RTL support, and TypeScript types — with no runtime dependencies.",
   "main": "dist/retro.cjs",
   "style": "dist/retro.css",
