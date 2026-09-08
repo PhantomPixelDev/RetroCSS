@@ -1,9 +1,9 @@
 // RetroCSS Sidebar Component
 //
-// The sidebar is a *panel*, in the Win9x sense: a raised chassis with a title
-// bar across the top and its contents stacked inside. It used to be a flat box
-// with a 1px rule under a bold line of text, which left every widget floating
-// in grey with no relationship to the one above it.
+// The sidebar is a *panel*, in the Win9x sense: one raised chassis with a title
+// bar across the top and its contents stacked inside it. Everything within is
+// separated by hairlines and bands, not by more boxes — a framed nav inside a
+// framed panel inside a framed column is three borders saying the same thing.
 .retro-sidebar {
   background: var(--retro-sidebar-bg);
   // The framework's raised-panel idiom, the same one .retro-nav-vertical uses:
@@ -17,7 +17,6 @@
   width: 100%;
   height: auto;
   position: static;
-  overflow-y: auto;
   transition: transform 0.3s ease, left 0.3s ease, width 0.3s ease;
   color: var(--retro-sidebar-text);
 
@@ -44,6 +43,12 @@
     font-weight: var(--retro-font-weight-bold);
     font-size: var(--retro-font-size-sm);
     border-bottom: 2px solid var(--retro-border-dark);
+    // Pinned inside the panel's own scroll: a window keeps its title bar when
+    // you scroll its contents. The offset cancels the panel's padding, which
+    // the bled margin above has already stepped over.
+    position: sticky;
+    top: calc(var(--retro-spacing-md) * -1);
+    z-index: 2;
   }
 
   // Sidebar sections
@@ -58,51 +63,97 @@
     }
   }
 
-  // A nav inside the panel spans it. Left to size itself to its longest label,
-  // it sat in the column like a card that had been dropped there.
-  .retro-nav-vertical {
+  // The panel is the frame. A nav or a list inside it is content, so it spans
+  // the panel and draws no box of its own.
+  .retro-nav-vertical,
+  .retro-list {
     width: 100%;
+    max-width: none;
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+    margin: 0;
   }
 
-  // Lists of links read as rows, not as paragraphs with bullets.
+  // Rows, not paragraphs. At the base padding a forty-link contents ran 1500px
+  // and the panel had to grow a scrollbar to hold it.
   .retro-nav-vertical .retro-nav-item {
     padding: var(--retro-spacing-xs) var(--retro-spacing-sm);
+    font-size: var(--retro-font-size-sm);
+    background: transparent;
   }
-  
+  .retro-nav-vertical .retro-nav-item:hover {
+    background: var(--retro-light);
+  }
+
   // Active indication
   .active {
     font-weight: bold;
     color: var(--retro-primary-text);
   }
-  
+
   // Nested navigation
   ul, ol {
     list-style: none;
     padding: 0;
     margin: 0;
-    
+
     li {
-      margin-bottom: 4px;
-      
+      margin-bottom: 0;
+
       ul, ol {
         padding-inline-start: 16px;
-        margin-top: 4px;
+        margin-top: 0;
       }
     }
   }
-  
+
   // Desktop styles
   @media (min-width: 768px) {
     width: 250px;
     flex-shrink: 0;
     position: sticky;
-    top: 16px;
-    height: calc(100vh - 32px);
+    top: var(--retro-spacing-md);
+    // Capped, not filled. `height: calc(100vh - 32px)` stretched every sidebar
+    // to the full viewport, so a short contents list sat at the top of a tall
+    // empty panel, and a long one scrolled inside a box that gave no sign it
+    // could. It is content-height until it would leave the screen.
+    max-height: calc(100vh - var(--retro-spacing-xl));
     overflow-y: auto;
-    margin: 16px;
-    margin-inline-end: 0;
-    border-right: 2px solid var(--retro-border-medium);
-    box-shadow: 2px 0 5px rgba(var(--retro-shadow-rgb), 0.05);
+    overscroll-behavior: contain;
+  }
+}
+
+/// A panel that scrolls gets a scrollbar drawn in the same language as the
+/// panel: square, grey, bevelled. The platform default — a thin modern
+/// overlay bar — read as a piece of another operating system stapled to the
+/// inside edge of a 1995 window.
+.retro-sidebar {
+  scrollbar-width: auto;
+  scrollbar-color: var(--retro-light) var(--retro-bg);
+
+  &::-webkit-scrollbar {
+    width: 16px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--retro-bg);
+    border-inline-start: 1px solid var(--retro-border-medium);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--retro-light);
+    border: 1px solid var(--retro-border-dark);
+    box-shadow:
+      inset 1px 1px 0 var(--retro-border-light),
+      inset -1px -1px 0 var(--retro-border-medium);
+  }
+  &::-webkit-scrollbar-thumb:active {
+    box-shadow:
+      inset 1px 1px 0 var(--retro-border-medium),
+      inset -1px -1px 0 var(--retro-border-light);
+  }
+  // The corner between two bars, on the rare panel that scrolls both ways.
+  &::-webkit-scrollbar-corner {
+    background: var(--retro-bg);
   }
 }
 
@@ -124,11 +175,9 @@
 
 /// Small caps label that separates groups of links in a long sidebar.
 ///
-/// Inside a .retro-nav-vertical this is a header *band*, not a floating label.
-/// It used to carry its own margins and a bottom border while the section
-/// around it added 16px of its own, which chopped the nav's single bordered box
-/// into a stack of disconnected fragments with grey rules drifting between
-/// them. The documentation sidebar looked right only because it has no groups.
+/// Inside a panel this is a header *band*, bled to the panel's edges the way
+/// Explorer ruled off a group of items — not a caption floating above a box,
+/// and not a box of its own.
 .retro-sidebar-group {
   margin: 0;
   padding: var(--retro-spacing-xs) var(--retro-spacing-md);
@@ -139,47 +188,25 @@
   // tracking is what made these read as grey noise rather than as labels.
   color: var(--retro-text-muted);
   background: var(--retro-bg);
-  // Framed, so a band that introduces a list is the top of that list's box
-  // rather than a caption floating above it. Inside a .retro-nav-vertical the
-  // frame is reset below: the nav already draws it.
-  border: 2px solid var(--retro-border-dark);
+  border-top: 1px solid var(--retro-border-medium);
   border-bottom: 1px solid var(--retro-border-medium);
-  box-shadow: inset 1px 1px 0 var(--retro-border-light);
 }
 
-// The nav draws its own frame; a second one inside it is a double rule.
-.retro-nav-vertical .retro-sidebar-group {
-  border-inline: 0;
-  border-top: 0;
-  box-shadow: none;
+/// Bled to the panel edges, so a band rules right across the column.
+.retro-sidebar .retro-sidebar-group {
+  margin-inline: calc(var(--retro-spacing-md) * -1);
 }
 
-/// A band and the block it introduces are one panel, so the seam between them
-/// is drawn once.
-.retro-sidebar-group + .retro-list,
-.retro-sidebar-group + .retro-nav-vertical {
+/// The first band under the title bar needs no rule above it: the title bar is
+/// already an edge.
+.retro-sidebar > *:first-child .retro-sidebar-group:first-child,
+.retro-sidebar-header + * .retro-sidebar-group:first-child {
   border-top: 0;
 }
 
-/// Lists in a sidebar are framed like the navs beside them. Left bare, an
-/// archive list read as loose text while the section nav next to it sat in a
-/// box, and the column looked half-finished.
-.retro-sidebar .retro-list {
-  border: 2px solid var(--retro-border-dark);
-  box-shadow:
-    inset 1px 1px 0 var(--retro-border-light),
-    inset -1px -1px 0 var(--retro-border-medium);
-  background: var(--retro-light);
-  margin: 0;
-}
-
-// Keep the box continuous. The sections are dividers within one panel, not
-// separate panels, so they must not add vertical gaps that break the border.
+// Sections are dividers within one panel, not separate panels, so they must not
+// add vertical gaps that break the column.
+.retro-sidebar .retro-sidebar-section,
 .retro-nav-vertical .retro-sidebar-section {
   margin-bottom: 0;
-}
-
-// The band spans the panel, so the divider above it would double up.
-.retro-nav-vertical .retro-sidebar-section + .retro-sidebar-section .retro-sidebar-group {
-  border-top: 1px solid var(--retro-border-medium);
 }

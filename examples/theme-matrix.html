@@ -27,38 +27,7 @@
   <meta name="twitter:image" content="https://phantompixeldev.github.io/RetroCSS/images/og-card.png">
   <meta property="og:description" content="Every RetroCSS component rendered on both surfaces in light and dark mode, for checking contrast and theming at a glance.">
   <link rel="stylesheet" href="../dist/retro.min.css">
-  <style>
-  .example-footer {
-    margin-top: var(--retro-spacing-xl);
-    padding-top: var(--retro-spacing-md);
-    border-top: 1px solid var(--retro-border-medium);
-    color: var(--retro-text-muted);
-    font-size: var(--retro-font-size-sm);
-    text-align: center;
-  }
-
-    .tm-wrap { max-width: 1100px; margin: 0 auto; padding: var(--retro-spacing-md); }
-    .tm-panels { display: grid; gap: var(--retro-spacing-md); grid-template-columns: 1fr; }
-    @media (min-width: 900px) { .tm-panels { grid-template-columns: 1fr 1fr; } }
-    /* Two panels so every swatch is judged against both surfaces: the page
-       ground (--retro-body-bg) and a raised surface (--retro-bg). */
-    .tm-panel { padding: var(--retro-spacing-md); border: 2px solid var(--retro-border-dark); }
-    .tm-on-body { background: var(--retro-body-bg); }
-    .tm-on-bg { background: var(--retro-bg); }
-    .tm-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: var(--retro-spacing-sm); }
-    .tm-section { margin-bottom: var(--retro-spacing-lg); }
-    .tm-label {
-      font-family: var(--retro-font-mono); font-size: var(--retro-font-size-xs);
-      text-transform: uppercase; letter-spacing: 0.08em;
-      color: var(--retro-text-muted); margin-bottom: 4px;
-    }
-    .tm-bar {
-      position: sticky; top: 0; z-index: 10;
-      display: flex; align-items: center; gap: var(--retro-spacing-md);
-      padding: var(--retro-spacing-sm) var(--retro-spacing-md);
-      background: var(--retro-light); border-bottom: 2px solid var(--retro-border-dark);
-    }
-  </style>
+  <link rel="stylesheet" href="../site.css">
 </head>
 
 <body>

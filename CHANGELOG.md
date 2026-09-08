@@ -6,6 +6,36 @@ Notable changes per release. Breaking changes and how to handle them are in
 Versions follow [semver](https://semver.org): a major changes something you can
 observe, a minor adds, a patch fixes.
 
+## 6.0.1
+
+**Fixed**
+
+- The sidebar panel stretched to the full viewport (`height: calc(100vh - 32px)`),
+  so a short contents list sat at the top of a tall empty box and a long one
+  scrolled inside a panel that gave no sign it could. It is content-height now,
+  capped at the viewport, and only scrolls when it would otherwise leave the
+  screen.
+- A panel that does scroll draws a Win9x scrollbar — square track, bevelled
+  thumb, both from tokens — instead of the platform's thin modern overlay bar,
+  which read as a piece of another operating system stapled inside a 1995
+  window.
+- A nav or a list inside the sidebar drew its own frame inside the panel's
+  frame inside the column: three borders saying the same thing. The panel is
+  the frame; its contents are separated by hairlines and by group bands bled to
+  its edges.
+- Sidebar rows were set at body size with the full nav padding, so a
+  forty-link contents ran 1500px. They are list rows now.
+- The title bar stays pinned while the panel scrolls, as a window's does.
+
+**Site**
+
+- The home page, the documentation and all eight examples share one
+  `site.css`. They had a copy each of the same page CSS, which had drifted: the
+  home page ran full-bleed while the docs were centred at 1320px, the heroes
+  used different type scales, the footer was duplicated seven times and the
+  whole sign-in layout twice. Every page now uses the same shell —
+  `--retro-container-xxl` — and carries no inline style block at all.
+
 ## 6.0.0
 
 Three things you can see, which is what makes this a major.

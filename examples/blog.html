@@ -26,76 +26,7 @@
   <meta name="twitter:image" content="https://phantompixeldev.github.io/RetroCSS/images/og-card.png">
   <meta property="og:description" content="A blog index built with RetroCSS: sidebar navigation, post cards, badges and category tags in a Win9x-style interface.">
   <link rel="stylesheet" href="../dist/retro.min.css">
-  <style>
-  .example-footer {
-    margin-top: var(--retro-spacing-xl);
-    padding-top: var(--retro-spacing-md);
-    border-top: 1px solid var(--retro-border-medium);
-    color: var(--retro-text-muted);
-    font-size: var(--retro-font-size-sm);
-    text-align: center;
-  }
-
-  /* --- post cards --- */
-  .post-grid {
-    display: grid;
-    gap: var(--retro-spacing-md);
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  }
-  /* Equal heights: a ragged bottom row is the first thing that makes a card
-     grid look unfinished, and post excerpts are never the same length. */
-  .post-grid > article {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 0;
-  }
-  .post-grid .retro-card-content {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-  .post-cover {
-    display: block;
-    width: 100%;
-    height: auto;
-    /* The covers are 3:2. Reserving the ratio stops the grid reflowing as they
-       decode, which is what makes a card list jump about on load. */
-    aspect-ratio: 3 / 2;
-    object-fit: cover;
-  }
-  /* The card body is a flex column, so its children stretch across the cross
-     axis by default -- which turned every category badge and Read more button
-     into a full-width bar. */
-  .post-grid .retro-card-content > .retro-badge,
-  .post-grid .retro-card-content > .retro-btn { align-self: flex-start; }
-  .post-excerpt { flex: 1; margin: 0 0 var(--retro-spacing-md); }
-  .post-meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--retro-spacing-xs) var(--retro-spacing-sm);
-    margin-bottom: var(--retro-spacing-sm);
-    font-size: var(--retro-font-size-sm);
-    color: var(--retro-text-muted);
-  }
-  .post-title { margin: 0 0 var(--retro-spacing-xs); font-size: var(--retro-font-size-lg); }
-  .post-title a { text-decoration: none; }
-  .post-title a:hover { text-decoration: underline; }
-
-  /* --- featured --- */
-  .featured-body { display: grid; gap: var(--retro-spacing-lg); }
-  @media (min-width: 760px) {
-    .featured-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
-  }
-  .featured-body h2 {
-    margin: 0 0 var(--retro-spacing-sm);
-    font-size: clamp(1.3rem, 1rem + 1.6vw, 1.9rem);
-    line-height: 1.2;
-  }
-
-  .sidebar-widget { margin-bottom: var(--retro-spacing-lg); }
-  .tag-cloud { display: flex; flex-wrap: wrap; gap: var(--retro-spacing-xs); }
-  </style>
+  <link rel="stylesheet" href="../site.css">
 </head>
 <body class="retro-body-bg">
   <div class="retro-container">

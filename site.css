@@ -280,3 +280,354 @@
   display: none;
 }
 .to-top.is-visible { display: inline-block; }
+
+/* ====================================================================== *
+ * Example pages
+ *
+ * The eight pages under examples/ each carried their own <style> block, and
+ * between them they duplicated the footer seven times and the whole sign-in
+ * layout twice, byte for byte. Everything they need lives here now, so the
+ * site has exactly one stylesheet and no page can drift from another.
+ * ====================================================================== */
+
+/* --- example footer --------------------------------------------------- */
+/* Lighter than .site-footer on purpose: these pages demonstrate a *reader's*
+   site, and are not chrome for this one. */
+.example-footer {
+  margin-top: var(--retro-spacing-xl);
+  padding-top: var(--retro-spacing-md);
+  border-top: 1px solid var(--retro-border-medium);
+  color: var(--retro-text-muted);
+  font-size: var(--retro-font-size-sm);
+  text-align: center;
+}
+
+/* --- blog listing ----------------------------------------------------- */
+.post-grid {
+  display: grid;
+  gap: var(--retro-spacing-md);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+/* Equal heights: a ragged bottom row is the first thing that makes a card grid
+   look unfinished, and post excerpts are never the same length. */
+.post-grid > article { display: flex; flex-direction: column; margin-bottom: 0; }
+.post-grid .retro-card-content { display: flex; flex-direction: column; flex: 1; }
+/* The card body is a flex column, so its children stretch across the cross axis
+   by default, which turned every category badge and Read more button into a
+   full-width bar. */
+.post-grid .retro-card-content > .retro-badge,
+.post-grid .retro-card-content > .retro-btn { align-self: flex-start; }
+
+.post-cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* The covers are 3:2. Reserving the ratio stops the grid reflowing as they
+     decode, which is what makes a card list jump about on load. */
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+.post-title { margin: 0 0 var(--retro-spacing-xs); font-size: var(--retro-font-size-lg); }
+.post-title a { text-decoration: none; }
+.post-title a:hover { text-decoration: underline; }
+.post-excerpt { flex: 1; margin: 0 0 var(--retro-spacing-md); }
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--retro-spacing-xs) var(--retro-spacing-sm);
+  margin-bottom: var(--retro-spacing-sm);
+  font-size: var(--retro-font-size-sm);
+  color: var(--retro-text-muted);
+}
+
+.featured-body { display: grid; gap: var(--retro-spacing-lg); }
+@media (min-width: 760px) {
+  .featured-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
+}
+.featured-body h2 {
+  margin: 0 0 var(--retro-spacing-sm);
+  font-size: clamp(1.3rem, 1rem + 1.6vw, 1.9rem);
+  line-height: 1.2;
+}
+
+.sidebar-widget { margin-bottom: var(--retro-spacing-lg); }
+.tag-cloud { display: flex; flex-wrap: wrap; gap: var(--retro-spacing-xs); }
+
+/* --- long-form article ------------------------------------------------ */
+/* A measure, so prose does not run the full width of a desktop card. Around 70
+   characters is where a line stops being tiring to track. */
+.article-body { max-width: 68ch; }
+.article-body > * + * { margin-top: var(--retro-spacing-md); }
+.article-body h2 {
+  margin-top: var(--retro-spacing-xl);
+  padding-bottom: var(--retro-spacing-xs);
+  background: none;
+  border: 0;
+  border-bottom: 2px solid var(--retro-border-dark);
+  box-shadow: 0 1px 0 var(--retro-border-light);
+  font-size: var(--retro-font-size-2xl);
+}
+.article-body h3 {
+  margin-top: var(--retro-spacing-lg);
+  font-size: var(--retro-font-size-lg);
+}
+.article-lede {
+  font-size: var(--retro-font-size-lg);
+  line-height: 1.6;
+}
+.article-hero {
+  display: block;
+  width: 100%;
+  /* Letterboxed, not 3:2. At full ratio across a desktop column the hero was
+     625px tall and pushed the headline off the first screen entirely. */
+  aspect-ratio: 3 / 1;
+  max-height: 320px;
+  object-fit: cover;
+}
+@media (max-width: 600px) {
+  .article-hero { aspect-ratio: 2 / 1; }
+}
+figure.article-figure { margin: var(--retro-spacing-lg) 0; }
+figure.article-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border: 2px solid var(--retro-border-dark);
+}
+figure.article-figure figcaption {
+  margin-top: var(--retro-spacing-xs);
+  font-size: var(--retro-font-size-sm);
+  color: var(--retro-text-muted);
+}
+.author-card { display: flex; gap: var(--retro-spacing-md); align-items: flex-start; }
+.comment { display: flex; gap: var(--retro-spacing-md); align-items: flex-start; }
+.comment + .comment {
+  margin-top: var(--retro-spacing-md);
+  padding-top: var(--retro-spacing-md);
+  border-top: 1px solid var(--retro-border-medium);
+}
+.comment-body { flex: 1; min-width: 0; }
+.comment-body p { margin: var(--retro-spacing-xs) 0 0; }
+.related-grid {
+  display: grid;
+  gap: var(--retro-spacing-md);
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+.related-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+.related-grid h3 { margin: var(--retro-spacing-sm) 0 0; font-size: var(--retro-font-size); }
+@media (min-width: 768px) {
+  .toc-col { position: sticky; top: var(--retro-spacing-md); align-self: start; }
+}
+
+/* --- sign in / sign up ------------------------------------------------ */
+.auth-shell {
+  width: 100%;
+  max-width: 940px;
+  margin: 0 auto;
+  padding: var(--retro-spacing-lg) var(--retro-spacing-md) var(--retro-spacing-xl);
+  box-sizing: border-box;
+}
+.auth-grid { display: grid; }
+@media (min-width: 820px) {
+  /* The brand panel is a fixed column so the form keeps a comfortable measure
+     instead of stretching across the whole card on a wide screen. */
+  .auth-grid { grid-template-columns: 300px minmax(0, 1fr); }
+}
+.auth-brand {
+  position: relative;
+  display: none;
+  padding: var(--retro-spacing-lg);
+  color: #ffffff;
+  /* The dark end of the artwork's own ramp, so the copy stays legible even if
+     the image never arrives, and so the contrast gate can see what the text is
+     actually sitting on. */
+  background: #14143f;
+  border-inline-end: 2px solid var(--retro-border-dark);
+  overflow: hidden;
+}
+/* Below the breakpoint the panel would push the form off the first screen, and
+   it carries no information the form needs. */
+@media (min-width: 820px) { .auth-brand { display: block; } }
+.auth-brand-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Anchored low so the padlock sits below the copy rather than behind it. */
+  object-position: center bottom;
+}
+/* A scrim over the top of the panel. Without it the text sits directly on the
+   artwork, and the third bullet landed across the padlock. */
+.auth-brand::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.62) 38%,
+    rgba(0, 0, 0, 0) 62%
+  );
+}
+.auth-brand-inner { position: relative; z-index: 1; }
+.auth-brand h2 {
+  margin: 0 0 var(--retro-spacing-sm);
+  padding: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  color: #ffffff;
+  font-size: var(--retro-font-size-2xl);
+  /* The art behind this is a dithered gradient, not a flat fill, so the type
+     needs its own shadow to stay legible over the light end of the ramp. */
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.65);
+}
+.auth-brand p,
+.auth-brand li { text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.75); }
+.auth-brand ul {
+  margin: var(--retro-spacing-lg) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.auth-brand li {
+  margin-bottom: var(--retro-spacing-sm);
+  padding-inline-start: var(--retro-spacing-md);
+  position: relative;
+  font-size: var(--retro-font-size-sm);
+  line-height: 1.5;
+}
+.auth-brand li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.45em;
+  width: 7px;
+  height: 7px;
+  background: currentColor;
+}
+.auth-form { padding: var(--retro-spacing-lg); }
+/* The framework's heading style is a panel in its own right (accent bar,
+   background, shadow), which reads as a second card floating inside this one.
+   A page title here is just a title. */
+.auth-form h1 {
+  margin: 0 0 var(--retro-spacing-xs);
+  padding: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+}
+.auth-intro { margin: 0 0 var(--retro-spacing-lg); color: var(--retro-text-muted); }
+.field-hint {
+  display: block;
+  margin-top: var(--retro-spacing-xs);
+  font-size: var(--retro-font-size-sm);
+  color: var(--retro-text-muted);
+}
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--retro-spacing-sm);
+}
+.divider-text {
+  display: flex;
+  align-items: center;
+  gap: var(--retro-spacing-sm);
+  margin: var(--retro-spacing-lg) 0;
+  color: var(--retro-text-muted);
+  font-size: var(--retro-font-size-sm);
+}
+.divider-text::before,
+.divider-text::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: var(--retro-border-medium);
+  box-shadow: 0 1px 0 var(--retro-border-light);
+}
+.provider-row { display: grid; gap: var(--retro-spacing-sm); grid-template-columns: 1fr 1fr 1fr; }
+@media (max-width: 420px) { .provider-row { grid-template-columns: 1fr; } }
+.provider-row .retro-btn { width: 100%; }
+.req-list { margin: var(--retro-spacing-sm) 0 0; padding: 0; list-style: none; }
+.req-list li {
+  padding: 2px 0;
+  font-size: var(--retro-font-size-sm);
+  color: var(--retro-text-muted);
+}
+.req-list li::before { content: "\2022\00a0\00a0"; }
+.req-list li.met { color: var(--retro-success-text); }
+.req-list li.met::before { content: "\2713\00a0\00a0"; }
+
+/* --- examples gallery ------------------------------------------------- */
+.gallery {
+  display: grid;
+  gap: var(--retro-spacing-md);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+/* Equal-height cards: the demo pages' own grids left ragged rows, which is the
+   first thing that makes a set of examples look unfinished. */
+.gallery > .retro-card {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+}
+.gallery .retro-card-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.ex-desc { flex: 1; margin: 0 0 var(--retro-spacing-md); }
+.ex-shows {
+  margin: 0 0 var(--retro-spacing-md);
+  padding: 0;
+  list-style: none;
+  font-size: var(--retro-font-size-sm);
+  color: var(--retro-text-muted);
+}
+.ex-shows li { padding: 2px 0; }
+.ex-shows code { font-size: var(--retro-font-size-xs); }
+
+/* --- right-to-left example -------------------------------------------- */
+.rtl-page { max-width: 900px; margin: 0 auto; padding: var(--retro-spacing-lg); }
+.rtl-note { margin-bottom: var(--retro-spacing-lg); }
+
+/* --- theme matrix ----------------------------------------------------- */
+.tm-wrap { max-width: 1100px; margin: 0 auto; padding: var(--retro-spacing-md); }
+.tm-panels { display: grid; gap: var(--retro-spacing-md); grid-template-columns: 1fr; }
+@media (min-width: 900px) { .tm-panels { grid-template-columns: 1fr 1fr; } }
+/* Two panels so every swatch is judged against both surfaces: the page ground
+   (--retro-body-bg) and a raised surface (--retro-bg). */
+.tm-panel { padding: var(--retro-spacing-md); border: 2px solid var(--retro-border-dark); }
+.tm-on-body { background: var(--retro-body-bg); }
+.tm-on-bg { background: var(--retro-bg); }
+.tm-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: var(--retro-spacing-sm); }
+.tm-section { margin-bottom: var(--retro-spacing-lg); }
+.tm-label {
+  font-family: var(--retro-font-mono);
+  font-size: var(--retro-font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--retro-text-muted);
+  margin-bottom: 4px;
+}
+.tm-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--retro-spacing-md);
+  padding: var(--retro-spacing-sm) var(--retro-spacing-md);
+  background: var(--retro-light);
+  border-bottom: 2px solid var(--retro-border-dark);
+}

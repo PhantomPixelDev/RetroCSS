@@ -26,64 +26,7 @@
   <meta name="twitter:image" content="https://phantompixeldev.github.io/RetroCSS/images/og-card.png">
   <meta property="og:description" content="Complete pages built with RetroCSS: a dashboard, a blog and post, sign-in and sign-up forms, a right-to-left layout and the full theme matrix.">
   <link rel="stylesheet" href="../dist/retro.min.css">
-  <style>
-  .gallery-shell {
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 var(--retro-spacing-md);
-    box-sizing: border-box;
-  }
-  .hero { margin-bottom: var(--retro-spacing-xl); }
-  .hero h1 {
-    margin: 0 0 var(--retro-spacing-sm);
-    font-size: clamp(1.6rem, 1.1rem + 2vw, 2.4rem);
-    line-height: 1.15;
-  }
-  .hero-lede {
-    font-size: var(--retro-font-size-lg);
-    line-height: 1.55;
-    max-width: 60ch;
-    margin: 0;
-  }
-
-  .gallery {
-    display: grid;
-    gap: var(--retro-spacing-md);
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  }
-  /* Equal-height cards: the demo pages' own grids left ragged rows, which is
-     the first thing that makes a set of examples look unfinished. */
-  .gallery > .retro-card {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 0;
-  }
-  .gallery .retro-card-content {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-  .ex-desc { flex: 1; margin: 0 0 var(--retro-spacing-md); }
-  .ex-shows {
-    margin: 0 0 var(--retro-spacing-md);
-    padding: 0;
-    list-style: none;
-    font-size: var(--retro-font-size-sm);
-    color: var(--retro-text-muted);
-  }
-  .ex-shows li { padding: 2px 0; }
-  .ex-shows code { font-size: var(--retro-font-size-xs); }
-
-  .site-footer {
-    margin-top: var(--retro-spacing-xl);
-    padding: var(--retro-spacing-lg) 0 var(--retro-spacing-xl);
-    border-top: 2px solid var(--retro-border-dark);
-    box-shadow: 0 1px 0 var(--retro-border-light);
-    color: var(--retro-text-muted);
-    font-size: var(--retro-font-size-sm);
-  }
-  </style>
+  <link rel="stylesheet" href="../site.css">
 </head>
 <body class="retro-body-bg">
   <div class="retro-container">
@@ -97,7 +40,7 @@
   </div>
   <hr class="retro-mt-5 retro-border-muted">
 
-  <div class="gallery-shell">
+  <div class="page-shell">
     <section class="hero retro-card" aria-labelledby="ex-title">
       <div class="retro-card-header">RetroCSS &mdash; Examples</div>
       <div class="retro-card-content">
