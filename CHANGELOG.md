@@ -6,7 +6,15 @@ Notable changes per release. Breaking changes and how to handle them are in
 Versions follow [semver](https://semver.org): a major changes something you can
 observe, a minor adds, a patch fixes.
 
-## Unreleased
+## 6.0.3
+
+**Fixed**
+
+- A dropdown menu could widen the page. Its items size to their longest label,
+  and on a narrow viewport — or in RTL, where the menu opens toward the left
+  edge — that pushed the document 35px past a 420px viewport and gave the page
+  a horizontal scrollbar. The menu is capped at the viewport now, so the
+  overflow happens inside it.
 
 **Site**
 

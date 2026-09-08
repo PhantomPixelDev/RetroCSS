@@ -50,6 +50,13 @@
   position: absolute;
   inset-inline-start: 0;
   min-width: 100%;
+  // A menu must never widen the page. Its items size to their longest label,
+  // and on a narrow viewport — or in RTL, where the menu opens toward the left
+  // edge — that pushed the document 35px past the viewport and gave every page
+  // a horizontal scrollbar. Capped here, the overflow happens inside the menu,
+  // which is where it belongs.
+  max-width: calc(100vw - var(--retro-spacing-lg));
+  overflow-x: auto;
   background: var(--retro-dropdown-bg);
   border: 2px solid var(--retro-border-dark);
   border-radius: var(--retro-border-radius);
